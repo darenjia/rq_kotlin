@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <cn.bingoogolapple.qrcode.zbar.ZBarView
+        android:id="@+id/zbarview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:qrcv_animTime="1000"
+        app:qrcv_borderColor="@android:color/white"
+        app:qrcv_borderSize="1dp"
+        app:qrcv_cornerColor="@color/colorPrimaryDark"
+        app:qrcv_cornerLength="20dp"
+        app:qrcv_cornerSize="3dp"
+        app:qrcv_isShowDefaultScanLineDrawable="true"
+        app:qrcv_maskColor="#33FFFFFF"
+        app:qrcv_qrCodeTipText="请将二维码放入框内"
+        app:qrcv_rectWidth="200dp"
+        app:qrcv_isTipTextBelowRect="true"
+        app:qrcv_scanLineColor="@color/colorPrimaryDark"
+        app:qrcv_topOffset="90dp" />
+
+    <include layout="@layout/top_bar" />
+
+    <TextView
+        android:id="@+id/light_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="60dp"
+        android:text="打开闪光灯"
+        android:textColor="@color/colorText"/>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

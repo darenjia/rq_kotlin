@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUITopBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    app:qmui_topbar_bg_color="@color/colorPrimary"
+    app:qmui_topbar_title_color="@color/colorText"
+    app:qmui_topbar_title_gravity="left_center" />
