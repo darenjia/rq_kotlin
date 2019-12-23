@@ -7,4 +7,6 @@
     android:fitsSystemWindows="true"
     app:qmui_topbar_bg_color="@color/colorPrimary"
     app:qmui_topbar_title_color="@color/colorText"
+    app:qmui_topbar_image_btn_width="36dp"
+    app:qmui_topbar_text_btn_color_state_list="@color/colorText"
     app:qmui_topbar_title_gravity="left_center" />

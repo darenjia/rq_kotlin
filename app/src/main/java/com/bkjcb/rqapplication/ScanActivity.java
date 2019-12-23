@@ -1,5 +1,7 @@
 package com.bkjcb.rqapplication;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +22,11 @@ public class ScanActivity extends SimpleBaseActivity implements QRCodeView.Deleg
     @BindView(R.id.light_click)
     TextView mLight;
     private boolean lightIsOpen = false;
+
+    public static void ToScanActivity(Activity context, int requestCode) {
+        Intent intent = new Intent(context, ScanActivity.class);
+        context.startActivityForResult(intent, requestCode);
+    }
 
     @Override
     protected int setLayoutID() {
@@ -68,7 +75,11 @@ public class ScanActivity extends SimpleBaseActivity implements QRCodeView.Deleg
     public void onScanQRCodeSuccess(String result) {
         vibrate();
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        mZbarview.startSpot();
+        //mZbarview.startSpot();
+        Intent intent = new Intent();
+        intent.putExtra("data", result);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override

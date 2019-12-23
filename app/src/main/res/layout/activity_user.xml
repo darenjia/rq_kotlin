@@ -16,280 +16,175 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="8dp">
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <LinearLayout
+                    android:id="@+id/bind_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorTextThird"
+                    android:visibility="gone"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="用户名称" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/rect_bg"
-                        android:hint="用户名/商户名"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="0dp"
-                        android:textSize="14sp" />
+                        android:drawableStart="@drawable/vector_drawable_scan_white"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="绑定二维码"
+                        android:textColor="@color/colorText" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="用户地址" />
-
-                    <EditText
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/rect_bg"
-                        android:hint="街道-名牌号"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="0dp"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="用户名称" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="居民类型" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/rect_bg"
-                        android:padding="1dp">
-
-                        <com.jaredrummler.materialspinner.MaterialSpinner
+                        <EditText
+                            android:id="@+id/username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rect_bg"
-                            android:padding="2dp"
-                            android:textSize="14sp"
-                            app:ms_padding_bottom="4dp"
-                            app:ms_padding_top="4dp" />
-                    </FrameLayout>
+                            android:hint="用户名/商户名"
+                            android:padding="4dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:padding="4dp"
+                            android:text="用户地址" />
+
+                        <EditText
+                            android:id="@+id/userAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rect_bg"
+                            android:hint="街道-名牌号"
+                            android:padding="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="居民类型" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rect_bg"
+                            android:padding="1dp">
+
+                            <com.jaredrummler.materialspinner.MaterialSpinner
+                                android:id="@+id/userType"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rect_bg"
+                                android:padding="2dp"
+                                android:textColor="@color/colorSecondDrayText"
+                                android:textSize="14sp"
+                                app:ms_padding_bottom="4dp"
+                                app:ms_padding_left="4dp"
+                                app:ms_padding_right="0dp"
+                                app:ms_padding_top="4dp"
+                                app:ms_popup_padding_bottom="4dp"
+                                app:ms_popup_padding_left="4dp"
+                                app:ms_popup_padding_right="0dp"
+                                app:ms_popup_padding_top="4dp" />
+                        </FrameLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorBittersweet"
+                    android:text="修改"
+                    android:textColor="@color/colorText"
+                    android:visibility="gone" />
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
 
-        <com.silencedut.expandablelayout.ExpandableLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:cardUseCompatPadding="true">
 
-            <TextView
+            <com.qmuiteam.qmui.widget.QMUITabSegment
+                android:id="@+id/tabSegment"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/colorPrimaryDark"
-                android:padding="8dp"
-                android:text="订单信息"
-                android:textColor="@color/colorText" />
+                android:background="@color/colorAccent"
+                app:qmui_tab_space="10dp" />
 
-            <LinearLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/dataPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp" />
+        </android.support.v7.widget.CardView>
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="企业"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="配送时间"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="瓶号"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="配送人"
-                        android:textColor="@color/colorText" />
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
-
-        </com.silencedut.expandablelayout.ExpandableLayout>
-
-        <com.silencedut.expandablelayout.ExpandableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimaryDark"
-                android:padding="8dp"
-                android:text="安检信息"
-                android:textColor="@color/colorText" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:orientation="vertical">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="安检时间"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="状态"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="备注"
-                        android:textColor="@color/colorText" />
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
-
-        </com.silencedut.expandablelayout.ExpandableLayout>
-
-        <com.silencedut.expandablelayout.ExpandableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/colorPrimaryDark"
-                android:padding="8dp"
-                android:text="巡检信息"
-                android:textColor="@color/colorText" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="巡检时间"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="巡检人"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="状态"
-                        android:textColor="@color/colorText" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="备注"
-                        android:textColor="@color/colorText" />
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-
-        </com.silencedut.expandablelayout.ExpandableLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
+
+        <ImageView
+            android:id="@+id/btn_warning"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/vector_drawable_warning" />
+
+        <ImageView
+            android:id="@+id/btn_right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/vector_drawable_ok" />
+    </LinearLayout>
+
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

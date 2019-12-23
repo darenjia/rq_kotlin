@@ -12,14 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
@@ -32,8 +35,11 @@ import com.amap.api.maps.model.animation.AlphaAnimation;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.AnimationSet;
 import com.amap.api.maps.model.animation.ScaleAnimation;
+import com.bkjcb.rqapplication.AddUserActivity;
+import com.bkjcb.rqapplication.Constants;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.eventbus.MessageEvent;
+import com.bkjcb.rqapplication.model.UserInfoResult;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -71,6 +77,13 @@ public class MapFragment extends BaseFragment implements View.OnClickListener, A
     private TextView mRotueTimeDes;
     private Marker focusMarker;
     private Unbinder unbinder;
+    private List<UserInfoResult.UserInfo> latLngs;
+
+    public void setLatLngs(List<UserInfoResult.UserInfo> latLngs) {
+        this.latLngs = latLngs;
+        aMap.clear();
+        addPointToMap();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +98,8 @@ public class MapFragment extends BaseFragment implements View.OnClickListener, A
             view = inflater.inflate(R.layout.fragment_map, null);
             mapView = view.findViewById(R.id.map_view);
             mapView.onCreate(savedInstanceState);
+            ImageView addBtn = view.findViewById(R.id.operation_layout);
+            addBtn.setOnClickListener(this);
         }
         aMap = mapView.getMap();
         setUpMap("");
@@ -127,7 +142,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener, A
     }
 
     private void setUpMap(String s) {
-        //aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(Constants.SHANGHAI, 18, 0, 0)));
+        aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(Constants.SHANGHAI, 18, 0, 0)));
         UiSettings uiSettings = aMap.getUiSettings();
         uiSettings.setLogoPosition(Gravity.START);
         uiSettings.setScaleControlsEnabled(true);
@@ -196,10 +211,14 @@ public class MapFragment extends BaseFragment implements View.OnClickListener, A
         */
     }
 
-    private void addMarker(LatLng latLng) {
-        aMap.clear();
+    private void addMarker(UserInfoResult.UserInfo info) {
+        if (info.getLatLng() == null) {
+            return;
+        }
         MarkerOptions options = new MarkerOptions();
-        options.position(latLng);
+        options.position(info.getLatLng());
+        options.title(info.getUserName());
+        options.snippet(info.getUserAddress());
         //options.icon(Utils.getBitmap(R.drawable.point_red));
         aMap.addMarker(options);
     }
@@ -253,7 +272,7 @@ public class MapFragment extends BaseFragment implements View.OnClickListener, A
 
     @Override
     public void onClick(View v) {
-
+        AddUserActivity.ToAddUserActivity(getContext());
     }
 
     private AnimationSet getAnimationSet(float range) {
@@ -320,6 +339,14 @@ public class MapFragment extends BaseFragment implements View.OnClickListener, A
         });
         //call.setOnClickListener(this);
         return view;
+    }
+
+    public void addPointToMap() {
+        if (latLngs != null && latLngs.size() > 0) {
+            for (UserInfoResult.UserInfo lng : latLngs) {
+                addMarker(lng);
+            }
+        }
     }
 
 }

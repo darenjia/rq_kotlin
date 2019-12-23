@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/top_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/colorDivider"
+                    android:padding="10dp"
+                    android:text="用户基本信息" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="4dp"
+                        android:text="用户名称"
+                        android:textSize="14sp"/>
+
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rect_bg"
+                        android:hint="用户名/商户名"
+                        android:padding="4dp"
+                        android:textColor="@color/colorSecondDrayText"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="用户地址"
+                        android:textSize="14sp"/>
+
+                    <EditText
+                        android:id="@+id/userAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rect_bg"
+                        android:hint="街道-名牌号"
+                        android:padding="4dp"
+                        android:textColor="@color/colorSecondDrayText"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="居民类型"
+                        android:textSize="14sp"/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/rect_bg"
+                        android:padding="1dp">
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/userType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rect_bg"
+                            android:padding="2dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="14sp"
+                            app:ms_padding_bottom="4dp"
+                            app:ms_padding_left="4dp"
+                            app:ms_padding_right="0dp"
+                            app:ms_padding_top="4dp"
+                            app:ms_popup_padding_bottom="4dp"
+                            app:ms_popup_padding_left="4dp"
+                            app:ms_popup_padding_right="0dp"
+                            app:ms_popup_padding_top="4dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorDivider"
+                    android:padding="10dp"
+                    android:text="绑定二维码" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:id="@+id/scan_btn"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/vector_drawable_scan_white"
+                        android:tint="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/scan_des"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="扫一扫，绑定二维码" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
+
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

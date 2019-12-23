@@ -154,4 +154,7 @@ public class SimpleBaseActivity extends BaseActivity {
     protected void showSnackbar(View view, String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
+
+    /*protected static void ToActivity(Context context){
+    }*/
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorText"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="10dp"
+        android:text="巡检上报"
+        android:textColor="@color/colorText"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="状态"
+            android:textSize="16sp" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_status"
+                android:layout_width="48dp"
+                android:layout_height="28dp"
+                app:sb_checked="true"
+                android:layout_gravity="center"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_enable_effect="false"
+                app:sb_effect_duration="500"
+                app:sb_show_indicator="true" />
+        </FrameLayout>
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="有隐患"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="备注"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/question_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/rect_bg"
+            android:padding="4dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSetting"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="提交"
+        android:textColor="@color/colorText" />
+</LinearLayout>

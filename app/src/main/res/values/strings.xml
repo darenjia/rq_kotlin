@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RQApplication</string>
+    <string name="app_name">燃管通</string>
+    <string name="title_activity_create_check_task">CreateCheckTaskActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

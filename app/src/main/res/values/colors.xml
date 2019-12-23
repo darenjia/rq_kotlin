@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#ff6766</color>
+    <color name="colorPrimaryDark">#FF8182</color>
+    <color name="colorAccent">#FF8182</color>
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextPrimary">#212121</color>
     <color name="colorSecondDrayText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorGray">#f5f5f5</color>
+    <color name="colorLightGray">#F4F4F4</color>
     <color name="colorWhite">#ABF5F5F5</color>
     <color name="colorStraw">#E8CE4D</color>
+    <color name="colorRed">#ff003c</color>
     <color name="colorYellowWhite">#F5E8CC</color>
     <color name="colorBasil">#2ECC71</color>
     <color name="colorBittersweet">#FC6E51</color>
@@ -20,10 +22,10 @@
     <color name="colorTitleBg">#0F3083</color>
     <color name="colorTopBarBg">#0F3284</color>
     <color name="colorTextSecond">#aba3a3</color>
-    <color name="colorTextThird">#537df6</color>
+    <color name="colorTextThird">#00baef</color>
     <color name="colorTextForth">#ff5353</color>
     <color name="colorAccident">#D24132</color>
-    <color name="colorApplication">#F09C2A</color>
-    <color name="colorProject">#189A80</color>
+    <color name="colorApplication">#ff9900</color>
+    <color name="colorProject">#00c486</color>
     <color name="colorSetting">#1270B6</color>
 </resources>

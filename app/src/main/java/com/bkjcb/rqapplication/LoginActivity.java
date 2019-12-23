@@ -1,16 +1,28 @@
 package com.bkjcb.rqapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bkjcb.rqapplication.model.UserResult;
+import com.bkjcb.rqapplication.retrofit.DataService;
+import com.bkjcb.rqapplication.util.MD5Util;
+import com.bkjcb.rqapplication.util.Utils;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by DengShuai on 2019/10/22.
@@ -23,11 +35,22 @@ public class LoginActivity extends SimpleBaseActivity {
     EditText mPassword;
     @BindView(R.id.username)
     EditText mUsername;
+    @BindView(R.id.user_tip)
+    TextView mUserTip;
     @BindView(R.id.sign_in_button)
-    QMUIRoundButton mSignInButton;
+    Button mSignInButton;
     @BindView(R.id.box_password)
     CheckBox mBox;
+    @BindView(R.id.login_type1)
+    RadioButton type1;
+    @BindView(R.id.login_type2)
+    RadioButton type2;
+    @BindView(R.id.login_type3)
+    RadioButton type3;
+    @BindView(R.id.login_type)
+    RadioGroup mRadioGroup;
     QMUITipDialog tipDialog;
+
     @Override
     protected int setLayoutID() {
         return R.layout.activity_login;
@@ -35,18 +58,59 @@ public class LoginActivity extends SimpleBaseActivity {
 
     @Override
     protected void initView() {
-        super.initView();
+        resetRadioButtonImage(R.drawable.municipal_bg, type1);
+        resetRadioButtonImage(R.drawable.district_bg, type2);
+        resetRadioButtonImage(R.drawable.street_bg, type3);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                String tipText="";
+                switch (checkedId) {
+                    case R.id.login_type1:
+                        tipText = "当前为市级用户";
+                        type1.setTextColor(getTextColor(R.color.colorApplication));
+                        type2.setTextColor(getTextColor(R.color.colorDivider));
+                        type3.setTextColor(getTextColor(R.color.colorDivider));
+                        break;
+                    case R.id.login_type2:
+                        tipText = "当前为区级用户";
+                        type1.setTextColor(getTextColor(R.color.colorDivider));
+                        type2.setTextColor(getTextColor(R.color.colorApplication));
+                        type3.setTextColor(getTextColor(R.color.colorDivider));
+                        break;
+                    case R.id.login_type3:
+                        tipText = "当前为街镇用户";
+                        type1.setTextColor(getTextColor(R.color.colorDivider));
+                        type2.setTextColor(getTextColor(R.color.colorDivider));
+                        type3.setTextColor(getTextColor(R.color.colorApplication));
+                        break;
+                    default:
+                        break;
+                }
+                mUserTip.setText(tipText);
+            }
+        });
+    }
+
+    private int getTextColor(int color) {
+        return getResources().getColor(color);
+    }
+
+    private void resetRadioButtonImage(int drawableId, RadioButton radioButton) {
+        Drawable drawable_news = getResources().getDrawable(drawableId);
+        drawable_news.setBounds(0, 0, Utils.dip2px(this, 48), Utils.dip2px(this, 48));
+        radioButton.setCompoundDrawables(null, drawable_news, null, null);
     }
 
     @Override
     protected void initData() {
         super.initData();
         initRetrofit();
-        boolean isRemember = getSharedPreferences().getBoolean("remember",false);
-        if (isRemember){
+        boolean isRemember = getSharedPreferences().getBoolean("remember", false);
+        if (isRemember) {
             mBox.setChecked(true);
-            mUsername.setText(getSharedPreferences().getString("name",""));
-            mPassword.setText(getSharedPreferences().getString("password",""));
+            mUsername.setText(getSharedPreferences().getString("name", ""));
+            mPassword.setText(getSharedPreferences().getString("password", ""));
         }
         requestPermission();
     }
@@ -63,22 +127,39 @@ public class LoginActivity extends SimpleBaseActivity {
             showSnackbar("请输入密码！");
             return;
         }
-        login(user,password);
+        login(user, password);
     }
 
     private void login(String name, String password) {
         showLoading();
-     /*   disposable = retrofit.create(DataService.class)
-                .getuser(name, password)
+       /* retrofit = new Retrofit
+                .Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Call<String> call=retrofit.create(String.class)
+                .getLogin(name, MD5Util.encode(password));
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.w("ds",response.message());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.w("ds",t.getMessage());
+            }
+        });*/
+        disposable = retrofit.create(DataService.class)
+                .getLoginUser(name, MD5Util.encode(password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserResult>() {
                     @Override
                     public void accept(UserResult result) throws Exception {
                         tipDialog.dismiss();
-                        if (result.isSuccess()) {
-                            SampleApplicationLike.user = result;
-                            getSharedPreferences().edit().putString("userid", result.getUserid()).apply();
+                        if (result.pushState == 200) {
+                            MyApplication.user = result.getDatas();
                             loginSuccess();
                         } else {
                             tipDialog.dismiss();
@@ -91,8 +172,8 @@ public class LoginActivity extends SimpleBaseActivity {
                         tipDialog.dismiss();
                         Toast.makeText(LoginActivity.this, "登录失败，请检查网络！", Toast.LENGTH_SHORT).show();
                     }
-                });*/
-        loginSuccess();
+                });
+        //loginSuccess();
     }
 
     private void showLoading() {
@@ -124,12 +205,12 @@ public class LoginActivity extends SimpleBaseActivity {
 
     @Override
     public void onBackPressed() {
-       if (tipDialog.isShowing()){
-           tipDialog.dismiss();
-           showSnackbar("登录已取消");
-           cancelDisposable();
-       }else {
-           super.onBackPressed();
-       }
+        if (tipDialog.isShowing()) {
+            tipDialog.dismiss();
+            showSnackbar("登录已取消");
+            cancelDisposable();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
