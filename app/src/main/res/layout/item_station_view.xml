@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/station_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorText"
+    android:orientation="vertical"
+    android:layout_marginBottom="1dp">
+
+    <TextView
+        android:id="@+id/station_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_16"
+        android:text="上海浦东海光有限公司储配站"/>
+
+    <TextView
+        android:id="@+id/gas_station_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/colorSecondDrayText"
+        android:textSize="@dimen/sp_16"
+        android:text="上海百斯特能源发展有限公司浦东龚路储配站"/>
+</LinearLayout>

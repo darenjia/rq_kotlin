@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorText"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text=""
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/sp_16" />
+        <!--        me.biubiubiu.justifytext.library.JustifyTextView-->
+        <TextView
+            android:id="@+id/item_content"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_basis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorLightGray"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text=""
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorLightGray"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text=""
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="检查记录"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextSecond"
+            android:textSize="@dimen/sp_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/colorGray" />
+
+        <EditText
+            android:id="@+id/item_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorText"
+            android:hint="填写检查记录"
+            android:gravity="start"
+            android:padding="8dp"
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

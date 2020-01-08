@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication.adapter;
 
 import android.util.Log;
 
+import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,13 +30,19 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
     protected void convert(BaseViewHolder helper, CheckItem item) {
         if (helper.getLayoutPosition() != 0) {
             CheckItem preItem = getData().get(helper.getLayoutPosition() - 1);
-            if (isSampleDay(preItem.date, item.date)) {
+            if (isSampleDay(preItem.systime, item.systime)) {
                 helper.setGone(R.id.check_date, false);
             } else {
                 helper.setGone(R.id.check_date, true);
             }
         }
-        helper.setText(R.id.check_date, getTime(item.date));
+        helper.setText(R.id.check_date, getTime(item.systime))
+                .setText(R.id.check_time, item.jianchariqi)
+                .setText(R.id.check_status, getStatus(item.status))
+                .setText(R.id.check_name, item.beijiandanwei)
+                .setText(R.id.check_type, "#" + item.zhandianleixing)
+                //.setText(R.id.check_operate, "")
+                .setBackgroundColor(R.id.check_divider,getColor(item.zhandianleixing) );
     }
 
     private String getTime(long time) {
@@ -48,6 +55,46 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
             return new SimpleDateFormat("MM-dd HH:mm", Locale.CHINESE).format(new Date(time));
         }
     }
+
+    private String getStatus(int status) {
+        String retString = "";
+        switch (status) {
+            case 0:
+                retString = "待检查";
+                break;
+            case 1:
+                retString = "检查中";
+                break;
+            case 2:
+                retString = "待上传";
+                break;
+            case 3:
+                retString = "已完成";
+            default:
+        }
+        return retString;
+    }
+
+    private int getColor(String type) {
+        switch (type) {
+            case "供应站":
+                return getColor(R.color.colorMint);
+            case "储配站":
+                return getColor(R.color.colorGrizzlyBear);
+            case "加气站":
+                return getColor(R.color.colorTextThird);
+            case "气化站":
+                return getColor(R.color.colorYellow);
+            default:
+                return getColor(R.color.colorAccent);
+        }
+    }
+
+    private int getColor(int resID) {
+        return MyApplication.getContext().getResources().getColor(resID);
+    }
+
+
 
     private boolean isSampleDay(long time1, long time2) {
         Date date1 = new Date(time1);

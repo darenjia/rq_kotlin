@@ -41,6 +41,10 @@ public class SimpleBaseActivity extends BaseActivity {
         return barLayout;
     }
 
+    protected void initEmptyView() {
+        emptyView = findViewById(R.id.empty_view);
+    }
+
     protected void initTopbar(String title, View.OnClickListener listener) {
         QMUITopBarLayout barLayout = findViewById(R.id.appbar);
         barLayout.setTitle(title);
@@ -70,7 +74,12 @@ public class SimpleBaseActivity extends BaseActivity {
             }
         } else {
             emptyView.hide();
+            networkIsOk();
         }
+    }
+
+    protected void networkIsOk() {
+
     }
 
     protected void showEmptyView(View.OnClickListener listener) {
@@ -80,6 +89,27 @@ public class SimpleBaseActivity extends BaseActivity {
             } else {
                 emptyView.show("无数据", "当前记录为空,请刷新试试");
             }
+        }
+    }
+    protected void showErrorView(String detailText,View.OnClickListener listener) {
+        if (emptyView != null) {
+            if (listener != null) {
+                emptyView.show(false, "失败", detailText, "重试", listener);
+            } else {
+                emptyView.show("失败", detailText);
+            }
+        }
+    }
+
+    protected void hideEmptyView() {
+        if (emptyView != null) {
+            emptyView.hide();
+        }
+    }
+
+    protected void showLoadingView() {
+        if (emptyView != null) {
+            emptyView.show(true, "请稍等", "数据加载中", null, null);
         }
     }
 

@@ -1,2 +1,2 @@
-include ':app', ':spinner', ':library'
+include ':app', ':spinner', ':library', ':picture_library', ':ucrop'
 rootProject.name='RQApplication'

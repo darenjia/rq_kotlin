@@ -19,6 +19,20 @@
         <item name="cardBackgroundColor">@color/colorText</item>
         <item name="cardCornerRadius">6dp</item>
     </style>
+    <style name="ChooseFragmentTextStyle" parent="TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@color/colorText</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+    <style name="ChooseFragmentInfoTextStyle" parent="TextView">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
