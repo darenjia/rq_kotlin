@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <cn.carbs.android.avatarimageview.library.AvatarImageView
+                android:id="@+id/item_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:paddingTop="10dp"
+                app:aiv_BoarderColor="@color/black"
+                app:aiv_BoarderWidth="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张三"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:padding="20dp"
+                android:typeface="monospace"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/item_avatar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/phoneNumber1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="24sp"
+            app:sLeftBottomTextString="13924481442"
+            app:sLeftIconMarginLeft="20dp"
+            app:sRightIconRes="@drawable/ic_bohao" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/phoneNumber2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="18sp"
+            app:sLeftBottomTextString="13924481442"
+            app:sLeftIconMarginLeft="20dp"
+            app:sRightIconRes="@drawable/ic_bohao" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/quxian"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="16sp"
+            app:sLeftBottomTextString="所属区县"
+            app:sLeftIconRes="@drawable/ic_quxian"
+            app:sRightBottomTextString="徐汇区"
+            app:sUseRipple="false" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/bumen"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sCenterSpaceHeight="2dp"
+            app:sLeftIconRes="@drawable/ic_bumen"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="所属部门"
+            app:sRightMaxEms="16"
+            app:sRightTextString="徐汇区"
+            app:sRightTopMaxEms="16"
+            app:sRightViewGravity="right_center" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/zhiwu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="16sp"
+            app:sLeftBottomTextString="所属职务"
+            app:sLeftIconRes="@drawable/ic_zhiwu"
+            app:sRightBottomMaxEms="20"
+            app:sRightBottomTextString="徐汇区"
+            app:sUseRipple="false" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/dianha_danwei"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="16sp"
+            app:sLeftBottomTextString="单位电话"
+            app:sLeftIconRes="@drawable/ic_phone"
+            app:sRightBottomTextString="6645624" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/chuanzhen_danwei"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="16sp"
+            app:sLeftBottomTextString="单位传真"
+            app:sLeftIconRes="@drawable/ic_chuanzhen"
+            app:sRightBottomMaxEms="30"
+            app:sRightBottomTextString="6645624"
+            app:sUseRipple="false" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/youbian_danwei"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextSize="16sp"
+            app:sLeftBottomTextString="单位邮编"
+            app:sLeftIconRes="@drawable/ic_youbian"
+            app:sRightBottomTextString="6645624"
+            app:sUseRipple="false" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/dizhi_danwei"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            app:sBackgroundDrawableRes="@color/white"
+            app:sCenterSpaceHeight="2dp"
+            app:sLeftIconRes="@drawable/ic_address"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="单位地址"
+            app:sRightMaxEms="18"
+            app:sRightTextString="宛平南路80号"
+            app:sRightTopMaxEms="18"
+            app:sRightViewGravity="right_center"
+            app:sUseRipple="false" />
+    </LinearLayout>
+    <!--</ScrollView>-->
+</LinearLayout>

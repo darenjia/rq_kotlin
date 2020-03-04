@@ -11,16 +11,22 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.adapter.ImageListAdapter;
 import com.bkjcb.rqapplication.adapter.ViewPagerAdapter;
 import com.bkjcb.rqapplication.fragment.CheckItemDetailFragment;
+import com.bkjcb.rqapplication.fragment.CheckItemResultFragment;
 import com.bkjcb.rqapplication.model.CheckContentItem;
 import com.bkjcb.rqapplication.model.CheckContentItemResult;
 import com.bkjcb.rqapplication.model.CheckItem;
+import com.bkjcb.rqapplication.model.CheckResultItem;
+import com.bkjcb.rqapplication.model.CheckResultItem_;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,6 +34,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.popup.QMUIListPopup;
+import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +44,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.objectbox.Box;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -47,17 +57,20 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
 
     @BindView(R.id.check_detail_pager)
     ViewPager mViewPager;
-    @BindView(R.id.image_files)
-    RecyclerView mImageFiles;
     @BindView(R.id.image_count)
     TextView mImageCount;
     @BindView(R.id.check_detail_pageNumber)
     TextView mPagerNumber;
-    private CheckItem checkItem;
+    @BindView(R.id.image_file_view)
+    RecyclerView mImageFiles;
+    protected CheckItem checkItem;
     private List<String> mediaList;
     private ImageListAdapter imageAdapter;
     private int currentPage = 0;
-    private List<Fragment> fragmentList;
+    protected List<Fragment> fragmentList;
+    private Box<CheckResultItem> checkResultItemBox;
+    private QMUIListPopup listPopup;
+    protected List<String> contents;
 
     @Override
     protected int setLayoutID() {
@@ -66,7 +79,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
 
     @Override
     protected void initView() {
-        initTopbar("检查详情");
+        initTopbar("检查详情", 0);
         initEmptyView();
         showLoadingView();
     }
@@ -91,7 +104,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         getCheckContent();
     }
 
-    @OnClick({R.id.check_detail_previous, R.id.check_detail_next, R.id.check_detail_finish})
+    @OnClick({R.id.check_detail_previous, R.id.check_detail_next, R.id.check_detail_finish, R.id.check_detail_pageNumber})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_detail_previous:
@@ -107,14 +120,36 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
                 updateCurrentPageNumber();
                 break;
             case R.id.check_detail_finish:
-                checkItem.status = 2;
-                saveDate();
+                if (checkItem.status == 3) {
+                    return;
+                }
+                saveResult();
+                break;
+            case R.id.check_detail_pageNumber:
+                showPopList();
                 break;
             default:
         }
     }
 
-    private void getCheckContent() {
+    protected void saveResult() {
+        if (TextUtils.isEmpty(checkItem.jianchajieguo)) {
+            if (mViewPager.getCurrentItem() == fragmentList.size() - 1) {
+                showSnackbar(mPagerNumber, "请选择检查结果");
+            } else {
+                mViewPager.setCurrentItem(fragmentList.size() - 1, true);
+            }
+        } else {
+            CheckItemResultFragment resultFragment = (CheckItemResultFragment) fragmentList.get(fragmentList.size() - 1);
+            checkItem.beizhu = resultFragment.getRemark();
+            checkItem.status = 2;
+            saveDate();
+            Toast.makeText(this, "检查完成！", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    protected void getCheckContent() {
         disposable = retrofit.create(CheckService.class)
                 .getCheckItem(checkItem.zhandianleixing)
                 .subscribeOn(Schedulers.io())
@@ -139,7 +174,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
                 });
     }
 
-    private void getDateFail(String detail) {
+    protected void getDateFail(String detail) {
         showErrorView(detail, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,18 +183,36 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         });
     }
 
-    private void initCheckData(ArrayList<CheckContentItem> datas) {
+    protected void initCheckData(ArrayList<CheckContentItem> datas) {
         fragmentList = new ArrayList<>();
+        contents = new ArrayList<>();
+        checkResultItemBox = CheckResultItem.getBox();
         for (CheckContentItem item : datas) {
-            fragmentList.add(CheckItemDetailFragment.newInstances(item, checkItem.c_id));
+            fragmentList.add(createFragment(item, checkItem.c_id));
+            saveResultItem(checkItem.c_id, item.getId());
+            contents.add(item.getXuhao() + "." + item.getJianchaneirong());
         }
+        fragmentList.add(CheckItemResultFragment.newInstances(checkItem));
+        contents.add("检查结果");
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(this);
+        updateCurrentPageNumber();
     }
 
-    private void initImageListView() {
+    protected Fragment createFragment(CheckContentItem item, String id) {
+        return CheckItemDetailFragment.newInstances(item, id, checkItem.status == 3 ? 1 : 0);
+    }
+
+    protected void saveResultItem(String cid, String uid) {
+        if (checkResultItemBox.query().equal(CheckResultItem_.jianchaid, cid).and().equal(CheckResultItem_.jianchaxiangid, uid).build().count() == 0) {
+            CheckResultItem resultItem = new CheckResultItem(cid, uid);
+            checkResultItemBox.put(resultItem);
+        }
+    }
+
+    protected void initImageListView() {
         imageAdapter = new ImageListAdapter(R.layout.item_image);
         mImageFiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mImageFiles.setAdapter(imageAdapter);
@@ -180,7 +233,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.item_grid_bt) {
                     mediaList.remove(position);
-                    imageAdapter.remove(position);
+                    imageAdapter.replaceData(mediaList);
                     updateCountSize();
                 }
             }
@@ -194,7 +247,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         mImageCount.setText(String.valueOf(mediaList.size()));
     }
 
-    private void updateCurrentPageNumber() {
+    protected void updateCurrentPageNumber() {
         mPagerNumber.setText((currentPage + 1) + "/" + fragmentList.size());
     }
 
@@ -249,14 +302,17 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        saveDate();
+    protected void onStop() {
+        super.onStop();
+        if (checkItem.status == 0 || checkItem.status == 1) {
+            checkItem.status = 1;
+            saveDate();
+        }
     }
 
-    private void saveDate() {
+    protected void saveDate() {
         StringBuilder builder = new StringBuilder();
-        if (mediaList.size() > 0) {
+        if (mediaList != null && mediaList.size() > 0) {
             for (String path : mediaList) {
                 builder.append(",").append(path);
             }
@@ -279,5 +335,26 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    private void showPopList() {
+        if (listPopup == null) {
+            ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item, contents);
+            AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    mViewPager.setCurrentItem(i);
+                    if (listPopup != null) {
+                        listPopup.dismiss();
+                    }
+                }
+            };
+            listPopup = new QMUIListPopup(this, QMUIListPopup.DIRECTION_TOP, adapter);
+            listPopup.create(QMUIDisplayHelper.dp2px(this, 250),
+                    QMUIDisplayHelper.dp2px(this, 300),
+                    onItemClickListener);
+            listPopup.setAnimStyle(QMUIPopup.ANIM_GROW_FROM_CENTER);
+        }
+        listPopup.show(mPagerNumber);
     }
 }

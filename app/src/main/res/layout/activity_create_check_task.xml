@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/top_bar" />
+    <include layout="@layout/with_bg_top_bar" />
 
     <FrameLayout
         android:id="@+id/create_task_content"

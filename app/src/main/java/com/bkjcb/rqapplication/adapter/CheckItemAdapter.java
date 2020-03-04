@@ -52,7 +52,7 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
         } else if (currentTime - time < 24 * 3600) {
             return "昨天";
         } else {
-            return new SimpleDateFormat("MM-dd HH:mm", Locale.CHINESE).format(new Date(time));
+            return new SimpleDateFormat("MM-dd", Locale.CHINESE).format(new Date(time));
         }
     }
 
@@ -78,10 +78,13 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
     private int getColor(String type) {
         switch (type) {
             case "供应站":
+            case "维修检查企业":
                 return getColor(R.color.colorMint);
             case "储配站":
+            case "报警器企业":
                 return getColor(R.color.colorGrizzlyBear);
             case "加气站":
+            case "销售企业":
                 return getColor(R.color.colorTextThird);
             case "气化站":
                 return getColor(R.color.colorYellow);

@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bkjcb.rqapplication.adapter.CheckItemAdapter;
 import com.bkjcb.rqapplication.model.CheckItem;
+import com.bkjcb.rqapplication.model.CheckItem_;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
@@ -28,6 +29,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
     private CheckItemAdapter adapter;
+    private int type;
 
     @Override
     protected int setLayoutID() {
@@ -41,9 +43,14 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CreateCheckTaskActivity.ToActivity(CheckMainActivity.this);
+                        if (type == 0) {
+                            CreateCheckTaskActivity.ToActivity(CheckMainActivity.this);
+                        } else {
+                            CreateApplianceCheckTaskActivity.ToActivity(CheckMainActivity.this);
+                        }
                     }
                 });
+        //mAppbar.setBackgroundAlpha(0);
         adapter = new CheckItemAdapter(R.layout.item_checkadapter_view);
         mCheckList.setLayoutManager(new LinearLayoutManager(this));
         mCheckList.setAdapter(adapter);
@@ -59,16 +66,49 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
 
     @Override
     protected void initData() {
-        adapter.setNewData(queryLocalData());
+        type = getIntent().getIntExtra("Type", 0);
         adapter.setOnItemClickListener(this);
+        showCheckList(queryLocalData());
     }
 
     private List<CheckItem> queryLocalData() {
-        return CheckItem.getBox().getAll();
+        return CheckItem.getBox().query().equal(CheckItem_.type, type).build().find();
     }
 
     private void queryRemateDta() {
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        showCheckList(queryLocalData());
+    }
+
+    protected void showCheckList(List<CheckItem> list) {
+        if (list.size() > 0) {
+            adapter.setNewData(list);
+        } else {
+            adapter.setEmptyView(createEmptyView(createClickListener()));
+        }
+    }
+
+    protected View.OnClickListener createClickListener() {
+        if (type == 0) {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CreateCheckTaskActivity.ToActivity(CheckMainActivity.this);
+                }
+            };
+        } else {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CreateApplianceCheckTaskActivity.ToActivity(CheckMainActivity.this);
+                }
+            };
+        }
     }
 
     protected static void ToActivity(Context context) {
@@ -76,9 +116,24 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
         context.startActivity(intent);
     }
 
+    protected static void ToActivity(Context context, int type) {
+        Intent intent = new Intent(context, CheckMainActivity.class);
+        intent.putExtra("Type", type);
+        context.startActivity(intent);
+    }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        CheckResultDetailActivity.ToActivity(this, (CheckItem) adapter.getItem(position));
+        if (type == 0) {
+            CheckResultDetailActivity.ToActivity(this, (CheckItem) adapter.getItem(position));
+        } else {
+            ApplianceCheckResultDetailActivity.ToActivity(this, (CheckItem) adapter.getItem(position));
+        }
+    }
+
+    private View createEmptyView(View.OnClickListener listener) {
+        View view = getLayoutInflater().inflate(R.layout.empty_textview_with_button, null);
+        view.findViewById(R.id.empty_button).setOnClickListener(listener);
+        return view;
     }
 }

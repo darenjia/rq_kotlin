@@ -2,6 +2,7 @@
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     android:fitsSystemWindows="true">
 
     <include layout="@layout/top_bar" />
@@ -11,11 +12,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/qmui_topbar_height"
         android:fitsSystemWindows="true">
-
-        <com.qmuiteam.qmui.widget.QMUIEmptyView
-            android:id="@+id/empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,16 +42,18 @@
 
                 <TextView
                     android:id="@+id/image_count"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="@color/colorPrimary"
+                    android:background="@drawable/circle_white_bg"
                     android:textSize="@dimen/sp_16"
+                    android:gravity="center"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/image_files"
+                android:id="@+id/image_file_view"
                 android:layout_width="match_parent"
                 android:layout_height="120dp" />
 
@@ -99,6 +97,8 @@
                     android:textColor="@color/colorText" />
             </LinearLayout>
         </LinearLayout>
+
+        <include layout="@layout/empty_view" />
 
     </FrameLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

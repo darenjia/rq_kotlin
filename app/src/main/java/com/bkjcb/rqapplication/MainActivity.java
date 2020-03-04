@@ -61,7 +61,13 @@ public class MainActivity extends SimpleBaseActivity {
                         GasMainActivity.ToActivity(MainActivity.this);
                         break;
                     case 1:
-                        CheckMainActivity.ToActivity(MainActivity.this);
+                        CheckMainActivity.ToActivity(MainActivity.this,0);
+                        break;
+                    case 2:
+                        CheckMainActivity.ToActivity(MainActivity.this,1);
+                        break;
+                    case 3:
+                        ContactActivity.ToActivity(MainActivity.this);
                         break;
                     default:
                 }

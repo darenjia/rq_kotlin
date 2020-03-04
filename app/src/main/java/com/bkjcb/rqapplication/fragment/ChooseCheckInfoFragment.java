@@ -3,6 +3,7 @@ package com.bkjcb.rqapplication.fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
@@ -33,6 +34,12 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
     TextView mInfoStation;
     @BindView(R.id.info_date)
     TextView mInfoDate;
+    @BindView(R.id.info_type_title)
+    TextView mInfoTypeTitle;
+    @BindView(R.id.info_name_title)
+    TextView mInfoNameTitle;
+    @BindView(R.id.info_year_layout)
+    LinearLayout mInfoYearLayout;
     @BindView(R.id.info_year)
     MaterialSpinner mInfoYear;
     @BindView(R.id.info_confirm)
@@ -58,9 +65,9 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
                 break;
             case R.id.info_confirm:
                 checkItem.jianchariqi = mInfoDate.getText().toString();
-                checkItem.year=strings.get(mInfoYear.getSelectedIndex());
+                checkItem.year = strings.get(mInfoYear.getSelectedIndex());
                 checkItem.systime = calendar.getTimeInMillis();
-                checkItem.c_id= UUID.randomUUID().toString().replace("-","");
+                checkItem.c_id = UUID.randomUUID().toString().replace("-", "");
                 listener.choose();
                 break;
             case R.id.info_back:
@@ -141,6 +148,11 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
         if (checkItem != null) {
             mInfoType.setText(checkItem.zhandianleixing);
             mInfoStation.setText(checkItem.beijiandanwei);
+            if (checkItem.type == 1) {
+                mInfoTypeTitle.setText("企业类型");
+                mInfoNameTitle.setText("企业名称");
+                mInfoYearLayout.setVisibility(View.GONE);
+            }
         }
     }
 

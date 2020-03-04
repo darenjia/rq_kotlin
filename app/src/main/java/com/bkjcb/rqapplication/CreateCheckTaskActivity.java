@@ -35,7 +35,7 @@ public class CreateCheckTaskActivity extends SimpleBaseActivity {
                 checkItem.zhandianleixing = type;
                 changeView(1);
             }
-        });
+        }, new String[]{"气化站", "储配站", "供应站", "加气站"});
         stationFragment = ChooseCheckStationFragment.newInstance(new ChooseCheckStationFragment.OnChooseListener() {
             @Override
             public void choose(CheckStation type) {
@@ -122,7 +122,9 @@ public class CreateCheckTaskActivity extends SimpleBaseActivity {
     private void saveItem() {
         long id = CheckItem.getBox().put(checkItem);
         showSnackbar(barLayout, "创建检查任务成功！");
-        CheckDetailActivity.ToActivity(this,id);
+        //CheckDetailActivity.ToActivity(this,id);
+        CheckResultDetailActivity.ToActivity(this, id);
+        finish();
     }
 
 

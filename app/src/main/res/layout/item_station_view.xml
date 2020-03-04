@@ -14,6 +14,7 @@
         android:padding="8dp"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
         android:text="上海浦东海光有限公司储配站"/>
 
     <TextView

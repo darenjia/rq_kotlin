@@ -3,11 +3,14 @@ package com.bkjcb.rqapplication.fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.adapter.StationAdapter;
@@ -17,10 +20,20 @@ import com.bkjcb.rqapplication.model.CheckStationResult;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -39,11 +52,18 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
     RecyclerView mStationList;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
-    private StationAdapter adapter;
-    private CheckItem checkItem;
+    @BindView(R.id.title)
+    TextView mTitle;
 
-    public CheckItem getCheckItem() {
-        return checkItem;
+    private StationAdapter adapter;
+    protected CheckItem checkItem;
+    private String stationType = "";
+    private List<CheckStation> checkStationList;
+    private Disposable editDisposbale;
+    private int checkType = 0;
+
+    public void setCheckType(int checkType) {
+        this.checkType = checkType;
     }
 
     public void setCheckItem(CheckItem checkItem) {
@@ -93,6 +113,13 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
         return fragment;
     }
 
+    public static ChooseCheckStationFragment newInstance(OnChooseListener listener, int type) {
+        ChooseCheckStationFragment fragment = new ChooseCheckStationFragment();
+        fragment.setListener(listener);
+        fragment.setCheckType(type);
+        return fragment;
+    }
+
     @Override
     public void setResId() {
         this.resId = R.layout.fragment_check_station_view;
@@ -100,8 +127,11 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
 
     @Override
     protected void initView() {
+        if (checkItem.type==1){
+            mTitle.setText("企业类型");
+        }
         mStationList.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new StationAdapter(R.layout.item_station_view);
+        adapter = new StationAdapter(R.layout.item_station_view, checkType);
         mStationList.setAdapter(adapter);
         adapter.bindToRecyclerView(mStationList);
         mRefreshLayout.setOnRefreshListener(this);
@@ -111,6 +141,22 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
     protected void initData() {
         initRetrofit();
         adapter.setOnItemClickListener(this);
+        switch (checkItem.zhandianleixing) {
+            case "维修检查企业":
+                stationType = "器具";
+                break;
+            case "报警器企业":
+                stationType = "报警";
+                break;
+            case "销售企业":
+                stationType = "销售";
+                break;
+            default:
+                stationType = checkItem.zhandianleixing;
+
+
+        }
+
     }
 
     @Override
@@ -119,10 +165,10 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
         getStationData();
     }
 
-    private void getStationData() {
+    protected void getStationData() {
         showRefreshing(true);
         disposable = retrofit.create(CheckService.class)
-                .getCheckUnit(checkItem.zhandianleixing)
+                .getCheckUnit(stationType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<CheckStationResult>() {
@@ -136,14 +182,17 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
                     @Override
                     public void accept(CheckStationResult checkStationResult) throws Exception {
                         if (checkStationResult.pushState == 200 && checkStationResult.getDatas() != null && checkStationResult.getDatas().size() > 0) {
+                            checkStationList = new ArrayList<>(checkStationResult.getDatas());
                             if (!TextUtils.isEmpty(checkItem.beijiandanweiid)) {
-                                for (CheckStation station : checkStationResult.getDatas()) {
+                                for (CheckStation station : checkStationList) {
                                     if (station.getGuid().equals(checkItem.beijiandanweiid)) {
                                         station.setChecked(true);
                                     }
                                 }
                             }
-                            adapter.replaceData(checkStationResult.getDatas());
+                            adapter.setNewData(checkStationList);
+                            createEditTextDisposable();
+                            mStationName.setText(mStationName.getText());
                         } else {
                             setEmptyView();
                         }
@@ -156,11 +205,79 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
                 });
     }
 
-    private void setEmptyView() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (editDisposbale != null && !editDisposbale.isDisposed()) {
+            editDisposbale.dispose();
+        }
+    }
+
+    protected void setEmptyView() {
         adapter.setEmptyView(R.layout.empty_textview, (ViewGroup) mStationList.getParent());
     }
 
-    private void showRefreshing(boolean isShow) {
+    protected void showRefreshing(boolean isShow) {
         mRefreshLayout.setRefreshing(isShow);
+    }
+
+    protected void createEditTextDisposable() {
+        editDisposbale = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                mStationName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        emitter.onNext(s.toString());
+                    }
+                });
+            }
+        }).debounce(200, TimeUnit.MILLISECONDS)
+                .filter(new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) throws Exception {
+                        return s.trim().length() > 0;
+                    }
+                })
+                .subscribeOn(Schedulers.computation())
+                .map(new Function<String, ArrayList<CheckStation>>() {
+                    @Override
+                    public ArrayList<CheckStation> apply(String s) throws Exception {
+                        return filterStation(s);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ArrayList<CheckStation>>() {
+                    @Override
+                    public void accept(ArrayList<CheckStation> strings) throws Exception {
+                        adapter.replaceData(strings);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+    }
+
+    private ArrayList<CheckStation> filterStation(String s) {
+        ArrayList<CheckStation> stations = new ArrayList<>();
+        for (CheckStation station :
+                checkStationList) {
+            if (station.getQiyemingcheng().contains(s) || station.getGas_station().contains(s)) {
+                stations.add(station);
+            }
+        }
+        return stations;
     }
 }

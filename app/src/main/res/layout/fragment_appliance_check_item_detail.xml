@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorText"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_type"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/colorLightGray"
+                android:padding="8dp"
+                android:gravity="center_vertical"
+                android:text="企业基本情况"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorText"
+                android:minHeight="80dp"
+                android:padding="10dp"
+                android:text="1.企业主体与公告信息一致"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/item_basis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorLightGray"
+                android:padding="8dp"
+                android:text="检查要点"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorText"
+                android:padding="8dp"
+                android:text="检查安装维修许可证、营业执照、房屋产权、或合同是否有效"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorLightGray"
+                android:padding="8dp"
+                android:text="评价"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/check_result_radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <RadioButton
+                    android:id="@+id/check_result_radio_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/check_status_pass_bg"
+                    android:button="@null"
+                    android:drawableStart="@drawable/check_status_pass"
+                    android:drawablePadding="8dp"
+                    android:padding="8dp"
+                    android:text="是"
+                    android:textColor="@color/colorSecondDrayText"
+                    android:textSize="@dimen/sp_16" />
+
+                <RadioButton
+                    android:id="@+id/check_result_radio_failure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/check_status_failure_bg"
+                    android:button="@null"
+                    android:drawableStart="@drawable/check_status_failure"
+                    android:drawablePadding="8dp"
+                    android:padding="8dp"
+                    android:text="否"
+                    android:textColor="@color/colorSecondDrayText"
+                    android:textSize="@dimen/sp_16" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorLightGray"
+                android:padding="8dp"
+                android:text="检查内容记录"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/item_record1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/item_record_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText"
+                    android:padding="8dp"
+                    android:text="营业执照"
+                    android:textColor="@color/colorSecondDrayText"
+                    android:textSize="@dimen/sp_14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/colorGray" />
+
+                <EditText
+                    android:id="@+id/item_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/colorText"
+                    android:gravity="start"
+                    android:hint="填写输入"
+                    android:padding="8dp"
+                    android:textColor="@color/colorSecondDrayText"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/item_record2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/item_remark_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText"
+                    android:padding="8dp"
+                    android:text="经营场所房屋证明"
+                    android:textColor="@color/colorSecondDrayText"
+                    android:textSize="@dimen/sp_14" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/colorGray" />
+
+                <EditText
+                    android:id="@+id/item_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/colorText"
+                    android:gravity="start"
+                    android:hint="填写输入"
+                    android:padding="8dp"
+                    android:textColor="@color/colorSecondDrayText"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.v7.widget.CardView>

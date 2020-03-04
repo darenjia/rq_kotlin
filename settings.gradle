@@ -1,2 +1,2 @@
-include ':app', ':spinner', ':library', ':picture_library', ':ucrop'
+include ':app', ':spinner', ':library', ':picture_library', ':ucrop', ':dialog', ':androidtagview'
 rootProject.name='RQApplication'

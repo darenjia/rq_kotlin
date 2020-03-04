@@ -27,9 +27,14 @@ public class CheckItem implements Serializable {
     public String year;
     public long systime;
     public int status;
+    public int type;//0站点检查 1器具检查
 
 
     public CheckItem() {
+    }
+
+    public CheckItem(int type) {
+        this.type = type;
     }
 
     public static Box<CheckItem> getBox() {

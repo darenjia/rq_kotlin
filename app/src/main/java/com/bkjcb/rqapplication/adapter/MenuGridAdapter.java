@@ -1,5 +1,6 @@
 package com.bkjcb.rqapplication.adapter;
 
+import android.content.res.ColorStateList;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -52,6 +53,9 @@ public class MenuGridAdapter extends BaseAdapter {
         }
         MenuItem item = list.get(position);
         viewHolder.imageView.setImageResource(item.imgUrl);
+        if (!item.purview){
+            viewHolder.imageView.setImageTintList(ColorStateList.valueOf(MyApplication.getContext().getResources().getColor(R.color.colorGray)));
+        }
         viewHolder.textView.setText(item.text);
         return convertView;
     }

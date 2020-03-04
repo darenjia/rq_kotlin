@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/user_info"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginBottom="1dp"
+    android:background="@color/colorText">
+
+    <cn.carbs.android.avatarimageview.library.AvatarImageView
+        android:id="@+id/item_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/info_tv"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="游坦之"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/info_dz"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="城投办事处"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/info_qx"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:paddingStart="0dp"
+        android:paddingEnd="20dp"
+        android:text="金山区"
+        android:textSize="14sp"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/class_a"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:src="@drawable/wjx"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/class_b"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:src="@drawable/sjx"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/class_c"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:src="@drawable/lx"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/class_d"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:src="@drawable/yq"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

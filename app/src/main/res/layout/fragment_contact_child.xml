@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/nav_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="4sp"
+        app:contentPadding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <co.lujun.androidtagview.TagContainerLayout
+                android:id="@+id/tag_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:padding="10dp"
+                app:container_enable_drag="false"
+                app:tag_border_width="0dp"
+                app:container_background_color="@color/colorText"
+                app:container_border_width="0dp"
+                app:horizontal_interval="10dp"
+                app:tag_corner_radius="4dp"
+                app:vertical_interval="4dp"
+                app:tag_clickable="true"
+                app:tag_theme="random" />
+
+            <TextView
+                android:id="@+id/departmentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_type_0"
+                android:padding="10dp"
+                android:text="企业单位"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/departmentListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <FrameLayout
+                android:id="@+id/result_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <com.allen.library.SuperTextView
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:sLeftMaxEms="20"
+                    app:sLeftTextColor="@color/colorAccent"
+                    app:sLeftTextString="@string/app_name"
+                    app:sLeftTopTextSize="18sp"
+                    app:sRightTextColor="@color/black"
+                    app:sRightTextString="1" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp" />
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

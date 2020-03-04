@@ -21,8 +21,9 @@
     </style>
     <style name="ChooseFragmentTextStyle" parent="TextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">@color/colorText</item>
         <item name="android:layout_marginBottom">1dp</item>
@@ -30,7 +31,7 @@
     </style>
     <style name="ChooseFragmentInfoTextStyle" parent="TextView">
         <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorSecondDrayText</item>
         <item name="android:textSize">@dimen/sp_16</item>
     </style>
 
@@ -42,4 +43,34 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DialogTheme2" parent="QMUI.Dialog">
+
+        <item name="qmui_dialog_action_container_style">@style/DialogTheme2ActionContainerStyle
+        </item>
+        <item name="qmui_dialog_action_style">@style/DialogTheme2ActionStyle</item>
+
+    </style>
+    <style name="DialogTheme2ActionContainerStyle">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="qmui_dialog_action_container_justify_content">stretch</item>
+        <item name="qmui_dialog_action_height">56dp</item>
+        <item name="qmui_dialog_action_space">8dp</item>
+        <item name="qmui_topDividerColor">?attr/qmui_config_color_separator</item>
+        <item name="qmui_topDividerHeight">1px</item>
+    </style>
+    <style name="DialogTheme2ActionStyle">
+        <item name="android:textColor">?attr/qmui_config_color_blue</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">64dp</item>
+        <item name="android:background">@null</item>
+        <item name="qmui_dialog_action_button_padding_horizontal">12dp</item>
+        <item name="qmui_dialog_action_icon_space">6dp</item>
+        <item name="qmui_dialog_positive_action_text_color">@color/colorPrimary</item>
+        <item name="qmui_dialog_negative_action_text_color">?attr/qmui_config_color_red</item>
+    </style>
 </resources>

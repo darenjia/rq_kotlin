@@ -24,11 +24,12 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
     private CheckContentItem contentItem;
     private String uid;//项目id
     private CheckResultItem checkResultItem;
-    private TextView mItemType;
-    private TextView mItemContent;
-    private TextView mItemBasis;
-    private TextView mItemSection;
     private EditText mItemRecord;
+    private int type = 0;//1不可修改
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public void setContentItem(CheckContentItem contentItem) {
         this.contentItem = contentItem;
@@ -45,6 +46,14 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
         return fragment;
     }
 
+    public static CheckItemDetailFragment newInstances(CheckContentItem contentItem, String id, int type) {
+        CheckItemDetailFragment fragment = new CheckItemDetailFragment();
+        fragment.setContentItem(contentItem);
+        fragment.setUid(id);
+        fragment.setType(type);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,29 +64,22 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_check_item_detail, null);
-            mItemType = view.findViewById(R.id.item_type);
-            mItemContent = view.findViewById(R.id.item_content);
-            mItemBasis = view.findViewById(R.id.item_basis);
-            mItemSection = view.findViewById(R.id.item_section);
+            TextView mItemType = view.findViewById(R.id.item_type);
+            TextView mItemContent = view.findViewById(R.id.item_content);
+            TextView mItemBasis = view.findViewById(R.id.item_basis);
+            TextView mItemSection = view.findViewById(R.id.item_section);
             mItemRecord = view.findViewById(R.id.item_record);
             mItemType.setText(contentItem.getLeibie());
-            mItemContent.setText(contentItem.getXuhao()+"、"+contentItem.getJianchaneirong());
+            mItemContent.setText(contentItem.getXuhao() + "、" + contentItem.getJianchaneirong());
             mItemBasis.setText(contentItem.getJianchayiju());
-            mItemSection.setText(contentItem.getJianchalanmu().replace("<br/>","/"));
+            mItemSection.setText(contentItem.getJianchalanmu().replace("<br/>", "/"));
+            if (type == 1) {
+                mItemRecord.setEnabled(false);
+            }
         }
         return view;
     }
 
-    @Override
-    protected void onFragmentFirstVisible() {
-
-    }
-
-   /* @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }*/
 
     @Override
     public void onStart() {
@@ -91,14 +93,19 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
     }
 
     @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (!isVisible) {
-            checkResultItem.jianchajilu = mItemRecord.getText().toString();
-            CheckResultItem.getBox().put(checkResultItem);
-        }
+    public void onStop() {
+        super.onStop();
+        saveData();
     }
 
     private CheckResultItem queryLocalItem() {
         return CheckResultItem.getBox().query().equal(CheckResultItem_.jianchaid, uid).and().equal(CheckResultItem_.jianchaxiangid, contentItem.getId()).build().findFirst();
+    }
+
+    private void saveData() {
+
+        checkResultItem.jianchajilu = mItemRecord.getText().toString();
+        CheckResultItem.getBox().put(checkResultItem);
+
     }
 }

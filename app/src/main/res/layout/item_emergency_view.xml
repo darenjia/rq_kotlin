@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.allen.library.SuperTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/third_content"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_marginBottom="1dp"
+    app:sCenterTextColor="@color/colorSecondDrayText"
+    app:sLeftTextColor="@color/colorSecondDrayText"
+    app:sLeftTextSize="18sp"
+    app:sRightTextColor="@color/colorSecondDrayText"
+    app:sRightTextSize="16sp"
+    app:sBackgroundDrawableRes="@color/colorText"
+    app:sUseShape="false" />

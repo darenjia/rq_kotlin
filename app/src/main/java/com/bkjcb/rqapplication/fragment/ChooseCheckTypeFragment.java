@@ -29,9 +29,15 @@ public class ChooseCheckTypeFragment extends BaseSimpleFragment {
     TextView mCheckType3;
     @BindView(R.id.check_type4)
     TextView mCheckType4;
-
+    @BindView(R.id.title)
+    TextView mTitle;
     private OnChooseListener listener;
     private CheckItem checkItem;
+    String[] typeString;
+
+    public void setTypeString(String[] typeString) {
+        this.typeString = typeString;
+    }
 
     public CheckItem getCheckItem() {
         return checkItem;
@@ -45,9 +51,10 @@ public class ChooseCheckTypeFragment extends BaseSimpleFragment {
         this.listener = listener;
     }
 
-    public static ChooseCheckTypeFragment newInstance(OnChooseListener listener) {
+    public static ChooseCheckTypeFragment newInstance(OnChooseListener listener, String[] type) {
         ChooseCheckTypeFragment fragment = new ChooseCheckTypeFragment();
         fragment.setListener(listener);
+        fragment.setTypeString(type);
         return fragment;
     }
 
@@ -58,6 +65,13 @@ public class ChooseCheckTypeFragment extends BaseSimpleFragment {
 
     @Override
     protected void initView() {
+        if (checkItem.type==1){
+            mTitle.setText("企业类型");
+        }
+        setTextString(mCheckType1, typeString[0]);
+        setTextString(mCheckType2, typeString[1]);
+        setTextString(mCheckType3, typeString[2]);
+        setTextString(mCheckType4, typeString[3]);
 
     }
 
@@ -69,13 +83,24 @@ public class ChooseCheckTypeFragment extends BaseSimpleFragment {
     @Override
     public void onStart() {
         super.onStart();
-        updateInfo();
+        if (checkItem != null && !TextUtils.isEmpty(checkItem.zhandianleixing)) {
+            updateInfo(checkItem.zhandianleixing);
+        }
+
+    }
+
+    private void setTextString(TextView textView, String s) {
+        if (TextUtils.isEmpty(s)) {
+            textView.setVisibility(View.GONE);
+        } else {
+            textView.setText(s);
+        }
     }
 
     private void changeTextColor(TextView textView, boolean checked) {
         if (textView != null) {
             textView.setTextColor(context.getResources().getColor(checked ? R.color.colorText : R.color.colorPrimary));
-            textView.setBackgroundColor(context.getResources().getColor(checked ? R.color.colorBittersweet : R.color.colorText));
+            textView.setBackgroundColor(context.getResources().getColor(checked ? R.color.colorPrimary : R.color.colorText));
         }
     }
 
@@ -86,38 +111,32 @@ public class ChooseCheckTypeFragment extends BaseSimpleFragment {
             default:
                 break;
             case R.id.check_type1:
-                name = "气化站";
+                name = typeString[0];
                 break;
             case R.id.check_type2:
-                name = "储配站";
+                name = typeString[1];
                 break;
             case R.id.check_type3:
-                name = "供应站";
+                name = typeString[2];
                 break;
             case R.id.check_type4:
-                name = "加气站";
+                name = typeString[3];
                 break;
         }
         listener.choose(name);
     }
-    private void updateInfo(){
-        if (checkItem != null&&!TextUtils.isEmpty(checkItem.zhandianleixing)) {
-            switch (checkItem.zhandianleixing) {
-                case "气化站":
-                    changeTextColor(mCheckType1, true);
-                    break;
-                case "储配站":
-                    changeTextColor(mCheckType2, true);
-                    break;
-                case "供应站":
-                    changeTextColor(mCheckType3, true);
-                    break;
-                case "加气站":
-                    changeTextColor(mCheckType4, true);
-                    break;
-                default:
-            }
+
+    private void updateInfo(String s) {
+        if (s.equals(typeString[0])) {
+            changeTextColor(mCheckType1, true);
+        } else if (s.equals(typeString[1])) {
+            changeTextColor(mCheckType2, true);
+        } else if (s.equals(typeString[2])) {
+            changeTextColor(mCheckType3, true);
+        } else {
+            changeTextColor(mCheckType4, true);
         }
+
     }
 }
 

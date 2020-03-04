@@ -7,6 +7,7 @@
     <color name="colorTextPrimary">#212121</color>
     <color name="colorSecondDrayText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorAlpha">#00ffffff</color>
     <color name="colorGray">#f5f5f5</color>
     <color name="colorLightGray">#F4F4F4</color>
     <color name="colorWhite">#ABF5F5F5</color>
@@ -28,4 +29,8 @@
     <color name="colorApplication">#ff9900</color>
     <color name="colorProject">#00c486</color>
     <color name="colorSetting">#1270B6</color>
+    <color name="color_type_0">#27a9e3</color>
+    <color name="color_type_1">#28b779</color>
+    <color name="color_type_2">#ffb848</color>
+    <color name="color_type_3">#da542e</color>
 </resources>

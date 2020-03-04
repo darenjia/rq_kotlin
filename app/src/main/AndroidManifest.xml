@@ -44,8 +44,16 @@
         <activity android:name=".GasMainActivity" />
         <activity android:name=".CheckMainActivity" />
         <activity android:name=".CreateCheckTaskActivity" />
-        <activity android:name=".CheckDetailActivity" />
+        <activity android:name=".CheckDetailActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".CheckResultDetailActivity" />
+        <activity android:name=".ContactActivity" />
+        <activity android:name=".CreateApplianceCheckTaskActivity" />
+        <activity android:name=".ApplianceCheckResultDetailActivity" />
+        <activity android:name=".ApplianceCheckDetailActivity" />
+        <activity android:name=".AlarmCheckDetailActivity" />
+        <activity android:name=".SellCheckDetailActivity" />
+        <activity android:name=".ContactDetailActivity" />
     </application>
 
 </manifest>

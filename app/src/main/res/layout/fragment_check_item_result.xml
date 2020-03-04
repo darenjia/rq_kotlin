@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorText"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorLightGray"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="检查结果"
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/check_result_radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <RadioButton
+                android:id="@+id/check_result_radio_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/check_status_pass"
+                android:padding="8dp"
+                android:drawablePadding="8dp"
+                android:button="@null"
+                android:text="合格"
+                android:background="@drawable/check_status_pass_bg"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16" />
+
+            <RadioButton
+                android:id="@+id/check_result_radio_failure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/check_status_failure"
+                android:padding="8dp"
+                android:button="@null"
+                android:drawablePadding="8dp"
+                android:text="不合格"
+                android:background="@drawable/check_status_failure_bg"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16" />
+        </RadioGroup>
+
+        <include layout="@layout/horizontal_divider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="备注"
+            android:textColor="@color/colorTextSecond"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <include layout="@layout/horizontal_divider" />
+
+
+        <EditText
+            android:id="@+id/item_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorText"
+            android:gravity="start"
+            android:padding="8dp"
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
