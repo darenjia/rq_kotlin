@@ -35,8 +35,9 @@ public interface ApplianceCheckService {
             @Field("unitGUID") String unitID,
             @Field("checktime2") String time,
             @Field("Opinions") String Opinions,
-            @Field("cguid") String[] zdjcxid,
-            @Field("tableJson") String[] jianchajilu
+            @Field("guidArry") String zdjcxid,
+            @Field("tableJson") String jianchajilu,
+            @Field("phoneftp") String ftp
     );
 
     @POST("/rq/push/saveAlarmDailyCheck")
@@ -47,8 +48,9 @@ public interface ApplianceCheckService {
             @Field("unitGUID") String unitID,
             @Field("checktime2") String time,
             @Field("Opinions") String Opinions,
-            @Field("cguid") String[] zdjcxid,
-            @Field("cheakdatail") String[] jianchajilu
+            @Field("guidArry") String zdjcxid,
+            @Field("tableJson") String jianchajilu,
+            @Field("phoneftp") String ftp
     );
 
     @POST("/rq/push/saveSaleDailyCheck")
@@ -59,7 +61,8 @@ public interface ApplianceCheckService {
             @Field("unitGUID") String unitID,
             @Field("checktime2") String time,
             @Field("Opinions") String Opinions,
-            @Field("cguid") String[] zdjcxid,
-            @Field("tableJson") String[] jianchajilu
+            @Field("guidArry") String zdjcxid,
+            @Field("tableJson") String jianchajilu,
+            @Field("phoneftp") String ftp
     );
 }

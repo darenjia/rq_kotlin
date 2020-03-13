@@ -7,8 +7,10 @@
     app:cardUseCompatPadding="true">
 
     <ScrollView
+        android:id="@+id/check_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"

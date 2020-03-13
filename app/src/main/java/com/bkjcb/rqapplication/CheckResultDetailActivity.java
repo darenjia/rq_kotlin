@@ -131,7 +131,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                 retString = "继续检查";
                 break;
             case 2:
-                retString = "开始上传";
+                retString = "上传提交";
                 break;
             case 3:
                 retString = "查看详情";

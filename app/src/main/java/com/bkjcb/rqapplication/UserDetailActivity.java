@@ -296,7 +296,7 @@ public class UserDetailActivity extends SimpleBaseActivity {
     private void submitCheckResult(String remark, String status) {
         showLoading();
         disposable = retrofit.create(DataService.class)
-                .saveTourCheck(userInfo.getUserGuid(), MyApplication.user.getRealName(), status, remark)
+                .saveTourCheck(userInfo.getUserGuid(), MyApplication.user.getReal_name(), status, remark)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<HttpResult>() {

@@ -1,9 +1,18 @@
 package com.bkjcb.rqapplication.model;
 
+import com.bkjcb.rqapplication.datebase.ObjectBox;
+
+import java.util.List;
+
+import io.objectbox.Box;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
 /**
  * Created by DengShuai on 2020/2/20.
  * Description :
  */
+@Entity
 public class ApplianceCheckContentItem {
 
     /**
@@ -16,7 +25,8 @@ public class ApplianceCheckContentItem {
      * cheakrecord : 技术培训：
      * cheakrecord2 : 其他培训：
      */
-
+    @Id(assignable = true)
+    public long id;
     private String guid;
     private String unitname;
     private int xuhao;
@@ -26,6 +36,15 @@ public class ApplianceCheckContentItem {
     private String cheakrecord;
     private String cheakrecord2;
     private boolean isChecked;
+    private String cid;
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
 
     public boolean isChecked() {
         return isChecked;
@@ -97,5 +116,13 @@ public class ApplianceCheckContentItem {
 
     public void setCheakrecord2(String cheakrecord2) {
         this.cheakrecord2 = cheakrecord2;
+    }
+
+    public static Box<ApplianceCheckContentItem> getBox() {
+        return ObjectBox.get().boxFor(ApplianceCheckContentItem.class);
+    }
+
+    public static List<ApplianceCheckContentItem> getContentItems(String id) {
+        return getBox().query().equal(ApplianceCheckContentItem_.cid,id).build().find();
     }
 }

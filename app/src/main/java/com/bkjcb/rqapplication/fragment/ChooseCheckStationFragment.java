@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.adapter.StationAdapter;
@@ -33,7 +34,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -78,6 +78,7 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
             case R.id.station_search:
                 break;
             case R.id.station_search_close:
+                mStationName.setText("");
                 break;
             case R.id.station_back:
                 listener.back();
@@ -127,13 +128,14 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
 
     @Override
     protected void initView() {
-        if (checkItem.type==1){
+        if (checkItem.type == 1) {
             mTitle.setText("企业类型");
         }
         mStationList.setLayoutManager(new LinearLayoutManager(context));
         adapter = new StationAdapter(R.layout.item_station_view, checkType);
         mStationList.setAdapter(adapter);
         adapter.bindToRecyclerView(mStationList);
+        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         mRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -143,7 +145,7 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
         adapter.setOnItemClickListener(this);
         switch (checkItem.zhandianleixing) {
             case "维修检查企业":
-                stationType = "器具";
+                stationType = "安装维修";
                 break;
             case "报警器企业":
                 stationType = "报警";
@@ -153,8 +155,6 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
                 break;
             default:
                 stationType = checkItem.zhandianleixing;
-
-
         }
 
     }
@@ -243,12 +243,12 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
                 });
             }
         }).debounce(200, TimeUnit.MILLISECONDS)
-                .filter(new Predicate<String>() {
+               /* .filter(new Predicate<String>() {
                     @Override
                     public boolean test(String s) throws Exception {
                         return s.trim().length() > 0;
                     }
-                })
+                })*/
                 .subscribeOn(Schedulers.computation())
                 .map(new Function<String, ArrayList<CheckStation>>() {
                     @Override
@@ -260,23 +260,31 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
                 .subscribe(new Consumer<ArrayList<CheckStation>>() {
                     @Override
                     public void accept(ArrayList<CheckStation> strings) throws Exception {
-                        adapter.replaceData(strings);
+                       if (strings.size()==0){
+                           adapter.setEmptyView(R.layout.emptyview, (ViewGroup) mStationList.getParent());
+                           adapter.setNewData(null);
+                       }else {
+                           adapter.setNewData(strings);
+                       }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private ArrayList<CheckStation> filterStation(String s) {
         ArrayList<CheckStation> stations = new ArrayList<>();
-        for (CheckStation station :
-                checkStationList) {
-            if (station.getQiyemingcheng().contains(s) || station.getGas_station().contains(s)) {
-                stations.add(station);
+        if (s.length()>0) {
+            for (CheckStation station : checkStationList) {
+                if (!TextUtils.isEmpty(station.getQiyemingcheng())&& station.getQiyemingcheng().contains(s) || !TextUtils.isEmpty(station.getGas_station())&&station.getGas_station().contains(s)) {
+                    stations.add(station);
+                }
             }
+        }else {
+            stations.addAll(checkStationList);
         }
         return stations;
     }

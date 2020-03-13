@@ -82,7 +82,7 @@ public class GasMainActivity extends SimpleBaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        barLayout.setTitle(MyApplication.user.getRealName());
+        barLayout.setTitle(MyApplication.user.getReal_name());
         barLayout.addRightImageButton(R.drawable.vector_drawable_setting, R.id.top_right_button1)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -128,7 +128,7 @@ public class GasMainActivity extends SimpleBaseActivity {
 
     private void getData() {
         disposable = retrofit.create(DataService.class)
-                .getUserInfos(MyApplication.user.getAreaCode())
+                .getUserInfos(MyApplication.user.getAreacode().getArea_code())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserInfoResult>() {
@@ -152,6 +152,8 @@ public class GasMainActivity extends SimpleBaseActivity {
                 });
 
     }
+
+
 
     private void filter() {
         filterDisposable = Observable.create(new ObservableOnSubscribe<String>() {

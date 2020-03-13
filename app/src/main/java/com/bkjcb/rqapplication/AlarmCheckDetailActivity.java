@@ -49,7 +49,7 @@ public class AlarmCheckDetailActivity extends ApplianceCheckDetailActivity {
 
     @Override
     protected Fragment createFragment(ApplianceCheckContentItem item, String id) {
-        return AlarmCheckItemDetailFragment.newInstances(item,id);
+        return AlarmCheckItemDetailFragment.newInstances(item,id,checkItem.status==3);
     }
 
     protected static void ToActivity(Context context, CheckItem checkItem) {

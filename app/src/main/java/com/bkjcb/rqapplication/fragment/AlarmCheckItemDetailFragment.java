@@ -25,6 +25,15 @@ public class AlarmCheckItemDetailFragment extends BaseLazyFragment {
     private String uid;//项目id
     private ApplianceCheckResultItem checkResultItem;
     private EditText mItemRecord;
+    private boolean type = false;
+
+    public boolean isType() {
+        return type;
+    }
+
+    public void setType(boolean type) {
+        this.type = type;
+    }
 
     public void setContentItem(ApplianceCheckContentItem contentItem) {
         this.contentItem = contentItem;
@@ -38,6 +47,14 @@ public class AlarmCheckItemDetailFragment extends BaseLazyFragment {
         AlarmCheckItemDetailFragment fragment = new AlarmCheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);
+        return fragment;
+    }
+
+    public static AlarmCheckItemDetailFragment newInstances(ApplianceCheckContentItem contentItem, String id, boolean type) {
+        AlarmCheckItemDetailFragment fragment = new AlarmCheckItemDetailFragment();
+        fragment.setContentItem(contentItem);
+        fragment.setUid(id);
+        fragment.setType(type);
         return fragment;
     }
 
@@ -70,7 +87,7 @@ public class AlarmCheckItemDetailFragment extends BaseLazyFragment {
         saveData();
     }
 
-    private void saveData(){
+    private void saveData() {
         checkResultItem.content = mItemRecord.getText().toString();
         ApplianceCheckResultItem.getBox().put(checkResultItem);
     }
@@ -89,6 +106,10 @@ public class AlarmCheckItemDetailFragment extends BaseLazyFragment {
         mItemContent.setText(contentItem.getXuhao() + "、" + contentItem.getCheakname());
         mItemBasis.setVisibility(View.GONE);
         mItemSection.setVisibility(View.GONE);
+        if (type){
+            mItemRecord.setEnabled(false);
+            mItemRecord.setHint("");
+        }
 
     }
 

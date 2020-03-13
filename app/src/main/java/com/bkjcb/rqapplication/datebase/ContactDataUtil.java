@@ -85,15 +85,15 @@ public class ContactDataUtil {
             builder.equal(Level_.kind1, kind1).equal(Level_.kind2, kind2).equal(Level_.kind3, kind3);
         } else {
             //sql.append("and Kind1 = ? AND Kind2 != 0 AND Kind3 = 0");
-            builder.equal(Level_.kind1, kind1).notEqual(Level_.kind2, 0).notEqual(Level_.kind3, 0);
+            builder.equal(Level_.kind1, kind1).and().notEqual(Level_.kind2, 0).and().equal(Level_.kind3, 0);
         }
         return builder.build().find();
 
     }
 
     public static List<User> queryUser(Level level) {
-        if (level == null || level.getId() == -1) {
-            return null;
+        if (level == null || level.getLevel() == -1) {
+            return new ArrayList<>();
         }
         int[] levelIds = ObjectBox.getLevelBox().query().equal(Level_.uid, level.getUid()).build().property(Level_.uid).distinct().findInts();
         int[] unitIds = ObjectBox.getUnitBox().query().in(Unit_.levelid, levelIds).build().property(Unit_.uid).distinct().findInts();

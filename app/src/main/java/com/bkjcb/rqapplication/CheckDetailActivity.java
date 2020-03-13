@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     TextView mPagerNumber;
     @BindView(R.id.image_file_view)
     RecyclerView mImageFiles;
+    @BindView(R.id.check_detail_finish)
+    Button mFinishButton;
     protected CheckItem checkItem;
     private List<String> mediaList;
     private ImageListAdapter imageAdapter;
@@ -82,6 +85,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         initTopbar("检查详情", 0);
         initEmptyView();
         showLoadingView();
+
     }
 
     @Override
@@ -97,6 +101,11 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
             }
         }
         checkNetwork();
+        if (checkItem.status == 3) {
+            mFinishButton.setBackgroundColor(getResources().getColor(R.color.colorGreenGray));
+            mFinishButton.setEnabled(false);
+            mFinishButton.setText("检查已结束");
+        }
     }
 
     @Override
@@ -108,19 +117,20 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_detail_previous:
-                if (currentPage > 0) {
-                    mViewPager.setCurrentItem(--currentPage, true);
+                if (--currentPage >= 0) {
+                    mViewPager.setCurrentItem(currentPage, true);
+                } else {
+                    currentPage = 0;
                 }
-                updateCurrentPageNumber();
                 break;
             case R.id.check_detail_next:
-                if (currentPage < fragmentList.size()) {
-                    mViewPager.setCurrentItem(++currentPage, true);
+                if (++currentPage < fragmentList.size()) {
+                    mViewPager.setCurrentItem(currentPage, true);
                 }
-                updateCurrentPageNumber();
                 break;
             case R.id.check_detail_finish:
                 if (checkItem.status == 3) {
+                    Toast.makeText(this, "当前检查已结束", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 saveResult();
@@ -213,7 +223,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     protected void initImageListView() {
-        imageAdapter = new ImageListAdapter(R.layout.item_image);
+        imageAdapter = new ImageListAdapter(R.layout.item_image, checkItem.status != 3);
         mImageFiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mImageFiles.setAdapter(imageAdapter);
         mediaList = new ArrayList<>();
@@ -323,7 +333,6 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {
-
     }
 
     @Override
@@ -334,7 +343,6 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
 
     @Override
     public void onPageScrollStateChanged(int i) {
-
     }
 
     private void showPopList() {

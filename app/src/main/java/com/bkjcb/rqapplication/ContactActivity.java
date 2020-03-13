@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
+import com.bkjcb.rqapplication.datebase.ContactDataUtil;
 import com.bkjcb.rqapplication.fragment.ContactFirstFragment;
-import com.bkjcb.rqapplication.fragment.ContactMainFragment;
 import com.bkjcb.rqapplication.model.User;
 import com.bkjcb.rqapplication.util.Utils;
 import com.hss01248.dialog.StyledDialog;
@@ -23,6 +23,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.carbs.android.avatarimageview.library.AvatarImageView;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by DengShuai on 2020/2/18.
@@ -39,22 +45,44 @@ public class ContactActivity extends SimpleBaseActivity {
     protected void initView() {
         StyledDialog.init(this);
         QMUITopBarLayout barLayout = initTopbar("应急通讯录");
-        ContactMainFragment mainFragment = new ContactMainFragment();
-        mainFragment.setListener(new ContactMainFragment.OnClickListener() {
+        /* ContactMainFragment mainFragment = new ContactMainFragment();
+       mainFragment.setListener(new ContactMainFragment.OnClickListener() {
             @Override
             public void onClick(User user) {
                 alertUserInfo(user);
             }
-        });
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.contact_content, new ContactFirstFragment())
-                .commit();
+        });*/
+        barLayout.addRightImageButton(R.drawable.vector_drawable_search, R.id.top_right_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ContactSearchActivity.ToActivity(ContactActivity.this);
+                    }
+                });
     }
 
     @Override
     protected void initData() {
-        super.initData();
+        disposable = Observable.create(new ObservableOnSubscribe<Boolean>() {
+
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                ContactDataUtil.init(ContactActivity.this);
+                emitter.onNext(true);
+            }
+        }).subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean bool) throws Exception {
+                        if (bool) {
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.contact_content, new ContactFirstFragment())
+                                    .commit();
+                        }
+                    }
+                });
     }
 
     public static void ToActivity(Context context) {

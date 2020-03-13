@@ -51,6 +51,9 @@ public class ApplianceCheckResultFragment extends CheckResultFragment {
             mInfoStation.setText(checkItem.beijiandanwei);
             mInfoDate.setText(checkItem.jianchariqi);
             mInfoRemark.setText(checkItem.beizhu);
+            mInfoName.setText(checkItem.checkMan);
         }
     }
 }
+
+

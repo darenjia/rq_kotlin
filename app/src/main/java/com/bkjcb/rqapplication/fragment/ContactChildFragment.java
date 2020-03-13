@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.allen.library.SuperTextView;
 import com.bkjcb.rqapplication.R;
@@ -25,12 +26,19 @@ import java.util.List;
 import butterknife.BindView;
 import co.lujun.androidtagview.TagContainerLayout;
 import co.lujun.androidtagview.TagView;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by DengShuai on 2017/9/15.
  */
 
-public class ContactChildFragment extends BaseSimpleFragment implements View.OnClickListener {
+public class ContactChildFragment extends BaseSimpleFragment {
 
     @BindView(R.id.tag_layout)
     TagContainerLayout mTagLayout;
@@ -49,7 +57,6 @@ public class ContactChildFragment extends BaseSimpleFragment implements View.OnC
     private UnitAdapter unitAdapter;
     private ContactItemAdapter itemAdapter;
 
-    private int layer;
     private ArrayList<String> strings;
     private List<User> userList;
     private OnClickListener listener;
@@ -122,7 +129,6 @@ public class ContactChildFragment extends BaseSimpleFragment implements View.OnC
         mTagLayout.removeAllTags();
         setGone(mResultView);
         userList = null;
-        layer = 0;
         strings = new ArrayList<>();
         mTagLayout.setTags(strings);
         setVisible(mDepartmentTitle);
@@ -136,40 +142,11 @@ public class ContactChildFragment extends BaseSimpleFragment implements View.OnC
                 listener.onClick((User) adapter.getItem(position));
             }
         });
-        unitAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Level level = (Level) adapter.getItem(position);
-                filterData(level);
-            }
-        });
-        mTagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
-            @Override
-            public void onTagClick(int position, String text) {
-                if (position != strings.size() - 1) {
-                    filterData(map.get(text));
-                }
-            }
-
-            @Override
-            public void onTagLongClick(int position, String text) {
-
-            }
-
-            @Override
-            public void onSelectedTagDrag(int position, String text) {
-
-            }
-
-            @Override
-            public void onTagCrossClick(int position) {
-
-            }
-        });
+        setDisposable();
     }
 
     private void filterData(Level level) {
-        if (level != null) {
+        if (level != null && level.getLevel() != -1) {
             if (level.getKind1() == 0) {
                 unitAdapter.setNewData(getData(fragmentType, -1, -1, -1, level.getQuxian()));
             } else if (level.getKind2() == 0) {
@@ -185,28 +162,108 @@ public class ContactChildFragment extends BaseSimpleFragment implements View.OnC
             } else {
                 setStrings(null);
             }
-            setDataAndView(level);
-
+            mHeader.setLeftString(level.getDepartmentnamea());
+            mDepartmentTitle.setText(level.getDepartmentnamea());
+        } else {
+            switch (fragmentType) {
+                case 0:
+                    unitAdapter.setNewData(getData(0, -1, -1, -1));
+                    mDepartmentTitle.setText("市级单位");
+                    break;
+                case 1:
+                    unitAdapter.setNewData(getData());
+                    mDepartmentTitle.setText("区级单位");
+                    break;
+                case 2:
+                    unitAdapter.setNewData(getData(2, -1, -1, -1));
+                    mDepartmentTitle.setText("企业单位");
+                    break;
+            }
+            mDepartmentTitle.setVisibility(View.VISIBLE);
+            strings.clear();
+            mTagLayout.removeAllTags();
         }
     }
 
-    private void setDataAndView(final Level model) {
-        userList = getUserData(model);
-        if (userList.size() > 0 || unitAdapter.getItemCount() == 0) {
+    private void setDataAndView(List<User> users) {
+        if (users.size() > 0) {
             setVisible(mResultView);
-            itemAdapter.setNewData(userList);
+            itemAdapter.setNewData(users);
 //            changeList(model.getDepartmentNameA());
-            mHeader.setLeftString(model.getDepartmentnamea());
             mHeader.setRightString(itemAdapter.getItemCount() + "");
         } else {
             setGone(mResultView);
         }
-        if (unitAdapter.getItemCount() == 0) {
-            setGone(mDepartmentListView, mDepartmentTitle);
-        } else {
-            mDepartmentTitle.setText(model.getDepartmentnamea());
-            setVisible(mDepartmentListView, mDepartmentTitle);
-        }
+    }
+
+    private void setDisposable() {
+        disposable = Observable.create(new ObservableOnSubscribe<Level>() {
+            @Override
+            public void subscribe(ObservableEmitter<Level> emitter) throws Exception {
+                unitAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        Level level = (Level) adapter.getItem(position);
+                        emitter.onNext(level);
+
+                    }
+                });
+                mTagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
+                    @Override
+                    public void onTagClick(int position, String text) {
+                        if (position != 0) {
+                            if (position != strings.size() - 1) {
+                                emitter.onNext(map.get(text));
+                            }
+                        } else {
+                            emitter.onNext(new Level(-1));
+                        }
+                    }
+
+                    @Override
+                    public void onTagLongClick(int position, String text) {
+
+                    }
+
+                    @Override
+                    public void onSelectedTagDrag(int position, String text) {
+
+                    }
+
+                    @Override
+                    public void onTagCrossClick(int position) {
+
+                    }
+                });
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Consumer<Level>() {
+                    @Override
+                    public void accept(Level level) throws Exception {
+                        filterData(level);
+                    }
+                })
+                .observeOn(Schedulers.computation())
+                .map(new Function<Level, List<User>>() {
+                    @Override
+                    public List<User> apply(Level level) throws Exception {
+                        return getUserData(level);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<User>>() {
+                    @Override
+                    public void accept(List<User> users) throws Exception {
+                        setDataAndView(users);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private List<Level> getData(int level, int kind1, int kind2, int kind3, String quxian) {
@@ -228,56 +285,6 @@ public class ContactChildFragment extends BaseSimpleFragment implements View.OnC
         return ContactDataUtil.queryUser(level);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        /*switch (v.getId()) {
-            case R.id.ret_btn:
-                if (layer == 0) {
-                    return;
-                } else if (layer == 1) {
-                    if (recyclerId == 2) {
-                        adapter.setData(getData(2, -1, -1, -1, -1));
-                    } else if (recyclerId == 0) {
-                        adapter.setData(getData(0, -1, -1, -1, -1));
-                    } else {
-                        adapter.setData(getData());
-                    }
-                    layer = 0;
-                } else if (layer == 2) {
-                    if (recyclerId == 2) {
-                        adapter.setData(getData(2, flagLevel.getKind1(), -1, -1, -1));
-                    } else if (recyclerId == 0) {
-                        adapter.setData(getData(0, flagLevel.getKind1(), -1, -1, -1));
-                    } else {
-                        adapter.setData(getData(1, -1, -1, -1, flagLevel.getQuxian()));
-                    }
-                    layer = 1;
-                } else if (layer == 3) {
-                    if (recyclerId == 1) {
-                        adapter.setData(getData(1, lastLevel.getKind1(), -1, -1, lastLevel.getQuxian()));
-                    }
-                    layer = 2;
-                } else if (layer == 4) {
-
-                    adapter.setData(getData(1, lastLevel.getKind1(), lastLevel.getKind2(), -1, lastLevel.getQuxian()));
-                    layer = 3;
-
-                }
-                if (flagLevel.getId() != lastLevel.getId()) {
-                    flagLevel = lastLevel;
-                } else {
-                    lastLevel.setId(-1);
-                }
-                setDataAndView(lastLevel);
-                if (layer == 0) {
-                    btn_return.setBackgroundResource(R.color.black_3);
-                }
-                setStrings(null);
-                break;
-        }*/
-    }
-
     private void changeList(String s) {
         if (s != null) {
             setHeaderView(s, String.valueOf(itemAdapter.getItemCount()));
@@ -289,27 +296,14 @@ public class ContactChildFragment extends BaseSimpleFragment implements View.OnC
             if (strings.size() > 0) {
                 strings.remove(strings.size() - 1);
             }
-            if (strings.size() > 0) {
-                String newTitle = strings.get(strings.size() - 1);
-                mDepartmentTitle.setText(newTitle);
-            } else {
-                switch (fragmentType) {
-                    case 0:
-                        mDepartmentTitle.setText("市级单位");
-                        break;
-                    case 1:
-                        mDepartmentTitle.setText("区级单位");
-                        break;
-                    case 2:
-                        mDepartmentTitle.setText("企业单位");
-                        break;
-                }
-            }
-            mTagLayout.removeTag(mTagLayout.getTags().size() - 1);
         } else {
+            if (strings.size() == 0) {
+                strings.add(mDepartmentTitle.getText().toString());
+                mDepartmentTitle.setVisibility(View.GONE);
+            }
             strings.add(s);
-            mTagLayout.addTag(s);
         }
+        mTagLayout.setTags(strings);
     }
 
     private void setGone(View... views) {

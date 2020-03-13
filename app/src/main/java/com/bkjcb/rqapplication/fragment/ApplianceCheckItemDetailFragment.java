@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
@@ -34,6 +35,7 @@ public class ApplianceCheckItemDetailFragment extends BaseLazyFragment implement
     private RadioButton mCheckResultRadioFailure;
     private RadioGroup mCheckResultRadioGroup;
     private boolean type;
+    private ScrollView mScrollView;
 
     public void setType(boolean type) {
         this.type = type;
@@ -86,7 +88,7 @@ public class ApplianceCheckItemDetailFragment extends BaseLazyFragment implement
                     mCheckResultRadioGroup.check(R.id.check_result_radio_ok);
                     changeTextColor(true);
 
-                } else {
+                } else if ("0".equals(checkResultItem.ischeck)) {
                     mCheckResultRadioGroup.check(R.id.check_result_radio_failure);
                     changeTextColor(false);
                 }
@@ -114,7 +116,7 @@ public class ApplianceCheckItemDetailFragment extends BaseLazyFragment implement
         TextView mItemRemarkTitle = (TextView) view.findViewById(R.id.item_remark_title);
         mItemRemark = (EditText) view.findViewById(R.id.item_remark);
         LinearLayout mItemRecord2 = (LinearLayout) view.findViewById(R.id.item_record2);
-
+        mScrollView = view.findViewById(R.id.check_content);
         mItemType.setText(contentItem.getCheaktype());
         mItemSection.setText(contentItem.getCheakdatail());
         mItemContent.setText(contentItem.getXuhao() + "、" + contentItem.getCheakname());
@@ -128,7 +130,11 @@ public class ApplianceCheckItemDetailFragment extends BaseLazyFragment implement
         }
         if (type) {
             mItemRecord.setEnabled(false);
+            mItemRecord.setHint("");
             mItemRemark.setEnabled(false);
+            mItemRemark.setHint("");
+            mCheckResultRadioFailure.setEnabled(false);
+            mCheckResultRadioOk.setEnabled(false);
         } else {
             mCheckResultRadioGroup.setOnCheckedChangeListener(this);
         }
@@ -155,16 +161,25 @@ public class ApplianceCheckItemDetailFragment extends BaseLazyFragment implement
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        saveData();
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveData();
     }
 
-    private void saveData() {
+    public void saveData() {
         checkResultItem.content = mItemRecord.getText().toString();
         checkResultItem.remark = mItemRemark.getText().toString();
         ApplianceCheckResultItem.getBox().put(checkResultItem);
     }
+
+    public boolean verify() {
+        return mCheckResultRadioFailure.isChecked() && ((mItemRecord.getVisibility() == View.GONE || mItemRecord.getText().length() > 0) || (mItemRemark.getVisibility() == View.GONE || mItemRemark.getText().length() > 0));
+    }
+
+    public void scrollToBottom() {
+        mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+    }
+
 }

@@ -25,6 +25,8 @@ public class CheckResultFragment extends BaseSimpleFragment {
     TextView mInfoResult;
     @BindView(R.id.info_remark)
     TextView mInfoRemark;
+    @BindView(R.id.info_name)
+    TextView mInfoName;
     protected CheckItem checkItem;
 
     public void setCheckItem(CheckItem checkItem) {
@@ -61,6 +63,7 @@ public class CheckResultFragment extends BaseSimpleFragment {
             mInfoDate.setText(checkItem.jianchariqi);
             mInfoRemark.setText(checkItem.beizhu);
             mInfoResult.setText(checkItem.jianchajieguo);
+            mInfoName.setText(checkItem.checkMan);
         }
     }
 }

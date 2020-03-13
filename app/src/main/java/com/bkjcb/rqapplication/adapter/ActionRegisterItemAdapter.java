@@ -4,7 +4,8 @@ import android.util.Log;
 
 import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.CheckItem;
+import com.bkjcb.rqapplication.model.ActionRegisterItem;
+import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -18,31 +19,32 @@ import java.util.TimeZone;
  * Created by DengShuai on 2019/12/23.
  * Description :
  */
-public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder> {
+public class ActionRegisterItemAdapter extends BaseQuickAdapter<ActionRegisterItem, BaseViewHolder> {
     private long currentTime = 0;
 
-    public CheckItemAdapter(int layoutResId) {
+    public ActionRegisterItemAdapter(int layoutResId) {
         super(layoutResId);
         currentTime = getCurrentTime();
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CheckItem item) {
+    protected void convert(BaseViewHolder helper, ActionRegisterItem item) {
         if (helper.getLayoutPosition() != 0) {
-            CheckItem preItem = getData().get(helper.getLayoutPosition() - 1);
-            if (isSampleDay(preItem.systime, item.systime)) {
+            ActionRegisterItem preItem = getData().get(helper.getLayoutPosition() - 1);
+            if (isSampleDay(preItem.getSystime(), item.getSystime())) {
                 helper.setGone(R.id.check_date, false);
             } else {
                 helper.setGone(R.id.check_date, true);
             }
         }
-        helper.setText(R.id.check_date, getTime(item.systime))
-                .setText(R.id.check_time, item.jianchariqi)
-                .setText(R.id.check_status, getStatus(item.status))
-                .setText(R.id.check_name, item.beijiandanwei)
-                .setText(R.id.check_type, "#" + item.zhandianleixing)
-                .setTextColor(R.id.check_status,getColors(item.status))
-                .setBackgroundColor(R.id.check_divider,getColor(item.zhandianleixing) );
+        helper.setText(R.id.check_date, getTime(item.getSystime()))
+                .setText(R.id.check_time, item.getCrime_time())
+                .setText(R.id.check_status, getStatus(item.getStatus()))
+                .setText(R.id.check_name, item.getCrime_address())
+                .setText(R.id.check_type, item.getCase_source())
+                .setTextColor(R.id.check_status,getColors(item.getStatus()))
+                //.setText(R.id.check_operate, "")
+                .setBackgroundColor(R.id.check_divider, Utils.getRandomColor(MyApplication.getContext()));
     }
 
     private String getTime(long time) {
@@ -60,47 +62,26 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
         String retString = "";
         switch (status) {
             case 0:
-                retString = "待检查";
-                break;
             case 1:
-                retString = "检查中";
+                retString = "待提交";
                 break;
             case 2:
-                retString = "待上传";
+                retString = "已提交";
                 break;
-            case 3:
-                retString = "已完成";
             default:
         }
         return retString;
     }
 
-    private int getColor(String type) {
-        switch (type) {
-            case "供应站":
-            case "维修检查企业":
-                return getColor(R.color.colorMint);
-            case "储配站":
-            case "报警器企业":
-                return getColor(R.color.colorGrizzlyBear);
-            case "加气站":
-            case "销售企业":
-                return getColor(R.color.colorTextThird);
-            case "气化站":
-                return getColor(R.color.colorYellow);
-            default:
-                return getColor(R.color.colorAccent);
+    private int getColors(int type) {
+        if (type == 2) {
+            return getColor(R.color.colorMint);
         }
+        return getColor(R.color.colorAccent);
     }
 
     private int getColor(int resID) {
         return MyApplication.getContext().getResources().getColor(resID);
-    }
-    private int getColors(int type) {
-        if (type == 3) {
-            return getColor(R.color.colorMint);
-        }
-        return getColor(R.color.colorAccent);
     }
 
 

@@ -20,7 +20,6 @@ public class CheckContentItem {
      * xuhao : 3
      * jianchaxiangSet : []
      */
-
     private String id;
     private String zhandianleixing;
     private String year;

@@ -32,6 +32,10 @@ public class Level {
 
     }
 
+    public Level(int level) {
+        this.level = level;
+    }
+
     public Level(String quxian, String departmentnamea, int level, String districtname) {
         this.quxian = quxian;
         this.departmentnamea = departmentnamea;

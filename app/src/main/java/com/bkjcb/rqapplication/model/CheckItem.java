@@ -24,6 +24,7 @@ public class CheckItem implements Serializable {
     public String jianchajieguo;
     public String beizhu;
     public String filePath;
+    public String checkMan;
     public String year;
     public long systime;
     public int status;

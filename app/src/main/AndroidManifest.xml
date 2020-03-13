@@ -54,6 +54,9 @@
         <activity android:name=".AlarmCheckDetailActivity" />
         <activity android:name=".SellCheckDetailActivity" />
         <activity android:name=".ContactDetailActivity" />
+        <activity android:name=".ActionRegisterActivity" />
+        <activity android:name=".CreateActionRegisterActivity" />
+        <activity android:name=".ContactSearchActivity" />
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@ public class SellCheckDetailActivity extends ApplianceCheckDetailActivity {
 
 
     @Override
-    protected void getCheckContent() {
+    protected void getDataFromNet() {
         disposable = retrofit.create(ApplianceCheckService.class)
                 .getSaleCheckItem()
                 .subscribeOn(Schedulers.io())
@@ -30,6 +30,7 @@ public class SellCheckDetailActivity extends ApplianceCheckDetailActivity {
                     @Override
                     public void accept(ApplianceCheckResult result) throws Exception {
                         if (result.pushState == 200 && result.getDatas() != null && result.getDatas().size() > 0) {
+                            saveCheckContent(result.getDatas());
                             initCheckData(result.getDatas());
                             initImageListView();
                             hideEmptyView();

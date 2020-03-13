@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by DengShuai on 2019/11/1.
@@ -32,6 +33,7 @@ public class Utils {
         int[] colors = {R.color.color_type_0, R.color.color_type_1, R.color.color_type_2, R.color.color_type_3};
         return context.getResources().getColor(colors[position % 4]);
     }
+
     public static int getRandomColor(Context context) {
         int[] colors = {R.color.color_type_0, R.color.color_type_1, R.color.color_type_2, R.color.color_type_3};
         return context.getResources().getColor(colors[new Random().nextInt(15) % 4]);
@@ -62,10 +64,10 @@ public class Utils {
                 path.append("jiaqizhan");
                 break;
             case "维修检查企业":
-                path.append("qiju");
+                path.append("anzhuangweixiu");
                 break;
             case "报警器企业":
-                path.append("baojin");
+                path.append("baojing");
                 break;
             case "销售企业":
                 path.append("xiaoshou");
@@ -73,7 +75,25 @@ public class Utils {
             default:
 
         }
-        path.append("/").append(item.c_id).append("/");
+        path.append("/").append(item.c_id);
         return path.toString();
+    }
+
+    public static String getFileName(String path) {
+        if (!TextUtils.isEmpty(path)) {
+            return path.substring(path.lastIndexOf("/") + 1);
+        }
+        return "";
+    }
+
+    public static String getFileSuffix(String path) {
+        if (!TextUtils.isEmpty(path)) {
+            return path.substring(path.lastIndexOf("."));
+        }
+        return "";
+    }
+
+    public static String getUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }

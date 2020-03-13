@@ -3,8 +3,10 @@ package com.bkjcb.rqapplication.fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.CheckItem;
@@ -44,6 +46,8 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
     MaterialSpinner mInfoYear;
     @BindView(R.id.info_confirm)
     Button mInfoConfirm;
+    @BindView(R.id.info_name)
+    EditText mInfoName;
     private CheckItem checkItem;
     private DatePickerDialog pickerDialog;
     private Calendar calendar;
@@ -64,6 +68,11 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
                 createDatePicker();
                 break;
             case R.id.info_confirm:
+                if (mInfoName.getText().length() == 0) {
+                    Toast.makeText(context, "请填写检查人员姓名", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                checkItem.checkMan = mInfoName.getText().toString();
                 checkItem.jianchariqi = mInfoDate.getText().toString();
                 checkItem.year = strings.get(mInfoYear.getSelectedIndex());
                 checkItem.systime = calendar.getTimeInMillis();
@@ -112,12 +121,11 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
         strings.add("2020");
         calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         mInfoYear.setAdapter(new MaterialSpinnerAdapter<String>(context, strings));
+        mInfoDate.setText(Utils.dateFormat("", calendar.getTime()));
         if (checkItem != null) {
             if (!TextUtils.isEmpty(checkItem.jianchariqi)) {
                 mInfoDate.setText(checkItem.jianchariqi);
-                calendar.setTime(new Date(checkItem.systime));
-            } else {
-                mInfoDate.setText(Utils.dateFormat("", calendar.getTime()));
+                calendar.setTime(new Date(checkItem.jianchariqi));
             }
             if (!TextUtils.isEmpty(checkItem.year)) {
                 int positon = 0;
@@ -165,6 +173,8 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
                     calendar.get(Calendar.DAY_OF_MONTH) // Inital day selection
             );
         }
-        pickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
+        if (!pickerDialog.isAdded()) {
+            pickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
+        }
     }
 }

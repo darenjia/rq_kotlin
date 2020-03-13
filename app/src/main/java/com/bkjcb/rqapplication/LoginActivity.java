@@ -2,7 +2,6 @@ package com.bkjcb.rqapplication;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -132,24 +131,6 @@ public class LoginActivity extends SimpleBaseActivity {
 
     private void login(String name, String password) {
         showLoading();
-       /* retrofit = new Retrofit
-                .Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<String> call=retrofit.create(String.class)
-                .getLogin(name, MD5Util.encode(password));
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.w("ds",response.message());
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.w("ds",t.getMessage());
-            }
-        });*/
         disposable = retrofit.create(DataService.class)
                 .getLoginUser(name, MD5Util.encode(password))
                 .subscribeOn(Schedulers.io())
@@ -199,8 +180,9 @@ public class LoginActivity extends SimpleBaseActivity {
         finish();
     }
 
+
     private void showSnackbar(String message) {
-        Snackbar.make(mUsername, message, Snackbar.LENGTH_LONG).show();
+        showSnackbar(mUsername, message);
     }
 
     @Override

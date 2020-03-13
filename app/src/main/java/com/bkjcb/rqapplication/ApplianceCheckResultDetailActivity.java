@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.bkjcb.rqapplication.ftp.FtpUtils;
 import com.bkjcb.rqapplication.ftp.UploadTask;
@@ -10,9 +11,11 @@ import com.bkjcb.rqapplication.model.ApplianceCheckResultItem_;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.ApplianceCheckService;
+import com.bkjcb.rqapplication.util.Utils;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +47,11 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
     protected void submitResult() {
         showLoading(true);
         List<ApplianceCheckResultItem> list = queryResult();
-        disposable = UploadTask.createUploadTask(Arrays.asList(checkItem.filePath.split(",")), "", new FtpUtils.UploadProgressListener() {
+        List<String> paths = new ArrayList<>();
+        if (!TextUtils.isEmpty(checkItem.filePath)) {
+            paths.addAll(Arrays.asList(checkItem.filePath.split(",")));
+        }
+        disposable = UploadTask.createUploadTask(paths, Utils.getFTPPath(checkItem), new FtpUtils.UploadProgressListener() {
             @Override
             public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
 
@@ -58,31 +65,34 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                             switch (checkItem.zhandianleixing) {
                                 case "维修检查企业":
                                     return service.saveDailyCheck(
-                                            checkItem.c_id,
-                                            MyApplication.user.getUserName(),
+                                            null,
+                                            checkItem.checkMan,
                                             checkItem.beijiandanweiid,
                                             checkItem.jianchariqi,
                                             checkItem.beizhu,
                                             getItemsID(list),
-                                            getItemsResult(list));
+                                            getItemsResult(list),
+                                            Utils.getFTPPath(checkItem));
                                 case "报警器企业":
                                     return service.saveAlarmDailyCheck(
-                                            checkItem.c_id,
-                                            MyApplication.user.getUserName(),
+                                            null,
+                                            checkItem.checkMan,
                                             checkItem.beijiandanweiid,
                                             checkItem.jianchariqi,
                                             checkItem.beizhu,
                                             getItemsID(list),
-                                            getItemsResultRecord(list));
+                                            getItemsResultRecord(list),
+                                            Utils.getFTPPath(checkItem));
                                 case "销售企业":
                                     return service.saveSaleDailyCheck(
-                                            checkItem.c_id,
-                                            MyApplication.user.getUserName(),
+                                            null,
+                                            checkItem.checkMan,
                                             checkItem.beijiandanweiid,
                                             checkItem.jianchariqi,
                                             checkItem.beizhu,
                                             getItemsID(list),
-                                            getItemsResult(list));
+                                            getItemsResult(list),
+                                            Utils.getFTPPath(checkItem));
                                 default:
                                     return null;
                             }
@@ -98,7 +108,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                         if (result.pushState == 200) {
                             updateTaskStatus();
                         }
-                        showTipInfo(result.pushMsg);
+                        showTipInfo(result.pushState + result.pushMsg);
                         showLoading(false);
                     }
                 }, new Consumer<Throwable>() {
@@ -127,29 +137,31 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
 
     }
 
-    private String[] getItemsID(List<ApplianceCheckResultItem> list) {
-        String[] strings = new String[list.size()];
+    private String getItemsID(List<ApplianceCheckResultItem> list) {
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            strings[i] = list.get(i).jianchaxiangid;
+            builder.append(list.get(i).jianchaxiangid).append(",");
         }
-        return strings;
+        return builder.substring(0, builder.length() - 1);
     }
 
-    private String[] getItemsResult(List<ApplianceCheckResultItem> list) {
+    private String getItemsResult(List<ApplianceCheckResultItem> list) {
         Gson gson = new Gson();
-        String[] strings = new String[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            strings[i] = gson.toJson(list.get(i));
-        }
-        return strings;
+        return gson.toJson(list);
     }
 
-    private String[] getItemsResultRecord(List<ApplianceCheckResultItem> list) {
-        String[] strings = new String[list.size()];
+
+
+    private String getItemsResultRecord(List<ApplianceCheckResultItem> list) {
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            strings[i] = list.get(i).content;
+            if (TextUtils.isEmpty(list.get(i).content)) {
+                builder.append("").append(",");
+            } else {
+                builder.append(list.get(i).content).append(",");
+            }
         }
-        return strings;
+        return builder.substring(0, builder.length() - 1);
     }
 
     private List<ApplianceCheckResultItem> queryResult() {

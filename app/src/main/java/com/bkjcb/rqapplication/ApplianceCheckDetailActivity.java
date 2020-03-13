@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.bkjcb.rqapplication.adapter.ViewPagerAdapter;
@@ -34,8 +35,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StyledDialog
-                .init(this);
+        StyledDialog.init(this);
     }
 
     protected Box<ApplianceCheckResultItem> checkResultItemBox;
@@ -46,12 +46,37 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
         } else {
 
         }*/
-        createRemarkDialog();
+        ApplianceCheckItemDetailFragment fragment;
+        if (fragmentList.get(mViewPager.getCurrentItem()) instanceof ApplianceCheckItemDetailFragment) {
+            fragment = (ApplianceCheckItemDetailFragment) fragmentList.get(mViewPager.getCurrentItem());
+            fragment.saveData();
+        }
+        int pager = 0;
+        if ((pager = verify()) == -1) {
+            createRemarkDialog();
+        } else {
+            mViewPager.setCurrentItem(pager, true);
+            fragment = (ApplianceCheckItemDetailFragment) fragmentList.get(pager);
+            fragment.scrollToBottom();
+            showSnackbar(mViewPager, "请填写检查内容记录");
+        }
         /* */
     }
 
     @Override
     protected void getCheckContent() {
+        List<ApplianceCheckContentItem> list = ApplianceCheckContentItem.getContentItems(checkItem.c_id);
+        if (list.size() > 0) {
+            initCheckData(list);
+            initImageListView();
+            hideEmptyView();
+        } else {
+            getDataFromNet();
+        }
+
+    }
+
+    protected void getDataFromNet() {
         disposable = retrofit.create(ApplianceCheckService.class)
                 .getFixCheckItem()
                 .subscribeOn(Schedulers.io())
@@ -60,6 +85,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
                     @Override
                     public void accept(ApplianceCheckResult result) throws Exception {
                         if (result.pushState == 200 && result.getDatas() != null && result.getDatas().size() > 0) {
+                            saveCheckContent(result.getDatas());
                             initCheckData(result.getDatas());
                             initImageListView();
                             hideEmptyView();
@@ -74,6 +100,13 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
                         getDateFail(throwable.getMessage());
                     }
                 });
+    }
+
+    protected void saveCheckContent(List<ApplianceCheckContentItem> datas) {
+        for (ApplianceCheckContentItem item : datas) {
+            item.setCid(checkItem.c_id);
+        }
+        ApplianceCheckContentItem.getBox().put(datas);
     }
 
     protected void initCheckData(List<ApplianceCheckContentItem> datas) {
@@ -99,6 +132,9 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     protected void saveResultItem(String cid, String uid) {
         if (checkResultItemBox.query().equal(ApplianceCheckResultItem_.jianchaid, cid).and().equal(ApplianceCheckResultItem_.jianchaxiangid, uid).build().count() == 0) {
             ApplianceCheckResultItem resultItem = new ApplianceCheckResultItem(cid, uid);
+            resultItem.content = "";
+            resultItem.remark = "";
+            resultItem.ischeck = "1";
             checkResultItemBox.put(resultItem);
         }
     }
@@ -147,4 +183,23 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
         finish();
     }
 
+    private int verify() {
+        ApplianceCheckResultItem resultItem;
+        List<ApplianceCheckContentItem> contentItems = ApplianceCheckContentItem.getContentItems(checkItem.c_id);
+        for (int i = 0; i < contentItems.size(); i++) {
+            ApplianceCheckContentItem item = contentItems.get(i);
+            if ((resultItem = queryResult(item.getGuid())) != null) {
+                if (resultItem.ischeck.equals("0")) {
+                    if ((!TextUtils.isEmpty(item.getCheakrecord()) || !TextUtils.isEmpty(item.getCheakrecord2())) && (TextUtils.isEmpty(resultItem.content)) && TextUtils.isEmpty(resultItem.remark)) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    private ApplianceCheckResultItem queryResult(String id) {
+        return ApplianceCheckResultItem.getBox().query().equal(ApplianceCheckResultItem_.jianchaid, checkItem.c_id).equal(ApplianceCheckResultItem_.jianchaxiangid, id).build().findUnique();
+    }
 }

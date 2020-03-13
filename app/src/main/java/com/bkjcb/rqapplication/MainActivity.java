@@ -12,6 +12,8 @@ import com.bkjcb.rqapplication.adapter.LocalImageHolderView;
 import com.bkjcb.rqapplication.adapter.MenuGridAdapter;
 import com.bkjcb.rqapplication.model.MenuItem;
 import com.bkjcb.rqapplication.view.MyGridView;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +45,16 @@ public class MainActivity extends SimpleBaseActivity {
         initMenu();
         initBanner();
         initMessage();
+        //getIPConfig();
     }
 
     private void initMessage() {
 
     }
 
+    private void getIPConfig() {
+        Constants.BASE_URL = getSharedPreferences().getString("ip", Constants.BASE_URL);
+    }
 
     private void initMenu() {
         MenuGridAdapter adapter = new MenuGridAdapter(MenuItem.getAllMenu());
@@ -61,16 +67,23 @@ public class MainActivity extends SimpleBaseActivity {
                         GasMainActivity.ToActivity(MainActivity.this);
                         break;
                     case 1:
-                        CheckMainActivity.ToActivity(MainActivity.this,0);
+                        CheckMainActivity.ToActivity(MainActivity.this, 0);
                         break;
                     case 2:
-                        CheckMainActivity.ToActivity(MainActivity.this,1);
+                        CheckMainActivity.ToActivity(MainActivity.this, 1);
                         break;
                     case 3:
                         ContactActivity.ToActivity(MainActivity.this);
                         break;
+                    case 4:
+                        ActionRegisterActivity.ToActivity(MainActivity.this);
+                        break;
+                    case 5:
+                        //showDialogChangeIP();
+                        break;
                     default:
                 }
+
             }
         });
     }
@@ -93,6 +106,28 @@ public class MainActivity extends SimpleBaseActivity {
         }, list)
                 .startTurning(5000)
                 .setPageIndicator(new int[]{R.drawable.vector_drawable_dot_normal, R.drawable.vector_drawable_dot_focus});
+    }
+
+    private void showDialogChangeIP() {
+        StyledDialog.init(this);
+        StyledDialog.buildNormalInput("IP", "ip", "", Constants.BASE_URL, "", new MyDialogListener() {
+            @Override
+            public void onFirst() {
+
+            }
+
+            @Override
+            public void onSecond() {
+
+            }
+
+            @Override
+            public void onGetInput(CharSequence input1, CharSequence input2) {
+                super.onGetInput(input1, input2);
+                Constants.BASE_URL = input1.toString();
+                getSharedPreferences().edit().putString("ip", Constants.BASE_URL).apply();
+            }
+        }).setBtnText("修改").show();
     }
 
 }

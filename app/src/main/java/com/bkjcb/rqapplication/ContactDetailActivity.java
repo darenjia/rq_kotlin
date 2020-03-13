@@ -31,7 +31,6 @@ public class ContactDetailActivity extends ContactActivity {
 
     @Override
     protected void initData() {
-        super.initData();
     }
 
     public static void ToActivity(Context context, int type) {
