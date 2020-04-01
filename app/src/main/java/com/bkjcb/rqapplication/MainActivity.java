@@ -79,7 +79,7 @@ public class MainActivity extends SimpleBaseActivity {
                         ActionRegisterActivity.ToActivity(MainActivity.this);
                         break;
                     case 5:
-                        //showDialogChangeIP();
+                        EmergencyActivity.ToActivity(MainActivity.this);
                         break;
                     default:
                 }

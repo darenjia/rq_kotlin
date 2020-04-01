@@ -103,6 +103,7 @@ dependencies {
 
     //DatePicker
     implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
+    //PicturePicker
     implementation project(path: ':picture_library')
 
     //AutoFitTextView
@@ -132,6 +133,10 @@ dependencies {
     implementation project(path: ':androidtagview')
     //FilePicker
     implementation 'com.leon:lfilepickerlibrary:1.8.0'
+    //TimePicker
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    //BigImageView
+    implementation 'com.github.piasy:BigImageViewer:1.5.7'
 
 }
 apply plugin: 'io.objectbox'

@@ -32,6 +32,8 @@
         android:maxLines="1"
         android:singleLine="true"
         android:text="城投办事处"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
         android:textSize="16sp" />
 
     <TextView
@@ -42,6 +44,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="20dp"
         android:text="金山区"
+        android:textColor="@color/colorSecondDrayText"
         android:textSize="14sp"
         android:visibility="visible" />
 

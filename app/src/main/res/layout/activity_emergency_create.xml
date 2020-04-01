@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/with_bg_top_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorText"
+                        android:paddingBottom="4dp">
+
+                        <TextView
+                            android:id="@+id/reporter_info_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_type_1"
+                            android:padding="10dp"
+                            android:text="报送单位信息"
+                            android:textColor="@color/colorText" />
+
+
+                        <TextView
+                            android:id="@+id/reporter_info_address_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_title"
+                            android:layout_marginTop="2dp"
+                            android:background="@color/colorText"
+                            android:padding="8dp"
+                            android:text="报送单位" />
+
+                        <EditText
+                            android:id="@+id/reporter_info_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_title"
+                            android:layout_alignTop="@id/reporter_info_address_title"
+                            android:layout_alignBottom="@id/reporter_info_address_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/reporter_info_address_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:hint="请输入报送单位"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/reporter_info_location_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_address_title"
+                            android:layout_alignEnd="@id/reporter_info_address_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="所属区域" />
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/reporter_info_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_address_title"
+                            android:layout_alignTop="@id/reporter_info_location_title"
+                            android:layout_alignBottom="@id/reporter_info_location_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/reporter_info_location_title"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size"
+                            app:ms_background_color="@color/colorLightGray"
+                            app:ms_dropdown_max_height="200dp"
+                            android:hint="请选择区属"
+                            app:ms_padding_bottom="4dp"
+                            app:ms_padding_left="10dp"
+                            app:ms_padding_top="4dp"
+                            app:ms_popup_padding_bottom="4dp"
+                            app:ms_popup_padding_left="10dp"
+                            app:ms_popup_padding_top="4dp" />
+
+                        <TextView
+                            android:id="@+id/reporter_info_time_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_location_title"
+                            android:layout_alignEnd="@id/reporter_info_location_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="start"
+                            android:padding="8dp"
+                            android:text="报送时间" />
+
+                        <TextView
+                            android:id="@+id/reporter_info_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_location_title"
+                            android:layout_alignTop="@id/reporter_info_time_title"
+                            android:layout_alignBottom="@id/reporter_info_time_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/reporter_info_time_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:gravity="center_vertical"
+                            android:hint="年/月/日 时:分"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/reporter_info_name_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_time_title"
+                            android:layout_alignEnd="@id/reporter_info_time_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="报送人员" />
+
+                        <EditText
+                            android:id="@+id/reporter_info_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_time_title"
+                            android:layout_alignTop="@id/reporter_info_name_title"
+                            android:layout_alignBottom="@id/reporter_info_name_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/reporter_info_name_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:hint="请输入报送人员姓名"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/reporter_info_tel_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_name_title"
+                            android:layout_alignEnd="@id/reporter_info_name_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="联系方式" />
+
+                        <EditText
+                            android:id="@+id/reporter_info_tel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/reporter_info_name_title"
+                            android:layout_alignTop="@id/reporter_info_tel_title"
+                            android:layout_alignBottom="@id/reporter_info_tel_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/reporter_info_tel_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:gravity="center_vertical"
+                            android:hint="请输入报送人员联系方式"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorText"
+                        android:paddingBottom="4dp">
+
+                        <TextView
+                            android:id="@+id/base_info_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_type_0"
+                            android:padding="10dp"
+                            android:text="突发事件信息"
+                            android:textColor="@color/colorText" />
+
+
+                        <TextView
+                            android:id="@+id/base_info_address_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_title"
+                            android:layout_marginTop="2dp"
+                            android:background="@color/colorText"
+                            android:padding="8dp"
+                            android:text="发生地点" />
+
+                        <EditText
+                            android:id="@+id/base_info_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_title"
+                            android:layout_alignTop="@id/base_info_address_title"
+                            android:layout_alignBottom="@id/base_info_address_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/base_info_address_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:hint="请输入事件发生地点"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/base_info_time_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_address_title"
+                            android:layout_alignEnd="@id/base_info_address_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="发生时间" />
+
+                        <TextView
+                            android:id="@+id/base_info_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_address_title"
+                            android:layout_alignTop="@id/base_info_time_title"
+                            android:layout_alignBottom="@id/base_info_time_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/base_info_time_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:gravity="center_vertical"
+                            android:hint="年/月/日 时:分:秒"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/base_info_des_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="180dp"
+                            android:layout_below="@id/base_info_time_title"
+                            android:layout_alignEnd="@id/base_info_time_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="start"
+                            android:padding="8dp"
+                            android:text="情况描述" />
+
+                        <EditText
+                            android:id="@+id/base_info_des"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_time_title"
+                            android:layout_alignTop="@id/base_info_des_title"
+                            android:layout_alignBottom="@id/base_info_des_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/base_info_des_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:gravity="start"
+                            android:hint="@string/emergency_tip"
+                            android:maxLines="1"
+                            android:padding="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/base_info_department_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_des_title"
+                            android:layout_alignEnd="@id/base_info_des_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="处置单位" />
+
+                        <EditText
+                            android:id="@+id/base_info_department"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_des_title"
+                            android:layout_alignTop="@id/base_info_department_title"
+                            android:layout_alignBottom="@id/base_info_department_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/base_info_department_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:hint="请输入处置单位名称"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/base_info_people_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_department_title"
+                            android:layout_alignEnd="@id/base_info_department_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="主要人员" />
+
+                        <EditText
+                            android:id="@+id/base_info_people"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_department_title"
+                            android:layout_alignTop="@id/base_info_people_title"
+                            android:layout_alignBottom="@id/base_info_people_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/base_info_people_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:gravity="center_vertical"
+                            android:hint="请输入主要人员"
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+                        <TextView
+                            android:id="@+id/base_info_remark_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_people_title"
+                            android:layout_alignEnd="@id/base_info_people_title"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorText"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="备注" />
+
+                        <EditText
+                            android:id="@+id/base_info_remark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/base_info_people_title"
+                            android:layout_alignTop="@id/base_info_remark_title"
+                            android:layout_alignBottom="@id/base_info_remark_title"
+                            android:layout_margin="1dp"
+                            android:layout_toEndOf="@id/base_info_remark_title"
+                            android:background="@drawable/edit_text_bg"
+                            android:gravity="center_vertical"
+                            android:hint=""
+                            android:maxLines="1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/colorSecondDrayText"
+                            android:textSize="@dimen/normal_font_size" />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="4dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorTextForth"
+                            android:padding="10dp"
+                            android:text="现场信息"
+                            android:textColor="@color/colorText" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/file_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_marginTop="1dp" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/colorSetting"
+                    android:text="提交"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/normal_font_size" />
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

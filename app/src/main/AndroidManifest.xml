@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MyApplication"
@@ -33,7 +34,6 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,21 +42,72 @@
         <activity android:name=".AddUserActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".GasMainActivity" />
-        <activity android:name=".CheckMainActivity" />
-        <activity android:name=".CreateCheckTaskActivity" />
-        <activity android:name=".CheckDetailActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".CheckResultDetailActivity" />
-        <activity android:name=".ContactActivity" />
-        <activity android:name=".CreateApplianceCheckTaskActivity" />
-        <activity android:name=".ApplianceCheckResultDetailActivity" />
-        <activity android:name=".ApplianceCheckDetailActivity" />
-        <activity android:name=".AlarmCheckDetailActivity" />
-        <activity android:name=".SellCheckDetailActivity" />
-        <activity android:name=".ContactDetailActivity" />
-        <activity android:name=".ActionRegisterActivity" />
-        <activity android:name=".CreateActionRegisterActivity" />
-        <activity android:name=".ContactSearchActivity" />
+        <activity
+            android:name=".CheckMainActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".CreateCheckTaskActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".CheckDetailActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".CheckResultDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ContactActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".CreateApplianceCheckTaskActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ApplianceCheckResultDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ApplianceCheckDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".AlarmCheckDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".SellCheckDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ContactDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ActionRegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".CreateActionRegisterActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ContactSearchActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".CreateEmergencyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".EmergencyActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".MediaPlayActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ContactDepartmentActivity"
+            android:launchMode="singleTop" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.bkjcb.rqapplication.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

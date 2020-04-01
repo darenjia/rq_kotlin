@@ -15,16 +15,29 @@
         android:background="@color/colorGray"
         android:orientation="vertical">
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorText"
-            android:drawableEnd="@drawable/vector_drawable_edit"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="基本信息详情"
-            android:textSize="@dimen/sp_16"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorText"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="基本信息详情"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/info_edit"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/vector_drawable_edit" />
+        </FrameLayout>
+
 
         <include layout="@layout/horizontal_divider" />
 
@@ -132,6 +145,7 @@
                 android:textSize="@dimen/sp_16" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,6 +171,7 @@
                 android:textSize="@dimen/sp_16" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -245,6 +245,7 @@
                             android:gravity="start"
                             android:paddingStart="10dp"
                             android:paddingTop="10dp"
+                            android:hint="请输入案情简单介绍"
                             android:paddingEnd="10dp"
                             android:textColor="@color/colorSecondDrayText"
                             android:textSize="@dimen/normal_font_size" />
@@ -571,6 +572,7 @@
                             android:layout_toEndOf="@id/undertaker_info_remark_title"
                             android:background="@drawable/edit_text_bg"
                             android:gravity="start"
+                            android:hint="请输入承办人意见"
                             android:paddingStart="10dp"
                             android:paddingTop="10dp"
                             android:paddingEnd="10dp"

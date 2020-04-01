@@ -7,7 +7,7 @@ import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Transient;
 
 @Entity
-public class User {
+public class User extends ContactBaseModel{
     @Id(assignable = true)
     long id;
 

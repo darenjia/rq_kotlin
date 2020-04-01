@@ -67,11 +67,20 @@ public class CreateCheckTaskActivity extends SimpleBaseActivity {
         context.startActivity(intent);
     }
 
+    public static void ToActivity(Context context, CheckItem checkItem) {
+        Intent intent = new Intent(context, CreateCheckTaskActivity.class);
+        intent.putExtra("Data", checkItem);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void initData() {
         initRetrofit();
         replaceView(checkTypeFragment);
-        checkItem = new CheckItem();
+        checkItem = (CheckItem) getIntent().getSerializableExtra("Data");
+        if (checkItem == null) {
+            checkItem = new CheckItem();
+        }
         checkTypeFragment.setCheckItem(checkItem);
         stationFragment.setCheckItem(checkItem);
         infoFragment.setCheckItem(checkItem);

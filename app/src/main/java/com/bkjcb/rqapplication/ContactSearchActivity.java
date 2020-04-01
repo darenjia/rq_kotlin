@@ -3,7 +3,7 @@ package com.bkjcb.rqapplication;
 import android.content.Context;
 import android.content.Intent;
 
-import com.bkjcb.rqapplication.fragment.ContactMainFragment;
+import com.bkjcb.rqapplication.fragment.ContactSearchFragment;
 import com.bkjcb.rqapplication.model.User;
 import com.hss01248.dialog.StyledDialog;
 
@@ -22,14 +22,18 @@ public class ContactSearchActivity extends ContactActivity {
     protected void initView() {
         StyledDialog.init(this);
         initTopbar("搜索");
-        ContactMainFragment mainFragment = new ContactMainFragment();
-        mainFragment.setListener(new ContactMainFragment.OnClickListener() {
+    }
+
+    @Override
+    protected void initData() {
+        ContactSearchFragment mainFragment = new ContactSearchFragment();
+        mainFragment.setListener(new ContactSearchFragment.OnClickListener() {
             @Override
             public void onClick(User user) {
                 alertUserInfo(user);
             }
         });
-
+        getSupportFragmentManager().beginTransaction().add(R.id.contact_content, mainFragment).commit();
     }
 
     public static void ToActivity(Context context) {

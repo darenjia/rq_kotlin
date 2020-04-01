@@ -48,7 +48,7 @@ public class MenuItem {
         list.add(new MenuItem("物料管理", R.drawable.main_menu_consume, 7));
         list.add(new MenuItem("质量评估", R.drawable.main_menu_check, 8));*/
         list.add(new MenuItem("稽查执法", R.drawable.main_menu_select, 5));
-        list.add(new MenuItem("统计分析", R.drawable.main_menu_statistics, 10));
+        list.add(new MenuItem("事故现场", R.drawable.main_menu_statistics, 6));
         list.add(new MenuItem("通知公告", R.drawable.main_menu_message, 11));
         list.add(new MenuItem("查看更多", R.drawable.main_menu_more, 12));
         return list;

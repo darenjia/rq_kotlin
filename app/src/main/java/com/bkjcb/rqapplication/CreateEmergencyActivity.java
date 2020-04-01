@@ -1,5 +1,6 @@
 package com.bkjcb.rqapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
@@ -9,23 +10,32 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.bkjcb.rqapplication.adapter.FileListAdapter;
 import com.bkjcb.rqapplication.ftp.FtpUtils;
 import com.bkjcb.rqapplication.ftp.UploadTask;
-import com.bkjcb.rqapplication.model.ActionRegisterItem;
+import com.bkjcb.rqapplication.model.CheckStation;
+import com.bkjcb.rqapplication.model.CheckStationResult;
+import com.bkjcb.rqapplication.model.EmergencyItem;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.MediaFile;
-import com.bkjcb.rqapplication.retrofit.ActionRegsiterService;
+import com.bkjcb.rqapplication.retrofit.CheckService;
+import com.bkjcb.rqapplication.retrofit.EmergencyService;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
 import com.luck.picture.lib.PictureSelector;
@@ -33,13 +43,11 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,63 +61,52 @@ import io.reactivex.schedulers.Schedulers;
  * Created by DengShuai on 2020/3/9.
  * Description :
  */
-public class CreateActionRegisterActivity extends SimpleBaseActivity implements DatePickerDialog.OnDateSetListener {
+public class CreateEmergencyActivity extends SimpleBaseActivity {
 
-    @BindView(R.id.base_info_from)
-    EditText mBaseInfoFrom;
-    @BindView(R.id.base_info_di)
-    EditText mBaseInfoDi;
-    @BindView(R.id.base_info_zi)
-    EditText mBaseInfoZi;
-    @BindView(R.id.base_info_hao)
-    EditText mBaseInfoHao;
-    @BindView(R.id.base_info_time)
-    TextView mBaseInfoTime;
-    @BindView(R.id.base_info_address)
-    EditText mBaseInfoAddress;
-    @BindView(R.id.base_info_detail)
-    EditText mBaseInfoDetail;
-    @BindView(R.id.litigant_info_name)
-    EditText mLitigantInfoName;
-    @BindView(R.id.litigant_info_address)
-    EditText mLitigantInfoAddress;
-    @BindView(R.id.litigant_info_tel)
-    EditText mLitigantInfoTel;
-    @BindView(R.id.informer_info_name)
-    EditText mInformerInfoName;
-    @BindView(R.id.informer_info_address)
-    EditText mInformerInfoAddress;
-    @BindView(R.id.informer_info_tel)
-    EditText mInformerInfoTel;
-    @BindView(R.id.undertaker_info_name)
-    EditText mUndertakerInfoName;
-    @BindView(R.id.undertaker_info_time)
-    TextView mUndertakerInfoTime;
-    @BindView(R.id.undertaker_info_remark)
-    EditText mUndertakerInfoRemark;
     @BindView(R.id.file_info)
     RecyclerView mFileInfo;
     @BindView(R.id.submit)
     Button mSubmit;
-    private DatePickerDialog pickerDialog;
-    private Calendar calendar;
-    private ActionRegisterItem item;
+    @BindView(R.id.reporter_info_address)
+    EditText mReporterInfoAddress;
+    @BindView(R.id.reporter_info_location)
+    MaterialSpinner mReporterInfoLocation;
+    @BindView(R.id.reporter_info_time)
+    TextView mReporterInfoTime;
+    @BindView(R.id.reporter_info_name)
+    EditText mReporterInfoName;
+    @BindView(R.id.reporter_info_tel)
+    EditText mReporterInfoTel;
+    @BindView(R.id.base_info_address)
+    EditText mBaseInfoAddress;
+    @BindView(R.id.base_info_time)
+    TextView mBaseInfoTime;
+    @BindView(R.id.base_info_des)
+    EditText mBaseInfoDes;
+    @BindView(R.id.base_info_department)
+    EditText mBaseInfoDepartment;
+    @BindView(R.id.base_info_people)
+    EditText mBaseInfoPeople;
+    @BindView(R.id.base_info_remark)
+    EditText mBaseInfoRemark;
+    private EmergencyItem item;
     private TextView currentView;
     private boolean isCanEditable = true;
     private FileListAdapter imageAdapter;
     private List<MediaFile> fileList;
     private int request_code_file = 1000;
     private QMUIBottomSheet bottomSheet;
+    private TimePickerView pickerDialog;
 
     @Override
     protected int setLayoutID() {
-        return R.layout.activity_register_create;
+        return R.layout.activity_emergency_create;
     }
 
     @Override
     protected void initView() {
         super.initView();
-        initTopbar("新建立案", new View.OnClickListener() {
+        initTopbar("新建事故现场", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onExit();
@@ -127,7 +124,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(CreateActionRegisterActivity.this, ((MediaFile) adapter.getItem(position)).getPath());
+                MediaPlayActivity.ToActivity(CreateEmergencyActivity.this, ((MediaFile) adapter.getItem(position)).getPath());
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -171,16 +168,15 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
     @Override
     protected void initData() {
         StyledDialog.init(this);
-        calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
-        item = (ActionRegisterItem) getIntent().getSerializableExtra("data");
+        //calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
+        item = (EmergencyItem) getIntent().getSerializableExtra("data");
         initRetrofit();
         if (item == null) {
-            item = new ActionRegisterItem();
+            item = new EmergencyItem();
             item.setStatus(0);
             item.setSystime(System.currentTimeMillis());
             item.setUuid(Utils.getUUID());
             item.setUserId(MyApplication.user.getUserId());
-            item.setWid("null");
             item.setPhoneftp(getFtpRemotePath(item.getUuid()));
         } else {
             isCanEditable = item.getStatus() != 2;
@@ -189,11 +185,62 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
             }
             loadData();
         }
+        getDistrictName();
         initFileView();
     }
 
+    private void getDistrictName() {
+        disposable = retrofit.create(CheckService.class)
+                .getCheckUnit("区", null)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .map(new Function<CheckStationResult, List<String>>() {
+                    @Override
+                    public List<String> apply(CheckStationResult checkStationResult) throws Exception {
+                        if (checkStationResult.pushState == 200) {
+                            return getLocationList(checkStationResult.getDatas());
+                        }
+                        return null;
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    if (result != null) {
+                        mReporterInfoLocation.setAdapter(new MaterialSpinnerAdapter<>(this, result));
+                        if (!TextUtils.isEmpty(item.getQushu())) {
+                            for (int i = 0; i < result.size(); i++) {
+                                if (item.getQushu().equals(result.get(i))) {
+                                    mReporterInfoLocation.setSelectedIndex(i);
+                                    break;
+                                }
+                            }
+                        }
+                        if (!isCanEditable){
+                            mReporterInfoLocation.setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(this, "获取列表失败！", Toast.LENGTH_SHORT).show();
+                    }
+
+                }, throwable -> {
+                    Toast.makeText(this, "获取列表失败！" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private List<String> getLocationList(List<CheckStation> list) {
+        if (list != null && list.size() > 0) {
+            List<String> strings = new ArrayList<>(list.size());
+            for (CheckStation station :
+                    list) {
+                strings.add(station.getQiyemingcheng());
+            }
+            return strings;
+        }
+        return null;
+    }
+
     private void onExit() {
-        if (item.getStatus() != 2 && !isSave()) {
+        if (item.getStatus() != 2) {
             showTipDialog();
         } else {
             finish();
@@ -206,29 +253,23 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
     }
 
     private void saveData() {
-        item.setCase_source(getText(mBaseInfoFrom));
-        item.setDi(getText(mBaseInfoDi));
-        item.setZi(getText(mBaseInfoZi));
-        item.setHao(getText(mBaseInfoHao));
-        item.setCrime_time(getText(mBaseInfoTime));
-        item.setCrime_address(getText(mBaseInfoAddress));
-        item.setCase_introduction(getText(mBaseInfoDetail));
-
-        item.setParty(getText(mLitigantInfoName));
-        item.setParty_address(getText(mLitigantInfoAddress));
-        item.setParty_phone(getText(mLitigantInfoTel));
-
-        item.setReporter(getText(mInformerInfoName));
-        item.setReporter_address(getText(mInformerInfoAddress));
-        item.setReporter_phone(getText(mInformerInfoTel));
-
-        item.setUndertaker(getText(mUndertakerInfoName));
-        item.setUndertaker_time(getText(mUndertakerInfoTime));
-        item.setUndertaker_opinion(getText(mUndertakerInfoRemark));
-        item.setStatus(1);
-        long id = ActionRegisterItem.getBox().put(item);
-        if (item.id == 0) {
-            item.id = id;
+        if (verify(mBaseInfoAddress) && verify(mBaseInfoTime)) {
+            item.setAccidentAddress(getText(mBaseInfoAddress));
+            item.setAccidentDate(getText(mBaseInfoTime));
+            item.setMainDescription(getText(mBaseInfoDes));
+            item.setDisposalPerson(getText(mBaseInfoDepartment));
+            item.setKeyPerson(getText(mBaseInfoPeople));
+            item.setRemark(getText(mBaseInfoRemark));
+            item.setReportingUnit(getText(mReporterInfoAddress));
+            item.setReportingStaff(getText(mReporterInfoName));
+            item.setQushu(mReporterInfoLocation.getText().toString());
+            item.setReportingDate(getText(mReporterInfoTime));
+            item.setContactPhone(getText(mReporterInfoTel));
+            item.setStatus(1);
+            long id = EmergencyItem.getBox().put(item);
+            if (item.id == 0) {
+                item.id = id;
+            }
         }
     }
 
@@ -241,6 +282,9 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
     }
 
     private void submitData() {
+        if (!verify()) {
+            return;
+        }
         showLoading(true);
         disposable = UploadTask.createUploadTask(getFilePath(fileList), item.getPhoneftp(), new FtpUtils.UploadProgressListener() {
             @Override
@@ -251,61 +295,70 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? retrofit.create(ActionRegsiterService.class)
-                                .submit(item, MyApplication.user.getUserId()) : null;
+                        return aBoolean ? retrofit.create(EmergencyService.class)
+                                .submit(item.getUserId(),
+                                        item.getReportingUnit(),
+                                        item.getQushu(),
+                                        item.getRemark(),
+                                        item.getReportingDate(),
+                                        item.getAccidentDate(),
+                                        item.getAccidentAddress(),
+                                        item.getDisposalPerson(),
+                                        item.getKeyPerson(),
+                                        item.getReportingStaff(),
+                                        item.getContactPhone(),
+                                        item.getMainDescription(),
+                                        item.getPhoneftp()) : null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<HttpResult>() {
                     @Override
                     public void accept(HttpResult httpResult) throws Exception {
-                        showLoading(false);
                         if (httpResult.pushState == 200) {
-                            Toast.makeText(CreateActionRegisterActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+                            showLoading(false);
+                            Toast.makeText(CreateEmergencyActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                             updateStatus();
                             finish();
                         } else {
-                            Toast.makeText(CreateActionRegisterActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateEmergencyActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         showLoading(false);
-                        Toast.makeText(CreateActionRegisterActivity.this, "提交失败：" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateEmergencyActivity.this, "提交失败：" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    private void hideSoftInput(){
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()){
+            inputMethodManager.hideSoftInputFromWindow(mBaseInfoRemark.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
     private String getFtpRemotePath(String uuid) {
-        return "jichazhifa/lian/" + uuid;
+        return "shiguxianchang/" + uuid;
     }
 
     private void updateStatus() {
         item.setStatus(2);
-        ActionRegisterItem.getBox().put(item);
+        EmergencyItem.getBox().put(item);
     }
 
     private void loadData() {
-        setText(mBaseInfoFrom, item.getCase_source());
-        setText(mBaseInfoDi, item.getDi());
-        setText(mBaseInfoZi, item.getZi());
-        setText(mBaseInfoHao, item.getHao());
-        setText(mBaseInfoTime, item.getCrime_time());
-        setText(mBaseInfoAddress, item.getCrime_address());
-        setText(mBaseInfoDetail, item.getCase_introduction());
-
-        setText(mLitigantInfoName, item.getParty());
-        setText(mLitigantInfoAddress, item.getParty_address());
-        setText(mLitigantInfoTel, item.getParty_phone());
-
-        setText(mInformerInfoName, item.getReporter());
-        setText(mInformerInfoAddress, item.getReporter_address());
-        setText(mInformerInfoTel, item.getReporter_phone());
-
-        setText(mUndertakerInfoName, item.getUndertaker());
-        setText(mUndertakerInfoTime, item.getUndertaker_time());
-        setText(mUndertakerInfoRemark, item.getUndertaker_opinion());
+        setText(mBaseInfoAddress, item.getAccidentAddress());
+        setText(mBaseInfoTime, item.getAccidentDate());
+        setText(mBaseInfoDes, item.getMainDescription());
+        setText(mBaseInfoDepartment, item.getDisposalPerson());
+        setText(mBaseInfoPeople, item.getKeyPerson());
+        setText(mReporterInfoAddress, item.getReportingUnit());
+        setText(mReporterInfoTel, item.getContactPhone());
+        setText(mReporterInfoTime, item.getReportingDate());
+        setText(mReporterInfoName, item.getReportingStaff());
+        setText(mBaseInfoRemark, item.getRemark());
     }
 
     private void showBottomMenu() {
@@ -386,16 +439,12 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         imageAdapter.setNewData(fileList);
     }
 
-    public static void ToActivity(Context context, ActionRegisterItem item) {
-        Intent intent = new Intent(context, CreateActionRegisterActivity.class);
+    public static void ToActivity(Context context, EmergencyItem item) {
+        Intent intent = new Intent(context, CreateEmergencyActivity.class);
         if (item != null) {
             intent.putExtra("data", item);
         }
         context.startActivity(intent);
-    }
-
-    private String getText(EditText view) {
-        return view.getText().toString();
     }
 
     private String getText(TextView view) {
@@ -422,47 +471,62 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         view.setText(text);
     }
 
-    @OnClick({R.id.base_info_time, R.id.undertaker_info_time, R.id.submit})
+    @OnClick({R.id.base_info_time, R.id.reporter_info_time, R.id.submit})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
+                break;
+            case R.id.reporter_info_time:
+                currentView = mReporterInfoTime;
+                createDatePicker();
                 break;
             case R.id.base_info_time:
                 currentView = mBaseInfoTime;
                 createDatePicker();
                 break;
-            case R.id.undertaker_info_time:
-                currentView = mUndertakerInfoTime;
-                createDatePicker();
-                break;
             case R.id.submit:
-                if (!isSave()) {
-                    saveData();
-                }
-                if (verify()) {
-                    submitData();
-                }
+                saveData();
+                submitData();
                 break;
         }
     }
 
     private void createDatePicker() {
-        if (pickerDialog == null) {
-            pickerDialog = DatePickerDialog.newInstance(
-                    this,
-                    calendar.get(Calendar.YEAR), // Initial year selection
-                    calendar.get(Calendar.MONTH), // Initial month selection
-                    calendar.get(Calendar.DAY_OF_MONTH) // Inital day selection
-            );
-        }
-        if (!pickerDialog.isAdded()) {
-            pickerDialog.show(getFragmentManager(), "DatePickerDialog");
-        }
-    }
 
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        currentView.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+        if (pickerDialog == null) {
+            pickerDialog = new TimePickerBuilder(this, new OnTimeSelectListener() {
+                @Override
+                public void onTimeSelect(Date date, View v) {//选中事件回调
+                    if (currentView.getId() == R.id.base_info_time) {
+                        currentView.setText(Utils.dateFormat("yyyy-MM-dd hh:mm:ss", date));
+                    } else {
+                        currentView.setText(Utils.dateFormat("yyyy-MM-dd hh:mm", date));
+                    }
+
+                }
+            })
+                    .setType(new boolean[]{true, true, true, true, true, true})// 默认全部显示
+                    .setCancelText("取消")//取消按钮文字
+                    .setSubmitText("确定")//确认按钮文字
+                    .setContentTextSize(16)//滚轮文字大小
+                    .setTitleSize(20)//标题文字大小
+                    .setTitleText("选择时间")//标题文字
+                    .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
+                    .isCyclic(true)//是否循环滚动
+                    .setTitleColor(getColorResource(R.color.colorText))//标题文字颜色
+                    .setSubmitColor(getColorResource(R.color.color_type_0))//确定按钮文字颜色
+                    .setCancelColor(getColorResource(R.color.colorText))//取消按钮文字颜色
+                    .setTitleBgColor(getColorResource(R.color.colorAccent))//标题背景颜色 Night mode
+                    .setBgColor(getColorResource(R.color.colorText))//滚轮背景颜色 Night mode
+                    .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                    .isCenterLabel(true) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                    .isDialog(false)//是否显示为对话框样式
+                    .build();
+        }
+        if (!pickerDialog.isShowing()) {
+            hideSoftInput();
+            pickerDialog.show();
+        }
     }
 
     private void showTipDialog() {
@@ -480,26 +544,23 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         }).setBtnText("保存并退出", "直接退出").show();
     }
 
+    private int getColorResource(int id) {
+        return getResources().getColor(id);
+    }
+
     private boolean verify() {
-        return verify(mBaseInfoFrom)
-                && verify(mBaseInfoDetail)
+        return verify(mBaseInfoAddress)
                 && verify(mBaseInfoTime)
-                && verify(mBaseInfoAddress)
-                && verify(mBaseInfoDi)
-                && verify(mBaseInfoZi)
-                && verify(mBaseInfoHao)
+                && verify(mBaseInfoDes)
+                && verify(mBaseInfoDepartment)
+                && verify(mBaseInfoPeople)
+                //&& verify(mBaseInfoRemark)
 
-                && verify(mLitigantInfoName)
-                && verify(mLitigantInfoAddress)
-                && verify(mLitigantInfoTel)
-
-                && verify(mInformerInfoName)
-                && verify(mInformerInfoAddress)
-                && verify(mInformerInfoTel)
-
-                && verify(mUndertakerInfoName)
-                && verify(mUndertakerInfoRemark)
-                && verify(mUndertakerInfoTime)
+                && verify(mReporterInfoName)
+                && verify(mReporterInfoTime)
+                && verify(mReporterInfoTel)
+                && verify(mReporterInfoLocation)
+                && verify(mReporterInfoAddress)
                 ;
     }
 
@@ -516,7 +577,4 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private boolean isSave() {
-        return TextUtils.isEmpty(getText(mBaseInfoFrom)) || TextUtils.isEmpty(getText(mBaseInfoTime)) || TextUtils.isEmpty(getText(mBaseInfoAddress));
-    }
 }

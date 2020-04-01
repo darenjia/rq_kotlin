@@ -168,7 +168,7 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
     protected void getStationData() {
         showRefreshing(true);
         disposable = retrofit.create(CheckService.class)
-                .getCheckUnit(stationType)
+                .getCheckUnit(stationType,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<CheckStationResult>() {

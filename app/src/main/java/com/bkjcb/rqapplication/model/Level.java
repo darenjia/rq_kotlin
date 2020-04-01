@@ -4,7 +4,7 @@ import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class Level {
+public class Level extends ContactBaseModel{
     @Id(assignable = true)
     long id;
 

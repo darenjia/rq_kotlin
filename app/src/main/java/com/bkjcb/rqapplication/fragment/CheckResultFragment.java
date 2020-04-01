@@ -1,11 +1,15 @@
 package com.bkjcb.rqapplication.fragment;
 
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bkjcb.rqapplication.CreateCheckTaskActivity;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.CheckItem;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by DengShuai on 2020/2/21.
@@ -27,6 +31,8 @@ public class CheckResultFragment extends BaseSimpleFragment {
     TextView mInfoRemark;
     @BindView(R.id.info_name)
     TextView mInfoName;
+    @BindView(R.id.info_edit)
+    ImageView mInfoEdit;
     protected CheckItem checkItem;
 
     public void setCheckItem(CheckItem checkItem) {
@@ -51,7 +57,14 @@ public class CheckResultFragment extends BaseSimpleFragment {
 
     @Override
     protected void initView() {
+        if (checkItem.status > 0) {
+            mInfoEdit.setVisibility(View.GONE);
+        }
+    }
 
+    @OnClick({R.id.info_edit})
+    public void OnClick(View view) {
+        CreateCheckTaskActivity.ToActivity(getContext(), checkItem);
     }
 
     @Override

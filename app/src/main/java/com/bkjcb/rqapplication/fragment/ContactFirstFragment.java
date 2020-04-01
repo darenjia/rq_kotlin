@@ -3,8 +3,6 @@ package com.bkjcb.rqapplication.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.ContactDetailActivity;
@@ -12,6 +10,9 @@ import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.adapter.EmergencyAdapter;
 import com.bkjcb.rqapplication.datebase.ContactDataUtil;
 import com.bkjcb.rqapplication.model.Emergency;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 
 import java.util.List;
 
@@ -22,13 +23,8 @@ import butterknife.OnClick;
  * Created by DengShuai on 2020/3/3.
  * Description :
  */
-public class ContactFirstFragment extends BaseSimpleFragment {
-    @BindView(R.id.station_search)
-    ImageView mStationSearch;
-    @BindView(R.id.station_name)
-    EditText mStationName;
-    @BindView(R.id.station_search_close)
-    ImageView mStationSearchClose;
+public class ContactFirstFragment extends BaseSimpleFragment implements BaseQuickAdapter.OnItemClickListener {
+
     @BindView(R.id.btn1)
     TextView mBtn1;
     @BindView(R.id.btn2)
@@ -39,6 +35,21 @@ public class ContactFirstFragment extends BaseSimpleFragment {
     TextView mHeader;
     @BindView(R.id.recycler)
     RecyclerView mRecycler;
+    private OnClickListener listener;
+
+    public void setListener(OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnClickListener {
+        void onClick(String tel);
+    }
+
+    public static ContactFirstFragment newInstance(OnClickListener listener) {
+        ContactFirstFragment fragment = new ContactFirstFragment();
+        fragment.setListener(listener);
+        return fragment;
+    }
 
     @Override
     public void setResId() {
@@ -47,10 +58,12 @@ public class ContactFirstFragment extends BaseSimpleFragment {
 
     @Override
     protected void initView() {
+        StyledDialog.init(getContext());
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         EmergencyAdapter adapter = new EmergencyAdapter(R.layout.item_emergency_view);
         mRecycler.setAdapter(adapter);
         adapter.setNewData(getEmergencyData());
+        adapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -74,5 +87,27 @@ public class ContactFirstFragment extends BaseSimpleFragment {
                 break;
         }
         ContactDetailActivity.ToActivity(getContext(), type);
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Emergency emergency = (Emergency) adapter.getItem(position);
+        if (emergency != null) {
+            showDialog(emergency.getTel());
+        }
+    }
+
+    private void showDialog(String tel) {
+        StyledDialog.buildIosAlert("是否拨打此号码", tel, new MyDialogListener() {
+            @Override
+            public void onFirst() {
+                listener.onClick(tel);
+            }
+
+            @Override
+            public void onSecond() {
+
+            }
+        }).setBtnText("拨打", "取消").show();
     }
 }

@@ -17,20 +17,22 @@ import retrofit2.http.Query;
  */
 public interface CheckService {
     @GET("/rq/push/getCheckUnit")
-    Observable<CheckStationResult> getCheckUnit(@Query("siteType")String type);
+    Observable<CheckStationResult> getCheckUnit(@Query("siteType") String type, @Query("type") String s);
+
     @GET("/rq/push/getCheckItem")
-    Observable<CheckContentItemResult> getCheckItem(@Query("siteType")String type);
+    Observable<CheckContentItemResult> getCheckItem(@Query("siteType") String type);
+
     @POST("/rq/push/saveCheckItem")
     @FormUrlEncoded
-    Observable<HttpResult> saveCheckItem(@Field("userId")String userId,
-                                         @Field("year")String year,
-                                         @Field("zhandianleixing")String zhandianleixing,
-                                         @Field("beijiandanweiid")String beijiandanweiid,
-                                         @Field("beizhu")String beizhu,
-                                         @Field("jianchariqi")String jianchariqi,
-                                         @Field("jianchajieguo")String jianchajieguo,
-                                         @Field("zdjcxid")String[] zdjcxid,
-                                         @Field("jianchajilu")String[] jianchajilu,
-                                         @Field("phoneftp")String path
-                                         );
+    Observable<HttpResult> saveCheckItem(@Field("userId") String userId,
+                                         @Field("year") String year,
+                                         @Field("zhandianleixing") String zhandianleixing,
+                                         @Field("beijiandanweiid") String beijiandanweiid,
+                                         @Field("beizhu") String beizhu,
+                                         @Field("jianchariqi") String jianchariqi,
+                                         @Field("jianchajieguo") String jianchajieguo,
+                                         @Field("zdjcxid") String[] zdjcxid,
+                                         @Field("jianchajilu") String[] jianchajilu,
+                                         @Field("phoneftp") String path
+    );
 }

@@ -6,11 +6,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.adapter.CheckItemAdapter;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.model.CheckItem_;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import java.util.List;
@@ -29,6 +31,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
     private CheckItemAdapter adapter;
+    private boolean isShowAll = false;
     private int type;
 
     @Override
@@ -50,6 +53,17 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
                         }
                     }
                 });
+        mAppbar.addRightImageButton(R.drawable.vector_drawable_all, R.id.top_right_button1)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        QMUIAlphaImageButton button = (QMUIAlphaImageButton) v;
+                        button.setImageResource(isShowAll ? R.drawable.vector_drawable_sub : R.drawable.vector_drawable_all);
+                        isShowAll = !isShowAll;
+                        Toast.makeText(CheckMainActivity.this, isShowAll ? "显示未完成" : "显示全部", Toast.LENGTH_SHORT).show();
+                        showCheckList();
+                    }
+                });
         //mAppbar.setBackgroundAlpha(0);
         adapter = new CheckItemAdapter(R.layout.item_checkadapter_view);
         mCheckList.setLayoutManager(new LinearLayoutManager(this));
@@ -68,11 +82,15 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     protected void initData() {
         type = getIntent().getIntExtra("Type", 0);
         adapter.setOnItemClickListener(this);
-        showCheckList(queryLocalData());
+        showCheckList();
     }
 
     private List<CheckItem> queryLocalData() {
-        return CheckItem.getBox().query().equal(CheckItem_.type, type).build().find();
+        if (isShowAll) {
+            return CheckItem.getBox().query().equal(CheckItem_.type, type).build().find();
+        } else {
+            return CheckItem.getBox().query().equal(CheckItem_.type, type).notEqual(CheckItem_.status, 3).build().find();
+        }
     }
 
     private void queryRemateDta() {
@@ -82,10 +100,11 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     @Override
     protected void onRestart() {
         super.onRestart();
-        showCheckList(queryLocalData());
+        showCheckList();
     }
 
-    protected void showCheckList(List<CheckItem> list) {
+    protected void showCheckList() {
+        List<CheckItem> list = queryLocalData();
         if (list.size() > 0) {
             adapter.setNewData(list);
         } else {

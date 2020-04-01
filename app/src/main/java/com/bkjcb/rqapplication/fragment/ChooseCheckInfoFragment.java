@@ -15,9 +15,11 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -117,15 +119,22 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
     @Override
     protected void initView() {
         strings = new ArrayList<>();
-        strings.add("2019");
         strings.add("2020");
+        strings.add("2019");
         calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         mInfoYear.setAdapter(new MaterialSpinnerAdapter<String>(context, strings));
         mInfoDate.setText(Utils.dateFormat("", calendar.getTime()));
         if (checkItem != null) {
             if (!TextUtils.isEmpty(checkItem.jianchariqi)) {
                 mInfoDate.setText(checkItem.jianchariqi);
-                calendar.setTime(new Date(checkItem.jianchariqi));
+                try {
+                    calendar.setTime(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINESE).parse(checkItem.jianchariqi));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (!TextUtils.isEmpty(checkItem.checkMan)){
+                mInfoName.setText(checkItem.checkMan);
             }
             if (!TextUtils.isEmpty(checkItem.year)) {
                 int positon = 0;

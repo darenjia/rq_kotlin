@@ -78,7 +78,12 @@ public class ContactActivity extends SimpleBaseActivity {
                         if (bool) {
                             getSupportFragmentManager()
                                     .beginTransaction()
-                                    .add(R.id.contact_content, new ContactFirstFragment())
+                                    .add(R.id.contact_content, ContactFirstFragment.newInstance(new ContactFirstFragment.OnClickListener() {
+                                        @Override
+                                        public void onClick(String tel) {
+                                            actionCall(tel);
+                                        }
+                                    }))
                                     .commit();
                         }
                     }
@@ -100,7 +105,6 @@ public class ContactActivity extends SimpleBaseActivity {
         View view = getLayoutInflater().inflate(R.layout.alert_view, null);
         TextView name = (TextView) view.findViewById(R.id.name);
         AvatarImageView imageView = (AvatarImageView) view.findViewById(R.id.item_avatar);
-        name.setText(user.getUsername());
         imageView.setTextAndColor(user.getUsername().substring(0, 1), Utils.getRandomColor(this));
         SuperTextView tel1 = (SuperTextView) view.findViewById(R.id.phoneNumber1);
         SuperTextView tel2 = (SuperTextView) view.findViewById(R.id.phoneNumber2);
@@ -111,6 +115,7 @@ public class ContactActivity extends SimpleBaseActivity {
         SuperTextView unit_phone = (SuperTextView) view.findViewById(R.id.dianha_danwei);
         SuperTextView unit_fax = (SuperTextView) view.findViewById(R.id.chuanzhen_danwei);
         SuperTextView unit_zipcode = (SuperTextView) view.findViewById(R.id.youbian_danwei);
+        name.setText(user.getUsername());
         String s1 = user.getTel();
         String s2 = user.getU_tel();
         String s3 = user.getUnit().getTel();
@@ -170,7 +175,7 @@ public class ContactActivity extends SimpleBaseActivity {
             @Override
             public void onClick(View view) {
                 String number = ((SuperTextView) view).getLeftBottomString();
-                actionCall(number, user);
+                actionCall(number);
             }
         };
         View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
@@ -188,7 +193,7 @@ public class ContactActivity extends SimpleBaseActivity {
             @Override
             public void onClick(View v) {
                 String number = ((SuperTextView) v).getRightBottomString();
-                actionCall(number, user);
+                actionCall(number);
             }
         });
         department.setOnClickListener(new View.OnClickListener() {
@@ -209,7 +214,7 @@ public class ContactActivity extends SimpleBaseActivity {
         return view;
     }
 
-    public void actionCall(String number, User user) {
+    public void actionCall(String number) {
         number = number.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher m = pattern.matcher(number);
@@ -232,6 +237,8 @@ public class ContactActivity extends SimpleBaseActivity {
             }
             return;
         }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
     }
 
