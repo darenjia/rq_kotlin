@@ -3,11 +3,10 @@ package com.bkjcb.rqapplication.fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.util.Utils;
@@ -49,7 +48,7 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
     @BindView(R.id.info_confirm)
     Button mInfoConfirm;
     @BindView(R.id.info_name)
-    EditText mInfoName;
+    TextView mInfoName;
     private CheckItem checkItem;
     private DatePickerDialog pickerDialog;
     private Calendar calendar;
@@ -70,10 +69,10 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
                 createDatePicker();
                 break;
             case R.id.info_confirm:
-                if (mInfoName.getText().length() == 0) {
+               /* if (mInfoName.getText().length() == 0) {
                     Toast.makeText(context, "请填写检查人员姓名", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
                 checkItem.checkMan = mInfoName.getText().toString();
                 checkItem.jianchariqi = mInfoDate.getText().toString();
                 checkItem.year = strings.get(mInfoYear.getSelectedIndex());
@@ -124,6 +123,7 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
         calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         mInfoYear.setAdapter(new MaterialSpinnerAdapter<String>(context, strings));
         mInfoDate.setText(Utils.dateFormat("", calendar.getTime()));
+        mInfoName.setText(MyApplication.user.getReal_name());
         if (checkItem != null) {
             if (!TextUtils.isEmpty(checkItem.jianchariqi)) {
                 mInfoDate.setText(checkItem.jianchariqi);

@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="4sp"
-        app:contentPadding="5dp">
+        app:cardCornerRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,15 +23,17 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:padding="10dp"
-                app:container_background_color="@color/colorText"
+                app:container_background_color="@color/colorGray"
                 app:container_border_width="0dp"
                 app:container_enable_drag="false"
+                app:container_border_radius="0dp"
                 app:horizontal_interval="10dp"
-                app:tag_border_width="0dp"
+                app:tag_border_width="1dp"
                 app:tag_clickable="true"
-                app:tag_corner_radius="4dp"
+                app:tag_corner_radius="0dp"
                 app:tag_theme="random"
                 app:vertical_interval="4dp" />
+
 
             <TextView
                 android:id="@+id/departmentTitle"
@@ -48,7 +49,8 @@
                 android:id="@+id/departmentListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
 
             <FrameLayout
                 android:id="@+id/result_view"
@@ -60,12 +62,15 @@
                     android:id="@+id/header"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    app:sBackgroundDrawableRes="@color/colorGray"
                     app:sLeftMaxEms="20"
                     app:sLeftTextColor="@color/colorAccent"
                     app:sLeftTextString="@string/app_name"
                     app:sLeftTopTextSize="18sp"
-                    app:sRightTextColor="@color/black"
-                    app:sRightTextString="1" />
+                    app:sRightTextColor="@color/color_type_0"
+                    app:sRightTextString="1"
+                    app:sDividerLineType="top"
+                    app:sDividerLineColor="@color/colorText"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_list"

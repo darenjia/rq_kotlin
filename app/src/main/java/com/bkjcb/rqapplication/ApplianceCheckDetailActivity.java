@@ -153,15 +153,20 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     }
 
     private void createRemarkDialog() {
-        StyledDialog.buildNormalInput("检查综合意见", "请输入", null, "", null, new MyDialogListener() {
+        String content = "";
+        if (!TextUtils.isEmpty(checkItem.beizhu)) {
+            content = checkItem.beizhu;
+        }
+        StyledDialog.buildNormalInput("检查综合意见", "请输入", null, content, null, new MyDialogListener() {
             @Override
             public void onFirst() {
-
+                //closeActivity(true);
+                showFinishTipDialog();
             }
 
             @Override
             public void onSecond() {
-
+                closeActivity(false);
             }
 
             @Override
@@ -169,14 +174,20 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
                 super.onGetInput(input1, input2);
                 saveData(input1.toString());
             }
-        }).setBtnText("保存")
+        }).setBtnText( "保存并提交","保存")
                 .show();
     }
 
     private void saveData(String data) {
-        checkItem.status = 2;
         if (data != null) {
             checkItem.beizhu = data;
+        }
+    }
+
+    @Override
+    protected void closeActivity(boolean isSubmit) {
+        if (isSubmit) {
+            checkItem.status = 2;
         }
         saveDate();
         Toast.makeText(this, "检查完成！", Toast.LENGTH_SHORT).show();

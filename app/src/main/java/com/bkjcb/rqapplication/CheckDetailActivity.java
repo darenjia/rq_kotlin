@@ -31,6 +31,8 @@ import com.bkjcb.rqapplication.model.CheckResultItem_;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -91,6 +93,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     @Override
     protected void initData() {
         initRetrofit();
+        StyledDialog.init(this);
         checkItem = (CheckItem) getIntent().getSerializableExtra("data");
         if (checkItem == null) {
             long id = getIntent().getLongExtra("id", 0);
@@ -105,6 +108,9 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
             mFinishButton.setBackgroundColor(getResources().getColor(R.color.colorGreenGray));
             mFinishButton.setEnabled(false);
             mFinishButton.setText("检查已结束");
+        } else if (checkItem.status == 0 || checkItem.status == 1) {
+            checkItem.status = 1;
+            saveDate();
         }
     }
 
@@ -150,13 +156,21 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
                 mViewPager.setCurrentItem(fragmentList.size() - 1, true);
             }
         } else {
+            showFinishTipDialog();
+        }
+    }
+
+    protected void closeActivity(boolean isSubmit) {
+        if (isSubmit) {
+            checkItem.status = 2;
+        }
+        if (currentPage == fragmentList.size()-1) {
             CheckItemResultFragment resultFragment = (CheckItemResultFragment) fragmentList.get(fragmentList.size() - 1);
             checkItem.beizhu = resultFragment.getRemark();
-            checkItem.status = 2;
-            saveDate();
-            Toast.makeText(this, "检查完成！", Toast.LENGTH_SHORT).show();
-            finish();
         }
+        saveDate();
+        Toast.makeText(this, "检查完成！", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     protected void getCheckContent() {
@@ -235,7 +249,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            MediaPlayActivity.ToActivity(CheckDetailActivity.this, (String) adapter.getItem(position));
+                MediaPlayActivity.ToActivity(CheckDetailActivity.this, (String) adapter.getItem(position));
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -314,10 +328,10 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     @Override
     protected void onStop() {
         super.onStop();
-        if (checkItem.status == 0 || checkItem.status == 1) {
+      /*  if (checkItem.status == 0 || checkItem.status == 1) {
             checkItem.status = 1;
             saveDate();
-        }
+        }*/
     }
 
     protected void saveDate() {
@@ -364,5 +378,21 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
             listPopup.setAnimStyle(QMUIPopup.ANIM_GROW_FROM_CENTER);
         }
         listPopup.show(mPagerNumber);
+    }
+
+    protected void showFinishTipDialog() {
+        StyledDialog.buildIosAlert("提示", "是否结束当前检查？(结束后不可修改)", new MyDialogListener() {
+            @Override
+            public void onFirst() {
+                closeActivity(true);
+            }
+
+            @Override
+            public void onSecond() {
+                closeActivity(false);
+            }
+        }).setBtnText("结束检查", "仅保存", "取消")
+                .show();
+
     }
 }

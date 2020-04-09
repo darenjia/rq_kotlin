@@ -486,7 +486,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                 break;
             case R.id.submit:
                 saveData();
-                submitData();
+                showFinishTipDialog();
                 break;
         }
     }
@@ -577,4 +577,19 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
+    protected void showFinishTipDialog() {
+        StyledDialog.buildIosAlert("提示", "是否提交当前记录(提交后将不可修改)?", new MyDialogListener() {
+            @Override
+            public void onFirst() {
+                submitData();
+            }
+
+            @Override
+            public void onSecond() {
+                finish();
+            }
+        }).setBtnText("提交记录", "仅保存")
+                .show();
+
+    }
 }

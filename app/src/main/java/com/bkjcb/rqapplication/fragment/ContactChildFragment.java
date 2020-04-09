@@ -160,7 +160,12 @@ public class ContactChildFragment extends BaseSimpleFragment {
                 map.put(level.getDepartmentnamea(), level);
                 setStrings(level.getDepartmentnamea());
             } else {
+                int index = strings.indexOf(level.getDepartmentnamea())+1;
+                    for (int i = index; i < strings.size(); i++) {
+                        map.remove(strings.get(i));
+                    }
                 setStrings(null);
+
             }
             mHeader.setLeftString(level.getDepartmentnamea());
             mDepartmentTitle.setText(level.getDepartmentnamea());
@@ -182,11 +187,12 @@ public class ContactChildFragment extends BaseSimpleFragment {
             mDepartmentTitle.setVisibility(View.VISIBLE);
             strings.clear();
             mTagLayout.removeAllTags();
+            map.clear();
         }
     }
 
     private void setDataAndView(List<User> users) {
-        if (users.size() > 0) {
+        if (users.size() > 0 || strings.size() > 0) {
             setVisible(mResultView);
             itemAdapter.setNewData(users);
 //            changeList(model.getDepartmentNameA());

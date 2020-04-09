@@ -8,7 +8,7 @@
             <corners
                 android:topLeftRadius="@dimen/dp_10"
                 android:topRightRadius="@dimen/dp_10" />
-            <solid android:color="@color/colorLightGray" />
+            <solid android:color="@color/colorText" />
         </shape>
     </item>
 </layer-list>

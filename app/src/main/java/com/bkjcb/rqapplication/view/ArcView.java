@@ -55,22 +55,24 @@ public class ArcView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Path path = new Path();
-        path.moveTo(0, getHeight()/2);
-        //path.moveTo(0, mHeight - mArcHeight);
-        //path.quadTo(mWidth / 2, mHeight, mWidth, mHeight - mArcHeight);
-        path.quadTo(getWidth() / 2, getHeight() - 2 * mArcHeight, getWidth(), getHeight()/2);
-        path.lineTo(getWidth(), getHeight()/2);
-        path.close();
-        //canvas.clipPath(path);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setColor(mBgColor);
         mPaint.setAntiAlias(true);
-        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG));
-        canvas.drawPath(path, mPaint);
-        RectF rectF = new RectF(0,getHeight()/2,getWidth(),getHeight());
+        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG));
+        RectF rectF = new RectF(0,0,getWidth(),mArcHeight);
         mPaint.setColor(mBgColor);
         canvas.drawRect(rectF,mPaint);
+        Path path = new Path();
+        path.moveTo(0, mArcHeight);
+        //path.moveTo(0, mHeight - mArcHeight);
+        //path.quadTo(mWidth / 2, mHeight, mWidth, mHeight - mArcHeight);
+        path.quadTo(getWidth()/2,  2*mArcHeight, getWidth(), mArcHeight);
+        path.lineTo(getWidth(), mArcHeight);
+        path.close();
+        //canvas.clipPath(path);
+
+        canvas.drawPath(path, mPaint);
+
     }
 
     @Override

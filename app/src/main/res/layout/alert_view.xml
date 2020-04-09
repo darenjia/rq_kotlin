@@ -15,16 +15,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
 
             <com.bkjcb.rqapplication.view.ArcView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:arcHeight="50dp"
+                android:layout_height="80dp"
+                app:arcHeight="40dp"
                 app:bgColor="@color/colorAccent" />
 
             <cn.carbs.android.avatarimageview.library.AvatarImageView
@@ -32,30 +31,24 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:paddingTop="10dp"
+                android:layout_centerHorizontal="true"
                 app:aiv_BoarderColor="@color/black"
-                app:aiv_BoarderWidth="2dp"
-                app:layout_constraintBottom_toTopOf="@id/name"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:aiv_BoarderWidth="2dp" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:padding="8dp"
                 android:text="张三"
-                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="24sp"
                 android:typeface="monospace"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_avatar" />
+                android:layout_below="@id/item_avatar" />
 
 
-        </android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
 
         <com.allen.library.SuperTextView
             android:id="@+id/phoneNumber1"
@@ -63,7 +56,7 @@
             android:layout_height="60dp"
             android:background="@color/white"
             app:sBackgroundDrawableRes="@color/white"
-            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextColor="@color/colorSecondDrayText"
             app:sLeftBottomTextSize="24sp"
             app:sLeftBottomTextString="13924481442"
             app:sLeftIconMarginLeft="20dp"

@@ -440,7 +440,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                     saveData();
                 }
                 if (verify()) {
-                    submitData();
+                    showFinishTipDialog();
                 }
                 break;
         }
@@ -518,5 +518,21 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
 
     private boolean isSave() {
         return TextUtils.isEmpty(getText(mBaseInfoFrom)) || TextUtils.isEmpty(getText(mBaseInfoTime)) || TextUtils.isEmpty(getText(mBaseInfoAddress));
+    }
+
+    protected void showFinishTipDialog() {
+        StyledDialog.buildIosAlert("提示", "是否提交当前记录(提交后将不可修改)？", new MyDialogListener() {
+            @Override
+            public void onFirst() {
+                submitData();
+            }
+
+            @Override
+            public void onSecond() {
+                finish();
+            }
+        }).setBtnText("提交记录", "仅保存")
+                .show();
+
     }
 }

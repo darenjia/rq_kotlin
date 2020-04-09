@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
@@ -98,7 +99,7 @@ public class ContactActivity extends SimpleBaseActivity {
     protected void alertUserInfo(User user) {
         StyledDialog.buildCustomBottomSheet(initDialogView(user))
                 .setBackground(getResources().getColor(R.color.colorAlpha))
-                .setBottomSheetDialogMaxHeightPercent(0.3f).show();
+                .setBottomSheetDialogMaxHeightPercent(0.4f).show();
     }
 
     private View initDialogView(final User user) {
@@ -171,9 +172,9 @@ public class ContactActivity extends SimpleBaseActivity {
             unit_zipcode.setRightBottomString(user.getUnit().getZipcode());
             unit_zipcode.setVisibility(View.VISIBLE);
         }
-        View.OnClickListener listener = new View.OnClickListener() {
+        SuperTextView.OnRightImageViewClickListener listener = new SuperTextView.OnRightImageViewClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClickListener(ImageView imageView) {
                 String number = ((SuperTextView) view).getLeftBottomString();
                 actionCall(number);
             }
@@ -185,8 +186,9 @@ public class ContactActivity extends SimpleBaseActivity {
                 return true;
             }
         };
-        tel1.setOnClickListener(listener);
-        tel2.setOnClickListener(listener);
+        tel1.setRightImageViewClickListener(listener);
+        //tel1.setOnClickListener(listener);
+        tel2.setRightImageViewClickListener(listener);
         tel1.setOnLongClickListener(longClickListener);
         tel2.setOnLongClickListener(longClickListener);
         unit_phone.setOnClickListener(new View.OnClickListener() {
