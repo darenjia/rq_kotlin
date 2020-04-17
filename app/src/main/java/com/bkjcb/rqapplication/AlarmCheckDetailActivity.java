@@ -9,6 +9,7 @@ import com.bkjcb.rqapplication.model.ApplianceCheckContentItem;
 import com.bkjcb.rqapplication.model.ApplianceCheckResult;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.retrofit.ApplianceCheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -23,7 +24,7 @@ public class AlarmCheckDetailActivity extends ApplianceCheckDetailActivity {
 
     @Override
     protected void getCheckContent() {
-        disposable = retrofit.create(ApplianceCheckService.class)
+        disposable = NetworkApi.getService(ApplianceCheckService.class)
                 .getReportCheckItem()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -29,6 +29,7 @@ import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.model.CheckResultItem;
 import com.bkjcb.rqapplication.model.CheckResultItem_;
 import com.bkjcb.rqapplication.retrofit.CheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
@@ -92,7 +93,6 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
 
     @Override
     protected void initData() {
-        initRetrofit();
         StyledDialog.init(this);
         checkItem = (CheckItem) getIntent().getSerializableExtra("data");
         if (checkItem == null) {
@@ -174,7 +174,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     protected void getCheckContent() {
-        disposable = retrofit.create(CheckService.class)
+        disposable = NetworkApi.getService(CheckService.class)
                 .getCheckItem(checkItem.zhandianleixing)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

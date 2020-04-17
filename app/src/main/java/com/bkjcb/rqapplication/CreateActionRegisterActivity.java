@@ -22,6 +22,7 @@ import com.bkjcb.rqapplication.model.ActionRegisterItem;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.MediaFile;
 import com.bkjcb.rqapplication.retrofit.ActionRegsiterService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
@@ -173,7 +174,6 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         StyledDialog.init(this);
         calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         item = (ActionRegisterItem) getIntent().getSerializableExtra("data");
-        initRetrofit();
         if (item == null) {
             item = new ActionRegisterItem();
             item.setStatus(0);
@@ -251,7 +251,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? retrofit.create(ActionRegsiterService.class)
+                        return aBoolean ? NetworkApi.getService(ActionRegsiterService.class)
                                 .submit(item, MyApplication.user.getUserId()) : null;
                     }
                 })

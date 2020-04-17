@@ -15,6 +15,7 @@ import com.bkjcb.rqapplication.model.CheckResultItem;
 import com.bkjcb.rqapplication.model.CheckResultItem_;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.CheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.util.Utils;
 
 import java.io.File;
@@ -53,7 +54,6 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
 
     @Override
     protected void initData() {
-        initRetrofit();
         checkItem = (CheckItem) getIntent().getSerializableExtra("data");
         if (checkItem == null) {
             long id = getIntent().getLongExtra("id", 0);
@@ -159,7 +159,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? retrofit.create(CheckService.class).saveCheckItem(
+                        return aBoolean ? NetworkApi.getService(CheckService.class).saveCheckItem(
                                 MyApplication.user.getUserId(),
                                 checkItem.year,
                                 checkItem.zhandianleixing,

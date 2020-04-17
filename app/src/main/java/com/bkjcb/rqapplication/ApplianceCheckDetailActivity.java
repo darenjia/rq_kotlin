@@ -16,6 +16,7 @@ import com.bkjcb.rqapplication.model.ApplianceCheckResultItem;
 import com.bkjcb.rqapplication.model.ApplianceCheckResultItem_;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.retrofit.ApplianceCheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 
@@ -77,7 +78,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     }
 
     protected void getDataFromNet() {
-        disposable = retrofit.create(ApplianceCheckService.class)
+        disposable = NetworkApi.getService(ApplianceCheckService.class)
                 .getFixCheckItem()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

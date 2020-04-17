@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.DataService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -76,7 +77,7 @@ public class AddUserActivity extends SimpleBaseActivity {
             return;
         }
         showLoading();
-        disposable = retrofit.create(DataService.class)
+        disposable = NetworkApi.getService(DataService.class)
                 .changeUserInfo(MyApplication.user.getAreacode().getArea_code(), name, address, mUserType.getSelectedIndex())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

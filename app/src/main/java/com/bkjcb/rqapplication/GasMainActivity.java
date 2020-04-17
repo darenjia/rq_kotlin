@@ -22,6 +22,7 @@ import com.bkjcb.rqapplication.model.ConvertResult;
 import com.bkjcb.rqapplication.model.UserInfoResult;
 import com.bkjcb.rqapplication.retrofit.ConvertService;
 import com.bkjcb.rqapplication.retrofit.DataService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -122,12 +123,11 @@ public class GasMainActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        initRetrofit();
         getData();
     }
 
     private void getData() {
-        disposable = retrofit.create(DataService.class)
+        disposable = NetworkApi.getService(DataService.class)
                 .getUserInfos(MyApplication.user.getAreacode().getArea_code())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

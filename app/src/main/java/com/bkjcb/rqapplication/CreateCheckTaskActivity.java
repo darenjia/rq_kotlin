@@ -75,7 +75,6 @@ public class CreateCheckTaskActivity extends SimpleBaseActivity {
 
     @Override
     protected void initData() {
-        initRetrofit();
         replaceView(checkTypeFragment);
         checkItem = (CheckItem) getIntent().getSerializableExtra("Data");
         if (checkItem == null) {

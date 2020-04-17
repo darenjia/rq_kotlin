@@ -8,6 +8,7 @@ import com.bkjcb.rqapplication.model.ApplianceCheckContentItem;
 import com.bkjcb.rqapplication.model.ApplianceCheckResult;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.retrofit.ApplianceCheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -22,7 +23,7 @@ public class SellCheckDetailActivity extends ApplianceCheckDetailActivity {
 
     @Override
     protected void getDataFromNet() {
-        disposable = retrofit.create(ApplianceCheckService.class)
+        disposable = NetworkApi.getService(ApplianceCheckService.class)
                 .getSaleCheckItem()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -20,8 +20,8 @@ import com.bkjcb.rqapplication.model.BottleResult;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.UserInfoResult;
 import com.bkjcb.rqapplication.retrofit.DataService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.view.QestionCheckView;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -33,16 +33,12 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by DengShuai on 2019/10/22.
@@ -68,7 +64,7 @@ public class UserDetailActivity extends SimpleBaseActivity {
     @BindView(R.id.bind_btn)
     LinearLayout mBindView;
     private UserInfoResult.UserInfo userInfo;
-    private List<String> UserTypes = Arrays.asList("居民", "非居民");
+    //private List<String> UserTypes = Arrays.asList("居民", "非居民");
     private boolean editable = false;
     private List<Fragment> fragments;
     private QestionCheckView checkView;
@@ -120,7 +116,7 @@ public class UserDetailActivity extends SimpleBaseActivity {
             return;
         }
         showLoading();
-        disposable = retrofit.create(DataService.class)
+        disposable = NetworkApi.getService(DataService.class)
                 .changeUserInfo(userInfo.getUserGuid(), name, address)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -231,20 +227,8 @@ public class UserDetailActivity extends SimpleBaseActivity {
 
     @Override
     protected void initData() {
-        initRetrofit();
         getBottleData();
     }
-
-    protected void initRetrofit() {
-        retrofit = new Retrofit
-                .Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(new OkHttpClient.Builder().connectTimeout(20000, TimeUnit.MILLISECONDS).build())
-                .build();
-    }
-
     private void popCheckWindow(boolean isChecked) {
         if (bottomSheet == null) {
             bottomSheet = new QMUIBottomSheet(this);
@@ -264,7 +248,7 @@ public class UserDetailActivity extends SimpleBaseActivity {
 
     private void getBottleData() {
         Log.w("ds", userInfo.getUserGuid());
-        disposable = retrofit.create(DataService.class)
+        disposable = NetworkApi.getService(DataService.class)
                 .getBottleData(userInfo.getUserGuid())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -295,7 +279,7 @@ public class UserDetailActivity extends SimpleBaseActivity {
 
     private void submitCheckResult(String remark, String status) {
         showLoading();
-        disposable = retrofit.create(DataService.class)
+        disposable = NetworkApi.getService(DataService.class)
                 .saveTourCheck(userInfo.getUserGuid(), MyApplication.user.getReal_name(), status, remark)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

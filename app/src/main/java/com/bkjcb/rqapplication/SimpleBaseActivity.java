@@ -25,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SimpleBaseActivity extends BaseActivity {
 
     protected QMUIEmptyView emptyView;
-    protected Retrofit retrofit;
     protected Disposable disposable;
 
     private static final int PERMISSIONS_REQUEST = 0;
@@ -164,24 +163,6 @@ public class SimpleBaseActivity extends BaseActivity {
         if (refreshLayout != null) {
             refreshLayout.setRefreshing(isShow);
         }
-    }
-
-    protected void initRetrofit(String URL) {
-        retrofit = new Retrofit
-                .Builder()
-                .baseUrl(URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
-
-    protected void initRetrofit() {
-        retrofit = new Retrofit
-                .Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bkjcb.rqapplication.model.UserResult;
 import com.bkjcb.rqapplication.retrofit.DataService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.util.MD5Util;
 import com.bkjcb.rqapplication.util.Utils;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -104,7 +105,6 @@ public class LoginActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        initRetrofit();
         boolean isRemember = getSharedPreferences().getBoolean("remember", false);
         if (isRemember) {
             mBox.setChecked(true);
@@ -131,7 +131,7 @@ public class LoginActivity extends SimpleBaseActivity {
 
     private void login(String name, String password) {
         showLoading();
-        disposable = retrofit.create(DataService.class)
+        disposable = NetworkApi.getService(DataService.class)
                 .getLoginUser(name, MD5Util.encode(password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

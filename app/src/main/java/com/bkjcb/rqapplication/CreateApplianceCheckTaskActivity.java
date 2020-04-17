@@ -70,7 +70,6 @@ public class CreateApplianceCheckTaskActivity extends SimpleBaseActivity {
 
     @Override
     protected void initData() {
-        initRetrofit();
         replaceView(checkTypeFragment);
         checkItem = new CheckItem(1);
         checkTypeFragment.setCheckItem(checkItem);

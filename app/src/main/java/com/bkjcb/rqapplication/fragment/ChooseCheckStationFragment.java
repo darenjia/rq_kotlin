@@ -19,6 +19,7 @@ import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.model.CheckStation;
 import com.bkjcb.rqapplication.model.CheckStationResult;
 import com.bkjcb.rqapplication.retrofit.CheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
@@ -141,7 +142,6 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
 
     @Override
     protected void initData() {
-        initRetrofit();
         adapter.setOnItemClickListener(this);
         switch (checkItem.zhandianleixing) {
             case "维修检查企业":
@@ -167,7 +167,7 @@ public class ChooseCheckStationFragment extends BaseSimpleFragment implements Ba
 
     protected void getStationData() {
         showRefreshing(true);
-        disposable = retrofit.create(CheckService.class)
+        disposable = NetworkApi.getService(CheckService.class)
                 .getCheckUnit(stationType,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

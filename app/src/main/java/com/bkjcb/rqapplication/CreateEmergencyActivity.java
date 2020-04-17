@@ -30,6 +30,7 @@ import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.MediaFile;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.bkjcb.rqapplication.retrofit.EmergencyService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
@@ -170,7 +171,6 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
         StyledDialog.init(this);
         //calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         item = (EmergencyItem) getIntent().getSerializableExtra("data");
-        initRetrofit();
         if (item == null) {
             item = new EmergencyItem();
             item.setStatus(0);
@@ -190,7 +190,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     }
 
     private void getDistrictName() {
-        disposable = retrofit.create(CheckService.class)
+        disposable = NetworkApi.getService(CheckService.class)
                 .getCheckUnit("区", null)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -295,7 +295,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? retrofit.create(EmergencyService.class)
+                        return aBoolean ? NetworkApi.getService(EmergencyService.class)
                                 .submit(item.getUserId(),
                                         item.getReportingUnit(),
                                         item.getQushu(),

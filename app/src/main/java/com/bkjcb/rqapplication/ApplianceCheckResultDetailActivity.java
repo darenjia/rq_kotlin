@@ -11,6 +11,7 @@ import com.bkjcb.rqapplication.model.ApplianceCheckResultItem_;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.ApplianceCheckService;
+import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.util.Utils;
 import com.google.gson.Gson;
 
@@ -61,7 +62,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
-                            ApplianceCheckService service = retrofit.create(ApplianceCheckService.class);
+                            ApplianceCheckService service = NetworkApi.getService(ApplianceCheckService.class);
                             switch (checkItem.zhandianleixing) {
                                 case "维修检查企业":
                                     return service.saveDailyCheck(
