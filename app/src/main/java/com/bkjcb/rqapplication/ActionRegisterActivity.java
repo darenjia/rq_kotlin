@@ -47,7 +47,7 @@ public class ActionRegisterActivity extends SimpleBaseActivity implements BaseQu
             }
         });
         mAppbar.setTitle(getTitleString());
-        mAppbar.addRightImageButton(R.drawable.vector_drawable_add, R.id.top_right_button)
+        mAppbar.addRightImageButton(R.drawable.vector_drawable_create, R.id.top_right_button)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

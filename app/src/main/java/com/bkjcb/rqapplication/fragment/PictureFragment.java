@@ -1,5 +1,6 @@
 package com.bkjcb.rqapplication.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,7 +42,12 @@ public class PictureFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_media_image,null);
         BigImageView imageView=view.findViewById(R.id.big_image_view);
-        imageView.showImage(Utils.getImageContentUri(getContext(),path));
+        if (path.contains("http")){
+            imageView.showImage(Uri.parse(path));
+        }else {
+            imageView.showImage(Utils.getImageContentUri(getContext(),path));
+        }
+
         return view;
     }
 }

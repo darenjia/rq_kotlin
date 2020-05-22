@@ -145,6 +145,7 @@
                 app:ms_padding_right="8dp"
                 app:ms_padding_top="8dp"
                 app:ms_popup_padding_bottom="8dp"
+                app:ms_text_gravity="start"
                 app:ms_popup_padding_left="8dp"
                 app:ms_popup_padding_right="8dp"
                 app:ms_popup_padding_top="8dp"

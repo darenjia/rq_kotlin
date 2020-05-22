@@ -64,7 +64,7 @@ public class MainActivity extends SimpleBaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        GasMainActivity.ToActivity(MainActivity.this);
+                        GasUserRecordActivity.ToActivity(MainActivity.this);
                         break;
                     case 1:
                         CheckMainActivity.ToActivity(MainActivity.this, 0);

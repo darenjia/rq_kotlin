@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorYellowWhite"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="检查信息"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorText"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="用户名称" />
+
+        <include layout="@layout/vertical_divider" />
+
+        <TextView
+            android:id="@+id/info_username"
+            style="@style/RecordFragmentInfoEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorText"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="检查单位" />
+
+        <include layout="@layout/vertical_divider" />
+
+        <EditText
+            android:id="@+id/info_unit"
+            style="@style/RecordFragmentInfoEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="@string/record_type2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorText"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="检查日期" />
+
+        <include layout="@layout/vertical_divider" />
+
+        <TextView
+            android:id="@+id/info_station"
+            style="@style/RecordFragmentInfoEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:gravity="start"
+            android:hint="请选择" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorText"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/info_name_title"
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="检查结果" />
+
+        <include layout="@layout/vertical_divider" />
+
+        <RadioGroup
+            android:id="@+id/check_result_radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <RadioButton
+                android:id="@+id/check_result_radio_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/check_status_pass_bg"
+                android:button="@null"
+                android:drawableStart="@drawable/check_status_pass"
+                android:drawablePadding="8dp"
+                android:padding="8dp"
+                android:text="合格"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16" />
+
+            <RadioButton
+                android:id="@+id/check_result_radio_failure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/check_status_failure_bg"
+                android:button="@null"
+                android:drawableStart="@drawable/check_status_failure"
+                android:drawablePadding="8dp"
+                android:padding="8dp"
+                android:text="不合格"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_16" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorYellowWhite"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="隐患跟踪"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGray"
+            android:orientation="vertical">
+
+            <com.allen.library.SuperTextView
+                android:id="@+id/check_yhq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:padding="8dp"
+                app:sBackgroundDrawableRes="@color/colorText"
+                app:sLeftTextColor="@color/colorSecondDrayText"
+                app:sLeftTextSize="@dimen/sp_16"
+                app:sLeftTextString="不再使用液化气"
+                app:sRightSwitchMarginRight="5dp"
+                app:sRightViewType="switchBtn"
+                app:sSwitchIsChecked="false"
+                app:sSwitchMinWidth="40dp"
+                app:sThumbResource="@drawable/thumb"
+                app:sTrackResource="@drawable/track"
+                app:sUseShape="true" />
+
+            <LinearLayout
+                android:id="@+id/check_yhq_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorText"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/ChooseFragmentInfoTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="退户日期" />
+
+                <include layout="@layout/vertical_divider" />
+
+                <TextView
+                    android:id="@+id/check_yhq_time"
+                    style="@style/RecordFragmentInfoEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:gravity="start"
+                    android:hint="@string/record_tip1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <com.allen.library.SuperTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    app:sBackgroundDrawableRes="@color/colorText"
+                    app:sLeftTextColor="@color/colorSecondDrayText"
+                    app:sLeftTextSize="@dimen/sp_16"
+                    app:sLeftTextString="置换为合格调压器" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="合规个数" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <EditText
+                        android:id="@+id/check_tyq_count"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:hint="@string/record_type2"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <com.allen.library.SuperTextView
+                    android:id="@+id/check_tyq_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:padding="8dp"
+                    app:sBackgroundDrawableRes="@color/colorText"
+                    app:sLeftTextColor="@color/colorSecondDrayText"
+                    app:sLeftTextSize="@dimen/sp_16"
+                    app:sLeftTextString="是否全部整改"
+                    app:sRightSwitchMarginRight="5dp"
+                    app:sRightViewType="switchBtn"
+                    app:sSwitchIsChecked="false"
+                    app:sSwitchMinWidth="40dp"
+                    app:sThumbResource="@drawable/thumb"
+                    app:sTrackResource="@drawable/track"
+                    app:sUseShape="true" />
+
+                <LinearLayout
+                    android:id="@+id/check_tyq_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="整改日期" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <TextView
+                        android:id="@+id/check_tyq_time"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:gravity="start"
+                        android:hint="@string/record_tip1" />
+
+                </LinearLayout>
+
+                <com.allen.library.SuperTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="8dp"
+                    app:sBackgroundDrawableRes="@color/colorText"
+                    app:sLeftTextColor="@color/colorSecondDrayText"
+                    app:sLeftTextSize="@dimen/sp_16"
+                    app:sLeftTextString="置换为合规连接管" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="合规个数" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <EditText
+                        android:id="@+id/check_ljg_count"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:hint="@string/record_type2"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <com.allen.library.SuperTextView
+                    android:id="@+id/check_ljg_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:padding="8dp"
+                    app:sBackgroundDrawableRes="@color/colorText"
+                    app:sLeftTextColor="@color/colorSecondDrayText"
+                    app:sLeftTextSize="@dimen/sp_16"
+                    app:sLeftTextString="是否全部整改"
+                    app:sRightSwitchMarginRight="5dp"
+                    app:sRightViewType="switchBtn"
+                    app:sSwitchIsChecked="false"
+                    app:sSwitchMinWidth="40dp"
+                    app:sThumbResource="@drawable/thumb"
+                    app:sTrackResource="@drawable/track"
+                    app:sUseShape="true" />
+
+                <LinearLayout
+                    android:id="@+id/check_ljg_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="整改日期" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <TextView
+                        android:id="@+id/check_ljg_time"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:gravity="start"
+                        android:hint="@string/record_tip1" />
+
+                </LinearLayout>
+
+                <com.allen.library.SuperTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="8dp"
+                    app:sBackgroundDrawableRes="@color/colorText"
+                    app:sLeftTextColor="@color/colorSecondDrayText"
+                    app:sLeftTextSize="@dimen/sp_16"
+                    app:sLeftTextString="置换为合规商用燃具" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="合规个数" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <EditText
+                        android:id="@+id/check_rj_count"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:hint="@string/record_type2"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <com.allen.library.SuperTextView
+                    android:id="@+id/check_rj_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:padding="8dp"
+                    app:sBackgroundDrawableRes="@color/colorText"
+                    app:sLeftTextColor="@color/colorSecondDrayText"
+                    app:sLeftTextSize="@dimen/sp_16"
+                    app:sLeftTextString="是否全部整改"
+                    app:sRightSwitchMarginRight="5dp"
+                    app:sRightViewType="switchBtn"
+                    app:sSwitchIsChecked="false"
+                    app:sSwitchMinWidth="40dp"
+                    app:sThumbResource="@drawable/thumb"
+                    app:sTrackResource="@drawable/track"
+                    app:sUseShape="true" />
+
+                <LinearLayout
+                    android:id="@+id/check_rj_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="整改日期" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <TextView
+                        android:id="@+id/check_rj_time"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:gravity="start"
+                        android:hint="@string/record_tip1" />
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp">
+
+                <TextView
+                    android:id="@+id/file_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorTextForth"
+                    android:padding="10dp"
+                    android:text="现场照片(3~5张)"
+                    android:textColor="@color/colorText" />
+
+                <TextView
+                    android:id="@+id/file_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/circle_white_bg"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="1"
+                    android:textColor="@color/colorSecondDrayText" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/file_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_below="@id/file_title"
+                    android:layout_marginTop="1dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/record_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_type_1"
+        android:text="提交"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/sp_16" />
+</LinearLayout>

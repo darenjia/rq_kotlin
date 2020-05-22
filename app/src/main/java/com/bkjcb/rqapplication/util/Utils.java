@@ -7,14 +7,19 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
+import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.CheckItem;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.TimeZone;
 import java.util.UUID;
 
 /**
@@ -31,6 +36,15 @@ public class Utils {
         if (TextUtils.isEmpty(format)) {
             format = "yyyy-MM-dd";
         }
+        return new SimpleDateFormat(format, Locale.CHINESE).format(date);
+    }
+
+    public static String dateFormat(String s) {
+        if (TextUtils.isEmpty(s)) {
+            return "";
+        }
+        Date date = new Date(Long.parseLong(s));
+        String format = "yyyy-MM-dd";
         return new SimpleDateFormat(format, Locale.CHINESE).format(date);
     }
 
@@ -97,6 +111,7 @@ public class Utils {
         }
         return "";
     }
+
     public static Uri getImageContentUri(Context context, String filePath) {
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -172,5 +187,22 @@ public class Utils {
                 return null;
             }
         }
+    }
+
+    public static Calendar getCalendar() {
+        return Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
+    }
+
+    public static BitmapDescriptor getMapIconBitmap(int id) {
+        return BitmapDescriptorFactory.fromResource(id);
+
+    }
+
+    public static String listToString(List<String> list) {
+        StringBuilder builder = new StringBuilder();
+        for (String s : list) {
+            builder.append(s).append(",");
+        }
+        return builder.substring(0, builder.length() - 1);
     }
 }

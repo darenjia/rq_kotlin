@@ -18,6 +18,6 @@ public class AddressItemAdapter extends BaseQuickAdapter<UserInfoResult.UserInfo
     protected void convert(BaseViewHolder helper, UserInfoResult.UserInfo item) {
         helper.setText(R.id.road_name, item.getUserName())
                 .setText(R.id.road_address, item.getUserAddress())
-                .setVisible(R.id.code, item.getQrCode() == 1);
+                .setVisible(R.id.code, item.getYijiandang().equals("1"));
     }
 }

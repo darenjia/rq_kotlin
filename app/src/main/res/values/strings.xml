@@ -3,4 +3,6 @@
     <string name="title_activity_create_check_task">CreateCheckTaskActivity</string>
     <string name="action_settings">Settings</string>
     <string name="emergency_tip">（突发事件发生的时间、地点、主要情况描述。参与应急处置的单位、主要人员。需要相关区、相关部门或市级层面予以关注和协助配合的重要事项）</string>
+    <string name="record_tip1">请选择</string>
+    <string name="record_type2">请填写</string>
 </resources>

@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,7 +13,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -97,13 +101,20 @@
         <activity
             android:name=".ContactDepartmentActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".GasUserRecordActivity" />
+        <activity android:name=".AddNewGasUserActivity" />
+        <activity android:name=".GasReviewActivity" />
+        <activity android:name=".GasUserRecordDetailActivity" />
+        <activity android:name=".ReviewRecordActivity" />
+        <activity android:name=".SearchGasUserActivity" />
+        <activity android:name=".GasUserRecordChangeActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.bkjcb.rqapplication.fileprovider"
+            android:authorities="${applicationId}.fileProvider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities">
+            tools:replace="android:authorities"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />

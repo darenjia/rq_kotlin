@@ -34,9 +34,9 @@ public class FileListAdapter extends BaseQuickAdapter<MediaFile, BaseViewHolder>
             } else {
                 Glide.with(helper.itemView).load(getFileImage(item)).apply(GlideUtil.getRequestOption()).into(imageView);
             }
-        } /*else {
-            //Glide.with(helper.itemView).load(new File(item.getPath())).apply(GlideUtil.getRequestOption()).into(imageView);
-        }*/
+        } else {
+            Glide.with(helper.itemView).load(item.getPath()).apply(GlideUtil.getRequestOption()).into(imageView);
+        }
         helper.setGone(R.id.item_grid_bt, isShowDelete);
         helper.addOnClickListener(R.id.item_grid_bt);
     }

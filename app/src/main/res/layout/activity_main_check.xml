@@ -12,16 +12,22 @@
         android:layout_marginTop="?attr/qmui_topbar_height"
         android:fitsSystemWindows="true">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorText">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/check_list"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+                android:layout_height="match_parent">
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/check_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
     </FrameLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

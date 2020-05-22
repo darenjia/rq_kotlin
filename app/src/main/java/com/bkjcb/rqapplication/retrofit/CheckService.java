@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication.retrofit;
 
 import com.bkjcb.rqapplication.model.CheckContentItemResult;
 import com.bkjcb.rqapplication.model.CheckStationResult;
+import com.bkjcb.rqapplication.model.ExportFilePathResult;
 import com.bkjcb.rqapplication.model.HttpResult;
 
 import io.reactivex.Observable;
@@ -22,6 +23,9 @@ public interface CheckService {
     @GET("/rq/push/getCheckItem")
     Observable<CheckContentItemResult> getCheckItem(@Query("siteType") String type);
 
+    @GET("/rq/push/zhandianjianchaExport")
+    Observable<ExportFilePathResult> getExportPath(@Query("fileid") String id);
+
     @POST("/rq/push/saveCheckItem")
     @FormUrlEncoded
     Observable<HttpResult> saveCheckItem(@Field("userId") String userId,
@@ -33,6 +37,7 @@ public interface CheckService {
                                          @Field("jianchajieguo") String jianchajieguo,
                                          @Field("zdjcxid") String[] zdjcxid,
                                          @Field("jianchajilu") String[] jianchajilu,
-                                         @Field("phoneftp") String path
+                                         @Field("phoneftp") String path,
+                                         @Field("fileid") String fileid
     );
 }

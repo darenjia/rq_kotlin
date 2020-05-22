@@ -96,6 +96,7 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
     private int getColor(int resID) {
         return MyApplication.getContext().getResources().getColor(resID);
     }
+
     private int getColors(int type) {
         if (type == 3) {
             return getColor(R.color.colorMint);

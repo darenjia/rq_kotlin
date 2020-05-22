@@ -42,7 +42,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     @Override
     protected void initView() {
         mAppbar.setTitle("检查列表");
-        mAppbar.addRightImageButton(R.drawable.vector_drawable_add, R.id.top_right_button)
+        mAppbar.addRightImageButton(R.drawable.vector_drawable_create, R.id.top_right_button)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -93,7 +93,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
         }
     }
 
-    private void queryRemateDta() {
+    private void queryRemoteDta() {
 
     }
 

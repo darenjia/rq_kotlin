@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bkjcb.rqapplication.fragment.FileFragment;
 import com.bkjcb.rqapplication.fragment.PictureFragment;
@@ -38,16 +39,21 @@ public class MediaPlayActivity extends AppCompatActivity {
             fragment = PictureFragment.newInstance(path);
         } else if (path.endsWith(".mp4")) {
             fragment = VideoFragment.newInstance(path);
-        }else {
-            fragment= FileFragment.newInstance(path);
+        } else {
+            fragment = FileFragment.newInstance(path);
         }
         getSupportFragmentManager().beginTransaction().add(R.id.frame_layout, fragment).commit();
-        findViewById(R.id.open_file).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(OpenFileUtil.openFile(path));
-            }
-        });
+        TextView view = findViewById(R.id.open_file);
+        if (!path.contains("http")) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(OpenFileUtil.openFile(path));
+                }
+            });
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     public static void ToActivity(Context context, String path) {

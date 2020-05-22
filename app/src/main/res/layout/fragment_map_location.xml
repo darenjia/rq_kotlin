@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.bkjcb.rqapplication.view.MapViewCompat
+        android:id="@+id/map_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <com.amap.api.maps.TextureMapView
+            android:id="@+id/question_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/map_position"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_location" />
+
+        <TextView
+            android:id="@+id/question_location_text"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="bottom"
+            android:background="@color/color_type_3"
+            android:gravity="center"
+            android:text="使用当前地址"
+            android:textColor="@color/colorText" />
+    </com.bkjcb.rqapplication.view.MapViewCompat>
+</FrameLayout>

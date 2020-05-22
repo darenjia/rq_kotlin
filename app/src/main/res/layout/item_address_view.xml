@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorText"
     android:layout_marginBottom="1dp"
+    android:background="@color/colorText"
     android:padding="2dp">
 
     <TextView
         android:id="@+id/road_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/code"
+        android:layout_marginEnd="40dp"
         android:padding="4dp"
         android:text="新华路"
         android:textSize="16sp" />
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/road_name"
-        android:layout_toStartOf="@id/code"
+        android:layout_marginEnd="40dp"
         android:paddingStart="4dp"
         android:paddingEnd="0dp"
         android:text="新华街道2018号"
@@ -29,10 +29,11 @@
 
     <ImageView
         android:id="@+id/code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:padding="4dp"
-        android:src="@drawable/vector_drawable_code" />
+        android:src="@drawable/vector_drawable_link"
+        android:tint="@color/color_type_1" />
 </RelativeLayout>

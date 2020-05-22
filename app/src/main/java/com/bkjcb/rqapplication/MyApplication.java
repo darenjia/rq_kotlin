@@ -9,6 +9,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.tencent.bugly.Bugly;
 
 /**
  * Created by DengShuai on 2019/10/14.
@@ -24,6 +25,7 @@ public class MyApplication extends Application {
         context = this.getApplicationContext();
         initObjectBox();
         initLogger();
+        Bugly.init(getApplicationContext(), "b89a5bbe17", BuildConfig.DEBUG);
     }
 
     private void initObjectBox() {

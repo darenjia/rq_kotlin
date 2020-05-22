@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import com.bkjcb.rqapplication.ftp.UploadTask;
 import com.bkjcb.rqapplication.model.CheckItem;
 import com.bkjcb.rqapplication.model.CheckResultItem;
 import com.bkjcb.rqapplication.model.CheckResultItem_;
+import com.bkjcb.rqapplication.model.ExportFilePathResult;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
@@ -39,6 +41,8 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
 
     @BindView(R.id.info_operation)
     Button mInfoOperation;
+    @BindView(R.id.info_export)
+    Button mInfoExport;
     protected CheckItem checkItem;
     private CheckResultFragment fragment;
 
@@ -69,6 +73,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
         }
         showCheckDetail();
         //initTextValue();
+        mInfoExport.setVisibility(checkItem.status == 3 ? View.VISIBLE : View.GONE);
         mInfoOperation.setText(getOperation(checkItem.status));
     }
 
@@ -91,7 +96,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
         mInfoOperation.setText(getOperation(checkItem.status));
     }
 
-    @OnClick(R.id.info_operation)
+    @OnClick({R.id.info_operation, R.id.info_export})
     public void onClick(View v) {
         if (v.getId() == R.id.info_operation) {
             if (checkItem.status == 2) {
@@ -99,8 +104,8 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
             } else {
                 toCheckContentActivity();
             }
-        } else if (v.getId() == 0) {
-
+        } else if (v.getId() == R.id.info_export) {
+            getExportFilePath();
         }
 
     }
@@ -169,7 +174,8 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                                 checkItem.jianchajieguo,
                                 getItemsID(list),
                                 getItemsResult(list),
-                                Utils.getFTPPath(checkItem)
+                                Utils.getFTPPath(checkItem),
+                                checkItem.c_id
                         ) : null;
                     }
                 })
@@ -220,5 +226,32 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
 
     private List<CheckResultItem> queryResult() {
         return CheckResultItem.getBox().query().equal(CheckResultItem_.jianchaid, checkItem.c_id).build().find();
+    }
+
+    private void getExportFilePath() {
+        showLoading(true);
+        disposable = NetworkApi.getService(CheckService.class)
+                .getExportPath(checkItem.c_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ExportFilePathResult>() {
+                    @Override
+                    public void accept(ExportFilePathResult exportFilePathResult) throws Exception {
+                        showLoading(false);
+                        if (exportFilePathResult.pushState == 200) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(Constants.BASE_URL + "/rq/push/downloadfile?downloadfile=" + exportFilePathResult.getDatas()));
+                            startActivity(intent);
+                        } else {
+                            showSnackbar(mInfoExport, "生成文件失败！" + exportFilePathResult.getPushMsg());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showLoading(false);
+                        showSnackbar(mInfoExport, "获取文件地址失败！" + throwable.getMessage());
+                    }
+                });
     }
 }

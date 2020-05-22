@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.amap.api.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -22,7 +23,17 @@ public class UserInfoResult extends HttpResult {
         this.datas = datas;
     }
 
-    public static class UserInfo implements Parcelable {
+    private int totalCount;
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public static class UserInfo implements Serializable {
 
         /**
          * userGuid : feb05d79d41d452ab33ae54ead51b557
@@ -33,8 +44,12 @@ public class UserInfoResult extends HttpResult {
          * areaCode : 310105102
          * areaJc : 长宁
          * streetJc : 新泾镇
+         * "mbu_id": 1048,
+         * "yijiandang": "0"
          */
 
+        private String mbu_id;
+        private String yijiandang;
         private String userGuid;
         private String userName;
         private String userAddress;
@@ -47,54 +62,6 @@ public class UserInfoResult extends HttpResult {
         private String x;
         private String y;
         private LatLng latLng;
-
-        protected UserInfo(Parcel in) {
-            userGuid = in.readString();
-            userName = in.readString();
-            userAddress = in.readString();
-            userType = in.readString();
-            unitName = in.readString();
-            areaCode = in.readString();
-            areaJc = in.readString();
-            streetJc = in.readString();
-            qrCode = in.readInt();
-            x = in.readString();
-            y = in.readString();
-            latLng = in.readParcelable(LatLng.class.getClassLoader());
-        }
-
-        public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
-            @Override
-            public UserInfo createFromParcel(Parcel in) {
-                return new UserInfo(in);
-            }
-
-            @Override
-            public UserInfo[] newArray(int size) {
-                return new UserInfo[size];
-            }
-        };
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.userGuid);
-            dest.writeString(this.userName);
-            dest.writeString(this.userAddress);
-            dest.writeString(this.userType);
-            dest.writeString(this.unitName);
-            dest.writeString(this.areaCode);
-            dest.writeString(this.areaJc);
-            dest.writeString(this.streetJc);
-            dest.writeInt(this.qrCode);
-            dest.writeString(this.x);
-            dest.writeString(this.y);
-            dest.writeParcelable(this.latLng,flags);
-        }
 
         public LatLng getLatLng() {
             return latLng;
@@ -191,6 +158,23 @@ public class UserInfoResult extends HttpResult {
         public void setStreetJc(String streetJc) {
             this.streetJc = streetJc;
         }
+
+        public String getMbu_id() {
+            return mbu_id;
+        }
+
+        public void setMbu_id(String mbu_id) {
+            this.mbu_id = mbu_id;
+        }
+
+        public String getYijiandang() {
+            return yijiandang;
+        }
+
+        public void setYijiandang(String yijiandang) {
+            this.yijiandang = yijiandang;
+        }
+
 
     }
 }

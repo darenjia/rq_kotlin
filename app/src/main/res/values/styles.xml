@@ -19,6 +19,7 @@
         <item name="cardBackgroundColor">@color/colorText</item>
         <item name="cardCornerRadius">6dp</item>
     </style>
+
     <style name="ChooseFragmentTextStyle" parent="TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
@@ -29,10 +30,46 @@
         <item name="android:layout_marginBottom">1dp</item>
         <item name="android:textSize">@dimen/sp_16</item>
     </style>
+
     <style name="ChooseFragmentInfoTextStyle" parent="TextView">
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/colorSecondDrayText</item>
         <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="RecordFragmentInfoTextStyle" parent="TextView">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorSecondDrayText</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:maxWidth">200dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RecordFragmentInfoEditTextStyle" parent="EditText">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/colorSecondDrayText</item>
+        <item name="android:background">@color/colorText</item>
+    </style>
+
+    <style name="RecordFragmentInfoEditTextStyle1" parent="RecordFragmentInfoEditTextStyle">
+        <item name="android:paddingEnd">4dp</item>
+    </style>
+
+    <style name="SpinnerStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="ms_padding_top">8dp</item>
+        <item name="ms_padding_bottom">8dp</item>
+        <item name="ms_popup_padding_bottom">4dp</item>
+        <item name="ms_popup_padding_top">4dp</item>
+        <item name="ms_text_color">@color/colorSecondDrayText</item>
+        <item name="ms_text_gravity">end</item>
+        <item name="ms_dropdown_max_height">200dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -51,6 +88,7 @@
         <item name="qmui_dialog_action_style">@style/DialogTheme2ActionStyle</item>
 
     </style>
+
     <style name="DialogTheme2ActionContainerStyle">
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>
@@ -62,6 +100,7 @@
         <item name="qmui_topDividerColor">?attr/qmui_config_color_separator</item>
         <item name="qmui_topDividerHeight">1px</item>
     </style>
+
     <style name="DialogTheme2ActionStyle">
         <item name="android:textColor">?attr/qmui_config_color_blue</item>
         <item name="android:textSize">15sp</item>
@@ -73,6 +112,7 @@
         <item name="qmui_dialog_positive_action_text_color">@color/colorPrimary</item>
         <item name="qmui_dialog_negative_action_text_color">?attr/qmui_config_color_red</item>
     </style>
+
     <style name="LFileTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

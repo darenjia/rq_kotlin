@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorSetting"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/street_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="黄浦外滩"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/title_font_size" />
+
+            <TextView
+                android:id="@+id/record_create_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/street_name"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:text="建档日期：2018-11-16"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/small_font_size" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/link_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:src="@drawable/vector_drawable_link" />
+
+            <LinearLayout
+                android:id="@+id/record_link_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/link_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="麻辣烫"
+                    android:textColor="@color/colorSecondDrayText" />
+
+                <TextView
+                    android:id="@+id/link_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="黄浦外滩"
+                    android:textColor="@color/colorSecondDrayText" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/unlink"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:src="@drawable/vector_drawable_unlink" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/record_link_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="选择关联用户"
+            android:visibility="gone"
+            style="@style/RecordFragmentInfoTextStyle"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名称" />
+
+            <EditText
+                android:id="@+id/record_user_name"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地址" />
+
+            <EditText
+                android:id="@+id/record_user_address"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/record_location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前定位地址" />
+
+            <EditText
+                android:id="@+id/record_location_address"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGray"
+                android:editable="false"
+                android:text="正在获取当前地址" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/record_map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="负责人" />
+
+            <EditText
+                android:id="@+id/record_user"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电话" />
+
+            <EditText
+                android:id="@+id/record_user_tel"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="法人" />
+
+            <EditText
+                android:id="@+id/record_legal"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写(可填)" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="燃气管理制度与操作规程" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_system"
+                    style="@style/SpinnerStyle"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/record_tip1" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="营业执照(备案)" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_license"
+                    style="@style/SpinnerStyle"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/record_tip1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="供气企业" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_company"
+                    style="@style/SpinnerStyle"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/record_tip1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用气合同" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_contract"
+                    style="@style/SpinnerStyle"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/record_tip1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/record_signed_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="签订日期" />
+
+            <EditText
+                android:id="@+id/record_signed_time"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/record_tip1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="调压阀" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGray"
+                android:gravity="center_vertical"
+                android:minHeight="40dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorText"
+                    android:gravity="center|end"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <CheckBox
+                        android:id="@+id/record_tyf_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不可调节"
+                        android:textColor="@color/colorSecondDrayText" />
+
+                    <CheckBox
+                        android:id="@+id/record_tyf_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="可调节"
+                        android:textColor="@color/colorSecondDrayText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/record_tyf_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorText"
+                    android:gravity="center|end"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/RecordFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="可调节(中压)" />
+
+                    <EditText
+                        android:id="@+id/record_tyf_number"
+                        style="@style/RecordFragmentInfoEditTextStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="请填写"
+                        android:inputType="number" />
+
+                    <TextView
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="连接管" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|end"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <CheckBox
+                    android:id="@+id/record_ljg_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="硬管连接"
+                    android:textColor="@color/colorSecondDrayText" />
+
+                <CheckBox
+                    android:id="@+id/record_ljg_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="橡胶管"
+                    android:textColor="@color/colorSecondDrayText" />
+
+                <CheckBox
+                    android:id="@+id/record_ljg_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="其他管"
+                    android:textColor="@color/colorSecondDrayText" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:padding="8dp"
+            android:text="燃具类型"
+            android:textColor="@color/colorSecondDrayText"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大气式(无电源线)" />
+
+            <EditText
+                android:id="@+id/record_rj_1_number"
+                style="@style/RecordFragmentInfoEditTextStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请填写"
+                android:inputType="number" />
+
+            <TextView
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="台" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="鼓风式(有电源线)" />
+
+            <EditText
+                android:id="@+id/record_rj_2_number"
+                style="@style/RecordFragmentInfoEditTextStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请填写"
+                android:inputType="number" />
+
+            <TextView
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="台" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="是否有熄火保护装置" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGray"
+                android:gravity="center_vertical"
+                android:minHeight="40dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorText"
+                    android:gravity="center|end"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <CheckBox
+                        android:id="@+id/record_xh_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="是"
+                        android:textColor="@color/colorSecondDrayText" />
+
+                    <CheckBox
+                        android:id="@+id/record_xh_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="否"
+                        android:textColor="@color/colorSecondDrayText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/record_xh_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorText"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="无熄火保护装置" />
+
+                    <EditText
+                        android:id="@+id/record_xh_number"
+                        style="@style/RecordFragmentInfoEditTextStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="请填写"
+                        android:inputType="number" />
+
+                    <TextView
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="燃气泄漏报警器" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_bjq"
+                    style="@style/SpinnerStyle"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/record_tip1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="企业安检记录" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_check"
+                    style="@style/SpinnerStyle"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/record_tip1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/record_last_check_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最近安检日期" />
+
+            <EditText
+                android:id="@+id/record_last_check_time"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/record_tip1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorText"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注" />
+
+            <EditText
+                android:id="@+id/record_remark"
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="(备注)" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/file_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTextForth"
+                android:padding="10dp"
+                android:text="现场照片(3~5张)"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/file_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:background="@drawable/circle_white_bg"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="1"
+                android:textColor="@color/colorSecondDrayText" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/file_info"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_below="@id/file_title"
+                android:layout_marginTop="1dp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/record_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_type_1"
+            android:text="提交"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
+
+</ScrollView>

@@ -144,6 +144,63 @@ public class FtpUtils {
 
     }
 
+    public boolean uploadMultiFile(ArrayList<File> files, String remotePath
+    ) throws IOException {
+        UploadProgressListener listener=new UploadProgressListener() {
+            @Override
+            public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
+
+            }
+        };
+        // 上传之前初始化
+        boolean isConnection = this.uploadBeforeOperate("/", listener);
+        if (!isConnection) {
+            return false;
+        }
+        // FTP下创建文件夹
+        ftpClient.makeDirectory(remotePath);
+        // 改变FTP目录
+        ftpClient.changeWorkingDirectory(remotePath);
+        com.orhanobut.logger.Logger.i(ftpClient.printWorkingDirectory());
+        boolean flag;
+        for (File file : files) {
+            try {
+                int isExit = deleteSingleFile(null, file, new DeleteFileProgressListener() {
+                    @Override
+                    public void onDeleteProgress(String currentStep) {
+                    }
+                });
+                if (isExit == 1) {
+                    continue;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Logger.i(e.getMessage());
+                this.uploadAfterOperate(listener);
+                return false;
+            }
+            flag = uploadingSingle(file, listener);
+            if (flag) {
+                    /*listener.onUploadProgress(Constants.FTP_UPLOAD_SUCCESS, ++currentSize, size,
+                            null);*/
+                //ftpClient.changeToParentDirectory();
+            } else {
+                this.uploadAfterOperate(listener);
+                return false;
+            }
+
+            //回到上一级目录
+            //ftpClient.changeToParentDirectory();
+
+        }
+
+
+        // 上传完成之后关闭连接
+        this.uploadAfterOperate(listener);
+        return true;
+
+    }
+
     /**
      * 上传单个文件.
      *

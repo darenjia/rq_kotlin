@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -64,32 +65,36 @@ public class LoginActivity extends SimpleBaseActivity {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String tipText="";
-                switch (checkedId) {
-                    case R.id.login_type1:
-                        tipText = "当前为市级用户";
-                        type1.setTextColor(getTextColor(R.color.colorApplication));
-                        type2.setTextColor(getTextColor(R.color.colorDivider));
-                        type3.setTextColor(getTextColor(R.color.colorDivider));
-                        break;
-                    case R.id.login_type2:
-                        tipText = "当前为区级用户";
-                        type1.setTextColor(getTextColor(R.color.colorDivider));
-                        type2.setTextColor(getTextColor(R.color.colorApplication));
-                        type3.setTextColor(getTextColor(R.color.colorDivider));
-                        break;
-                    case R.id.login_type3:
-                        tipText = "当前为街镇用户";
-                        type1.setTextColor(getTextColor(R.color.colorDivider));
-                        type2.setTextColor(getTextColor(R.color.colorDivider));
-                        type3.setTextColor(getTextColor(R.color.colorApplication));
-                        break;
-                    default:
-                        break;
-                }
-                mUserTip.setText(tipText);
+                checked(checkedId);
             }
         });
+    }
+
+    private void checked(int checkedId) {
+        String tipText = "";
+        switch (checkedId) {
+            case R.id.login_type1:
+                tipText = "当前为市级用户";
+                type1.setTextColor(getTextColor(R.color.colorApplication));
+                type2.setTextColor(getTextColor(R.color.colorDivider));
+                type3.setTextColor(getTextColor(R.color.colorDivider));
+                break;
+            case R.id.login_type2:
+                tipText = "当前为区级用户";
+                type1.setTextColor(getTextColor(R.color.colorDivider));
+                type2.setTextColor(getTextColor(R.color.colorApplication));
+                type3.setTextColor(getTextColor(R.color.colorDivider));
+                break;
+            case R.id.login_type3:
+                tipText = "当前为街镇用户";
+                type1.setTextColor(getTextColor(R.color.colorDivider));
+                type2.setTextColor(getTextColor(R.color.colorDivider));
+                type3.setTextColor(getTextColor(R.color.colorApplication));
+                break;
+            default:
+                break;
+        }
+        mUserTip.setText(tipText);
     }
 
     private int getTextColor(int color) {
@@ -110,6 +115,19 @@ public class LoginActivity extends SimpleBaseActivity {
             mBox.setChecked(true);
             mUsername.setText(getSharedPreferences().getString("name", ""));
             mPassword.setText(getSharedPreferences().getString("password", ""));
+            String level = getSharedPreferences().getString("level", "");
+            if (!TextUtils.isEmpty(level)) {
+               if (level.contains("市")){
+                   type1.toggle();
+                   checked(R.id.login_type1);
+               }else if (level.contains("区")){
+                   type2.toggle();
+                   checked(R.id.login_type2);
+               }else {
+                   type3.toggle();
+                   checked(R.id.login_type3);
+               }
+            }
         }
         requestPermission();
     }
@@ -173,10 +191,16 @@ public class LoginActivity extends SimpleBaseActivity {
                     .putString("name", mUsername.getText().toString())
                     .putString("password", mPassword.getText().toString())
                     .putBoolean("remember", true)
+                    .putString("level", MyApplication.user.getUserleixing())
                     .apply();
         }
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+
+        if (MyApplication.user.getUserleixing().equals("街镇用户")){
+            GasUserRecordActivity.ToActivity(LoginActivity.this);
+        }else {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 
