@@ -179,7 +179,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
             item.setStatus(0);
             item.setSystime(System.currentTimeMillis());
             item.setUuid(Utils.getUUID());
-            item.setUserId(MyApplication.user.getUserId());
+            item.setUserId(MyApplication.getUser().getUserId());
             item.setWid("null");
             item.setPhoneftp(getFtpRemotePath(item.getUuid()));
         } else {
@@ -252,7 +252,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
                         return aBoolean ? NetworkApi.getService(ActionRegsiterService.class)
-                                .submit(item, MyApplication.user.getUserId()) : null;
+                                .submit(item, MyApplication.getUser().getUserId()) : null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())

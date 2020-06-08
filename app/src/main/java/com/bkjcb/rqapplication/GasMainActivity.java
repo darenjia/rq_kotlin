@@ -83,7 +83,7 @@ public class GasMainActivity extends SimpleBaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        barLayout.setTitle(MyApplication.user.getReal_name());
+        barLayout.setTitle(MyApplication.getUser().getReal_name());
         barLayout.addRightImageButton(R.drawable.vector_drawable_setting, R.id.top_right_button1)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -128,7 +128,7 @@ public class GasMainActivity extends SimpleBaseActivity {
 
     private void getData() {
         disposable = NetworkApi.getService(DataService.class)
-                .getUserInfos(MyApplication.user.getAreacode().getArea_code())
+                .getUserInfos(MyApplication.getUser().getAreacode().getArea_code())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserInfoResult>() {

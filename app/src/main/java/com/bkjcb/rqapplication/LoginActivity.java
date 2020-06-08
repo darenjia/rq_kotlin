@@ -15,9 +15,13 @@ import android.widget.Toast;
 import com.bkjcb.rqapplication.model.UserResult;
 import com.bkjcb.rqapplication.retrofit.DataService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.util.ActivityManagerTool;
 import com.bkjcb.rqapplication.util.MD5Util;
 import com.bkjcb.rqapplication.util.Utils;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -50,6 +54,8 @@ public class LoginActivity extends SimpleBaseActivity {
     RadioButton type3;
     @BindView(R.id.login_type)
     RadioGroup mRadioGroup;
+    @BindView(R.id.app_version)
+    TextView mVersionText;
     QMUITipDialog tipDialog;
 
     @Override
@@ -110,6 +116,7 @@ public class LoginActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        ActivityManagerTool.getActivityManager().finishAll(this);
         boolean isRemember = getSharedPreferences().getBoolean("remember", false);
         if (isRemember) {
             mBox.setChecked(true);
@@ -117,19 +124,20 @@ public class LoginActivity extends SimpleBaseActivity {
             mPassword.setText(getSharedPreferences().getString("password", ""));
             String level = getSharedPreferences().getString("level", "");
             if (!TextUtils.isEmpty(level)) {
-               if (level.contains("市")){
-                   type1.toggle();
-                   checked(R.id.login_type1);
-               }else if (level.contains("区")){
-                   type2.toggle();
-                   checked(R.id.login_type2);
-               }else {
-                   type3.toggle();
-                   checked(R.id.login_type3);
-               }
+                if (level.contains("市")) {
+                    type1.toggle();
+                    checked(R.id.login_type1);
+                } else if (level.contains("区")) {
+                    type2.toggle();
+                    checked(R.id.login_type2);
+                } else {
+                    type3.toggle();
+                    checked(R.id.login_type3);
+                }
             }
         }
         requestPermission();
+        mVersionText.setText(String.format("版本号：V %s", Utils.getCurrentVersion()));
     }
 
     @OnClick(R.id.sign_in_button)
@@ -158,7 +166,7 @@ public class LoginActivity extends SimpleBaseActivity {
                     public void accept(UserResult result) throws Exception {
                         tipDialog.dismiss();
                         if (result.pushState == 200) {
-                            MyApplication.user = result.getDatas();
+                            MyApplication.setUser(result.getDatas());
                             loginSuccess();
                         } else {
                             tipDialog.dismiss();
@@ -191,13 +199,19 @@ public class LoginActivity extends SimpleBaseActivity {
                     .putString("name", mUsername.getText().toString())
                     .putString("password", mPassword.getText().toString())
                     .putBoolean("remember", true)
-                    .putString("level", MyApplication.user.getUserleixing())
+                    .putString("level", MyApplication.getUser().getUserleixing())
                     .apply();
         }
-
-        if (MyApplication.user.getUserleixing().equals("街镇用户")){
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(openFileOutput("CacheUser", MODE_PRIVATE));
+            os.writeObject(MyApplication.getUser());
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (MyApplication.getUser().getUserleixing().equals("街镇用户")) {
             GasUserRecordActivity.ToActivity(LoginActivity.this);
-        }else {
+        } else {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
@@ -211,7 +225,7 @@ public class LoginActivity extends SimpleBaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (tipDialog.isShowing()) {
+        if (tipDialog != null && tipDialog.isShowing()) {
             tipDialog.dismiss();
             showSnackbar("登录已取消");
             cancelDisposable();
@@ -219,4 +233,5 @@ public class LoginActivity extends SimpleBaseActivity {
             super.onBackPressed();
         }
     }
+
 }

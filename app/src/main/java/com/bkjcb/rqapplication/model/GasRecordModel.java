@@ -1,12 +1,24 @@
 package com.bkjcb.rqapplication.model;
 
+import com.bkjcb.rqapplication.datebase.ObjectBox;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.List;
+
+import io.objectbox.Box;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 /**
  * Created by DengShuai on 2020/4/30.
  * Description :
  */
+@Entity
 public class GasRecordModel implements Serializable {
+    @SerializedName("uid")
+    @Id(assignable = true)
+    public long id;
     public String anjianriqi;
     public String qiyeanjianjilu;
     public String ranqixieloubaojinqi;
@@ -32,7 +44,7 @@ public class GasRecordModel implements Serializable {
     public String jiedao;
     public String suoshuqu;
     public String userId;
-    public String userid;
+    //public String userid;
     public String rqdizhi;
     public String rqyonghuming;
     public String rquserid;
@@ -42,8 +54,9 @@ public class GasRecordModel implements Serializable {
     public String phoneftp;
     public String year;
     public String yihuyidangid;
-    public String id;
-    private int type = 0;
+    @SerializedName("id")
+    public String uid;
+    public int type = 0;
 
     public int getType() {
         return type;
@@ -59,4 +72,21 @@ public class GasRecordModel implements Serializable {
 
     public GasRecordModel() {
     }
+
+    public static Box<GasRecordModel> getBox() {
+        return ObjectBox.get().boxFor(GasRecordModel.class);
+    }
+
+    public static long save(GasRecordModel model) {
+        return getBox().put(model);
+    }
+
+    public static void remove(GasRecordModel model) {
+        getBox().remove(model);
+    }
+
+    public static List<GasRecordModel> all() {
+        return getBox().getAll();
+    }
+
 }

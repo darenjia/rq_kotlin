@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.fragment.FileFragment;
 import com.bkjcb.rqapplication.fragment.PictureFragment;
@@ -35,6 +37,10 @@ public class MediaPlayActivity extends AppCompatActivity {
     private void initView() {
         Fragment fragment;
         path = getIntent().getStringExtra("Path");
+        if (TextUtils.isEmpty(path)) {
+            Toast.makeText(this, "文件路径出错！", Toast.LENGTH_SHORT).show();
+           return;
+        }
         if (path.endsWith(".png") || path.endsWith(".jpg")) {
             fragment = PictureFragment.newInstance(path);
         } else if (path.endsWith(".mp4")) {

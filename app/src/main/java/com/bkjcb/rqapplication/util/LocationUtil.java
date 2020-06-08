@@ -7,6 +7,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -127,5 +129,9 @@ public class LocationUtil {
             }
         });
         mapLocationClient.startLocation();
+    }
+    public static BitmapDescriptor getMapIconBitmap(int id) {
+        return BitmapDescriptorFactory.fromResource(id);
+
     }
 }

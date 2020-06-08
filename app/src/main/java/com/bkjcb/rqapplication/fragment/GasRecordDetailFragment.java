@@ -41,6 +41,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -129,6 +130,8 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     LinearLayout mRecordLastCheckLayout;
     @BindView(R.id.record_submit)
     Button mSubmit;
+    @BindView(R.id.record_save)
+    Button mSave;
     @BindView(R.id.record_location_layout)
     LinearLayout mRecordLocationLayout;
     @BindView(R.id.file_info)
@@ -154,6 +157,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     private OnPageButtonClickListener listener;
     private FileListAdapter imageAdapter;
     private boolean isCanChange = true;
+    private boolean isTemp = false;
 
     public void setListener(OnPageButtonClickListener listener) {
         this.listener = listener;
@@ -189,11 +193,17 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
 
     @Override
     protected void initView() {
+        if (recordModel == null) {
+            getActivity().finish();
+            return;
+        }
         setText(mStreetName, recordModel.jiedao);
         isCanChange = recordModel.getType() != 0;
+        isTemp = recordModel.id > 0;
         if (recordModel.getType() == 1) {
             setText(mRecordCreateTime, "建档日期：" + recordModel.jiandangriqi);
             initSpinnerView();
+            setViewVisibility(mSave, true);
         } else {
             setText(mRecordUserName, recordModel.yonghuming);
             setText(mRecordUserAddress, recordModel.dizhi);
@@ -212,6 +222,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             } else {
                 setText(mRecordCreateTime, "建档日期：" + recordModel.jiandangriqi);
                 initSpinnerView();
+                setViewVisibility(mSave, isTemp);
             }
 
             if ("已签".equals(recordModel.yongqihetong)) {
@@ -220,11 +231,16 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             } else {
                 setViewVisibility(mRecordSignedInfo, false);
             }
-            setChecked(mRecord_tyf_1, "可调节".equals(recordModel.tiaoyafa));
-            if (!TextUtils.isEmpty(recordModel.tiaoyafa_geshu)) {
+            if (!TextUtils.isEmpty(recordModel.tiaoyafa)) {
+                setChecked(mRecord_tyf_1, recordModel.tiaoyafa.contains("不可调节"));
+                setChecked(mRecord_tyf_2, recordModel.tiaoyafa.contains(",可调节"));
+            }
+            if (!TextUtils.isEmpty(recordModel.tiaoyafa_geshu) && Integer.parseInt(recordModel.tiaoyafa_geshu) > 0) {
                 setChecked(mRecord_tyf_2, true);
                 setViewVisibility(mRecordTyfLayout, true);
                 setText(mRecordTyfNumber, recordModel.tiaoyafa_geshu);
+            } else {
+                setChecked(mRecord_tyf_1, true);
             }
             if (!TextUtils.isEmpty(recordModel.lianjieguan)) {
                 setChecked(mRecordLjg1, recordModel.lianjieguan.contains("硬管连接"));
@@ -233,11 +249,16 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             }
             setText(mRecordRj1Number, recordModel.zaojuleixing_dafeng);
             setText(mRecordRj2Number, recordModel.zaojuleixing_gufeng);
-            setChecked(mRecordXh_1, "否".equals(recordModel.xihuobaohu));
-            if (!TextUtils.isEmpty(recordModel.tiaoyafa_geshu)) {
+            if (!TextUtils.isEmpty(recordModel.xihuobaohu)) {
+                setChecked(mRecordXh_1, recordModel.xihuobaohu.contains("是"));
+                setChecked(mRecordXh_2, recordModel.xihuobaohu.contains("否"));
+            }
+            if (!TextUtils.isEmpty(recordModel.xihuobaohu_geshu) && Integer.parseInt(recordModel.xihuobaohu_geshu) > 0) {
                 setChecked(mRecordXh_2, true);
                 setViewVisibility(mRecordXhLayout, true);
                 setText(mRecordXhNumber, recordModel.xihuobaohu_geshu);
+            } else {
+                setChecked(mRecordXh_1, true);
             }
             if ("有".equals(recordModel.qiyeanjianjilu)) {
                 setViewVisibility(mRecordLastCheckLayout, true);
@@ -330,7 +351,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             mLinkAddress.setText(userInfo.getUserAddress());
             mRecordUserName.setText(userInfo.getUserName());
             mRecordUserAddress.setText(userInfo.getUserAddress());
-            if (recordModel.getType() == 2) {
+            if (recordModel.getType() == 2 && !isTemp) {
                 mRecordUserAddress.setEnabled(false);
             }
         }
@@ -344,11 +365,14 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     private void initSpinner(MaterialSpinner spinner, List<String> strings, String value) {
         spinner.setAdapter(new MaterialSpinnerAdapter<>(getContext(), strings));
         if (!TextUtils.isEmpty(value)) {
-            spinner.setSelectedIndex(strings.indexOf(value));
+            if (strings.indexOf(value) != -1) {
+                spinner.setSelectedIndex(strings.indexOf(value));
+            }
+
         }
     }
 
-    @OnClick({R.id.record_signed_time, R.id.record_last_check_time, R.id.unlink, R.id.record_submit, R.id.record_link_btn, R.id.record_link_info})
+    @OnClick({R.id.record_signed_time, R.id.record_last_check_time, R.id.unlink, R.id.record_submit, R.id.record_link_btn, R.id.record_link_info, R.id.record_save})
     public void onClick(View v) {
         if (recordModel.getType() == 0) {
             return;
@@ -377,6 +401,27 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             case R.id.record_link_btn:
                 SearchGasUserActivity.toActivity(this);
                 break;
+            case R.id.record_save:
+                saveTempData();
+                break;
+        }
+    }
+
+    private void saveTempData() {
+        collectParams();
+        if (TextUtils.isEmpty(recordModel.yonghuming) || TextUtils.isEmpty(recordModel.dizhi)) {
+            Toast.makeText(context, "用户名和地址不能为空！", Toast.LENGTH_SHORT).show();
+        } else {
+            if (imageAdapter.getData().size() > 0) {
+                List<String> fileName = new ArrayList<>();
+                for (MediaFile file : imageAdapter.getData()) {
+                    fileName.add(file.getPath());
+                }
+                recordModel.phoneftp = Utils.listToString(fileName);
+            }
+            GasRecordModel.save(recordModel);
+            Toast.makeText(context, "数据保存成功！", Toast.LENGTH_SHORT).show();
+            getActivity().finish();
         }
     }
 
@@ -519,7 +564,6 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         recordModel.yongqihetong = getText(mRecordContract);
         recordModel.qiandingriqi = getText(mRecordSignedTime);
         recordModel.tiaoyafa_geshu = getText(mRecordTyfNumber);
-        recordModel.lianjieguan = getText(mRecordUserAddress);
         recordModel.zaojuleixing_dafeng = getText(mRecordRj1Number);
         recordModel.zaojuleixing_gufeng = getText(mRecordRj2Number);
         recordModel.xihuobaohu_geshu = getText(mRecordXhNumber);
@@ -527,14 +571,23 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         recordModel.anjianriqi = getText(mRecordLastCheckTime);
         recordModel.qiyeanjianjilu = getText(mRecordCheck);
         recordModel.beizhu = getText(mRecordRemark);
-
+        StringBuilder builder = new StringBuilder();
         if (mRecord_tyf_1.isChecked()) {
-            recordModel.tiaoyafa = "不可调节";
+            builder.append("不可调节");
+        }
+        if (mRecord_tyf_2.isChecked()) {
+            builder.append(builder.length() > 0 ? "," : "").append("可调节");
+        }
+        recordModel.tiaoyafa = builder.toString();
+        builder = new StringBuilder();
+        if (mRecordXh_1.isChecked()) {
+            builder.append("是");
         }
         if (mRecordXh_2.isChecked()) {
-            recordModel.tiaoyafa = "是";
+            builder.append(builder.length() > 0 ? "," : "").append("否");
         }
-        StringBuilder builder = new StringBuilder();
+        recordModel.xihuobaohu = builder.toString();
+        builder = new StringBuilder();
         if (mRecordLjg1.isChecked()) {
             builder.append("硬管连接");
         }
@@ -625,7 +678,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.iv_delete) {
+                if (view.getId() == R.id.item_grid_bt) {
                     imageAdapter.remove(position);
                     refreshFileCount();
                 }
@@ -635,8 +688,13 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             String[] paths = recordModel.phoneftp.split(",");
             for (String path : paths) {
                 MediaFile mediaFile = new MediaFile();
-                mediaFile.setPath(Constants.IMAGE_URL + path);
-                mediaFile.setLocal(false);
+                if (isTemp) {
+                    mediaFile.setType(1);
+                    mediaFile.setPath(path);
+                } else {
+                    mediaFile.setPath(Constants.IMAGE_URL + path);
+                    mediaFile.setLocal(false);
+                }
                 imageAdapter.addData(mediaFile);
             }
         }

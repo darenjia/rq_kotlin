@@ -123,7 +123,7 @@ public class ChooseCheckInfoFragment extends BaseSimpleFragment implements DateP
         calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         mInfoYear.setAdapter(new MaterialSpinnerAdapter<String>(context, strings));
         mInfoDate.setText(Utils.dateFormat("", calendar.getTime()));
-        mInfoName.setText(MyApplication.user.getReal_name());
+        mInfoName.setText(MyApplication.getUser().getReal_name());
         if (checkItem != null) {
             if (!TextUtils.isEmpty(checkItem.jianchariqi)) {
                 mInfoDate.setText(checkItem.jianchariqi);

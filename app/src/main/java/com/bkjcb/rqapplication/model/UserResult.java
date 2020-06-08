@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class UserResult extends HttpResult{
         this.datas = datas;
     }
 
-    public static class User {
+    public static class User implements Serializable {
 
 
         /**
@@ -178,7 +179,7 @@ public class UserResult extends HttpResult{
             this.roles = roles;
         }
 
-        public static class AreaBean {
+        public static class AreaBean implements Serializable{
             /**
              * id :
              * resultCount : 0
@@ -245,7 +246,7 @@ public class UserResult extends HttpResult{
                 this.jane_spell = jane_spell;
             }
         }
-        public static class AreaCodeBean{
+        public static class AreaCodeBean implements Serializable{
 
             /**
              * id : null

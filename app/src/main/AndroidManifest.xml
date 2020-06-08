@@ -13,12 +13,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 外存储写权限，构建语法需要用到此权限 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -48,73 +49,141 @@
         <activity android:name=".GasMainActivity" />
         <activity
             android:name=".CheckMainActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".CreateCheckTaskActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".CheckDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".CheckResultDetailActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ContactActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".CreateApplianceCheckTaskActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ApplianceCheckResultDetailActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ApplianceCheckDetailActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".AlarmCheckDetailActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".SellCheckDetailActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ContactDetailActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ActionRegisterActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".CreateActionRegisterActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ContactSearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".CreateEmergencyActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".EmergencyActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".MediaPlayActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".ContactDepartmentActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".GasUserRecordActivity" />
-        <activity android:name=".AddNewGasUserActivity" />
-        <activity android:name=".GasReviewActivity" />
-        <activity android:name=".GasUserRecordDetailActivity" />
-        <activity android:name=".ReviewRecordActivity" />
-        <activity android:name=".SearchGasUserActivity" />
-        <activity android:name=".GasUserRecordChangeActivity" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".GasUserRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".AddNewGasUserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".GasReviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".GasUserRecordDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".ReviewRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".SearchGasUserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".GasUserRecordChangeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".TempRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
-            tools:replace="android:authorities"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />

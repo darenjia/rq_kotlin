@@ -51,13 +51,13 @@ public class AddNewGasUserActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        model = new GasRecordModel(1);
-        model.userId = MyApplication.user.getUserId();
-        model.suoshuqu = MyApplication.user.getAreacode().getArea_jc();
-        model.jiedao = MyApplication.user.getAreacode().getArea_street();
-        model.jiandangriqi = Utils.getCurrentTime();
-        model.year = "2020";
-        showUserListView();
+            model = new GasRecordModel(1);
+            model.userId = MyApplication.getUser().getUserId();
+            model.suoshuqu = MyApplication.getUser().getAreacode().getArea_jc();
+            model.jiedao = MyApplication.getUser().getAreacode().getStreet_jc();
+            model.jiandangriqi = Utils.getCurrentTime();
+            model.year = "2020";
+            showUserListView();
     }
 
     protected void showUserListView() {
@@ -108,8 +108,13 @@ public class AddNewGasUserActivity extends SimpleBaseActivity {
             List<String> path = new ArrayList<>();
             List<String> fileName = new ArrayList<>();
             for (MediaFile file : list) {
-                path.add(file.getPath());
-                fileName.add(remoteAddress + Utils.getFileName(file.getPath()));
+                if (file.isLocal()) {
+                    path.add(file.getPath());
+                    fileName.add(remoteAddress + Utils.getFileName(file.getPath()));
+                } else {
+                    fileName.add(file.getPath().replace(Constants.IMAGE_URL, ""));
+                }
+
             }
             model.phoneftp = Utils.listToString(fileName);
             disposable = UploadTask.createUploadTask(path, remoteAddress)
@@ -125,18 +130,22 @@ public class AddNewGasUserActivity extends SimpleBaseActivity {
                         @Override
                         public void accept(HttpResult httpResult) throws Exception {
                             showLoading(false);
-                            if (httpResult.pushState == 200) {
-                                submitSuccess();
-                                Toast.makeText(AddNewGasUserActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                            if (httpResult != null) {
+                                if (httpResult.pushState == 200) {
+                                    submitSuccess();
+                                    Toast.makeText(AddNewGasUserActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(AddNewGasUserActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(AddNewGasUserActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNewGasUserActivity.this, "文件上传失败，稍后再试！", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             showLoading(false);
-                            Toast.makeText(AddNewGasUserActivity.this, "提交失败！" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddNewGasUserActivity.this, "提交错误！" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -161,6 +170,7 @@ public class AddNewGasUserActivity extends SimpleBaseActivity {
                 map.put(filed.getName(), valueOf(filed.get(model)));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
+                break;
             }
         }
         return map;
@@ -169,4 +179,5 @@ public class AddNewGasUserActivity extends SimpleBaseActivity {
     public String valueOf(Object obj) {
         return (obj == null) ? "" : obj.toString();
     }
+
 }

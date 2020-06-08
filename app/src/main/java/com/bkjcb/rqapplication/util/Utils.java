@@ -2,6 +2,8 @@ package com.bkjcb.rqapplication.util;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -9,6 +11,7 @@ import android.text.TextUtils;
 
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.CheckItem;
 
@@ -43,7 +46,13 @@ public class Utils {
         if (TextUtils.isEmpty(s)) {
             return "";
         }
-        Date date = new Date(Long.parseLong(s));
+        Date date = null;
+        try {
+            date = new Date(Long.parseLong(s));
+        } catch (NumberFormatException e) {
+            //e.printStackTrace();
+            return s;
+        }
         String format = "yyyy-MM-dd";
         return new SimpleDateFormat(format, Locale.CHINESE).format(date);
     }
@@ -204,5 +213,18 @@ public class Utils {
             builder.append(s).append(",");
         }
         return builder.substring(0, builder.length() - 1);
+    }
+
+    public static String getCurrentVersion() {
+        PackageManager packageManager = MyApplication.getContext().getPackageManager();
+        // getPackageName()是你当前类的包名
+        PackageInfo packInfo = null;
+        try {
+            packInfo = packageManager.getPackageInfo(MyApplication.getContext().getPackageName(), 0);
+            return packInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "未知";
     }
 }

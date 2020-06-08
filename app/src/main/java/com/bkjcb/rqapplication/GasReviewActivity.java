@@ -53,7 +53,7 @@ public class GasReviewActivity extends AddNewGasUserActivity {
         if (type != 0 || (TextUtils.isEmpty(id) && record == null)) {
             initTopbar("新建复查记录");
             record = new ReviewRecord(1);
-            record.userId = MyApplication.user.getUserId();
+            record.userId = MyApplication.getUser().getUserId();
             record.yonghuming = name;
             if (TextUtils.isEmpty(id)) {
                 showUserListView();
@@ -129,11 +129,15 @@ public class GasReviewActivity extends AddNewGasUserActivity {
                         @Override
                         public void accept(HttpResult httpResult) throws Exception {
                             showLoading(false);
-                            if (httpResult.pushState == 200) {
-                                finish();
-                                Toast.makeText(GasReviewActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                            if (httpResult != null) {
+                                if (httpResult.pushState == 200) {
+                                    finish();
+                                    Toast.makeText(GasReviewActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(GasReviewActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(GasReviewActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(GasReviewActivity.this, "文件上传失败，请稍后再试！", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Consumer<Throwable>() {
@@ -194,10 +198,14 @@ public class GasReviewActivity extends AddNewGasUserActivity {
                 .subscribe(new Consumer<ReviewRecordResult>() {
                     @Override
                     public void accept(ReviewRecordResult result) throws Exception {
-                        if (result.pushState == 200) {
+                        if (result.pushState == 200 && result.getData().size() > 0) {
                             record = result.getData().get(0);
-                            showUserInfoDetail(createFragment());
-                            hideEmptyView();
+                            if (record != null) {
+                                showUserInfoDetail(createFragment());
+                                hideEmptyView();
+                            } else {
+                                showErrorView(null);
+                            }
                         } else {
                             showErrorView(null);
                         }

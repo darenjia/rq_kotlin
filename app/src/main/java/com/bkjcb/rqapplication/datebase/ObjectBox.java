@@ -66,4 +66,5 @@ public class ObjectBox {
         }
         return userBox;
     }
+
 }

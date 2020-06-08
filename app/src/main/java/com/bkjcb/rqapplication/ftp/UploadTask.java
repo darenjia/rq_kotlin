@@ -53,16 +53,20 @@ public class UploadTask {
                         }
                     }
                     FtpUtils utils = new FtpUtils();
-                    boolean isSuccess = utils.uploadMultiFile(files, remotepath);
-                    if (isSuccess) {
-                        emitter.onNext(true);
-                    } else {
-                        emitter.onNext(false);
+                    try {
+                        boolean isSuccess = utils.uploadMultiFile(files, remotepath);
+                        if (isSuccess) {
+                            emitter.onNext(true);
+                        } else {
+                            emitter.onNext(false);
+                        }
+                    }catch (Exception e){
+                        emitter.onError(e);
                     }
+
                 } else {
                     emitter.onNext(true);
                 }
-
             }
         });
     }

@@ -186,11 +186,23 @@ public class ContactActivity extends SimpleBaseActivity {
                 return true;
             }
         };
-        tel1.setRightImageViewClickListener(listener);
+        tel1.setRightImageViewClickListener(new SuperTextView.OnRightImageViewClickListener() {
+            @Override
+            public void onClickListener(ImageView imageView) {
+                String number = tel1.getLeftBottomString();
+                actionCall(number);
+            }
+        });
         //tel1.setOnClickListener(listener);
-        tel2.setRightImageViewClickListener(listener);
-        tel1.setOnLongClickListener(longClickListener);
-        tel2.setOnLongClickListener(longClickListener);
+        tel2.setRightImageViewClickListener(new SuperTextView.OnRightImageViewClickListener() {
+            @Override
+            public void onClickListener(ImageView imageView) {
+                String number = tel2.getLeftBottomString();
+                actionCall(number);
+            }
+        });
+        //tel1.setOnLongClickListener(longClickListener);
+        //tel2.setOnLongClickListener(longClickListener);
         unit_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

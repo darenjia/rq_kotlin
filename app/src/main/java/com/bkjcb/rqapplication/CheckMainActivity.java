@@ -82,6 +82,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     protected void initData() {
         type = getIntent().getIntExtra("Type", 0);
         adapter.setOnItemClickListener(this);
+        getHideSetting();
         showCheckList();
     }
 
@@ -95,6 +96,10 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
 
     private void queryRemoteDta() {
 
+    }
+
+    protected void getHideSetting() {
+        isShowAll = getSharedPreferences().getBoolean("hide_finished", true);
     }
 
     @Override

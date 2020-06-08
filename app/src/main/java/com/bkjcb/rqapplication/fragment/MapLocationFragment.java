@@ -14,6 +14,7 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.AMapGestureListener;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
@@ -22,6 +23,7 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.util.LocationUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,7 +42,7 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
     private TextureMapView mapView;
     private AMap aMap;
     private LatLng latLng;
-    private GeocodeSearch geocoderSearch;
+    private GeocodeSearch geocodeSearch;
     private AddressQueryListener listener;
 
 
@@ -153,6 +155,10 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
         if (latLng != null) {
             aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
                     latLng, 18, 0, 0)));
+            MarkerOptions markerOptions=new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.icon(LocationUtil.getMapIconBitmap(R.drawable.icon_location));
+            aMap.addMarker(markerOptions);
         }
     }
 
@@ -175,7 +181,7 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
     public void getAddress(LatLonPoint latLonPoint) {
         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 20,
                 GeocodeSearch.AMAP);// 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
-        geocoderSearch.getFromLocationAsyn(query);// 设置异步逆地理编码请求
+        geocodeSearch.getFromLocationAsyn(query);// 设置异步逆地理编码请求
     }
 
     @Override
@@ -224,8 +230,8 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
     }
 
     private void initReGeocode() {
-        geocoderSearch = new GeocodeSearch(getContext());
-        geocoderSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
+        geocodeSearch = new GeocodeSearch(getContext());
+        geocodeSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
             @Override
             public void onRegeocodeSearched(RegeocodeResult result, int i) {
                 if (i == AMapException.CODE_AMAP_SUCCESS) {

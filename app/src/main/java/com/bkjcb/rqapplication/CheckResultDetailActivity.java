@@ -165,7 +165,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
                         return aBoolean ? NetworkApi.getService(CheckService.class).saveCheckItem(
-                                MyApplication.user.getUserId(),
+                                MyApplication.getUser().getUserId(),
                                 checkItem.year,
                                 checkItem.zhandianleixing,
                                 checkItem.beijiandanweiid,

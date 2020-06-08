@@ -76,12 +76,17 @@ public class ActionRegisterActivity extends SimpleBaseActivity implements BaseQu
         adapter.setOnItemClickListener(this);
     }
 
+    protected void getHideSetting() {
+        isShowAll = getSharedPreferences().getBoolean("hide_finished", true);
+    }
+
     protected String getTitleString() {
         return "立案";
     }
 
     @Override
     protected void initData() {
+        getHideSetting();
         showCheckList();
     }
 

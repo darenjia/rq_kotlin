@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.fragment.GasRecordDetailFragment;
 import com.bkjcb.rqapplication.model.GasRecordModel;
@@ -31,6 +32,7 @@ public class GasUserRecordDetailActivity extends AddNewGasUserActivity {
 
     @Override
     protected void initView() {
+        boolean isCanChange = MyApplication.getUser().getUserleixing().equals("街镇用户");
         QMUITopBarLayout topBarLayout = initTopbar("一户一档详情");
         topBarLayout.addRightTextButton("复查记录", R.id.top_right_button1)
                 .setOnClickListener(new View.OnClickListener() {
@@ -39,13 +41,15 @@ public class GasUserRecordDetailActivity extends AddNewGasUserActivity {
                         ReviewRecordActivity.ToActivity(GasUserRecordDetailActivity.this, id, name);
                     }
                 });
-        topBarLayout.addRightTextButton("修改", R.id.top_right_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        GasUserRecordChangeActivity.toActivity(GasUserRecordDetailActivity.this, recordModel);
-                    }
-                });
+        if (isCanChange) {
+            topBarLayout.addRightTextButton("修改", R.id.top_right_button)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            GasUserRecordChangeActivity.toActivity(GasUserRecordDetailActivity.this, recordModel);
+                        }
+                    });
+        }
     }
 
     @Override
@@ -73,8 +77,12 @@ public class GasUserRecordDetailActivity extends AddNewGasUserActivity {
                         if (result.pushState == 200) {
                             needRefresh = false;
                             recordModel = result.getDatas();
-                            name = recordModel.yonghuming;
-                            showUserInfoDetail(createGasRecordDetailFragment(null, recordModel));
+                            if (recordModel != null) {
+                                name = recordModel.yonghuming;
+                                showUserInfoDetail(createGasRecordDetailFragment(null, recordModel));
+                            }else {
+                                Toast.makeText(GasUserRecordDetailActivity.this, "未获取到一户一档信息，请稍后再试", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 }, new Consumer<Throwable>() {

@@ -176,7 +176,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
             item.setStatus(0);
             item.setSystime(System.currentTimeMillis());
             item.setUuid(Utils.getUUID());
-            item.setUserId(MyApplication.user.getUserId());
+            item.setUserId(MyApplication.getUser().getUserId());
             item.setPhoneftp(getFtpRemotePath(item.getUuid()));
         } else {
             isCanEditable = item.getStatus() != 2;

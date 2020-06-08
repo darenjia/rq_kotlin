@@ -261,6 +261,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:hint="@string/record_type2"
+                        android:maxLength="5"
                         android:inputType="number" />
 
                 </LinearLayout>
@@ -349,6 +350,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:hint="@string/record_type2"
+                        android:maxLength="5"
                         android:inputType="number" />
 
                 </LinearLayout>
@@ -437,6 +439,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:hint="@string/record_type2"
+                        android:maxLength="5"
                         android:inputType="number" />
 
                 </LinearLayout>

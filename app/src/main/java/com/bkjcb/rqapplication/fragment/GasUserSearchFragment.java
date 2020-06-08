@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -53,7 +54,6 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
     private int page = 0;
     private boolean loadMore = false;
     private boolean isHideAdd;
-    private Disposable listenerDisposable;
 
     public void setHideAdd(boolean hideAdd) {
         isHideAdd = hideAdd;
@@ -108,13 +108,14 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
 
     @Override
     protected void initData() {
-        showLoadingView();
-        getData();
+        //showLoadingView();
+        //getData();
+        setFilter();
     }
 
     private void getData() {
         disposable = NetworkApi.getService(GasService.class)
-                .getUserInfo(page, 20, MyApplication.user.getArea().getArea_name(), "", "")
+                .getUserInfo(page, 20, MyApplication.getUser().getArea().getArea_name(), "", "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserInfoResult>() {
@@ -176,7 +177,7 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
     }
 
     private void setFilter() {
-        listenerDisposable = Observable.create(new ObservableOnSubscribe<String>() {
+        Observable.merge(Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 mSearchView.addTextChangedListener(new TextWatcher() {
@@ -216,33 +217,43 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
                 }, mAddressList);
 
             }
-        }).debounce(500, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
+        }), Observable.just(""))
+                .debounce(500, TimeUnit.MILLISECONDS)
                 /* .filter(new Predicate<String>() {
                      @Override
                      public boolean test(String s) throws Exception {
                          return s.length() > 0;
                      }
                  })*/
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         if (!loadMore) {
+                            showLoadingView();
                             page = 0;
                         }
                     }
                 })
+                .observeOn(Schedulers.io())
                 .flatMap(new Function<String, Observable<UserInfoResult>>() {
                     @Override
                     public Observable<UserInfoResult> apply(String s) throws Exception {
                         return NetworkApi.getService(GasService.class)
-                                .getUserInfo(page, 20, MyApplication.user.getArea().getArea_name(), "", s);
+                                .getUserInfo(page, 20, MyApplication.getUser().getArea().getArea_name(), "", s);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<UserInfoResult>() {
+                .subscribe(new Observer<UserInfoResult>() {
                     @Override
-                    public void accept(UserInfoResult result) throws Exception {
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                        showLoadingView();
+                    }
+
+                    @Override
+                    public void onNext(UserInfoResult result) {
                         if (result.getPushState() == 200) {
                             showResultList(result.getDatas());
                         } else {
@@ -250,25 +261,17 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
                             Toast.makeText(getContext(), "获取数据失败！", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }, new Consumer<Throwable>() {
+
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
+                    public void onError(Throwable e) {
                         showErrorView();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        setFilter();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (listenerDisposable != null && !listenerDisposable.isDisposed()) {
-            listenerDisposable.dispose();
-        }
-    }
 }

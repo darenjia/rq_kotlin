@@ -32,6 +32,7 @@ public class ReviewRecordActivity extends SimpleBaseActivity {
     private TimeLineAdapter adapter;
     private String id;
     private String name;
+    private boolean isCanChange;
 
     @Override
     protected int setLayoutID() {
@@ -40,9 +41,12 @@ public class ReviewRecordActivity extends SimpleBaseActivity {
 
     @Override
     protected void initView() {
+        isCanChange = MyApplication.getUser().getUserleixing().equals("街镇用户");
         QMUITopBarLayout topBarLayout = initTopbar("复查记录");
-        topBarLayout.addRightTextButton("复查", R.id.top_right_button1)
-                .setOnClickListener(createClickListener());
+        if (isCanChange) {
+            topBarLayout.addRightTextButton("复查", R.id.top_right_button1)
+                    .setOnClickListener(createClickListener());
+        }
         adapter = new TimeLineAdapter(R.layout.item_timeline);
         mCheckList.setLayoutManager(new LinearLayoutManager(this));
         mCheckList.setAdapter(adapter);
@@ -104,7 +108,11 @@ public class ReviewRecordActivity extends SimpleBaseActivity {
 
     protected View createEmptyView(View.OnClickListener listener) {
         View view = getLayoutInflater().inflate(R.layout.empty_textview_with_button, null);
-        view.findViewById(R.id.empty_button).setOnClickListener(listener);
+        if (isCanChange) {
+            view.findViewById(R.id.empty_button).setOnClickListener(listener);
+        } else {
+            view.findViewById(R.id.empty_button).setVisibility(View.GONE);
+        }
         return view;
     }
 

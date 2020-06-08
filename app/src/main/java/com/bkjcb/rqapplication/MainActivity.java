@@ -34,6 +34,7 @@ public class MainActivity extends SimpleBaseActivity {
     ImageView mMessageMore;
     @BindView(R.id.main_message_list)
     RecyclerView mMainMessageList;
+    private int user_type = 0;
 
     @Override
     protected int setLayoutID() {
@@ -42,6 +43,7 @@ public class MainActivity extends SimpleBaseActivity {
 
     @Override
     protected void initData() {
+        user_type = "市用户".equals(MyApplication.getUser().getUserleixing()) ? 0 : 1;
         initMenu();
         initBanner();
         initMessage();
@@ -57,33 +59,43 @@ public class MainActivity extends SimpleBaseActivity {
     }
 
     private void initMenu() {
-        MenuGridAdapter adapter = new MenuGridAdapter(MenuItem.getAllMenu());
+        MenuGridAdapter adapter = new MenuGridAdapter(user_type == 0 ? MenuItem.getMunicipalMenu() : MenuItem.getDistrictMenu());
         mMainMenuGrid.setAdapter(adapter);
         mMainMenuGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        GasUserRecordActivity.ToActivity(MainActivity.this);
-                        break;
-                    case 1:
-                        CheckMainActivity.ToActivity(MainActivity.this, 0);
-                        break;
-                    case 2:
-                        CheckMainActivity.ToActivity(MainActivity.this, 1);
-                        break;
-                    case 3:
-                        ContactActivity.ToActivity(MainActivity.this);
-                        break;
-                    case 4:
-                        ActionRegisterActivity.ToActivity(MainActivity.this);
-                        break;
-                    case 5:
-                        EmergencyActivity.ToActivity(MainActivity.this);
-                        break;
-                    default:
+                MenuItem item = (MenuItem) adapter.getItem(position);
+                if (item.purview){
+                    switch (position) {
+                        case 0:
+                            GasUserRecordActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 1:
+                            CheckMainActivity.ToActivity(MainActivity.this, 0);
+                            break;
+                        case 2:
+                            CheckMainActivity.ToActivity(MainActivity.this, 1);
+                            break;
+                        case 3:
+                            ContactActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 4:
+                            ActionRegisterActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 5:
+                            EmergencyActivity.ToActivity(MainActivity.this);
+                            break;
+//                    case 7:
+//                        GasUserRecordActivity.ToActivity(MainActivity.this);
+//                        break;
+                        case 7:
+                            SettingActivity.ToActivity(MainActivity.this);
+                            break;
+                        default:
+                    }
+                }else {
+                    showSnackbar(mMainMenuGrid,"该功能暂未开放！");
                 }
-
             }
         });
     }

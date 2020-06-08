@@ -54,7 +54,7 @@ public class MenuGridAdapter extends BaseAdapter {
         MenuItem item = list.get(position);
         viewHolder.imageView.setImageResource(item.imgUrl);
         if (!item.purview){
-            viewHolder.imageView.setImageTintList(ColorStateList.valueOf(MyApplication.getContext().getResources().getColor(R.color.colorGray)));
+            viewHolder.imageView.setImageTintList(ColorStateList.valueOf(MyApplication.getContext().getResources().getColor(R.color.colorTextSecond)));
         }
         viewHolder.textView.setText(item.text);
         return convertView;

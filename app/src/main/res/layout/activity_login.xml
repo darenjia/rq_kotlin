@@ -149,4 +149,12 @@
 
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorText"
+        android:text="版本号：1.0"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="10dp"/>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

@@ -8,20 +8,14 @@ import com.bkjcb.rqapplication.model.GasUserRecordResult;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 /**
  * Created by DengShuai on 2020/5/6.
  * Description :
  */
 public class GasWorkRecordAdapter extends BaseQuickAdapter<GasUserRecordResult.GasUserRecord, BaseViewHolder> {
-    private DateFormat dateFormat;
 
     public GasWorkRecordAdapter(int layoutResId) {
         super(layoutResId);
-        dateFormat = new SimpleDateFormat("MM-dd", Locale.CHINESE);
     }
 
     @Override

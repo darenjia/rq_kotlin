@@ -10,6 +10,7 @@
         android:id="@+id/menu_item_image"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:tintMode="multiply"
         android:scaleType="fitXY" />
 
     <TextView

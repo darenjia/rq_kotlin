@@ -1,7 +1,6 @@
 package com.bkjcb.rqapplication.fragment;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -398,7 +397,7 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.iv_delete) {
+                if (view.getId() == R.id.item_grid_bt) {
                     imageAdapter.remove(position);
                     refreshFileCount();
                 }
@@ -442,11 +441,10 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
     public void showPickImg() {
         PictureSelector.create(this)
                 .openGallery(PictureConfig.TYPE_IMAGE)
-                .setOutputCameraPath(Environment.getExternalStorageDirectory()
-                        + "/RQApp/GasImage/")
+                .setOutputCameraPath("/RQApp/GasImage/")
                 .compress(true)
-                .compressSavePath(Environment.getExternalStorageDirectory()
-                        + "/RQApp/GasImage/compress")
+          /*      .compressSavePath(Environment.getExternalStorageDirectory()
+                        + "/RQApp/GasImage/compress")*/
                 .minimumCompressSize(300)
                 .imageFormat(PictureMimeType.PNG)
                 //.selectionMedia(selectList)

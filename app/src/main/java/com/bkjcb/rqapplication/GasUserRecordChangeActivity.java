@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.bkjcb.rqapplication.fragment.GasRecordDetailFragment;
 import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener;
@@ -38,15 +39,20 @@ public class GasUserRecordChangeActivity extends AddNewGasUserActivity {
     protected void initData() {
         model = (GasRecordModel) getIntent().getSerializableExtra("data");
         model.setType(2);
-        model.phoneftp = "";
+        //model.phoneftp = "";
         model.jiandangriqi = Utils.getCurrentTime();
-        model.yihuyidangid = model.id;
-        model.userId = MyApplication.user.getUserId();
-        remoteAddress = "yihuyidang/xinzeng/" + model.yihuyidangid + "/";
-        UserInfoResult.UserInfo userInfo = new UserInfoResult.UserInfo();
-        userInfo.setUserGuid(model.rquserid);
-        userInfo.setUserName(model.rqyonghuming);
-        userInfo.setUserAddress(model.rqdizhi);
+        if (!TextUtils.isEmpty(model.uid)) {
+            model.yihuyidangid = model.uid;
+            remoteAddress = "yihuyidang/xinzeng/" + model.yihuyidangid + "/";
+        }
+        model.userId = MyApplication.getUser().getUserId();
+        UserInfoResult.UserInfo userInfo = null;
+        if (!TextUtils.isEmpty(model.rquserid)) {
+            userInfo = new UserInfoResult.UserInfo();
+            userInfo.setUserGuid(model.rquserid);
+            userInfo.setUserName(model.rqyonghuming);
+            userInfo.setUserAddress(model.rqdizhi);
+        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.content_layout, GasRecordDetailFragment.newInstance(new OnPageButtonClickListener<String>() {
@@ -65,14 +71,19 @@ public class GasUserRecordChangeActivity extends AddNewGasUserActivity {
 
     @Override
     protected Observable<HttpResult> createSubmitObservable() {
-        return NetworkApi.getService(GasService.class)
-                .updateUserInfo(getFiledMap(model));
+        return model.id > 0 ?
+                NetworkApi.getService(GasService.class).saveUserInfo(getFiledMap(model))
+                : NetworkApi.getService(GasService.class).updateUserInfo(getFiledMap(model));
     }
 
     @Override
     protected void submitSuccess() {
-        setResult(RESULT_OK);
-        super.submitSuccess();
+        if (model.id > 0) {
+            GasRecordModel.getBox().remove(model);
+        }else {
+            setResult(RESULT_OK);
+        }
+        finish();
     }
 
     public static void toActivity(Activity context, GasRecordModel recordModel) {
