@@ -325,6 +325,9 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
 
     @Override
     protected void initData() {
+        if (recordModel == null) {
+            return;
+        }
         if (recordModel.getType() == 0) {
             if (!TextUtils.isEmpty(recordModel.rquserid)) {
                 setViewVisibility(mLinkLayout, true);

@@ -61,13 +61,9 @@ public class TempRecordActivity extends SimpleBaseActivity {
     }
 
     @Override
-    protected void initData() {
-        StyledDialog.init(this);
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
+        StyledDialog.init(this);
         queryLocalData();
     }
 
@@ -108,7 +104,7 @@ public class TempRecordActivity extends SimpleBaseActivity {
             public void onSecond() {
 
             }
-        }).setBtnText("是", "否").show();
+        }).setBtnText("删除", "取消").show();
     }
 
     private void deleteRecord() {
