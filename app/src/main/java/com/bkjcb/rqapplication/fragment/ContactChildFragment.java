@@ -58,7 +58,6 @@ public class ContactChildFragment extends BaseSimpleFragment {
     private ContactItemAdapter itemAdapter;
 
     private ArrayList<String> strings;
-    private List<User> userList;
     private OnClickListener listener;
     private HashMap<String, Level> map;
 
@@ -119,6 +118,7 @@ public class ContactChildFragment extends BaseSimpleFragment {
         }
         itemAdapter = new ContactItemAdapter(R.layout.item_contact_view);
         mRecyclerList.setAdapter(itemAdapter);
+        itemAdapter.bindToRecyclerView(mRecyclerList);
         mDepartmentListView.setAdapter(unitAdapter);
         setListener();
     }
@@ -128,7 +128,6 @@ public class ContactChildFragment extends BaseSimpleFragment {
         map = new HashMap<>(5);
         mTagLayout.removeAllTags();
         setGone(mResultView);
-        userList = null;
         strings = new ArrayList<>();
         mTagLayout.setTags(strings);
         setVisible(mDepartmentTitle);
@@ -196,7 +195,7 @@ public class ContactChildFragment extends BaseSimpleFragment {
             setVisible(mResultView);
             itemAdapter.setNewData(users);
 //            changeList(model.getDepartmentNameA());
-            mHeader.setRightString(itemAdapter.getItemCount() + "");
+            mHeader.setRightString(itemAdapter.getData().size() + "");
         } else {
             setGone(mResultView);
         }
@@ -251,7 +250,7 @@ public class ContactChildFragment extends BaseSimpleFragment {
                         filterData(level);
                     }
                 })
-                .observeOn(Schedulers.computation())
+                .observeOn(Schedulers.io())
                 .map(new Function<Level, List<User>>() {
                     @Override
                     public List<User> apply(Level level) throws Exception {

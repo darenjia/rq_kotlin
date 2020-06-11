@@ -1,6 +1,5 @@
 package com.bkjcb.rqapplication;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -32,8 +31,6 @@ public class MainActivity extends SimpleBaseActivity {
     ConvenientBanner mConvenientBanner;
     @BindView(R.id.message_more)
     ImageView mMessageMore;
-    @BindView(R.id.main_message_list)
-    RecyclerView mMainMessageList;
     private int user_type = 0;
 
     @Override
@@ -43,11 +40,22 @@ public class MainActivity extends SimpleBaseActivity {
 
     @Override
     protected void initData() {
-        user_type = "市用户".equals(MyApplication.getUser().getUserleixing()) ? 0 : 1;
+
+        initUserType();
         initMenu();
         initBanner();
         initMessage();
         //getIPConfig();
+    }
+
+    private void initUserType() {
+        if ("市用户".equals(MyApplication.getUser().getUserleixing())) {
+            user_type = 0;
+        } else if ("区用户".equals(MyApplication.getUser().getUserleixing())) {
+            user_type = 1;
+        } else {
+            user_type = 2;
+        }
     }
 
     private void initMessage() {
@@ -59,13 +67,13 @@ public class MainActivity extends SimpleBaseActivity {
     }
 
     private void initMenu() {
-        MenuGridAdapter adapter = new MenuGridAdapter(user_type == 0 ? MenuItem.getMunicipalMenu() : MenuItem.getDistrictMenu());
+        MenuGridAdapter adapter = new MenuGridAdapter(getMenuItems());
         mMainMenuGrid.setAdapter(adapter);
         mMainMenuGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MenuItem item = (MenuItem) adapter.getItem(position);
-                if (item.purview){
+                if (item.purview) {
                     switch (position) {
                         case 0:
                             GasUserRecordActivity.ToActivity(MainActivity.this);
@@ -85,19 +93,29 @@ public class MainActivity extends SimpleBaseActivity {
                         case 5:
                             EmergencyActivity.ToActivity(MainActivity.this);
                             break;
-//                    case 7:
-//                        GasUserRecordActivity.ToActivity(MainActivity.this);
-//                        break;
+                        case 6:
+                            DefectTreatmentMainActivity.ToActivity(MainActivity.this);
+                            break;
                         case 7:
                             SettingActivity.ToActivity(MainActivity.this);
                             break;
                         default:
                     }
-                }else {
-                    showSnackbar(mMainMenuGrid,"该功能暂未开放！");
+                } else {
+                    showSnackbar(mMainMenuGrid, "该功能暂未开放！");
                 }
             }
         });
+    }
+
+    private List<MenuItem> getMenuItems() {
+        if (user_type == 0) {
+            return MenuItem.getMunicipalMenu();
+        } else if (user_type == 1) {
+            return MenuItem.getDistrictMenu();
+        } else {
+            return MenuItem.getStreetMenu();
+        }
     }
 
     private void initBanner() {

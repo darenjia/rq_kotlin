@@ -304,7 +304,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
 
                 @Override
                 public void onClick() {
-                    if (!address.contains("正在") && !address.contains("未")) {
+                    if (!TextUtils.isEmpty(address)&&!address.contains("正在") && !address.contains("未")) {
                         showUserAddressTip();
                     }
                 }

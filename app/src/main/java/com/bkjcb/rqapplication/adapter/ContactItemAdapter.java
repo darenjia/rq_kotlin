@@ -1,10 +1,14 @@
 package com.bkjcb.rqapplication.adapter;
 
+import android.support.annotation.Nullable;
+
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.User;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+
+import java.util.List;
 
 import cn.carbs.android.avatarimageview.library.AvatarImageView;
 
@@ -28,5 +32,17 @@ public class ContactItemAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
                 .setGone(R.id.class_b, item.getRole_b() == 1)
                 .setGone(R.id.class_c, item.getRole_c() == 1)
                 .setGone(R.id.class_d, item.getRole_d() == 1);
+    }
+
+    public void showEmptyView(){
+        setEmptyView(R.layout.empty_textview);
+    }
+
+    @Override
+    public void setNewData(@Nullable List<User> data) {
+        super.setNewData(data);
+        if (data==null||data.size()==0){
+            showEmptyView();
+        }
     }
 }
