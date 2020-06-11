@@ -248,7 +248,7 @@
             <TextView
                 style="@style/RecordFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="燃气管理制度与操作规程" />
 
             <LinearLayout
@@ -276,7 +276,7 @@
             <TextView
                 style="@style/RecordFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="营业执照(备案)" />
 
             <LinearLayout
@@ -304,6 +304,7 @@
                 style="@style/RecordFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:text="供气企业" />
 
             <LinearLayout
@@ -351,7 +352,7 @@
             android:id="@+id/record_signed_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="1dp"
             android:background="@color/colorText"
             android:orientation="horizontal">
 
@@ -376,99 +377,91 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@color/colorText"
             android:orientation="horizontal">
 
             <TextView
                 style="@style/RecordFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:background="@color/colorText"
                 android:text="调压阀" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorGray"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/colorText"
+                android:gravity="center|end"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorText"
-                    android:gravity="center|end"
-                    android:minHeight="48dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp">
-
-                    <CheckBox
-                        android:id="@+id/record_tyf_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="不可调节"
-                        android:textColor="@color/colorSecondDrayText" />
-
-                    <CheckBox
-                        android:id="@+id/record_tyf_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="可调节"
-                        android:textColor="@color/colorSecondDrayText" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/record_tyf_layout"
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:id="@+id/record_tyf_1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/colorText"
-                    android:gravity="center|end"
-                    android:visibility="gone">
+                    android:text="不可调节"
+                    android:textColor="@color/colorSecondDrayText" />
 
-                    <TextView
-                        style="@style/RecordFragmentInfoTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="可调节(中压)" />
-
-                    <EditText
-                        android:id="@+id/record_tyf_number"
-                        style="@style/RecordFragmentInfoEditTextStyle1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="请填写"
-                        android:maxLength="5"
-                        android:inputType="number" />
-
-                    <TextView
-                        style="@style/RecordFragmentInfoEditTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="个" />
-                </LinearLayout>
+                <CheckBox
+                    android:id="@+id/record_tyf_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="可调节"
+                    android:textColor="@color/colorSecondDrayText" />
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/record_tyf_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/colorText"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可调节(中压)" />
+
+            <EditText
+                android:id="@+id/record_tyf_number"
+                style="@style/RecordFragmentInfoEditTextStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请填写"
+                android:inputType="number"
+                android:maxLength="5" />
+
+            <TextView
+                style="@style/RecordFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="1dp"
-            android:background="@color/colorText"
             android:orientation="horizontal">
 
             <TextView
                 style="@style/RecordFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorText"
                 android:text="连接管" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorText"
+                android:minHeight="42dp"
                 android:gravity="center_vertical|end"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp">
@@ -528,8 +521,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="请填写"
-                android:maxLength="5"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="5" />
 
             <TextView
                 style="@style/RecordFragmentInfoEditTextStyle"
@@ -558,8 +551,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="请填写"
-                android:maxLength="5"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="5" />
 
             <TextView
                 style="@style/RecordFragmentInfoEditTextStyle"
@@ -572,80 +565,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="1dp"
             android:background="@color/colorText"
             android:orientation="horizontal">
 
             <TextView
                 style="@style/RecordFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:text="是否有熄火保护装置" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorGray"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/colorText"
+                android:gravity="center|end"
+                android:minHeight="48dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorText"
-                    android:gravity="center|end"
-                    android:minHeight="48dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp">
-
-                    <CheckBox
-                        android:id="@+id/record_xh_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="是"
-                        android:textColor="@color/colorSecondDrayText" />
-
-                    <CheckBox
-                        android:id="@+id/record_xh_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="否"
-                        android:textColor="@color/colorSecondDrayText" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/record_xh_layout"
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:id="@+id/record_xh_1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:background="@color/colorText"
-                    android:visibility="gone">
+                    android:text="是"
+                    android:textColor="@color/colorSecondDrayText" />
 
-                    <TextView
-                        style="@style/RecordFragmentInfoEditTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="无熄火保护装置" />
-
-                    <EditText
-                        android:id="@+id/record_xh_number"
-                        style="@style/RecordFragmentInfoEditTextStyle1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="请填写"
-                        android:maxLength="5"
-                        android:inputType="number" />
-
-                    <TextView
-                        style="@style/RecordFragmentInfoEditTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="个" />
-
-                </LinearLayout>
+                <CheckBox
+                    android:id="@+id/record_xh_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="否"
+                    android:textColor="@color/colorSecondDrayText" />
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/record_xh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/colorText"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="无熄火保护装置" />
+
+            <EditText
+                android:id="@+id/record_xh_number"
+                style="@style/RecordFragmentInfoEditTextStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请填写"
+                android:inputType="number"
+                android:maxLength="5" />
+
+            <TextView
+                style="@style/RecordFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个" />
 
         </LinearLayout>
 
@@ -707,7 +690,7 @@
             android:id="@+id/record_last_check_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="1dp"
             android:background="@color/colorText"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -787,30 +770,32 @@
                 android:layout_marginTop="1dp" />
         </RelativeLayout>
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-          <Button
-              android:id="@+id/record_save"
-              android:layout_width="0dp"
-              android:layout_weight="1"
-              android:layout_height="wrap_content"
-              android:background="@color/colorGreenGray"
-              android:text="保存"
-              android:visibility="gone"
-              android:textColor="@color/colorText"
-              android:textSize="@dimen/sp_16" />
-          <Button
-              android:id="@+id/record_submit"
-              android:layout_width="0dp"
-              android:layout_weight="2"
-              android:layout_height="wrap_content"
-              android:background="@color/color_type_1"
-              android:text="提交"
-              android:textColor="@color/colorText"
-              android:textSize="@dimen/sp_16" />
-      </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/record_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorGreenGray"
+                android:text="保存"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/record_submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@color/color_type_1"
+                android:text="提交"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

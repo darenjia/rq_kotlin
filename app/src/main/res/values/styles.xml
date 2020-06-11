@@ -41,7 +41,7 @@
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/colorSecondDrayText</item>
         <item name="android:textSize">@dimen/sp_16</item>
-        <item name="android:maxWidth">200dp</item>
+        <item name="android:maxWidth">250dp</item>
         <item name="android:gravity">center</item>
     </style>
 
