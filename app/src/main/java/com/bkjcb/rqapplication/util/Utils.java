@@ -141,7 +141,7 @@ public class Utils {
                 return context.getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             } else {
-                return null;
+                return Uri.parse("");
             }
         }
     }

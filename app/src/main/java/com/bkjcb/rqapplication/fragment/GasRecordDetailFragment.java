@@ -304,7 +304,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
 
                 @Override
                 public void onClick() {
-                    if (!address.contains("正在") && !address.contains("未")) {
+                    if (!TextUtils.isEmpty(address) && !address.contains("正在") && !address.contains("未")) {
                         showUserAddressTip();
                     }
                 }
@@ -496,6 +496,11 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     }
 
     private boolean verifyAllData() {
+        if (mRecordCompany.getItems() == null || mRecordCompany.getItems().size() == 0) {
+            Toast.makeText(context, "获取供气企业失败，正在重试", Toast.LENGTH_LONG).show();
+            getGasCompany();
+            return false;
+        }
         return verify(mRecordUserName, recordModel.yonghuming, "请填写用户名称") &&
                 verify(mRecordUserAddress, recordModel.dizhi, "请填写地址") &&
                 verify(mRecordUser, recordModel.fuzeren, "请填写负责人") &&
@@ -563,7 +568,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         recordModel.ranqiguanlizhidu = getText(mRecordSystem);
         recordModel.yingyezhizhao = getText(mRecordLicense);
         recordModel.gongqiqiye = getText(mRecordCompany);
-        recordModel.gongqiqiyeid = ((GasCompanyResult.GasCompany) mRecordCompany.getSelected()).getCid();
+        recordModel.gongqiqiyeid = mRecordCompany.getSelected() == null ? "" : ((GasCompanyResult.GasCompany) mRecordCompany.getSelected()).getCid();
         recordModel.yongqihetong = getText(mRecordContract);
         recordModel.qiandingriqi = getText(mRecordSignedTime);
         recordModel.tiaoyafa_geshu = getText(mRecordTyfNumber);
