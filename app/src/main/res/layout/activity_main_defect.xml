@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -12,23 +13,35 @@
         android:layout_marginTop="?attr/qmui_topbar_height"
         android:fitsSystemWindows="true">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorText"
             android:orientation="vertical">
 
-            <include layout="@layout/search_layout_with_btn_view" />
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/refresh_layout"
+            <com.qmuiteam.qmui.widget.QMUITabSegment
+                android:id="@+id/tabSegment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="48dp"
+                app:qmui_bottomDividerColor="?attr/qmui_config_color_separator"
+                app:qmui_bottomDividerHeight="1px" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/check_list"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <include layout="@layout/search_layout_with_btn_view" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/content_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </android.support.v4.widget.SwipeRefreshLayout>
+            </LinearLayout>
         </LinearLayout>
+
+
     </FrameLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

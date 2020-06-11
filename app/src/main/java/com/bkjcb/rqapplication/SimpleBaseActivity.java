@@ -41,6 +41,11 @@ public class SimpleBaseActivity extends BaseActivity {
         //barLayout.setBackgroundAlpha(0);
         return barLayout;
     }
+    protected QMUITopBarLayout initTopbarNoBackButton(String title) {
+        QMUITopBarLayout barLayout = findViewById(R.id.appbar);
+        barLayout.setTitle(title);
+        return barLayout;
+    }
 
     protected QMUITopBarLayout initTopbar(String title, int alpha) {
         QMUITopBarLayout barLayout = findViewById(R.id.appbar);

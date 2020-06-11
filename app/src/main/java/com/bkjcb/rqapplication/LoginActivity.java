@@ -209,12 +209,13 @@ public class LoginActivity extends SimpleBaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (MyApplication.getUser().getUserleixing().equals("街镇用户")) {
+      /*  if (MyApplication.getUser().getUserleixing().equals("街镇用户")) {
             GasUserRecordActivity.ToActivity(LoginActivity.this);
         } else {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+
+        }*/
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 
