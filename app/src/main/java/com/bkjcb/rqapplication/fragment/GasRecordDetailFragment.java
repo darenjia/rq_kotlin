@@ -33,12 +33,14 @@ import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.orhanobut.logger.Logger;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -46,10 +48,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -158,6 +162,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     private FileListAdapter imageAdapter;
     private boolean isCanChange = true;
     private boolean isTemp = false;
+    private Disposable disposable1;
 
     public void setListener(OnPageButtonClickListener listener) {
         this.listener = listener;
@@ -363,6 +368,28 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     private void setListener() {
         mRecord_tyf_2.setOnCheckedChangeListener(this);
         mRecordXh_2.setOnCheckedChangeListener(this);
+        if (disposable1 == null) {
+            disposable1 = RxView.clicks(mSubmit).throttleFirst(1, TimeUnit.SECONDS)
+                    .subscribe(new Consumer<Object>() {
+                        @Override
+                        public void accept(Object s) throws Exception {
+                            collectParams();
+                            if (verifyAllData()) {
+                                listener.onNext(imageAdapter.getData());
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void setCompanyListener(boolean flag) {
+        mRecordCompany.setOnNothingSelectedListener(flag ? new MaterialSpinner.OnNothingSelectedListener() {
+            @Override
+            public void onNothingSelected(MaterialSpinner spinner) {
+                Logger.d("click spinner");
+                getGasCompany();
+            }
+        } : null);
     }
 
     private void initSpinner(MaterialSpinner spinner, List<String> strings, String value) {
@@ -375,7 +402,8 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         }
     }
 
-    @OnClick({R.id.record_signed_time, R.id.record_last_check_time, R.id.unlink, R.id.record_submit, R.id.record_link_btn, R.id.record_link_info, R.id.record_save})
+    //R.id.record_submit添加防抖操作
+    @OnClick({R.id.record_signed_time, R.id.record_last_check_time, R.id.unlink, R.id.record_link_btn, R.id.record_link_info, R.id.record_save})
     public void onClick(View v) {
         if (recordModel.getType() == 0) {
             return;
@@ -394,12 +422,12 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             case R.id.unlink:
                 showUnlinkTip();
                 break;
-            case R.id.record_submit:
-                collectParams();
-                if (verifyAllData()) {
-                    listener.onNext(imageAdapter.getData());
-                }
-                break;
+//            case R.id.record_submit:
+//                collectParams();
+//                if (verifyAllData()) {
+//                    listener.onNext(imageAdapter.getData());
+//                }
+//                break;
             case R.id.record_link_info:
             case R.id.record_link_btn:
                 SearchGasUserActivity.toActivity(this);
@@ -625,7 +653,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                 .subscribe(new Consumer<GasCompanyResult>() {
                     @Override
                     public void accept(GasCompanyResult result) throws Exception {
-                        if (result.pushState == 200) {
+                        if (result.pushState == 200 && result.getDatas() != null && result.getDatas().size() > 0) {
                             GasCompanyAdapter adapter = new GasCompanyAdapter(context, result.getDatas());
                             mRecordCompany.setAdapter(adapter);
                             if (!TextUtils.isEmpty(recordModel.gongqiqiyeid)) {
@@ -636,14 +664,18 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                                     }
                                 }
                             }
+                            setCompanyListener(false);
                         } else {
+                            mRecordCompany.setHint("获取供气企业失败，请稍后重试");
                             Toast.makeText(context, "获取供气企业失败，请稍后重试", Toast.LENGTH_SHORT).show();
-                            mRecordCompany.setText("无法获取供气企业");
+                            setCompanyListener(true);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        setCompanyListener(true);
+                        mRecordCompany.setHint("获取供气企业失败，请稍后重试");
                         Toast.makeText(context, "获取供气企业失败，请稍后重试", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -747,5 +779,13 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                 .imageFormat(PictureMimeType.PNG)
                 //.selectionMedia(selectList)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (disposable1 != null && !disposable1.isDisposed()) {
+            disposable1.dispose();
+        }
     }
 }

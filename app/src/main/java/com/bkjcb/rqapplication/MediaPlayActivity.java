@@ -41,9 +41,9 @@ public class MediaPlayActivity extends AppCompatActivity {
             Toast.makeText(this, "文件路径出错！", Toast.LENGTH_SHORT).show();
            return;
         }
-        if (path.endsWith(".png") || path.endsWith(".jpg")) {
+        if (path.toLowerCase().endsWith(".png") || path.toLowerCase().endsWith(".jpg")) {
             fragment = PictureFragment.newInstance(path);
-        } else if (path.endsWith(".mp4")) {
+        } else if (path.toLowerCase().endsWith(".mp4")) {
             fragment = VideoFragment.newInstance(path);
         } else {
             fragment = FileFragment.newInstance(path);

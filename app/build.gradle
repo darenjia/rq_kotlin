@@ -6,8 +6,8 @@ android {
         applicationId "com.bkjcb.rqapplication"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.8"
+        versionCode 10
+        versionName "1.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
@@ -145,6 +145,7 @@ dependencies {
     implementation 'com.github.vipulasri:timelineview:1.1.0'
     //bugly
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
-
+    //RxBinding
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
 }
 apply plugin: 'io.objectbox'

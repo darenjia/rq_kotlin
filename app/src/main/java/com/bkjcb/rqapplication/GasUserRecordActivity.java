@@ -113,7 +113,6 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
             }
         });*/
         adapter.setLoadMoreView(new CustomLoadMoreView());
-        adapter.setEnableLoadMore(true);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -249,6 +248,9 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                         if (result.pushState == 200) {
                             showCheckList(result.getDatas());
                             adapter.setEnableLoadMore(true);
+                            if (adapter.getData().size() >= result.getTotalCount()) {
+                                adapter.loadMoreEnd();
+                            }
                         } else {
                             showErrorView();
                         }
@@ -281,7 +283,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
             }
         } else {
             if (isLoadMore) {
-                adapter.loadMoreEnd(false);
+                adapter.loadMoreEnd();
             } else {
                 adapter.setNewData(null);
                 adapter.setEmptyView(createEmptyView(createClickListener()));

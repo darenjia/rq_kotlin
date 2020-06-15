@@ -384,6 +384,9 @@ public class MaterialSpinner extends TextView {
     }
 
     public Object getSelected() {
+        if (adapter==null){
+            return null;
+        }
         return adapter.get(selectedIndex);
     }
 
