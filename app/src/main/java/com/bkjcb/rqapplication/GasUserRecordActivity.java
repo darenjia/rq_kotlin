@@ -10,7 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.bkjcb.rqapplication.adapter.GasWorkRecordAdapter;
 import com.bkjcb.rqapplication.model.GasUserRecordResult;
@@ -48,7 +48,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
     @BindView(R.id.station_name)
     EditText mSearchView;
     @BindView(R.id.station_search_close)
-    TextView mClearBtn;
+    ImageView mClearBtn;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
     private GasWorkRecordAdapter adapter;
