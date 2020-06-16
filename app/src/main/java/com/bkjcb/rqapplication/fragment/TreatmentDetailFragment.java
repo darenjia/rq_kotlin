@@ -4,8 +4,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bkjcb.rqapplication.R;
 
-import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -15,7 +13,7 @@ import butterknife.BindView;
 public class TreatmentDetailFragment extends BaseSimpleFragment {
     @BindView(R.id.info_distribution_list)
     RecyclerView mInfoDistributionList;
-    @BindView(R.id.info_distribution_list)
+    @BindView(R.id.info_check_list)
     RecyclerView mInfoCheckList;
     @Override
     public void setResId() {
