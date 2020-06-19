@@ -27,19 +27,11 @@
                 app:qmui_bottomDividerColor="?attr/qmui_config_color_separator"
                 app:qmui_bottomDividerHeight="1px" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="4dp">
-
-                <include layout="@layout/search_layout_with_btn_view" />
-
                 <android.support.v4.view.ViewPager
                     android:id="@+id/content_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </LinearLayout>
+
         </LinearLayout>
 
 

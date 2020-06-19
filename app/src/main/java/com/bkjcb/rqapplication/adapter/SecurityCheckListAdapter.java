@@ -28,8 +28,20 @@ public class SecurityCheckListAdapter extends BaseQuickAdapter<BottleSaleCheck, 
 
     @Override
     protected void convert(BaseViewHolder helper, BottleSaleCheck item) {
-        helper.setText(R.id.security_remark,item.getCheckRemark())
-                .setText(R.id.security_status,item.getCheckState())
-                .setText(R.id.security_time,item.getSaleTime());
+        helper.setText(R.id.security_remark, item.getCheckRemark())
+                .setText(R.id.security_status, item.getCheckState())
+                .setText(R.id.security_time, item.getSaleTime());
+    }
+
+    public void showEmpty() {
+        setEmptyView(R.layout.empty_textview);
+    }
+
+    public void showError() {
+        setEmptyView(R.layout.error_view);
+    }
+
+    public void showLoading() {
+        setEmptyView(R.layout.loading_view);
     }
 }

@@ -3,7 +3,6 @@ package com.bkjcb.rqapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +30,7 @@ import com.bkjcb.rqapplication.model.MediaFile;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.bkjcb.rqapplication.retrofit.EmergencyService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.util.FileUtil;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
@@ -158,8 +158,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     public void showPickImg(int type) {
         PictureSelector.create(this)
                 .openGallery(type)
-                .setOutputCameraPath(Environment.getExternalStorageDirectory()
-                        + "/RQApp/RegisterImage/")
+                .setOutputCameraPath(FileUtil.getFileOutputPath("EmergencyImage"))
                 .compress(false)
                 .imageFormat(PictureMimeType.PNG)
                 //.selectionMedia(selectList)

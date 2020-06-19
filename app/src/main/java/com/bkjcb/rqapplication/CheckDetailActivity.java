@@ -2,7 +2,6 @@ package com.bkjcb.rqapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -30,6 +29,7 @@ import com.bkjcb.rqapplication.model.CheckResultItem;
 import com.bkjcb.rqapplication.model.CheckResultItem_;
 import com.bkjcb.rqapplication.retrofit.CheckService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.util.FileUtil;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
@@ -278,8 +278,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     public void showPickImg() {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
-                .setOutputCameraPath(Environment.getExternalStorageDirectory()
-                        + "/RQApp/CheckImage/" + checkItem.c_id + "/")
+                .setOutputCameraPath(FileUtil.getFileOutputPath("CheckImage/" + checkItem.c_id ))
                 .compress(false)
                 .imageFormat(PictureMimeType.PNG)
                 //.selectionMedia(selectList)

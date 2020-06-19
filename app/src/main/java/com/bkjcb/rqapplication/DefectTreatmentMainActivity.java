@@ -41,8 +41,8 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
         addTab("待处置");
         addTab("已处置");
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DefectTreatmentFragment());
-        fragments.add(new DefectTreatmentFragment());
+        fragments.add(DefectTreatmentFragment.newInstance(1));
+        fragments.add(DefectTreatmentFragment.newInstance(2));
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         mContentPager.setAdapter(adapter);
     }

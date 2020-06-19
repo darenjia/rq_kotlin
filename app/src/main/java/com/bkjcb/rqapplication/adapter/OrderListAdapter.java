@@ -33,4 +33,15 @@ public class OrderListAdapter extends BaseQuickAdapter<BottleSaleCheck, BaseView
                 .setText(R.id.order_person,item.getCheckPeople())
                 .setText(R.id.order_time,item.getSaleTime());
     }
+    public void showEmpty() {
+        setEmptyView(R.layout.empty_textview);
+    }
+
+    public void showError() {
+        setEmptyView(R.layout.error_view);
+    }
+
+    public void showLoading() {
+        setEmptyView(R.layout.loading_view);
+    }
 }

@@ -187,6 +187,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
+        <activity
+            android:name=".TreatmentDefectActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

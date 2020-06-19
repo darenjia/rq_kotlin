@@ -1,14 +1,18 @@
 package com.bkjcb.rqapplication;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.bkjcb.rqapplication.fragment.TreatmentDetailFragment;
+import com.bkjcb.rqapplication.model.DefectTreatmentModel;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -24,6 +28,7 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     QMUIRoundButton mInfoExport;
     @BindView(R.id.operate_layout)
     LinearLayout mOperateLayout;
+    protected DefectTreatmentModel model;
 
     @Override
     protected int setLayoutID() {
@@ -32,19 +37,54 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
 
     @Override
     protected void initView() {
-        super.initView();
+        initTopbar(getTitleString());
+        model = (DefectTreatmentModel) getIntent().getSerializableExtra("data");
+    }
+
+    @Override
+    protected void initData() {
+        loadView();
+    }
+
+    protected String getTitleString() {
+        return "隐患详情";
+    }
+
+    protected void loadView() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.content, createFragment())
+                .commit();
+    }
+
+    protected Fragment createFragment() {
+        return TreatmentDetailFragment.newInstance(model);
     }
 
     @OnClick({R.id.info_operation, R.id.info_export})
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.info_operation:
-                break;
-            case R.id.info_export:
-                break;
+        handleClick(v.getId());
+    }
 
+    protected void handleClick(int id) {
+        /*if (id == R.id.info_operation) {
+
+        } else {
+
+        }*/
+        TreatmentDefectActivity.toActivity(TreatmentDetailActivity.this, model, id == R.id.info_operation);
+    }
+
+    public static void toActivity(Context context, DefectTreatmentModel model) {
+        Intent intent = new Intent(context, TreatmentDetailActivity.class);
+        intent.putExtra("data", model);
+        context.startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 100 && resultCode == 100) {
+            mOperateLayout.setVisibility(View.GONE);
         }
     }
 }

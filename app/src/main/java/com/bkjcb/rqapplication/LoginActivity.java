@@ -138,6 +138,7 @@ public class LoginActivity extends SimpleBaseActivity {
         }
         requestPermission();
         mVersionText.setText(String.format("版本号：V %s", Utils.getCurrentVersion()));
+
     }
 
     @OnClick(R.id.sign_in_button)

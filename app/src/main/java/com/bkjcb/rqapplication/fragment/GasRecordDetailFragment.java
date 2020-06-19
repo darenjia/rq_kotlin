@@ -29,6 +29,7 @@ import com.bkjcb.rqapplication.model.MediaFile;
 import com.bkjcb.rqapplication.model.UserInfoResult;
 import com.bkjcb.rqapplication.retrofit.GasService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.util.FileUtil;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
@@ -772,7 +773,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     public void showPickImg() {
         PictureSelector.create(this)
                 .openGallery(PictureConfig.TYPE_IMAGE)
-                .setOutputCameraPath("/RQApp/GasImage/")
+                .setOutputCameraPath(FileUtil.getFileOutputPath("GasImage"))
                 .compress(true)
                 //.compressSavePath("/RQApp/GasImage/")
                 .minimumCompressSize(300)

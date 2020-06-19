@@ -9,13 +9,29 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/treatment_time"
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="2020-6-12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintRight_toLeftOf="@id/treatment_type"/>
 
         <TextView
             android:id="@+id/treatment_type"
             style="@style/ChooseFragmentInfoTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:text="类型"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorTextForth"
+            app:layout_constraintLeft_toRightOf="@id/treatment_time"
             app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,15 +60,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="地址"
-            app:layout_constraintBottom_toTopOf="@id/treatment_time"
+            app:layout_constraintBottom_toTopOf="@id/treatment_opinion"
             app:layout_constraintTop_toBottomOf="@id/treatment_name" />
+
         <TextView
-            android:id="@+id/treatment_time"
+            android:id="@+id/treatment_opinion"
             style="@style/ChooseFragmentInfoTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="时间"
+            android:text=""
+            android:drawablePadding="4dp"
+            android:drawableStart="@drawable/vector_drawable_tip"
+            android:textColor="@color/colorProject"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/treatment_address" />
+
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
