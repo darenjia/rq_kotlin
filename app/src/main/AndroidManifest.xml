@@ -141,7 +141,8 @@
             android:name=".GasUserRecordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="unspecified" />
+            android:screenOrientation="unspecified"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".AddNewGasUserActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

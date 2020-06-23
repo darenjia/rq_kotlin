@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/search_layout_with_btn_view" />
+            <include layout="@layout/search_layout_view" />
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/refresh_layout"
