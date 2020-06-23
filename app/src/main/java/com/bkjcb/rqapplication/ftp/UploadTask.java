@@ -40,12 +40,13 @@ public class UploadTask {
             }
         });
     }
+
     public static Observable<Boolean> createUploadTask(List<String> paths, String remotepath) {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
                 ArrayList<File> files = new ArrayList<>();
-                if (paths.size() > 0) {
+                if (paths != null && paths.size() > 0) {
                     for (String path : paths) {
                         File file = new File(path);
                         if (file.exists()) {
@@ -60,7 +61,7 @@ public class UploadTask {
                         } else {
                             emitter.onNext(false);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         emitter.onError(e);
                     }
 

@@ -7,7 +7,7 @@
 
     <include layout="@layout/with_bg_top_bar" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/qmui_topbar_height"
@@ -17,8 +17,8 @@
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="56dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/operate_layout"
@@ -36,8 +36,8 @@
                 android:text="处置"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/sp_16"
-                app:qmui_borderWidth="0dp"
-                app:qmui_backgroundColor="@color/colorSetting" />
+                app:qmui_backgroundColor="@color/colorSetting"
+                app:qmui_borderWidth="0dp" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/info_export"
@@ -51,5 +51,9 @@
                 app:qmui_backgroundColor="@color/colorTextForth"
                 app:qmui_borderWidth="0dp" />
         </LinearLayout>
-    </FrameLayout>
+
+        <include
+            layout="@layout/empty_view"
+            android:visibility="gone" />
+    </LinearLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

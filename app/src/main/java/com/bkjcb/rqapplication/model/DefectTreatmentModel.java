@@ -39,8 +39,17 @@ public class DefectTreatmentModel implements Serializable {
     private String UnitJc;
     private String IdCard;
     private String Opinions;
+    private String MbuGuid;
     private int UserType;
     private int Flag;
+
+    public String getMbuGuid() {
+        return MbuGuid;
+    }
+
+    public void setMbuGuid(String mbuGuid) {
+        MbuGuid = mbuGuid;
+    }
 
     public int getFlag() {
         return Flag;

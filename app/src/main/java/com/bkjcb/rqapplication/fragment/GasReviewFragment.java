@@ -365,10 +365,10 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
     }
 
     private View createFooterView() {
-        int width = Utils.dip2px(getContext(), 120);
+        int width = Utils.dip2px(context, 120);
         ImageView view = new ImageView(getContext());
         view.setLayoutParams(new ViewGroup.LayoutParams(width, width));
-        int padding = Utils.dip2px(getContext(), 5);
+        int padding = Utils.dip2px(context, 5);
         view.setPadding(padding, padding, padding, padding);
         view.setImageResource(R.drawable.icon_add_pic);
         view.setOnClickListener(new View.OnClickListener() {
@@ -386,7 +386,7 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
         imageAdapter = new FileListAdapter(R.layout.item_image, isCanChange);
         mFileInfo.setAdapter(imageAdapter);
         if (isCanChange) {
-            imageAdapter.setFooterView(createFooterView());
+            imageAdapter.setFooterView(createFooterView(),0,LinearLayout.HORIZONTAL);
         }
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

@@ -4,20 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bkjcb.rqapplication.fragment.TreatmentBackFragment;
 import com.bkjcb.rqapplication.fragment.TreatmentDefectFragment;
 import com.bkjcb.rqapplication.ftp.UploadTask;
 import com.bkjcb.rqapplication.model.DefectDetail;
+import com.bkjcb.rqapplication.model.DefectDetailResult;
 import com.bkjcb.rqapplication.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.retrofit.TreatmentService;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
 
+import butterknife.BindView;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -28,6 +33,8 @@ import io.reactivex.schedulers.Schedulers;
 public class TreatmentDefectActivity extends TreatmentDetailActivity {
     private boolean type;//true处置隐患 false退单
     private TreatmentBackFragment fragment;
+    @BindView(R.id.empty_view)
+    QMUIEmptyView emptyView;
 
     @Override
     protected String getTitleString() {
@@ -38,19 +45,27 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
     protected void initView() {
         type = getIntent().getBooleanExtra("type", true);
         super.initView();
-        if (type) {
-            mInfoOperation.setText("提交");
-            mInfoExport.setVisibility(View.GONE);
+        if (model.getFlag() == 0) {
+            if (type) {
+                mInfoOperation.setText("提交");
+                mInfoExport.setVisibility(View.GONE);
+            } else {
+                mInfoExport.setText("退回");
+                mInfoOperation.setVisibility(View.GONE);
+            }
         } else {
-            mInfoExport.setText("退回");
-            mInfoOperation.setVisibility(View.GONE);
+            mOperateLayout.setVisibility(View.GONE);
         }
     }
 
     @Override
     protected void initData() {
-        fragment = type ? TreatmentDefectFragment.newInstance(model) : TreatmentBackFragment.newInstance(model);
-        super.initData();
+        if (model.getFlag() == 1) {
+            getDefectDetail();
+        } else {
+            fragment = type ? TreatmentDefectFragment.newInstance(model) : TreatmentBackFragment.newInstance(model);
+            loadView();
+        }
     }
 
     @Override
@@ -67,11 +82,17 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
         Intent intent = new Intent(context, TreatmentDefectActivity.class);
         intent.putExtra("data", model);
         intent.putExtra("type", type);
-        context.startActivityForResult(intent,100);
+        context.startActivityForResult(intent, 100);
+    }
+
+    public static void toActivity(Activity context, DefectTreatmentModel model) {
+        Intent intent = new Intent(context, TreatmentDefectActivity.class);
+        intent.putExtra("data", model);
+        context.startActivity(intent);
     }
 
     private void submitData() {
-        DefectDetail detail = fragment.getResult();
+        DefectDetail detail = fragment.prepareSubmit();
         if (detail != null) {
             UploadTask.createUploadTask(detail.getFilePaths(), detail.getRemotePath())
                     .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
@@ -96,7 +117,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
                                 showSnackbar(mContent, "文件上传失败,请重试");
                             } else {
                                 if (httpResult.pushState == 200) {
-                                    showSnackbar(mContent, "提交成功！");
+                                    Toast.makeText(TreatmentDefectActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
                                     setResult(100);
                                     finish();
                                 } else {
@@ -117,5 +138,39 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
                         }
                     });
         }
+    }
+
+    private void getDefectDetail() {
+        emptyView.show(true, "请稍等", "正在获取数据", null, null);
+        disposable = NetworkApi.getService(TreatmentService.class)
+                .getTreatmentDefectDetail(model.getMtfId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<DefectDetailResult>() {
+                    @Override
+                    public void accept(DefectDetailResult result) throws Exception {
+                        if (result.isPushSuccess()) {
+                            emptyView.hide();
+                            fragment = TreatmentDefectFragment.newInstance(model, result.getDatas());
+                            loadView();
+                        } else {
+                            showErrorView(result.pushMsg);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showErrorView(throwable.getMessage());
+                    }
+                });
+    }
+
+    private void showErrorView(String tip) {
+        emptyView.show(false, "获取失败", tip, "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDefectDetail();
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.bkjcb.rqapplication.retrofit;
 
 import com.bkjcb.rqapplication.model.DefectDetail;
+import com.bkjcb.rqapplication.model.DefectDetailResult;
 import com.bkjcb.rqapplication.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.TreatmentResult;
@@ -26,10 +27,9 @@ public interface TreatmentService {
     );
     @POST("rq/push/getYHQChuzhiObject")
     @FormUrlEncoded
-    Observable<TreatmentResult<DefectDetail>> getTreatmentDefectDetail(@Field("mtfId")String id);
+    Observable<DefectDetailResult> getTreatmentDefectDetail(@Field("mtfId")String id);
 
     @POST("rq/push/saveOrBackYHQChuzhi")
-    @FormUrlEncoded
     Observable<HttpResult> saveTreatmentDefectResult(@Body DefectDetail result);
 
 }

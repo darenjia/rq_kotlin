@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +85,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="1dp"
                 android:background="@color/colorText"
                 android:orientation="horizontal">
 
@@ -92,7 +93,7 @@
                     style="@style/ChooseFragmentInfoTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="处理要求" />
+                    android:text="处置要求" />
 
                 <include layout="@layout/vertical_divider" />
 
@@ -104,13 +105,25 @@
                     android:text="不合格"
                     android:textColor="@color/colorSecondDrayText"
                     android:textSize="@dimen/sp_16" />
-
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/defect_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorText"
+                android:gravity="center"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:textColor="@color/color_type_1"
+                android:text="已处置，查看详情"
+                android:textSize="@dimen/sp_16" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorText"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="用户信息"
@@ -262,7 +275,7 @@
                     style="@style/ChooseFragmentInfoTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户配送信息" />
+                    android:text="用气配送信息" />
 
                 <include layout="@layout/horizontal_divider" />
 

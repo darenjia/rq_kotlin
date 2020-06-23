@@ -93,7 +93,7 @@
                     style="@style/ChooseFragmentInfoTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="处理要求" />
+                    android:text="处置要求" />
 
                 <include layout="@layout/vertical_divider" />
 

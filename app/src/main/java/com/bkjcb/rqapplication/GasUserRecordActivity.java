@@ -91,7 +91,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                         }
                     });
         }
-
+        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
        /* mAppbar.addRightImageButton(R.drawable.vector_drawable_check, R.id.top_right_button1)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -246,8 +246,14 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                             mRefreshLayout.setRefreshing(false);
                         }
                         if (result.pushState == 200) {
+                            if (result.getTotalCount() <= 20) {
+                                adapter.setEnableLoadMore(false);
+                                adapter.setOnLoadMoreListener(null);
+                            } else {
+                                adapter.setEnableLoadMore(true);
+                            }
                             showCheckList(result.getDatas());
-                            adapter.setEnableLoadMore(true);
+
                             if (adapter.getData().size() >= result.getTotalCount()) {
                                 adapter.loadMoreEnd();
                             }

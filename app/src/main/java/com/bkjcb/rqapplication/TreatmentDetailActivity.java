@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,6 +44,9 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         loadView();
+        if (model.getFlag()==1){
+            mOperateLayout.setVisibility(View.GONE);
+        }
     }
 
     protected String getTitleString() {
@@ -75,16 +78,18 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
         TreatmentDefectActivity.toActivity(TreatmentDetailActivity.this, model, id == R.id.info_operation);
     }
 
-    public static void toActivity(Context context, DefectTreatmentModel model) {
+    public static void toActivity(Activity context, DefectTreatmentModel model) {
         Intent intent = new Intent(context, TreatmentDetailActivity.class);
         intent.putExtra("data", model);
-        context.startActivity(intent);
+        context.startActivityForResult(intent,100);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 100 && resultCode == 100) {
             mOperateLayout.setVisibility(View.GONE);
+            setResult(100);
         }
+        super.onActivityResult(requestCode,resultCode,data);
     }
 }

@@ -86,7 +86,7 @@ public class TreatmentBackFragment extends BaseSimpleFragment {
     }
 
     protected boolean verifyData() {
-        return verify(mRecordRemark, result.getFeedbackRemark(), "请填写退回理由！");
+        return verify(mRecordRemark, result.getJzReasons(), "请填写退回理由！");
     }
 
     protected boolean verify(View view, String value, String tip) {

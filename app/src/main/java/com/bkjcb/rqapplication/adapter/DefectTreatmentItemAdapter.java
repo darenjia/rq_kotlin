@@ -21,11 +21,12 @@ public class DefectTreatmentItemAdapter extends BaseQuickAdapter<DefectTreatment
 
     @Override
     protected void convert(BaseViewHolder helper, DefectTreatmentModel item) {
-        helper.setText(R.id.treatment_type, item.getCasesType())
+        helper.setText(R.id.treatment_type, item.getProcessTime())
                 .setText(R.id.treatment_name, item.getUserName())
                 .setText(R.id.treatment_address, item.getUserAddress())
-                .setText(R.id.treatment_time, item.getProcessTime())
-                .setText(R.id.treatment_opinion, item.getOpinions());
+                .setText(R.id.treatment_time, item.getCasesType())
+                .setText(R.id.treatment_opinion, item.getOpinions())
+                .setGone(R.id.treatment_opinion, item.getFlag() == 0);
 
     }
 

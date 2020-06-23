@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,7 +121,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
         imageAdapter = new FileListAdapter(R.layout.item_image, item.getStatus() != 2);
         mFileInfo.setAdapter(imageAdapter);
         if (item.getStatus() != 2) {
-            imageAdapter.setFooterView(createFooterView());
+            imageAdapter.setFooterView(createFooterView(),0, LinearLayout.HORIZONTAL);
         }
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

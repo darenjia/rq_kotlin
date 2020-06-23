@@ -94,15 +94,25 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
     @Override
     protected void initView() {
         super.initView();
-        mRecordTime.setText(Utils.getCurrentTime());
+        initDateView();
         initSpinner();
         initCheckBox();
         initFileView();
     }
 
+    private void initDateView() {
+        if (result == null) {
+            mRecordTime.setText(Utils.getCurrentTime());
+        } else {
+            mRecordTime.setText(Utils.dateFormat(result.getDisposalTime()));
+            mRecordTime.setEnabled(false);
+            isCanChange = false;
+        }
+    }
+
     private void initSpinner() {
-        mRecordDes.setAdapter(new MaterialSpinnerAdapter<>(context,
-                Arrays.asList("未发现使用液化气", "用户继续使用液化气", "其他")));
+        List<String> list = Arrays.asList("未发现使用液化气", "用户继续使用液化气", "其他");
+        mRecordDes.setAdapter(new MaterialSpinnerAdapter<>(context, list));
         mRecordDes.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
@@ -113,6 +123,17 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
                 }
             }
         });
+        if (result != null) {
+            int index = 0;
+            if ((index = list.indexOf(result.getFeedbackRemark())) == -1) {
+                index = 2;
+                mDesDetail.setVisibility(View.VISIBLE);
+                mRecordRemark.setText(result.getFeedbackRemark());
+                mRecordRemark.setEnabled(false);
+            }
+            mRecordDes.setSelectedIndex(index);
+            mRecordDes.setEnabled(false);
+        }
     }
 
     @Override
@@ -122,16 +143,15 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
     }
 
     private void initCheckBox() {
-        /*  if (!TextUtils.isEmpty("")) {
-         *//* if ("合格".equals(record.jianchajieguo)) {
+        if (result != null && !TextUtils.isEmpty(result.getDisposalResult())) {
+            if ("无异常".equals(result.getDisposalResult())) {
                 mCheckResultRadioGroup.check(R.id.check_result_radio_ok);
-                changeTextColor(true);
             } else {
                 mCheckResultRadioGroup.check(R.id.check_result_radio_failure);
-                changeTextColor(false);
-            }*//*
-        } else {
-        }*/
+            }
+            mCheckResultRadioOk.setEnabled(false);
+            mCheckResultRadioFailure.setEnabled(false);
+        }
         mCheckResultRadioGroup.setOnCheckedChangeListener(this);
     }
 
@@ -157,7 +177,7 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
         imageAdapter = new FileListAdapter(R.layout.item_image, isCanChange);
         mFileInfo.setAdapter(imageAdapter);
         if (isCanChange) {
-            imageAdapter.setFooterView(createFooterView());
+            imageAdapter.setFooterView(createFooterView(), 0, LinearLayout.HORIZONTAL);
         }
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

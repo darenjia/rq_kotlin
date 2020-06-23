@@ -359,7 +359,9 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
             mLinkName.setText(userInfo.getUserName());
             mLinkAddress.setText(userInfo.getUserAddress());
             mRecordUserName.setText(userInfo.getUserName());
-            mRecordUserAddress.setText(userInfo.getUserAddress());
+            if (recordModel.getType() == 1 || isTemp) {
+                mRecordUserAddress.setText(userInfo.getUserAddress());
+            }
             if (recordModel.getType() == 2 && !isTemp) {
                 mRecordUserAddress.setEnabled(false);
             }
@@ -534,20 +536,22 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                 verify(mRecordUserAddress, recordModel.dizhi, "请填写地址") &&
                 verify(mRecordUser, recordModel.fuzeren, "请填写负责人") &&
                 verify(mRecordUserTel, recordModel.dianhua, "请填写电话") &&
+                verify(mRecord_tyf_1, recordModel.tiaoyafa, "请选择调压阀类型") &&
+                verify(mRecordXh_1, recordModel.xihuobaohu, "请选择有无熄火保护装置") &&
                 //verify(mRecordLegal, recordModel.faren, "请填写法人") &&
                 verify(mRecordCompany, recordModel.gongqiqiye, "请选择供气企业") &&
                 (("已签".equals(recordModel.yongqihetong) &&
                         verify(mRecordSignedTime, recordModel.qiandingriqi, "请选择签订日期")
                 ) || "未签".equals(recordModel.yongqihetong)) &&
-                ((mRecord_tyf_2.isChecked() &&
+                (mRecord_tyf_2.isChecked() &&
                         verify(mRecordTyfNumber, recordModel.tiaoyafa_geshu, "请填写可调节调压阀个数(数量需大于0)", true)
-                ) || !mRecord_tyf_2.isChecked()) &&
+                ) &&
                 verify(mRecordLjg1, recordModel.lianjieguan, "请选择连接管") &&
                 verify(mRecordRj1Number, recordModel.zaojuleixing_dafeng, "请填写大气式燃具个数") &&
                 verify(mRecordRj2Number, recordModel.zaojuleixing_gufeng, "请填写鼓风式燃具个数") &&
-                ((mRecordXh_2.isChecked() &&
+                (mRecordXh_2.isChecked() &&
                         verify(mRecordXhNumber, recordModel.xihuobaohu_geshu, "请填写没有熄火保护装置的个数(数量需大于0))", true)
-                ) || !mRecordXh_2.isChecked()) &&
+                ) &&
                 (("有".equals(recordModel.qiyeanjianjilu) &&
                         verify(mRecordLastCheckTime, recordModel.anjianriqi, "请选择最后安检日期")
                 ) || "无".equals(recordModel.qiyeanjianjilu)) && verify(mFileInfo, "请添加3到5张照片");
@@ -599,14 +603,12 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         recordModel.gongqiqiye = getText(mRecordCompany);
         recordModel.gongqiqiyeid = mRecordCompany.getSelected() == null ? "" : ((GasCompanyResult.GasCompany) mRecordCompany.getSelected()).getCid();
         recordModel.yongqihetong = getText(mRecordContract);
-        recordModel.qiandingriqi = getText(mRecordSignedTime);
-        recordModel.tiaoyafa_geshu = getText(mRecordTyfNumber);
+        recordModel.qiandingriqi = recordModel.yongqihetong.equals("已签") ? getText(mRecordSignedTime) : "";
         recordModel.zaojuleixing_dafeng = getText(mRecordRj1Number);
         recordModel.zaojuleixing_gufeng = getText(mRecordRj2Number);
-        recordModel.xihuobaohu_geshu = getText(mRecordXhNumber);
         recordModel.ranqixieloubaojinqi = getText(mRecordBjq);
-        recordModel.anjianriqi = getText(mRecordLastCheckTime);
         recordModel.qiyeanjianjilu = getText(mRecordCheck);
+        recordModel.anjianriqi = recordModel.qiyeanjianjilu.equals("有") ? getText(mRecordLastCheckTime) : "";
         recordModel.beizhu = getText(mRecordRemark);
         StringBuilder builder = new StringBuilder();
         if (mRecord_tyf_1.isChecked()) {
@@ -614,6 +616,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         }
         if (mRecord_tyf_2.isChecked()) {
             builder.append(builder.length() > 0 ? "," : "").append("可调节");
+            recordModel.tiaoyafa_geshu = getText(mRecordTyfNumber);
         }
         recordModel.tiaoyafa = builder.toString();
         builder = new StringBuilder();
@@ -622,6 +625,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         }
         if (mRecordXh_2.isChecked()) {
             builder.append(builder.length() > 0 ? "," : "").append("否");
+            recordModel.xihuobaohu_geshu = getText(mRecordXhNumber);
         }
         recordModel.xihuobaohu = builder.toString();
         builder = new StringBuilder();
@@ -688,10 +692,10 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     }
 
     private View createFooterView() {
-        int width = Utils.dip2px(getContext(), 120);
+        int width = Utils.dip2px(context, 120);
         ImageView view = new ImageView(getContext());
         view.setLayoutParams(new ViewGroup.LayoutParams(width, width));
-        int padding = Utils.dip2px(getContext(), 5);
+        int padding = Utils.dip2px(context, 5);
         view.setPadding(padding, padding, padding, padding);
         view.setImageResource(R.drawable.icon_add_pic);
         view.setOnClickListener(new View.OnClickListener() {
@@ -708,7 +712,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
         imageAdapter = new FileListAdapter(R.layout.item_image, isCanChange);
         mFileInfo.setAdapter(imageAdapter);
         if (isCanChange) {
-            imageAdapter.setFooterView(createFooterView());
+            imageAdapter.setFooterView(createFooterView(), 0, LinearLayout.HORIZONTAL);
         }
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -749,7 +753,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                 List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
                 handleMedia(list);
             } else {
-                userInfo = (UserInfoResult.UserInfo) data.getParcelableExtra("data");
+                userInfo = (UserInfoResult.UserInfo) data.getSerializableExtra("data");
                 initUserInfo();
             }
         }

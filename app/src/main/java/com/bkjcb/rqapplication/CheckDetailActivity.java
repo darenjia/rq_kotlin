@@ -263,7 +263,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
             }
         });
         if (checkItem.status != 3) {
-            imageAdapter.addFooterView(createFooterView(), -1, LinearLayout.HORIZONTAL);
+            imageAdapter.setFooterView(createFooterView(), 0, LinearLayout.HORIZONTAL);
         }
     }
 

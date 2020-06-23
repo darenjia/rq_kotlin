@@ -13,6 +13,12 @@ public class BaseFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }

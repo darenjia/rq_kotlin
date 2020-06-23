@@ -41,6 +41,7 @@ public class SimpleBaseActivity extends BaseActivity {
         //barLayout.setBackgroundAlpha(0);
         return barLayout;
     }
+
     protected QMUITopBarLayout initTopbarNoBackButton(String title) {
         QMUITopBarLayout barLayout = findViewById(R.id.appbar);
         barLayout.setTitle(title);

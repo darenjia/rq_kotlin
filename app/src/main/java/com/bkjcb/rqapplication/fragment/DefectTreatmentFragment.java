@@ -1,15 +1,21 @@
 package com.bkjcb.rqapplication.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.TreatmentDetailActivity;
 import com.bkjcb.rqapplication.adapter.DefectTreatmentItemAdapter;
+import com.bkjcb.rqapplication.interfaces.OnTextChangeListener;
 import com.bkjcb.rqapplication.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.TreatmentResult;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
@@ -40,12 +46,14 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
     EditText mSearchText;
     @BindView(R.id.station_search_close)
     TextView mSearchButton;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
     private DefectTreatmentItemAdapter adapter;
     private boolean isLoadMore = false;
     private int currentCount = 0;
     private int type = 1;
-    //    private String code = MyApplication.getUser().getAreacode().getArea_code();
-    private String code = "310106021";
+    private String code = MyApplication.getUser().getAreacode().getArea_code();
+    private OnTextChangeListener tempListener;
 
     public void setType(int type) {
         this.type = type;
@@ -68,6 +76,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
         adapter.bindToRecyclerView(mContentLayout);
         mContentLayout.setLayoutManager(new LinearLayoutManager(getContext()));
         mContentLayout.setAdapter(adapter);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
     }
 
     @Override
@@ -83,6 +92,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                 mSearchButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        hideSoftInput();
                         isLoadMore = false;
                         emitter.onNext(mSearchText.getText().toString());
                     }
@@ -94,6 +104,20 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                         emitter.onNext(mSearchText.getText().toString());
                     }
                 }, mContentLayout);
+                refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        isLoadMore = false;
+                        emitter.onNext(mSearchText.getText().toString());
+                    }
+                });
+                tempListener = new OnTextChangeListener() {
+                    @Override
+                    public void textChange(String value) {
+                        isLoadMore = false;
+                        emitter.onNext(mSearchText.getText().toString());
+                    }
+                };
             }
         }), Observable.just(""))
                 .debounce(500, TimeUnit.MILLISECONDS)
@@ -102,7 +126,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                     @Override
                     public void accept(String s) throws Exception {
                         if (!isLoadMore) {
-                            adapter.showLoadingView();
+                            refreshLayout.setRefreshing(true);
                             currentCount = 0;
                         } else {
                             currentCount = adapter.getData().size();
@@ -120,11 +144,15 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                 .subscribe(new Consumer<TreatmentResult<DefectTreatmentModel>>() {
                     @Override
                     public void accept(TreatmentResult<DefectTreatmentModel> treatmentResult) throws Exception {
+                        refreshLayout.setRefreshing(false);
                         if (treatmentResult.isPushSuccess()) {
-                            showResultList(treatmentResult.getDatas());
-                            if (adapter.getData().size() >= treatmentResult.getTotalCount()) {
+                            if (20 >= treatmentResult.getTotalCount()) {
+                                adapter.setEnableLoadMore(true);
+                            } else {
                                 adapter.setEnableLoadMore(false);
+                                adapter.setOnLoadMoreListener(null);
                             }
+                            showResultList(treatmentResult.getDatas());
                         } else {
                             Toast.makeText(context, "获取数据失败：" + treatmentResult.getPushMsg(), Toast.LENGTH_SHORT).show();
                             showErrorView();
@@ -133,6 +161,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        refreshLayout.setRefreshing(false);
                         Toast.makeText(context, "获取数据错误：" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                         showErrorView();
                     }
@@ -141,7 +170,14 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        TreatmentDetailActivity.toActivity(getContext(), (DefectTreatmentModel) adapter.getItem(position));
+        TreatmentDetailActivity.toActivity(getActivity(), (DefectTreatmentModel) adapter.getItem(position));
+    }
+
+    private void hideSoftInput() {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()) {
+            inputMethodManager.hideSoftInputFromWindow(mSearchText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     protected void showResultList(List<DefectTreatmentModel> list) {
@@ -171,4 +207,13 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100 && resultCode == 100) {
+            if (tempListener != null) {
+                tempListener.textChange("");
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

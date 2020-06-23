@@ -2,9 +2,11 @@ package com.bkjcb.rqapplication.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.TreatmentDefectActivity;
 import com.bkjcb.rqapplication.adapter.OrderListAdapter;
 import com.bkjcb.rqapplication.adapter.SecurityCheckListAdapter;
 import com.bkjcb.rqapplication.model.BottleResult;
@@ -12,6 +14,10 @@ import com.bkjcb.rqapplication.model.BottleSaleCheck;
 import com.bkjcb.rqapplication.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.retrofit.DataService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.view.MyDialogViewHolder;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.config.ConfigBean;
 
 import java.util.List;
 
@@ -45,9 +51,13 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
     TextView mInfoYear;
     @BindView(R.id.info_name)
     TextView mInfoName;
+    @BindView(R.id.defect_detail)
+    TextView mDefectDetail;
     private DefectTreatmentModel model;
     private SecurityCheckListAdapter checkAdapter;
     private OrderListAdapter orderAdapter;
+    private ConfigBean configBean1;
+    private ConfigBean configBean2;
 
     public void setModel(DefectTreatmentModel model) {
         this.model = model;
@@ -66,6 +76,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
 
     @Override
     protected void initView() {
+        StyledDialog.init(context);
         if (model != null) {
             mInfoResult.setText(model.getProcessTime());
             mInfoAccidentType.setText(model.getCasesType());
@@ -75,14 +86,33 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
             mInfoYear.setText(model.getUserType() == 0 ? "居民" : "非居民");
             mInfoName.setText(model.getQu());
             mInfoDate.setText(model.getUserAddress());
+
             mInfoCheckList.setLayoutManager(new LinearLayoutManager(context));
             checkAdapter = new SecurityCheckListAdapter(R.layout.item_security_check_view);
             mInfoCheckList.setAdapter(checkAdapter);
             checkAdapter.bindToRecyclerView(mInfoCheckList);
+            checkAdapter.showLoading();
+            checkAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    showDetail((BottleSaleCheck) adapter.getItem(position), 1);
+                }
+            });
+
             mInfoDistributionList.setLayoutManager(new LinearLayoutManager(context));
-            orderAdapter = new OrderListAdapter(R.layout.order_data_view);
+            orderAdapter = new OrderListAdapter(R.layout.item_order_view);
             mInfoDistributionList.setAdapter(orderAdapter);
             orderAdapter.bindToRecyclerView(mInfoDistributionList);
+            orderAdapter.showLoading();
+            orderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    showDetail((BottleSaleCheck) adapter.getItem(position), 0);
+                }
+            });
+            if (model.getFlag() == 1) {
+                showFinishBtn();
+            }
         }
     }
 
@@ -93,7 +123,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
 
     private void getBaseInfo() {
         disposable = NetworkApi.getService(DataService.class)
-                .getBottleData(model.getUserCode())
+                .getBottleData(model.getMbuGuid())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<BottleResult>() {
@@ -133,5 +163,34 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
     private void showError() {
         checkAdapter.showError();
         orderAdapter.showError();
+    }
+
+    private void showFinishBtn() {
+        mDefectDetail.setVisibility(View.VISIBLE);
+        mDefectDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TreatmentDefectActivity.toActivity(getActivity(), model);
+            }
+        });
+    }
+
+    private void showDetail(BottleSaleCheck check, int type) {
+        if (type == 0) {
+            if (configBean1 == null) {
+                MyDialogViewHolder holder1 = new MyDialogViewHolder(context, 0);
+                configBean1 = StyledDialog.buildCustomInIos(holder1, null).setBtnText("确定");
+            }
+            ((MyDialogViewHolder) configBean1.customContentHolder).assingDatasAndEvents(context, check);
+            configBean1.show();
+        } else {
+            if (configBean2 == null) {
+                MyDialogViewHolder holder2 = new MyDialogViewHolder(context, 1);
+                configBean2 = StyledDialog.buildCustomInIos(holder2, null).setBtnText("确定");
+            }
+            ((MyDialogViewHolder) configBean2.customContentHolder).assingDatasAndEvents(context, check);
+            configBean2.show();
+
+        }
     }
 }
