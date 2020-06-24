@@ -60,7 +60,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
 
     @Override
     protected void initData() {
-        if (model.getFlag() == 1) {
+        if (model.getFlag()>0) {
             getDefectDetail();
         } else {
             fragment = type ? TreatmentDefectFragment.newInstance(model) : TreatmentBackFragment.newInstance(model);

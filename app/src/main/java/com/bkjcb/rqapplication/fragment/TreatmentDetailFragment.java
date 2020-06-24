@@ -110,7 +110,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
                     showDetail((BottleSaleCheck) adapter.getItem(position), 0);
                 }
             });
-            if (model.getFlag() == 1) {
+            if (model.getFlag() > 0) {
                 showFinishBtn();
             }
         }

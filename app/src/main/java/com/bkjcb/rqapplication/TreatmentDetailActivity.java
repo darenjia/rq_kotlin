@@ -44,7 +44,7 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         loadView();
-        if (model.getFlag()==1){
+        if (model.getFlag()>0){
             mOperateLayout.setVisibility(View.GONE);
         }
     }
