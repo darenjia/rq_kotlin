@@ -70,11 +70,6 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     }
 
     protected void handleClick(int id) {
-        /*if (id == R.id.info_operation) {
-
-        } else {
-
-        }*/
         TreatmentDefectActivity.toActivity(TreatmentDetailActivity.this, model, id == R.id.info_operation);
     }
 
@@ -86,10 +81,10 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == 100 && resultCode == 100) {
             mOperateLayout.setVisibility(View.GONE);
             setResult(100);
         }
-        super.onActivityResult(requestCode,resultCode,data);
     }
 }

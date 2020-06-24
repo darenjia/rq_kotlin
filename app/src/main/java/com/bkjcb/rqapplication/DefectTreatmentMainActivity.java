@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -24,6 +25,7 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
     QMUITabSegment mTabSegment;
     @BindView(R.id.content_pager)
     ViewPager mContentPager;
+    private List<Fragment> fragments;
 
     @Override
     protected int setLayoutID() {
@@ -40,7 +42,7 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
         initTab();
         addTab("待处置");
         addTab("已处置");
-        List<Fragment> fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
         fragments.add(DefectTreatmentFragment.newInstance(1));
         fragments.add(DefectTreatmentFragment.newInstance(2));
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
@@ -67,5 +69,19 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
     public static void ToActivity(Context context) {
         Intent intent = new Intent(context, DefectTreatmentMainActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == 100) {
+            refreshData();
+        }
+    }
+
+    private void refreshData() {
+        for (Fragment fragment : fragments) {
+            ((DefectTreatmentFragment) fragment).refresh();
+        }
     }
 }

@@ -111,19 +111,19 @@
                 android:id="@+id/defect_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:background="@color/colorText"
                 android:gravity="center"
                 android:padding="8dp"
-                android:visibility="gone"
-                android:textColor="@color/color_type_1"
                 android:text="已处置，查看详情"
-                android:textSize="@dimen/sp_16" />
+                android:textColor="@color/color_type_1"
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorText"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="用户信息"
@@ -282,7 +282,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/info_distribution_list"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp" />
+                    android:layout_height="180dp"
+                    android:background="@color/colorGray" />
 
                 <TextView
                     style="@style/ChooseFragmentInfoTextStyle"
@@ -295,7 +296,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/info_check_list"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp" />
+                    android:layout_height="180dp"
+                    android:background="@color/colorGray" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

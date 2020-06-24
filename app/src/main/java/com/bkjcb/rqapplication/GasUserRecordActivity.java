@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -47,8 +47,10 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
     RecyclerView mCheckList;
     @BindView(R.id.station_name)
     EditText mSearchView;
+    @BindView(R.id.station_search)
+    ImageView mSearchImage;
     @BindView(R.id.station_search_close)
-    ImageView mClearBtn;
+    Button mClearBtn;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
     private GasWorkRecordAdapter adapter;
@@ -83,35 +85,19 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                             TempRecordActivity.ToActivity(GasUserRecordActivity.this);
                         }
                     });
-            mAppbar.addRightImageButton(R.drawable.vector_drawable_setting, R.id.top_right_button1)
+          /*  mAppbar.addRightImageButton(R.drawable.vector_drawable_setting, R.id.top_right_button1)
                     .setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             SettingActivity.ToActivity(GasUserRecordActivity.this);
                         }
-                    });
+                    });*/
         }
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
-       /* mAppbar.addRightImageButton(R.drawable.vector_drawable_check, R.id.top_right_button1)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        GasReviewActivity.ToActivity(GasUserRecordActivity.this);
-                    }
-                });*/
         adapter = new GasWorkRecordAdapter(R.layout.item_record_adapter_view);
         mCheckList.setLayoutManager(new LinearLayoutManager(this));
         mCheckList.setAdapter(adapter);
         adapter.bindToRecyclerView(mCheckList);
-       /* initSwipeRefreshLayout(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                isLoadMore = false;
-                page = 0;
-                showRefreshLayout(true);
-                queryRemoteData();
-            }
-        });*/
         adapter.setLoadMoreView(new CustomLoadMoreView());
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -140,13 +126,12 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
         queryRemoteData();
     }
 
-   /* @OnClick({R.id.station_search_close})
+    @OnClick({R.id.station_search})
     public void onClick(View v) {
-        key = mSearchView.getText().toString();
-        page = 0;
-        isLoadMore = false;
-        queryRemoteData();
-    }*/
+      /*  QMUIPopup popup = new QMUIPopup(this,QMUIPopup.DIRECTION_BOTTOM);
+        popup.setContentView(R.layout.gas_record_filter_view);
+        popup.show(mSearchImage);*/
+    }
 
    /* protected void queryRemoteData() {
         adapter.setEnableLoadMore(false);
@@ -187,7 +172,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                         emitter.onNext(mSearchView.getText().toString());
                     }
                 }, mCheckList);
-                mSearchView.addTextChangedListener(new TextWatcher() {
+              /*  mSearchView.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -203,15 +188,14 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                         isLoadMore = false;
                         emitter.onNext(s.toString());
                     }
-                });
+                });*/
                 mClearBtn.setOnClickListener(v -> {
                     isLoadMore = false;
-                    mSearchView.setText("");
-                    emitter.onNext("");
+                    emitter.onNext(mSearchView.getText().toString());
                 });
             }
         }), Observable.just(""))
-                .debounce(500, TimeUnit.MILLISECONDS)
+                .debounce(200, TimeUnit.MILLISECONDS)
                 //.subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<String>() {

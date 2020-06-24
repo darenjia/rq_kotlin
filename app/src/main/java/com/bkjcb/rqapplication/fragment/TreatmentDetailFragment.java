@@ -19,6 +19,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.config.ConfigBean;
 
+import java.util.List;
+
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;

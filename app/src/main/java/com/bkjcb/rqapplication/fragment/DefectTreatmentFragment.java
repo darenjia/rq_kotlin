@@ -1,7 +1,6 @@
 package com.bkjcb.rqapplication.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +20,7 @@ import com.bkjcb.rqapplication.model.TreatmentResult;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.retrofit.TreatmentService;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -114,13 +114,14 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                 tempListener = new OnTextChangeListener() {
                     @Override
                     public void textChange(String value) {
+                        Logger.d("准备刷新");
                         isLoadMore = false;
                         emitter.onNext(mSearchText.getText().toString());
                     }
                 };
             }
         }), Observable.just(""))
-                .debounce(500, TimeUnit.MILLISECONDS)
+                .debounce(100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<String>() {
                     @Override
@@ -146,7 +147,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                     public void accept(TreatmentResult<DefectTreatmentModel> treatmentResult) throws Exception {
                         refreshLayout.setRefreshing(false);
                         if (treatmentResult.isPushSuccess()) {
-                            if (20 >= treatmentResult.getTotalCount()) {
+                            if (20 <= treatmentResult.getTotalCount()) {
                                 adapter.setEnableLoadMore(true);
                             } else {
                                 adapter.setEnableLoadMore(false);
@@ -207,13 +208,9 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100 && resultCode == 100) {
-            if (tempListener != null) {
-                tempListener.textChange("");
-            }
+    public void refresh() {
+        if (tempListener != null) {
+            tempListener.textChange("");
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
+    android:layout_marginBottom=".5dp"
     android:background="@color/colorText"
     android:orientation="horizontal">
 
@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:padding="4dp"
-        android:text="企业"
+        android:text=""
         android:textColor="@color/colorSecondDrayText" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:padding="4dp"
-        android:text="配送时间"
+        android:text=""
         android:textColor="@color/colorSecondDrayText" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:padding="4dp"
-        android:text="瓶号"
+        android:text=""
         android:textColor="@color/colorSecondDrayText" />
 
     <TextView
@@ -45,6 +45,6 @@
         android:layout_weight="1"
         android:gravity="center"
         android:padding="4dp"
-        android:text="配送人"
+        android:text=""
         android:textColor="@color/colorSecondDrayText" />
 </LinearLayout>
