@@ -9,7 +9,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.tencent.bugly.Bugly;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -32,7 +31,7 @@ public class MyApplication extends Application {
         context = this.getApplicationContext();
         initObjectBox();
         initLogger();
-        Bugly.init(getApplicationContext(), "b89a5bbe17", BuildConfig.DEBUG);
+        //Bugly.init(getApplicationContext(), "b89a5bbe17", BuildConfig.DEBUG);
         try {
             RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
                 @Override

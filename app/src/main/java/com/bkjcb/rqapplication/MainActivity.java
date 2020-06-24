@@ -34,7 +34,7 @@ public class MainActivity extends SimpleBaseActivity {
     @BindView(R.id.main_menu_grid)
     MyGridView mMainMenuGrid;
     @BindView(R.id.convenientBanner)
-    ConvenientBanner mConvenientBanner;
+    ConvenientBanner<String> mConvenientBanner;
     @BindView(R.id.message_more)
     ImageView mMessageMore;
     private int user_type = 0;
@@ -94,10 +94,10 @@ public class MainActivity extends SimpleBaseActivity {
                             ContactActivity.ToActivity(MainActivity.this);
                             break;
                         case 4:
-                            ActionRegisterActivity.ToActivity(MainActivity.this);
+                            ActionRegisterActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 5:
-                            EmergencyActivity.ToActivity(MainActivity.this);
+                            EmergencyActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 6:
                             DefectTreatmentMainActivity.ToActivity(MainActivity.this);
@@ -131,7 +131,7 @@ public class MainActivity extends SimpleBaseActivity {
         list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home9.jpg");
         mConvenientBanner.setPages(new CBViewHolderCreator() {
             @Override
-            public Holder createHolder(View itemView) {
+            public Holder<String> createHolder(View itemView) {
                 return new LocalImageHolderView(itemView);
             }
 
