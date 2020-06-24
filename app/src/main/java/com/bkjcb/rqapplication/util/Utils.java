@@ -13,7 +13,7 @@ import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.CheckItem;
+import com.bkjcb.rqapplication.check.model.CheckItem;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

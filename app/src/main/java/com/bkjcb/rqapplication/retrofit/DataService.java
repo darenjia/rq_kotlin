@@ -1,8 +1,8 @@
 package com.bkjcb.rqapplication.retrofit;
 
-import com.bkjcb.rqapplication.model.BottleResult;
+import com.bkjcb.rqapplication.treatmentdefect.model.BottleResult;
 import com.bkjcb.rqapplication.model.HttpResult;
-import com.bkjcb.rqapplication.model.UserInfoResult;
+import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult;
 import com.bkjcb.rqapplication.model.UserResult;
 
 import io.reactivex.Observable;

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.adapter.CheckListAdapter;
-import com.bkjcb.rqapplication.model.BottleTourCheck;
+import com.bkjcb.rqapplication.treatmentdefect.model.BottleTourCheck;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 

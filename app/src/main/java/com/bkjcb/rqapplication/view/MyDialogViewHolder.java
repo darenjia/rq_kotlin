@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.BottleSaleCheck;
+import com.bkjcb.rqapplication.treatmentdefect.model.BottleSaleCheck;
 import com.hss01248.dialog.adapter.SuperLvHolder;
 
 /**

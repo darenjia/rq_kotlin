@@ -4,11 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.bkjcb.rqapplication.BuildConfig;
-import com.bkjcb.rqapplication.model.Emergency;
-import com.bkjcb.rqapplication.model.Level;
-import com.bkjcb.rqapplication.model.MyObjectBox;
-import com.bkjcb.rqapplication.model.Unit;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.MyObjectBox;
+import com.bkjcb.rqapplication.contact.model.Level;
+import com.bkjcb.rqapplication.contact.model.Unit;
+import com.bkjcb.rqapplication.contact.model.User;
+import com.bkjcb.rqapplication.emergency.model.Emergency;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;

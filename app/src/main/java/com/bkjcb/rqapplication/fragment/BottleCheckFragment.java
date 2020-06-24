@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.adapter.SecurityCheckListAdapter;
-import com.bkjcb.rqapplication.model.BottleSaleCheck;
+import com.bkjcb.rqapplication.treatmentdefect.adapter.SecurityCheckListAdapter;
+import com.bkjcb.rqapplication.treatmentdefect.model.BottleSaleCheck;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 

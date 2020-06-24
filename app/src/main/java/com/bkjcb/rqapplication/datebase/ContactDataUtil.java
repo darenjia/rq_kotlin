@@ -2,13 +2,13 @@ package com.bkjcb.rqapplication.datebase;
 
 import android.content.Context;
 
-import com.bkjcb.rqapplication.model.ContactModel;
-import com.bkjcb.rqapplication.model.Emergency;
-import com.bkjcb.rqapplication.model.Level;
-import com.bkjcb.rqapplication.model.Level_;
-import com.bkjcb.rqapplication.model.Unit_;
-import com.bkjcb.rqapplication.model.User;
-import com.bkjcb.rqapplication.model.User_;
+import com.bkjcb.rqapplication.contact.model.ContactModel;
+import com.bkjcb.rqapplication.contact.model.Level;
+import com.bkjcb.rqapplication.contact.model.Level_;
+import com.bkjcb.rqapplication.contact.model.Unit_;
+import com.bkjcb.rqapplication.contact.model.User;
+import com.bkjcb.rqapplication.contact.model.User_;
+import com.bkjcb.rqapplication.emergency.model.Emergency;
 import com.google.gson.Gson;
 
 import java.io.IOException;

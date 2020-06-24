@@ -39,7 +39,7 @@ import com.bkjcb.rqapplication.AddUserActivity;
 import com.bkjcb.rqapplication.Constants;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.eventbus.MessageEvent;
-import com.bkjcb.rqapplication.model.UserInfoResult;
+import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
