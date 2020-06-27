@@ -4,15 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import butterknife.BindView
 import butterknife.OnClick
 import com.bkjcb.rqapplication.*
-import com.bkjcb.rqapplication.actionregister.database.DataUtil.getActionRegisterBox
+import com.bkjcb.rqapplication.datebase.DataUtil.getActionRegisterBox
 import com.bkjcb.rqapplication.actionregister.model.ActionRegisterItem
 import com.bkjcb.rqapplication.actionregister.retrofit.ActionRegisterService
 import com.bkjcb.rqapplication.adapter.FileListAdapter
@@ -163,7 +161,7 @@ class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDa
 
     private fun submitData() {
         showLoading(true)
-        disposable = UploadTask.createUploadTask(getFilePath(fileList), item.phoneftp) { currentStep, uploadSize, size, file -> }.subscribeOn(Schedulers.io())
+        disposable = UploadTask.createUploadTask(getFilePath(fileList), item.phoneftp).subscribeOn(Schedulers.io())
                 .flatMap { aBoolean ->
                     if (aBoolean) NetworkApi.getService(ActionRegisterService::class.java)
                             .submit(item, MyApplication.getUser().userId) else null
