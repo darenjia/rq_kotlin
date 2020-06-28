@@ -69,7 +69,7 @@ public class MenuItem {
         list.add(new MenuItem("联络册", R.drawable.main_menu_assess, 4));
         list.add(new MenuItem("稽查执法", R.drawable.main_menu_select, 5));
         list.add(new MenuItem("事故现场", R.drawable.main_menu_statistics, 6));
-        list.add(new MenuItem("隐患处置", R.drawable.main_menu_check, 7));
+        list.add(new MenuItem("隐患处置", R.drawable.main_menu_check, 7,false));
         list.add(new MenuItem("设置中心", R.drawable.main_menu_more, 8));
         return list;
     }
@@ -94,7 +94,7 @@ public class MenuItem {
     }/**
    * @params null
    * @return List
-   * @describe 区级账号
+   * @describe 街镇账号
    * @author Deng
    * @time 2020/6/4 9:01
    */

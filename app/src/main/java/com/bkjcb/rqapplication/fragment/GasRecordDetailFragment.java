@@ -689,6 +689,9 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         setViewVisibility(buttonView.getId() == R.id.record_tyf_2 ? mRecordTyfLayout : mRecordXhLayout, isChecked);
+        if (!isChecked) {
+            setText(buttonView.getId() == R.id.record_tyf_2? mRecordTyfNumber : mRecordXhNumber,null);
+        }
     }
 
     private View createFooterView() {
