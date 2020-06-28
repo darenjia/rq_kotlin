@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.actionregister.ActionRegisterActivity
 import com.bkjcb.rqapplication.actionregister.adapter.ActionRegisterItemAdapter
+import com.bkjcb.rqapplication.datebase.DataUtil
 import com.bkjcb.rqapplication.emergency.adapter.EmergencyItemAdapter
 import com.bkjcb.rqapplication.emergency.model.EmergencyItem
 import com.bkjcb.rqapplication.emergency.model.EmergencyItem_
@@ -35,9 +36,9 @@ class EmergencyActivity : ActionRegisterActivity() {
 
     override fun createNew(position: Int) {
         if (position >= 0) {
-            CreateEmergencyActivity.ToActivity(this@EmergencyActivity, adapter?.getItem(position))
+            CreateEmergencyActivity.toActivity(this@EmergencyActivity, adapter?.getItem(position))
         } else {
-            CreateEmergencyActivity.ToActivity(this@EmergencyActivity, null)
+            CreateEmergencyActivity.toActivity(this@EmergencyActivity, null)
         }
     }
 
@@ -47,9 +48,9 @@ class EmergencyActivity : ActionRegisterActivity() {
 
     private fun queryLocalData(): List<EmergencyItem?>? {
         return if (isShowAll) {
-            EmergencyItem.getBox().all
+            DataUtil.getEmergencyItemBox().all
         } else {
-            EmergencyItem.getBox().query().notEqual(EmergencyItem_.status, 2).build().find()
+            DataUtil.getEmergencyItemBox().query().notEqual(EmergencyItem_.status, 2).build().find()
         }
     }
 
