@@ -8,7 +8,6 @@ import io.objectbox.annotation.Transient
 
 @Entity
 class User : ContactBaseModel() {
-    @JvmField
     @Id(assignable = true)
     var id: Long = 0
 
