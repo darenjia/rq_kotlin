@@ -24,8 +24,6 @@ public class SimpleBaseActivity extends BaseActivity {
     protected QMUIEmptyView emptyView;
     protected Disposable disposable;
 
-    private static final int PERMISSIONS_REQUEST = 0;
-    private boolean useEventBus = false;
     public SwipeRefreshLayout refreshLayout;
     private QMUIDialog tipDialog;
 

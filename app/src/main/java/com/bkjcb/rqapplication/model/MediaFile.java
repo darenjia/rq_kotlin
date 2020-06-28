@@ -63,7 +63,7 @@ public class MediaFile {
     }
 
     public static Box<MediaFile> getBox() {
-        return ObjectBox.get().boxFor(MediaFile.class);
+        return ObjectBox.INSTANCE.getBoxStore().boxFor(MediaFile.class);
     }
 
     public static void save(List<MediaFile> list) {

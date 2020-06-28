@@ -10,59 +10,77 @@
       "properties": [
         {
           "id": "1:3659140855926644584",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:4131938901432040682",
-          "name": "c_id"
+          "name": "c_id",
+          "type": 9
         },
         {
           "id": "3:3516513488214233347",
-          "name": "zhandianleixing"
+          "name": "zhandianleixing",
+          "type": 9
         },
         {
           "id": "4:7604402369594744269",
-          "name": "beijiandanweiid"
+          "name": "beijiandanweiid",
+          "type": 9
         },
         {
           "id": "5:7482635862822804443",
-          "name": "beijiandanwei"
+          "name": "beijiandanwei",
+          "type": 9
         },
         {
           "id": "6:835987834682683324",
-          "name": "jianchariqi"
+          "name": "jianchariqi",
+          "type": 9
         },
         {
           "id": "7:5127882160148530233",
-          "name": "jianchajieguo"
+          "name": "jianchajieguo",
+          "type": 9
         },
         {
           "id": "8:8462445682451221140",
-          "name": "beizhu"
+          "name": "beizhu",
+          "type": 9
         },
         {
           "id": "9:1958211360944628232",
-          "name": "year"
+          "name": "year",
+          "type": 9
         },
         {
           "id": "10:335686311934481756",
-          "name": "systime"
+          "name": "systime",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "11:2717278897491109047",
-          "name": "status"
+          "name": "status",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "12:172406683121587636",
-          "name": "filePath"
+          "name": "filePath",
+          "type": 9
         },
         {
           "id": "13:4624981508330652005",
-          "name": "type"
+          "name": "type",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "14:2767001337477914234",
-          "name": "checkMan"
+          "name": "checkMan",
+          "type": 9
         }
       ],
       "relations": []
@@ -74,19 +92,24 @@
       "properties": [
         {
           "id": "1:5905405984135422853",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:2430468303815298959",
-          "name": "jianchajilu"
+          "name": "jianchajilu",
+          "type": 9
         },
         {
           "id": "3:7360583498804020607",
-          "name": "jianchaid"
+          "name": "jianchaid",
+          "type": 9
         },
         {
           "id": "4:6229827866693391463",
-          "name": "jianchaxiangid"
+          "name": "jianchaxiangid",
+          "type": 9
         }
       ],
       "relations": []
@@ -98,27 +121,35 @@
       "properties": [
         {
           "id": "1:555190748638062352",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:3481143003005372618",
-          "name": "tel"
+          "name": "tel",
+          "type": 9
         },
         {
           "id": "3:6986926906781094164",
-          "name": "area"
+          "name": "area",
+          "type": 9
         },
         {
           "id": "4:4477469281393982846",
-          "name": "unit"
+          "name": "unit",
+          "type": 9
         },
         {
           "id": "5:6416678047891056074",
-          "name": "remarks"
+          "name": "remarks",
+          "type": 9
         },
         {
           "id": "6:6950396698397327454",
-          "name": "uid"
+          "name": "uid",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -130,43 +161,57 @@
       "properties": [
         {
           "id": "1:2355311161672404605",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:2325587103087225943",
-          "name": "quxian"
+          "name": "quxian",
+          "type": 9
         },
         {
           "id": "3:1376081457636189505",
-          "name": "address"
+          "name": "address",
+          "type": 9
         },
         {
           "id": "4:3020539142265010951",
-          "name": "tel"
+          "name": "tel",
+          "type": 9
         },
         {
           "id": "5:535868998930207242",
-          "name": "fax"
+          "name": "fax",
+          "type": 9
         },
         {
           "id": "6:4901131803799447911",
-          "name": "zipcode"
+          "name": "zipcode",
+          "type": 9
         },
         {
           "id": "7:263753803159434330",
-          "name": "levelid"
+          "name": "levelid",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "8:9211036846996075166",
-          "name": "isShow"
+          "name": "isShow",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "9:8189146362343214205",
-          "name": "districtName"
+          "name": "districtName",
+          "type": 9
         },
         {
           "id": "10:764354040526231989",
-          "name": "uid"
+          "name": "uid",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -178,47 +223,65 @@
       "properties": [
         {
           "id": "1:8902656018342050520",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:4251141250529354580",
-          "name": "quxian"
+          "name": "quxian",
+          "type": 9
         },
         {
           "id": "3:7782979175459694797",
-          "name": "departmentname"
+          "name": "departmentname",
+          "type": 9
         },
         {
           "id": "4:2240318530272414795",
-          "name": "departmentnamea"
+          "name": "departmentnamea",
+          "type": 9
         },
         {
           "id": "5:5590559352675687077",
-          "name": "level"
+          "name": "level",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "6:3789489986101575507",
-          "name": "kind1"
+          "name": "kind1",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "7:3365180854630279233",
-          "name": "kind2"
+          "name": "kind2",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "8:3644870256751560178",
-          "name": "kind3"
+          "name": "kind3",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "9:2468761989468438758",
-          "name": "flag"
+          "name": "flag",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "10:8188241375270812583",
-          "name": "districtname"
+          "name": "districtname",
+          "type": 9
         },
         {
           "id": "11:9025587860130071986",
-          "name": "uid"
+          "name": "uid",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -230,59 +293,81 @@
       "properties": [
         {
           "id": "1:8530039681734023910",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:5569516938565518545",
-          "name": "unitid"
+          "name": "unitid",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "3:7211486251742029448",
-          "name": "username"
+          "name": "username",
+          "type": 9
         },
         {
           "id": "4:7488621986896090901",
-          "name": "loginname"
+          "name": "loginname",
+          "type": 9
         },
         {
           "id": "5:9077997195158237553",
-          "name": "password"
+          "name": "password",
+          "type": 9
         },
         {
           "id": "6:5677255145793192985",
-          "name": "u_tel"
+          "name": "u_tel",
+          "type": 9
         },
         {
           "id": "7:830211973925966271",
-          "name": "tel"
+          "name": "tel",
+          "type": 9
         },
         {
           "id": "8:3761375390824052138",
-          "name": "duty"
+          "name": "duty",
+          "type": 9
         },
         {
           "id": "9:1824361184581993462",
-          "name": "role_a"
+          "name": "role_a",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "10:6949692728608272841",
-          "name": "role_b"
+          "name": "role_b",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "11:2843094437497359221",
-          "name": "role_c"
+          "name": "role_c",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "12:5072142831899891911",
-          "name": "role_d"
+          "name": "role_d",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "13:4760020252456099659",
-          "name": "flag"
+          "name": "flag",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "14:1108965800056344094",
-          "name": "uid"
+          "name": "uid",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -294,131 +379,34 @@
       "properties": [
         {
           "id": "1:7548847030591916153",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:3261296452915286897",
-          "name": "ischeck"
+          "name": "ischeck",
+          "type": 9
         },
         {
           "id": "3:5452903049815270555",
-          "name": "remark"
+          "name": "remark",
+          "type": 9
         },
         {
           "id": "4:1937931831621077950",
-          "name": "content"
+          "name": "content",
+          "type": 9
         },
         {
           "id": "5:8632249258806751132",
-          "name": "jianchaxiangid"
+          "name": "jianchaxiangid",
+          "type": 9
         },
         {
           "id": "6:8487916448978949090",
-          "name": "jianchaid"
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "11:3975667084317246927",
-      "lastPropertyId": "24:2106698598417412334",
-      "name": "ActionRegisterItem",
-      "properties": [
-        {
-          "id": "1:7790305692723483332",
-          "name": "id"
-        },
-        {
-          "id": "2:209638309967738263",
-          "name": "wid"
-        },
-        {
-          "id": "3:554406495859138541",
-          "name": "lid"
-        },
-        {
-          "id": "4:1876147622794772251",
-          "name": "userId"
-        },
-        {
-          "id": "5:9178594164642499571",
-          "name": "case_source"
-        },
-        {
-          "id": "6:154991572450650758",
-          "name": "zi"
-        },
-        {
-          "id": "7:3732844449519171366",
-          "name": "di"
-        },
-        {
-          "id": "8:647096752565757393",
-          "name": "hao"
-        },
-        {
-          "id": "9:443404376044481765",
-          "name": "crime_time"
-        },
-        {
-          "id": "10:8761290261168803510",
-          "name": "crime_address"
-        },
-        {
-          "id": "11:8296501697447240473",
-          "name": "party"
-        },
-        {
-          "id": "12:8728753222379797828",
-          "name": "party_address"
-        },
-        {
-          "id": "13:3675397996793019217",
-          "name": "party_phone"
-        },
-        {
-          "id": "14:6359093586756744231",
-          "name": "reporter"
-        },
-        {
-          "id": "15:6022902163200983234",
-          "name": "reporter_address"
-        },
-        {
-          "id": "16:2833452323281758784",
-          "name": "reporter_phone"
-        },
-        {
-          "id": "17:6828324026928119832",
-          "name": "case_introduction"
-        },
-        {
-          "id": "18:2021291418427584241",
-          "name": "undertaker"
-        },
-        {
-          "id": "19:8052848766671490020",
-          "name": "undertaker_time"
-        },
-        {
-          "id": "20:3693751532513379781",
-          "name": "undertaker_opinion"
-        },
-        {
-          "id": "21:1248203354279951175",
-          "name": "systime"
-        },
-        {
-          "id": "22:8199689669409683024",
-          "name": "status"
-        },
-        {
-          "id": "23:8641685177378629707",
-          "name": "uuid"
-        },
-        {
-          "id": "24:2106698598417412334",
-          "name": "phoneftp"
+          "name": "jianchaid",
+          "type": 9
         }
       ],
       "relations": []
@@ -430,27 +418,36 @@
       "properties": [
         {
           "id": "1:1375199762275587941",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:5635786955080984641",
-          "name": "type"
+          "name": "type",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "3:3031375621457265410",
-          "name": "itemId"
+          "name": "itemId",
+          "type": 9
         },
         {
           "id": "4:165053155072709534",
-          "name": "path"
+          "name": "path",
+          "type": 9
         },
         {
           "id": "5:7117951409099346305",
-          "name": "fileName"
+          "name": "fileName",
+          "type": 9
         },
         {
           "id": "6:1243373879218806657",
-          "name": "isLocal"
+          "name": "isLocal",
+          "type": 1,
+          "flags": 4
         }
       ],
       "relations": []
@@ -462,47 +459,61 @@
       "properties": [
         {
           "id": "1:3880391007431652178",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:6236379248747622061",
-          "name": "guid"
+          "name": "guid",
+          "type": 9
         },
         {
           "id": "3:4057250939091972216",
-          "name": "unitname"
+          "name": "unitname",
+          "type": 9
         },
         {
           "id": "4:1793264970167643128",
-          "name": "xuhao"
+          "name": "xuhao",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "5:8277858181164880489",
-          "name": "cheakname"
+          "name": "cheakname",
+          "type": 9
         },
         {
           "id": "6:2400122919969629356",
-          "name": "cheaktype"
+          "name": "cheaktype",
+          "type": 9
         },
         {
           "id": "7:4646780113368045401",
-          "name": "cheakdatail"
+          "name": "cheakdatail",
+          "type": 9
         },
         {
           "id": "8:7904204328260113731",
-          "name": "cheakrecord"
+          "name": "cheakrecord",
+          "type": 9
         },
         {
           "id": "9:5478635813332670575",
-          "name": "cheakrecord2"
+          "name": "cheakrecord2",
+          "type": 9
         },
         {
           "id": "10:7036320228609782519",
-          "name": "isChecked"
+          "name": "isChecked",
+          "type": 1,
+          "flags": 4
         },
         {
           "id": "11:1204905916101747173",
-          "name": "cid"
+          "name": "cid",
+          "type": 9
         }
       ],
       "relations": []
@@ -514,71 +525,91 @@
       "properties": [
         {
           "id": "1:3899753193624230606",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:2404030985980332096",
-          "name": "userId"
+          "name": "userId",
+          "type": 9
         },
         {
           "id": "3:8840376648496715374",
-          "name": "reportingUnit"
+          "name": "reportingUnit",
+          "type": 9
         },
         {
           "id": "4:7197382170512518614",
-          "name": "qushu"
+          "name": "qushu",
+          "type": 9
         },
         {
           "id": "5:948267566183182383",
-          "name": "remark"
+          "name": "remark",
+          "type": 9
         },
         {
           "id": "6:8687944326997277028",
-          "name": "reportingDate"
+          "name": "reportingDate",
+          "type": 9
         },
         {
           "id": "7:1128094155337176792",
-          "name": "accidentDate"
+          "name": "accidentDate",
+          "type": 9
         },
         {
           "id": "8:7801235059724961917",
-          "name": "accidentAddress"
+          "name": "accidentAddress",
+          "type": 9
         },
         {
           "id": "9:9013018814060502797",
-          "name": "disposalPerson"
+          "name": "disposalPerson",
+          "type": 9
         },
         {
           "id": "10:7069468856993501725",
-          "name": "keyPerson"
+          "name": "keyPerson",
+          "type": 9
         },
         {
           "id": "11:5149422037296067666",
-          "name": "reportingStaff"
+          "name": "reportingStaff",
+          "type": 9
         },
         {
           "id": "12:3347978212859237672",
-          "name": "contactPhone"
+          "name": "contactPhone",
+          "type": 9
         },
         {
           "id": "13:1619527676106891605",
-          "name": "mainDescription"
+          "name": "mainDescription",
+          "type": 9
         },
         {
           "id": "14:6600499683070032754",
-          "name": "phoneftp"
+          "name": "phoneftp",
+          "type": 9
         },
         {
           "id": "15:8980296822092471449",
-          "name": "status"
+          "name": "status",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "16:3501702744569901280",
-          "name": "uuid"
+          "name": "uuid",
+          "type": 9
         },
         {
           "id": "17:9083720947374531155",
-          "name": "systime"
+          "name": "systime",
+          "type": 6,
+          "flags": 4
         }
       ],
       "relations": []
@@ -590,15 +621,20 @@
       "properties": [
         {
           "id": "1:1636277807486473095",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:1315914419060165130",
-          "name": "key"
+          "name": "key",
+          "type": 9
         },
         {
           "id": "3:2489183638821860625",
-          "name": "count"
+          "name": "count",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -610,166 +646,337 @@
       "properties": [
         {
           "id": "1:318129683633990429",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:3226857050425265049",
-          "name": "anjianriqi"
+          "name": "anjianriqi",
+          "type": 9
         },
         {
           "id": "3:7601966176009805207",
-          "name": "qiyeanjianjilu"
+          "name": "qiyeanjianjilu",
+          "type": 9
         },
         {
           "id": "4:2555191335639341785",
-          "name": "ranqixieloubaojinqi"
+          "name": "ranqixieloubaojinqi",
+          "type": 9
         },
         {
           "id": "5:7500081614977525290",
-          "name": "xihuobaohu_geshu"
+          "name": "xihuobaohu_geshu",
+          "type": 9
         },
         {
           "id": "6:2102065412348942773",
-          "name": "xihuobaohu"
+          "name": "xihuobaohu",
+          "type": 9
         },
         {
           "id": "7:5528039330397705883",
-          "name": "zaojuleixing_gufeng"
+          "name": "zaojuleixing_gufeng",
+          "type": 9
         },
         {
           "id": "8:4796101951356378836",
-          "name": "zaojuleixing_dafeng"
+          "name": "zaojuleixing_dafeng",
+          "type": 9
         },
         {
           "id": "9:5387579396725482575",
-          "name": "lianjieguan"
+          "name": "lianjieguan",
+          "type": 9
         },
         {
           "id": "10:7188285712576592402",
-          "name": "tiaoyafa_geshu"
+          "name": "tiaoyafa_geshu",
+          "type": 9
         },
         {
           "id": "11:4471871898041824837",
-          "name": "tiaoyafa"
+          "name": "tiaoyafa",
+          "type": 9
         },
         {
           "id": "12:5228626277544905049",
-          "name": "qiandingriqi"
+          "name": "qiandingriqi",
+          "type": 9
         },
         {
           "id": "13:445764331186663167",
-          "name": "yongqihetong"
+          "name": "yongqihetong",
+          "type": 9
         },
         {
           "id": "14:2175967957182400418",
-          "name": "gongqiqiyeid"
+          "name": "gongqiqiyeid",
+          "type": 9
         },
         {
           "id": "15:4584683756500897447",
-          "name": "gongqiqiye"
+          "name": "gongqiqiye",
+          "type": 9
         },
         {
           "id": "16:2846646556953467329",
-          "name": "ranqiguanlizhidu"
+          "name": "ranqiguanlizhidu",
+          "type": 9
         },
         {
           "id": "17:2538695056363731425",
-          "name": "faren"
+          "name": "faren",
+          "type": 9
         },
         {
           "id": "18:6102112767193808052",
-          "name": "yingyezhizhao"
+          "name": "yingyezhizhao",
+          "type": 9
         },
         {
           "id": "19:8688146352481362849",
-          "name": "dianhua"
+          "name": "dianhua",
+          "type": 9
         },
         {
           "id": "20:335542898885972244",
-          "name": "dizhi"
+          "name": "dizhi",
+          "type": 9
         },
         {
           "id": "21:2938029188576502894",
-          "name": "fuzeren"
+          "name": "fuzeren",
+          "type": 9
         },
         {
           "id": "22:5366458527357898914",
-          "name": "yonghuming"
+          "name": "yonghuming",
+          "type": 9
         },
         {
           "id": "23:754526999670087129",
-          "name": "jiandangriqi"
+          "name": "jiandangriqi",
+          "type": 9
         },
         {
           "id": "24:7500278021423399996",
-          "name": "jiedao"
+          "name": "jiedao",
+          "type": 9
         },
         {
           "id": "25:2743399273672967143",
-          "name": "suoshuqu"
+          "name": "suoshuqu",
+          "type": 9
         },
         {
           "id": "26:1195287695596899913",
-          "name": "userId"
+          "name": "userId",
+          "type": 9
         },
         {
           "id": "27:104077216862401636",
-          "name": "rqdizhi"
+          "name": "rqdizhi",
+          "type": 9
         },
         {
           "id": "28:5367945373131063249",
-          "name": "rqyonghuming"
+          "name": "rqyonghuming",
+          "type": 9
         },
         {
           "id": "29:471008978785638508",
-          "name": "rquserid"
+          "name": "rquserid",
+          "type": 9
         },
         {
           "id": "30:5282777731807695020",
-          "name": "location"
+          "name": "location",
+          "type": 9
         },
         {
           "id": "31:5782768319224953618",
-          "name": "beizhu"
+          "name": "beizhu",
+          "type": 9
         },
         {
           "id": "32:8529184419166126499",
-          "name": "mbuid"
+          "name": "mbuid",
+          "type": 9
         },
         {
           "id": "33:7922579123404585096",
-          "name": "phoneftp"
+          "name": "phoneftp",
+          "type": 9
         },
         {
           "id": "34:7147402352651871830",
-          "name": "year"
+          "name": "year",
+          "type": 9
         },
         {
           "id": "35:4173966441621059556",
-          "name": "yihuyidangid"
+          "name": "yihuyidangid",
+          "type": 9
         },
         {
           "id": "36:3814114595071451612",
-          "name": "uid"
+          "name": "uid",
+          "type": 9
         },
         {
           "id": "37:3922243818798776506",
-          "name": "type"
+          "name": "type",
+          "type": 5,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "17:1118755506405670855",
+      "lastPropertyId": "24:5469161585773194851",
+      "name": "ActionRegisterItem",
+      "properties": [
+        {
+          "id": "1:6203167481638271350",
+          "name": "id",
+          "type": 6,
+          "flags": 129
+        },
+        {
+          "id": "2:3285303659079668393",
+          "name": "uuid",
+          "type": 9
+        },
+        {
+          "id": "3:5091189282808213199",
+          "name": "wid",
+          "type": 9
+        },
+        {
+          "id": "4:5405092860455605709",
+          "name": "lid",
+          "type": 9
+        },
+        {
+          "id": "5:2584957674562739493",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "6:8225686802022946562",
+          "name": "case_source",
+          "type": 9
+        },
+        {
+          "id": "7:7699192199844251812",
+          "name": "zi",
+          "type": 9
+        },
+        {
+          "id": "8:3503595811285316615",
+          "name": "di",
+          "type": 9
+        },
+        {
+          "id": "9:8390583512297932180",
+          "name": "hao",
+          "type": 9
+        },
+        {
+          "id": "10:581976689650119375",
+          "name": "crime_time",
+          "type": 9
+        },
+        {
+          "id": "11:642387574086629676",
+          "name": "crime_address",
+          "type": 9
+        },
+        {
+          "id": "12:247828373153226879",
+          "name": "party",
+          "type": 9
+        },
+        {
+          "id": "13:3067604189291687756",
+          "name": "party_address",
+          "type": 9
+        },
+        {
+          "id": "14:5222493304903234117",
+          "name": "party_phone",
+          "type": 9
+        },
+        {
+          "id": "15:6806727984816197935",
+          "name": "reporter",
+          "type": 9
+        },
+        {
+          "id": "16:2214862445950313358",
+          "name": "reporter_address",
+          "type": 9
+        },
+        {
+          "id": "17:3103422417345595226",
+          "name": "reporter_phone",
+          "type": 9
+        },
+        {
+          "id": "18:5204247863840408859",
+          "name": "case_introduction",
+          "type": 9
+        },
+        {
+          "id": "19:4027111392674065854",
+          "name": "undertaker",
+          "type": 9
+        },
+        {
+          "id": "20:1425137149545863377",
+          "name": "undertaker_time",
+          "type": 9
+        },
+        {
+          "id": "21:5847185922096882501",
+          "name": "undertaker_opinion",
+          "type": 9
+        },
+        {
+          "id": "22:866809343659903210",
+          "name": "systime",
+          "type": 6,
+          "flags": 4
+        },
+        {
+          "id": "23:4577151526579822198",
+          "name": "status",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "24:5469161585773194851",
+          "name": "phoneftp",
+          "type": 9
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "16:4455121505921967728",
+  "lastEntityId": "17:1118755506405670855",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [
     2413617691713999259,
     8033252317214685601,
-    59588852651849063
+    59588852651849063,
+    3975667084317246927
   ],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
@@ -789,7 +996,31 @@
     1041964385793944258,
     2112241679693045587,
     5768952728395226973,
-    5970950335579515618
+    5970950335579515618,
+    7790305692723483332,
+    209638309967738263,
+    554406495859138541,
+    1876147622794772251,
+    9178594164642499571,
+    154991572450650758,
+    3732844449519171366,
+    647096752565757393,
+    443404376044481765,
+    8761290261168803510,
+    8296501697447240473,
+    8728753222379797828,
+    3675397996793019217,
+    6359093586756744231,
+    6022902163200983234,
+    2833452323281758784,
+    6828324026928119832,
+    2021291418427584241,
+    8052848766671490020,
+    3693751532513379781,
+    1248203354279951175,
+    8199689669409683024,
+    8641685177378629707,
+    2106698598417412334
   ],
   "retiredRelationUids": [],
   "version": 1

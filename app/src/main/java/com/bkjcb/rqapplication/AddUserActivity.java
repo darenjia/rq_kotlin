@@ -77,7 +77,7 @@ public class AddUserActivity extends SimpleBaseActivity {
             return;
         }
         showLoading();
-        disposable = NetworkApi.getService(DataService.class)
+        disposable = NetworkApi.Companion.getService(DataService.class)
                 .changeUserInfo(MyApplication.getUser().getAreacode().getArea_code(), name, address, mUserType.getSelectedIndex())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

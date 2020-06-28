@@ -16,10 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
-import com.bkjcb.rqapplication.adapter.AddressItemAdapter;
+import com.bkjcb.rqapplication.treatmentdefect.adapter.AddressItemAdapter;
 import com.bkjcb.rqapplication.fragment.MapFragment;
 import com.bkjcb.rqapplication.model.ConvertResult;
-import com.bkjcb.rqapplication.model.UserInfoResult;
+import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult;
 import com.bkjcb.rqapplication.retrofit.ConvertService;
 import com.bkjcb.rqapplication.retrofit.DataService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;

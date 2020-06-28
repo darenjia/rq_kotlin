@@ -7,9 +7,15 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bkjcb.rqapplication.actionregister.ActionRegisterActivity;
 import com.bkjcb.rqapplication.adapter.LocalImageHolderView;
 import com.bkjcb.rqapplication.adapter.MenuGridAdapter;
+import com.bkjcb.rqapplication.check.CheckMainActivity;
+import com.bkjcb.rqapplication.contact.ContactActivity;
+import com.bkjcb.rqapplication.emergency.EmergencyActivity;
+import com.bkjcb.rqapplication.gasrecord.GasUserRecordActivity;
 import com.bkjcb.rqapplication.model.MenuItem;
+import com.bkjcb.rqapplication.treatmentdefect.DefectTreatmentMainActivity;
 import com.bkjcb.rqapplication.view.MyGridView;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
@@ -28,7 +34,7 @@ public class MainActivity extends SimpleBaseActivity {
     @BindView(R.id.main_menu_grid)
     MyGridView mMainMenuGrid;
     @BindView(R.id.convenientBanner)
-    ConvenientBanner mConvenientBanner;
+    ConvenientBanner<String> mConvenientBanner;
     @BindView(R.id.message_more)
     ImageView mMessageMore;
     private int user_type = 0;
@@ -89,9 +95,13 @@ public class MainActivity extends SimpleBaseActivity {
                             break;
                         case 5:
                             ActionRegisterActivity.ToActivity(MainActivity.this);
+                        case 4:
+                            ActionRegisterActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 6:
                             EmergencyActivity.ToActivity(MainActivity.this);
+                        case 5:
+                            EmergencyActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 7:
                             DefectTreatmentMainActivity.ToActivity(MainActivity.this);
@@ -125,7 +135,7 @@ public class MainActivity extends SimpleBaseActivity {
         list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home9.jpg");
         mConvenientBanner.setPages(new CBViewHolderCreator() {
             @Override
-            public Holder createHolder(View itemView) {
+            public Holder<String> createHolder(View itemView) {
                 return new LocalImageHolderView(itemView);
             }
 
