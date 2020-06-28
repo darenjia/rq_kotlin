@@ -50,7 +50,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
                 mInfoOperation.setText("提交");
                 mInfoExport.setVisibility(View.GONE);
             } else {
-                mInfoExport.setText("退回");
+                mInfoExport.setText("退单");
                 mInfoOperation.setVisibility(View.GONE);
             }
         } else {

@@ -27,7 +27,21 @@ public class DefectTreatmentItemAdapter extends BaseQuickAdapter<DefectTreatment
                 .setText(R.id.treatment_time, item.getCasesType())
                 .setText(R.id.treatment_opinion, item.getOpinions())
                 .setGone(R.id.treatment_opinion, item.getFlag() == 0);
+        if (item.getFlag() > 0) {
+            helper.setText(R.id.treatment_time, obtainStatus(item.getProcessState()))
+                    .setTextColor(R.id.treatment_time, mContext.getResources().getColor(R.color.colorMint));
+        }
 
+    }
+
+    private String obtainStatus(int status) {
+        if (status > 4) {
+            return "处置完成";
+        } else if (status > 2) {
+            return "已结案";
+        } else {
+            return "退单";
+        }
     }
 
     public void showErrorView(Context context, View.OnClickListener listener) {

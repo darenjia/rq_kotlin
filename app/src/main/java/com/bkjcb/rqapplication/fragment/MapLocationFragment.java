@@ -44,7 +44,11 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
     private LatLng latLng;
     private GeocodeSearch geocodeSearch;
     private AddressQueryListener listener;
+    private boolean isHideButton = false;
 
+    public void setHideButton(boolean hideButton) {
+        isHideButton = hideButton;
+    }
 
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
@@ -66,6 +70,13 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
         return fragment;
     }
 
+    public static MapLocationFragment newInstance(AddressQueryListener listener, boolean isHideButton) {
+        MapLocationFragment fragment = new MapLocationFragment();
+        fragment.setListener(listener);
+        fragment.setHideButton(isHideButton);
+        return fragment;
+    }
+
     public static MapLocationFragment newInstance(LatLng latLng) {
         MapLocationFragment fragment = new MapLocationFragment();
         fragment.setLatLng(latLng);
@@ -82,7 +93,8 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
         setupMap();
         if (listener != null) {
             initReGeocode();
-        } else {
+        }
+        if (latLng != null || isHideButton) {
             mLocationText.setVisibility(View.GONE);
         }
     }
@@ -155,7 +167,7 @@ public class MapLocationFragment extends BaseSimpleFragment implements AMapGestu
         if (latLng != null) {
             aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
                     latLng, 18, 0, 0)));
-            MarkerOptions markerOptions=new MarkerOptions();
+            MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
             markerOptions.icon(LocationUtil.getMapIconBitmap(R.drawable.icon_location));
             aMap.addMarker(markerOptions);

@@ -18,7 +18,7 @@
             android:background="@color/colorText"
             android:gravity="center"
             android:padding="16dp"
-            android:text="隐患信息"
+            android:text="事件信息"
             android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
 

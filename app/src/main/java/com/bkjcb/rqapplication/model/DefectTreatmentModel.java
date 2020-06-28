@@ -42,6 +42,15 @@ public class DefectTreatmentModel implements Serializable {
     private String MbuGuid;
     private int UserType;
     private int Flag;
+    private int ProcessState;
+
+    public int getProcessState() {
+        return ProcessState;
+    }
+
+    public void setProcessState(int processState) {
+        ProcessState = processState;
+    }
 
     public String getMbuGuid() {
         return MbuGuid;

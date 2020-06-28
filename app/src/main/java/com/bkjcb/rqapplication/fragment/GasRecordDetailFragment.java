@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -151,6 +152,8 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     LinearLayout mRecordLinkInfo;
     @BindView(R.id.record_signed_layout)
     LinearLayout mRecordSignedInfo;
+    @BindView(R.id.record_map)
+    FrameLayout mRecordMap;
     private List<String> type1List = Arrays.asList("有", "无");
     private DatePickerDialog pickerDialog;
     private EditText currentTextView;
@@ -320,13 +323,32 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                 String[] strings = recordModel.location.split(",");
                 currentLatLng = new LatLng(Double.parseDouble(strings[0]), Double.parseDouble(strings[1]));
             }
-            locationFragment = MapLocationFragment.newInstance(currentLatLng);
+            if (recordModel.getType() == 2 && currentLatLng == null) {
+                locationFragment = MapLocationFragment.newInstance(new MapLocationFragment.AddressQueryListener() {
+                    @Override
+                    public void onSuccess(String s, LatLng latLng) {
+                        currentLatLng = latLng;
+                    }
+
+                    @Override
+                    public void onClick() {
+
+                    }
+                }, true);
+            } else {
+                locationFragment = MapLocationFragment.newInstance(currentLatLng);
+            }
+
             setViewVisibility(mRecordLocationLayout, false);
         }
-        getChildFragmentManager()
-                .beginTransaction()
-                .add(R.id.record_map, locationFragment)
-                .commit();
+        if (recordModel.getType() != 0 || currentLatLng != null) {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.record_map, locationFragment)
+                    .commit();
+        } else {
+            setViewVisibility(mRecordMap, false);
+        }
     }
 
     @Override
@@ -690,7 +712,7 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         setViewVisibility(buttonView.getId() == R.id.record_tyf_2 ? mRecordTyfLayout : mRecordXhLayout, isChecked);
         if (!isChecked) {
-            setText(buttonView.getId() == R.id.record_tyf_2? mRecordTyfNumber : mRecordXhNumber,null);
+            setText(buttonView.getId() == R.id.record_tyf_2 ? mRecordTyfNumber : mRecordXhNumber, null);
         }
     }
 
