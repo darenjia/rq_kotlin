@@ -134,7 +134,7 @@ public class GasMainActivity extends SimpleBaseActivity {
                 .subscribe(new Consumer<UserInfoResult>() {
                     @Override
                     public void accept(UserInfoResult result) throws Exception {
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             userInfoList = result.getDatas();
                             adapter.setNewData(userInfoList);
                             transformCoordinate(userInfoList);

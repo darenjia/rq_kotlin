@@ -20,7 +20,7 @@ abstract class BaseLazyFragment : BaseFragment() {
     var isFragmentVisible = false
     private var isReuseView = false
     private var isFirstVisible = false
-    private var rootView: View? = null
+    protected var rootView: View? = null
 
     //setUserVisibleHint()在Fragment创建时会先被调用一次，传入isVisibleToUser = false
     //如果当前Fragment可见，那么setUserVisibleHint()会再次被调用一次，传入isVisibleToUser = true

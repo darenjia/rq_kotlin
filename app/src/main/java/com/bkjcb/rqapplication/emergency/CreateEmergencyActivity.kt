@@ -109,7 +109,7 @@ class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemCli
             item = EmergencyItem()
             item.status = 0
             item.systime = System.currentTimeMillis()
-            item.uuid = Utils.getUUID()
+            item.uuid = Utils.uUID
             item.userId = MyApplication.getUser().userId
             item.phoneftp = getFtpRemotePath(item.uuid)
         } else {

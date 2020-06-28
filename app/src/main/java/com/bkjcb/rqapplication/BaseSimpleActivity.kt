@@ -106,6 +106,11 @@ abstract class BaseSimpleActivity : BaseActivity2() {
         refreshLayout?.setOnRefreshListener(listener)
     }
 
+    fun initSwipeRefreshLayout(refreshLayout: SwipeRefreshLayout, listener: SwipeRefreshLayout.OnRefreshListener) {
+        initRefreshLayout(refreshLayout)
+        initSwipeRefreshLayout(listener)
+    }
+
     private fun initRefreshLayout(refreshLayout: SwipeRefreshLayout) {
         this.refreshLayout = refreshLayout
     }

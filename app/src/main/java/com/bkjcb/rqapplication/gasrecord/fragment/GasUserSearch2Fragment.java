@@ -78,7 +78,7 @@ public class GasUserSearch2Fragment extends GasUserSearchFragment {
                 .subscribe(new Consumer<GasUserRecordResult>() {
                     @Override
                     public void accept(GasUserRecordResult result) throws Exception {
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             showResult(result.getDatas());
                             setFilter();
                         } else {
@@ -152,7 +152,7 @@ public class GasUserSearch2Fragment extends GasUserSearchFragment {
                 .subscribe(new Consumer<GasUserRecordResult>() {
                     @Override
                     public void accept(GasUserRecordResult result) throws Exception {
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             showResult(result.getDatas());
                         }
                     }

@@ -100,7 +100,7 @@ class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDa
             item = ActionRegisterItem()
             item.status = 0
             item.systime = System.currentTimeMillis()
-            item.uuid = Utils.getUUID()
+            item.uuid = Utils.uUID
             item.userId = MyApplication.getUser().userId
             item.wid = "null"
             item.phoneftp = getFtpRemotePath(item.uuid)

@@ -122,7 +122,7 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
                 .subscribe(new Consumer<UserInfoResult>() {
                     @Override
                     public void accept(UserInfoResult result) throws Exception {
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             showResultList(result.getDatas());
                         } else {
                             showErrorView();
@@ -255,7 +255,7 @@ public class GasUserSearchFragment extends BaseSimpleFragment {
 
                     @Override
                     public void onNext(UserInfoResult result) {
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             showResultList(result.getDatas());
                         } else {
                             showErrorView();
