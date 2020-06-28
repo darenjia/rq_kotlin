@@ -80,4 +80,9 @@ public class CheckResultFragment extends BaseSimpleFragment {
             mInfoName.setText(checkItem.checkMan);
         }
     }
+
+    @Override
+    public int initResID() {
+        return 0;
+    }
 }

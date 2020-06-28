@@ -29,6 +29,6 @@ public class ApplianceCheckResultItem {
     }
 
     public static Box<ApplianceCheckResultItem> getBox(){
-        return ObjectBox.get().boxFor(ApplianceCheckResultItem.class);
+        return ObjectBox.INSTANCE.getBoxStore().boxFor(ApplianceCheckResultItem.class);
     }
 }

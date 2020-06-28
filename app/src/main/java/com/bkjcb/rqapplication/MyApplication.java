@@ -49,7 +49,7 @@ public class MyApplication extends Application {
     }
 
     private void initObjectBox() {
-        ObjectBox.init(this);
+        ObjectBox.INSTANCE.init(this);
     }
 
     public static Context getContext() {

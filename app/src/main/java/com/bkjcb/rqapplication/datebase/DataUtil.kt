@@ -12,10 +12,10 @@ import io.objectbox.kotlin.boxFor
  */
 object DataUtil {
     fun getActionRegisterBox(): Box<ActionRegisterItem> {
-        return ObjectBox.get().boxFor();
+        return ObjectBox.boxStore.boxFor();
     }
 
     fun getEmergencyItemBox(): Box<EmergencyItem> {
-        return ObjectBox.get().boxFor();
+        return ObjectBox.boxStore.boxFor();
     }
 }

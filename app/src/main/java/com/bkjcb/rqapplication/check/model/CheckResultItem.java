@@ -27,6 +27,6 @@ public class CheckResultItem {
     }
 
     public static Box<CheckResultItem> getBox(){
-        return ObjectBox.get().boxFor(CheckResultItem.class);
+        return ObjectBox.INSTANCE.getBoxStore().boxFor(CheckResultItem.class);
     }
 }

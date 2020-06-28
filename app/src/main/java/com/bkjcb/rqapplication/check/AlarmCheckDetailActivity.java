@@ -24,7 +24,7 @@ public class AlarmCheckDetailActivity extends ApplianceCheckDetailActivity {
 
     @Override
     protected void getCheckContent() {
-        disposable = NetworkApi.getService(ApplianceCheckService.class)
+        disposable = NetworkApi.Companion.getService(ApplianceCheckService.class)
                 .getReportCheckItem()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

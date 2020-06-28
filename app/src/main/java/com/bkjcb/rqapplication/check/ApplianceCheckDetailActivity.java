@@ -78,7 +78,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     }
 
     protected void getDataFromNet() {
-        disposable = NetworkApi.getService(ApplianceCheckService.class)
+        disposable = NetworkApi.Companion.getService(ApplianceCheckService.class)
                 .getFixCheckItem()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -39,6 +39,6 @@ public class CheckItem implements Serializable {
     }
 
     public static Box<CheckItem> getBox() {
-        return ObjectBox.get().boxFor(CheckItem.class);
+        return ObjectBox.INSTANCE.getBoxStore().boxFor(CheckItem.class);
     }
 }

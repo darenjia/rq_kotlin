@@ -177,7 +177,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     protected void getCheckContent() {
-        disposable = NetworkApi.getService(CheckService.class)
+        disposable = NetworkApi.Companion.getService(CheckService.class)
                 .getCheckItem(checkItem.zhandianleixing)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

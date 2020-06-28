@@ -119,7 +119,7 @@ public class ApplianceCheckContentItem {
     }
 
     public static Box<ApplianceCheckContentItem> getBox() {
-        return ObjectBox.get().boxFor(ApplianceCheckContentItem.class);
+        return ObjectBox.INSTANCE.getBoxStore().boxFor(ApplianceCheckContentItem.class);
     }
 
     public static List<ApplianceCheckContentItem> getContentItems(String id) {

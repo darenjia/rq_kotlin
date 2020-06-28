@@ -62,7 +62,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
-                            ApplianceCheckService service = NetworkApi.getService(ApplianceCheckService.class);
+                            ApplianceCheckService service = NetworkApi.Companion.getService(ApplianceCheckService.class);
                             switch (checkItem.zhandianleixing) {
                                 case "维修检查企业":
                                     return service.saveDailyCheck(

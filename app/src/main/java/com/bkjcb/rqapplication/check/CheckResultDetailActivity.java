@@ -159,7 +159,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
     protected void submitResult() {
         showLoading(true);
         List<CheckResultItem> list = queryResult();
-        disposable = UploadTask.createUploadTask(getFiles(), Utils.getFTPPath(checkItem), new FtpUtils.UploadProgressListener() {
+        disposable = UploadTask.INSTANCE.createUploadTask(getFiles(), Utils.getFTPPath(checkItem), new FtpUtils.UploadProgressListener() {
             @Override
             public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
 
@@ -168,7 +168,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? NetworkApi.getService(CheckService.class).saveCheckItem(
+                        return aBoolean ? NetworkApi.Companion.getService(CheckService.class).saveCheckItem(
                                 MyApplication.getUser().getUserId(),
                                 checkItem.year,
                                 checkItem.zhandianleixing,
@@ -234,7 +234,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
 
     private void getExportFilePath() {
         showLoading(true);
-        disposable = NetworkApi.getService(CheckService.class)
+        disposable = NetworkApi.Companion.getService(CheckService.class)
                 .getExportPath(checkItem.c_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
