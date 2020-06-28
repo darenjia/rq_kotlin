@@ -24,7 +24,7 @@ import com.bkjcb.rqapplication.gasrecord.SearchGasUserActivity;
 import com.bkjcb.rqapplication.adapter.FileListAdapter;
 import com.bkjcb.rqapplication.gasrecord.adapter.GasCompanyAdapter;
 import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
-import com.bkjcb.rqapplication.fragment.MapLocationFragment;
+import com.bkjcb.rqapplication.treatmentdefect.fragment.MapLocationFragment;
 import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener;
 import com.bkjcb.rqapplication.gasrecord.model.GasCompanyResult;
 import com.bkjcb.rqapplication.gasrecord.model.GasRecordModel;

@@ -66,10 +66,6 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
         return fragment;
     }
 
-    @Override
-    public void setResId() {
-        resId = R.layout.fragment_defect_treatment;
-    }
 
     @Override
     protected void initView() {
@@ -213,5 +209,10 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
         if (tempListener != null) {
             tempListener.textChange("");
         }
+    }
+
+    @Override
+    public int initResID() {
+        return R.layout.fragment_defect_treatment;
     }
 }

@@ -1,15 +1,12 @@
-package com.bkjcb.rqapplication.fragment
+package com.bkjcb.rqapplication.treatmentdefect.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.OnClick
 import com.amap.api.maps.AMap
 import com.amap.api.maps.AMap.OnMyLocationChangeListener
 import com.amap.api.maps.CameraUpdateFactory
-import com.amap.api.maps.TextureMapView
 import com.amap.api.maps.model.*
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
@@ -19,6 +16,8 @@ import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener
 import com.amap.api.services.geocoder.RegeocodeQuery
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.bkjcb.rqapplication.R
+import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.fragment.MapFragment
 import com.bkjcb.rqapplication.util.LocationUtil
 import kotlinx.android.synthetic.main.fragment_map_location.*
 
@@ -27,11 +26,18 @@ import kotlinx.android.synthetic.main.fragment_map_location.*
  * Description :
  */
 class MapLocationFragment : BaseSimpleFragment(), AMapGestureListener {
-
+     private val STROKE_COLOR = Color.argb(0, 3, 145, 255)
+     private val FILL_COLOR = Color.argb(0, 0, 0, 180)
     private lateinit var aMap: AMap
     private var latLng: LatLng? = null
     private var geocodeSearch: GeocodeSearch? = null
     private var listener: AddressQueryListener? = null
+    private var isHideButton: Boolean = false
+
+    private fun setIsHideButton(isHideButton: Boolean) {
+        this.isHideButton = isHideButton
+    }
+
     fun setLatLng(latLng: LatLng?) {
         this.latLng = latLng
     }
@@ -53,7 +59,8 @@ class MapLocationFragment : BaseSimpleFragment(), AMapGestureListener {
         setupMap()
         if (listener != null) {
             initReGeocode()
-        } else {
+        }
+        if (latLng != null || isHideButton) {
             question_location_text.visibility = View.GONE
         }
         question_location_text.setOnClickListener {
@@ -77,9 +84,9 @@ class MapLocationFragment : BaseSimpleFragment(), AMapGestureListener {
         uiSettings.isMyLocationButtonEnabled = true
         uiSettings.isZoomControlsEnabled = false
         val myLocationStyle: MyLocationStyle = MyLocationStyle()
-        myLocationStyle.strokeColor(MapFragment.STROKE_COLOR)
+        myLocationStyle.strokeColor(STROKE_COLOR)
         myLocationStyle.strokeWidth(1f)
-        myLocationStyle.radiusFillColor(MapFragment.FILL_COLOR)
+        myLocationStyle.radiusFillColor(FILL_COLOR)
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER) //连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.interval(2000) //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.myLocationStyle = myLocationStyle //设置定位蓝点的Style
@@ -186,7 +193,13 @@ class MapLocationFragment : BaseSimpleFragment(), AMapGestureListener {
             return fragment
         }
 
-        @JvmStatic
+        fun newInstance(listener: AddressQueryListener?, isHideButton: Boolean): MapLocationFragment {
+            val fragment = MapLocationFragment()
+            fragment.setListener(listener)
+            fragment.setIsHideButton(isHideButton)
+            return fragment
+        }
+
         fun newInstance(latLng: LatLng?): MapLocationFragment {
             val fragment = MapLocationFragment()
             fragment.setLatLng(latLng)

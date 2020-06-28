@@ -91,16 +91,12 @@ public class MainActivity extends SimpleBaseActivity {
                             CheckMainActivity.ToActivity(MainActivity.this, 1);
                             break;
                         case 4:
-                            ContactActivity.ToActivity(MainActivity.this);
+                            ContactActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 5:
-                            ActionRegisterActivity.ToActivity(MainActivity.this);
-                        case 4:
                             ActionRegisterActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 6:
-                            EmergencyActivity.ToActivity(MainActivity.this);
-                        case 5:
                             EmergencyActivity.Companion.toActivity(MainActivity.this);
                             break;
                         case 7:
