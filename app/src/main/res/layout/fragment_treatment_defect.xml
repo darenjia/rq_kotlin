@@ -23,7 +23,7 @@
                 android:background="@color/colorText"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="隐患信息"
+                android:text="事件信息"
                 android:textSize="@dimen/sp_16"
                 android:textStyle="bold" />
 
@@ -201,32 +201,6 @@
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:background="@color/colorText"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/ChooseFragmentInfoTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="反馈描述" />
-
-                <include layout="@layout/vertical_divider" />
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/record_des"
-                    style="@style/SpinnerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ms_text_gravity="start"
-                    app:ms_padding_left="8dp"
-                    app:ms_popup_padding_left="8dp"/>
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -269,6 +243,31 @@
                         android:textSize="@dimen/sp_16" />
                 </RadioGroup>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorText"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ChooseFragmentInfoTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="反馈描述" />
+
+                <include layout="@layout/vertical_divider" />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/record_des"
+                    style="@style/SpinnerStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ms_text_gravity="start"
+                    app:ms_padding_left="8dp"
+                    app:ms_popup_padding_left="8dp"/>
             </LinearLayout>
 
             <LinearLayout
