@@ -74,29 +74,29 @@ public class MainActivity extends SimpleBaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MenuItem item = (MenuItem) adapter.getItem(position);
                 if (item.purview) {
-                    switch (position) {
-                        case 0:
+                    switch (item.type) {
+                        case 1:
                             GasUserRecordActivity.ToActivity(MainActivity.this);
                             break;
-                        case 1:
+                        case 2:
                             CheckMainActivity.ToActivity(MainActivity.this, 0);
                             break;
-                        case 2:
+                        case 3:
                             CheckMainActivity.ToActivity(MainActivity.this, 1);
                             break;
-                        case 3:
+                        case 4:
                             ContactActivity.ToActivity(MainActivity.this);
                             break;
-                        case 4:
+                        case 5:
                             ActionRegisterActivity.ToActivity(MainActivity.this);
                             break;
-                        case 5:
+                        case 6:
                             EmergencyActivity.ToActivity(MainActivity.this);
                             break;
-                        case 6:
+                        case 7:
                             DefectTreatmentMainActivity.ToActivity(MainActivity.this);
                             break;
-                        case 7:
+                        case 8:
                             SettingActivity.ToActivity(MainActivity.this);
                             break;
                         default:

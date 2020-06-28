@@ -260,6 +260,7 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
                     calendar.get(Calendar.MONTH), // Initial month selection
                     calendar.get(Calendar.DAY_OF_MONTH) // Inital day selection
             );
+            pickerDialog.setMaxDate(calendar);
         }
         if (!pickerDialog.isAdded()) {
             pickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");

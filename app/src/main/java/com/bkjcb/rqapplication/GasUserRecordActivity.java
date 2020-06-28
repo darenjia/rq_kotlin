@@ -41,8 +41,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class GasUserRecordActivity extends SimpleBaseActivity {
 
-    @BindView(R.id.appbar)
-    QMUITopBarLayout mAppbar;
     @BindView(R.id.check_list)
     RecyclerView mCheckList;
     @BindView(R.id.station_name)
@@ -67,7 +65,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
 
     @Override
     protected void initView() {
-        mAppbar.setTitle("一户一档");
+        QMUITopBarLayout mAppbar = initTopbar("一户一档");
         district = MyApplication.getUser().getUserleixing().equals("街镇用户") || MyApplication.getUser().getUserleixing().equals("区用户") ? MyApplication.getUser().getArea().getArea_name() : "";
         street = MyApplication.getUser().getUserleixing().equals("街镇用户") ? MyApplication.getUser().getAreacode().getStreet_jc() : "";
         if (!street.equals("")) {

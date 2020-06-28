@@ -162,7 +162,7 @@
             android:background="@color/colorText"
             android:gravity="center"
             android:padding="16dp"
-            android:text="退回理由"
+            android:text="退单理由"
             android:textSize="@dimen/sp_16"
             android:textStyle="bold" />
 
@@ -180,7 +180,7 @@
                 android:layout_margin="4dp"
                 android:background="@color/colorGray"
                 android:gravity="start"
-                android:hint="请填写退回理由"
+                android:hint="请填写退单理由"
                 android:padding="4dp"
                 android:textColor="@color/colorSecondDrayText" />
         </FrameLayout>

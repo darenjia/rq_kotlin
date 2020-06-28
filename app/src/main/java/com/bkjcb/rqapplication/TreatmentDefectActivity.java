@@ -38,7 +38,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
 
     @Override
     protected String getTitleString() {
-        return type ? "处置隐患" : "任务退回";
+        return type ? "处置事件" : "任务退单";
     }
 
     @Override

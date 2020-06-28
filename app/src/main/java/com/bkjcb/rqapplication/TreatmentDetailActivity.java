@@ -50,7 +50,7 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     }
 
     protected String getTitleString() {
-        return "隐患详情";
+        return "事件详情";
     }
 
     protected void loadView() {

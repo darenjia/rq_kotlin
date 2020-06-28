@@ -34,7 +34,7 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
 
     @Override
     protected void initView() {
-        initTopbarNoBackButton("隐患处置");
+        initTopbar("事件处置");
     }
 
     @Override
