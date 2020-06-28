@@ -146,29 +146,29 @@ public class ContactChildFragment extends BaseSimpleFragment {
     }
 
     private void filterData(Level level) {
-        if (level != null && level.getLevel() != -1) {
-            if (level.getKind1() == 0) {
-                unitAdapter.setNewData(getData(fragmentType, -1, -1, -1, level.getQuxian()));
-            } else if (level.getKind2() == 0) {
-                unitAdapter.setNewData(getData(fragmentType, level.getKind1(), -1, -1, level.getQuxian()));
-            } else if (level.getKind3() == 0) {
-                unitAdapter.setNewData(getData(fragmentType, level.getKind1(), level.getKind2(), -1, level.getQuxian()));
+        if (level != null && level.level != -1) {
+            if (level.kind1 == 0) {
+                unitAdapter.setNewData(getData(fragmentType, -1, -1, -1, level.quxian));
+            } else if (level.kind2 == 0) {
+                unitAdapter.setNewData(getData(fragmentType, level.kind1, -1, -1, level.quxian));
+            } else if (level.kind3 == 0) {
+                unitAdapter.setNewData(getData(fragmentType, level.kind1, level.kind2, -1, level.quxian));
             } else {
-                unitAdapter.setNewData(getData(fragmentType, level.getKind1(), level.getKind2(), level.getKind3(), level.getQuxian()));
+                unitAdapter.setNewData(getData(fragmentType, level.kind1, level.kind2, level.kind3, level.quxian));
             }
-            if (!map.containsKey(level.getDepartmentnamea())) {
-                map.put(level.getDepartmentnamea(), level);
-                setStrings(level.getDepartmentnamea());
+            if (!map.containsKey(level.departmentnamea)) {
+                map.put(level.departmentnamea, level);
+                setStrings(level.departmentnamea);
             } else {
-                int index = strings.indexOf(level.getDepartmentnamea())+1;
+                int index = strings.indexOf(level.departmentnamea)+1;
                     for (int i = index; i < strings.size(); i++) {
                         map.remove(strings.get(i));
                     }
                 setStrings(null);
 
             }
-            mHeader.setLeftString(level.getDepartmentnamea());
-            mDepartmentTitle.setText(level.getDepartmentnamea());
+            mHeader.setLeftString(level.departmentnamea);
+            mDepartmentTitle.setText(level.departmentnamea);
         } else {
             switch (fragmentType) {
                 case 0:

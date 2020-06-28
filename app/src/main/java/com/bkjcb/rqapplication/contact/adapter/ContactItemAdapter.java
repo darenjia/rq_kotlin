@@ -24,14 +24,14 @@ public class ContactItemAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, User item) {
         AvatarImageView iv = (AvatarImageView) helper.getView(R.id.item_avatar);
-        iv.setTextAndColor(item.getUsername().substring(0, 1), Utils.getColor(mContext, helper.getLayoutPosition()));
-        helper.setText(R.id.info_tv, item.getUsername())
-                .setText(R.id.info_dz, item.getDuty())
-                .setText(R.id.info_qx, item.getUnit()!=null?item.getUnit().getDistrictName():"")
-                .setGone(R.id.class_a, item.getRole_a() == 1)
-                .setGone(R.id.class_b, item.getRole_b() == 1)
-                .setGone(R.id.class_c, item.getRole_c() == 1)
-                .setGone(R.id.class_d, item.getRole_d() == 1);
+        iv.setTextAndColor(item.username.substring(0, 1), Utils.getColor(mContext, helper.getLayoutPosition()));
+        helper.setText(R.id.info_tv, item.username)
+                .setText(R.id.info_dz, item.duty)
+                .setText(R.id.info_qx, item.getUnit()!=null? item.getUnit().districtName :"")
+                .setGone(R.id.class_a, item.role_a == 1)
+                .setGone(R.id.class_b, item.role_b == 1)
+                .setGone(R.id.class_c, item.role_c == 1)
+                .setGone(R.id.class_d, item.role_d == 1);
     }
 
     public void showEmptyView(){

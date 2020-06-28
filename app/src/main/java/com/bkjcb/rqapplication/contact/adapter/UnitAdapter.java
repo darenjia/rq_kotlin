@@ -24,6 +24,6 @@ public class UnitAdapter extends BaseQuickAdapter<Level, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Level item) {
-        helper.setText(R.id.view_text,item.getDepartmentnamea());
+        helper.setText(R.id.view_text, item.departmentnamea);
     }
 }

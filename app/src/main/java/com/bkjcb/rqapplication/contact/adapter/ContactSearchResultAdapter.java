@@ -24,19 +24,19 @@ public class ContactSearchResultAdapter extends BaseQuickAdapter<ContactBaseMode
         if (item instanceof User) {
             User user = (User) item;
             AvatarImageView iv = (AvatarImageView) helper.getView(R.id.item_avatar);
-            iv.setTextAndColor(user.getUsername().substring(0, 1), Utils.getColor(mContext, helper.getLayoutPosition()));
-            helper.setText(R.id.info_tv, user.getUsername())
-                    .setText(R.id.info_dz, user.getDuty())
-                    .setText(R.id.info_qx, user.getUnit() != null ? user.getUnit().getDistrictName() : "")
-                    .setGone(R.id.class_a, user.getRole_a() == 1)
-                    .setGone(R.id.class_b, user.getRole_b() == 1)
-                    .setGone(R.id.class_c, user.getRole_c() == 1)
-                    .setGone(R.id.class_d, user.getRole_d() == 1);
+            iv.setTextAndColor(user.username.substring(0, 1), Utils.getColor(mContext, helper.getLayoutPosition()));
+            helper.setText(R.id.info_tv, user.username)
+                    .setText(R.id.info_dz, user.duty)
+                    .setText(R.id.info_qx, user.getUnit() != null ? user.getUnit().districtName : "")
+                    .setGone(R.id.class_a, user.role_a == 1)
+                    .setGone(R.id.class_b, user.role_b == 1)
+                    .setGone(R.id.class_c, user.role_c == 1)
+                    .setGone(R.id.class_d, user.role_d == 1);
         }else {
             Level level= (Level) item;
             helper.setGone(R.id.item_avatar,false)
-                    .setText(R.id.info_dz,level.getDepartmentname())
-                    .setText(R.id.info_qx,level.getDistrictname())
+                    .setText(R.id.info_dz, level.departmentname)
+                    .setText(R.id.info_qx, level.districtname)
                     .setGone(R.id.class_a, false)
                     .setGone(R.id.class_b, false)
                     .setGone(R.id.class_c, false)

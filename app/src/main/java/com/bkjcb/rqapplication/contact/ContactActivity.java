@@ -108,7 +108,7 @@ public class ContactActivity extends SimpleBaseActivity {
         View view = getLayoutInflater().inflate(R.layout.alert_view, null);
         TextView name = (TextView) view.findViewById(R.id.name);
         AvatarImageView imageView = (AvatarImageView) view.findViewById(R.id.item_avatar);
-        imageView.setTextAndColor(user.getUsername().substring(0, 1), Utils.getRandomColor(this));
+        imageView.setTextAndColor(user.username.substring(0, 1), Utils.getRandomColor(this));
         SuperTextView tel1 = (SuperTextView) view.findViewById(R.id.phoneNumber1);
         SuperTextView tel2 = (SuperTextView) view.findViewById(R.id.phoneNumber2);
         SuperTextView quxian = (SuperTextView) view.findViewById(R.id.quxian);
@@ -118,10 +118,10 @@ public class ContactActivity extends SimpleBaseActivity {
         SuperTextView unit_phone = (SuperTextView) view.findViewById(R.id.dianha_danwei);
         SuperTextView unit_fax = (SuperTextView) view.findViewById(R.id.chuanzhen_danwei);
         SuperTextView unit_zipcode = (SuperTextView) view.findViewById(R.id.youbian_danwei);
-        name.setText(user.getUsername());
-        String s1 = user.getTel();
-        String s2 = user.getU_tel();
-        String s3 = user.getUnit().getTel();
+        name.setText(user.username);
+        String s1 = user.tel;
+        String s2 = user.u_tel;
+        String s3 = user.getUnit().tel;
         if (!TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2)) {
             tel2.setVisibility(View.VISIBLE);
             tel1.setLeftBottomString(s1);
@@ -133,7 +133,7 @@ public class ContactActivity extends SimpleBaseActivity {
                 tel1.setLeftBottomString(s1);
             }
         }
-        final String unitName = user.getLevel().getDepartmentnamea();
+        final String unitName = user.getLevel().departmentnamea;
         if (unitName.length() > 16) {
             department.setRightString(unitName.substring(16, unitName.length()));
             department.setRightTopString(unitName.substring(0, 16));
@@ -141,7 +141,7 @@ public class ContactActivity extends SimpleBaseActivity {
             department.setRightString(unitName);
         }
 //        department.setRightBottomString(user.getDepartmentNameA());
-        String address = user.getUnit().getAddress();
+        String address = user.getUnit().address;
         /*if (address.length() > 16) {
             unit_address.setRightString(address.substring(16, address.length()));
             unit_address.setRightTopString(address.substring(0, 16));
@@ -149,11 +149,11 @@ public class ContactActivity extends SimpleBaseActivity {
             unit_address.setRightString(user.getUnit().getAddress());
         }*/
         unit_address.setRightString(address);
-        if (!TextUtils.isEmpty(user.getDuty())) {
-            zhiwu.setRightBottomString(user.getDuty());
+        if (!TextUtils.isEmpty(user.duty)) {
+            zhiwu.setRightBottomString(user.duty);
             zhiwu.setVisibility(View.VISIBLE);
         }
-        final String qxName = user.getUnit().getDistrictName();
+        final String qxName = user.getUnit().districtName;
         if (!TextUtils.isEmpty(qxName)) {
             quxian.setRightBottomString(qxName);
             quxian.setVisibility(View.VISIBLE);
@@ -166,12 +166,12 @@ public class ContactActivity extends SimpleBaseActivity {
             unit_phone.setRightBottomString(numbers[0]);
             unit_phone.setVisibility(View.VISIBLE);
         }
-        if (!TextUtils.isEmpty(user.getUnit().getFax())) {
-            unit_fax.setRightBottomString(user.getUnit().getFax());
+        if (!TextUtils.isEmpty(user.getUnit().fax)) {
+            unit_fax.setRightBottomString(user.getUnit().fax);
             unit_fax.setVisibility(View.VISIBLE);
         }
-        if (!TextUtils.isEmpty(user.getUnit().getZipcode())) {
-            unit_zipcode.setRightBottomString(user.getUnit().getZipcode());
+        if (!TextUtils.isEmpty(user.getUnit().zipcode)) {
+            unit_zipcode.setRightBottomString(user.getUnit().zipcode);
             unit_zipcode.setVisibility(View.VISIBLE);
         }
         SuperTextView.OnRightImageViewClickListener listener = new SuperTextView.OnRightImageViewClickListener() {

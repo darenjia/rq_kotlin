@@ -75,7 +75,7 @@ public class ContactSearchFragment extends BaseSimpleFragment implements BaseQui
             if (isSearchName) {
                 listener.onClick((User) adapter.getItem(position));
             } else {
-                ContactDepartmentActivity.ToActivity(getContext(), ((Level) adapter.getItem(position)).getDepartmentname());
+                ContactDepartmentActivity.ToActivity(getContext(), ((Level) adapter.getItem(position)).departmentname);
             }
         }
     }

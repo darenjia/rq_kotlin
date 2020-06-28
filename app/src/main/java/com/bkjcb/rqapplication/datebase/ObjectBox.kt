@@ -20,7 +20,7 @@ object ObjectBox {
     lateinit var boxStore: BoxStore
         private set
 
-    fun getEmergencyBox(): Box<Emergency>? = boxStore.boxFor(Emergency::class.java)
+    fun getEmergencyBox(): Box<Emergency> = boxStore.boxFor(Emergency::class.java)
     fun getUnitBox(): Box<Unit> = boxStore.boxFor(Unit::class.java)
     fun getLevelBox(): Box<Level> = boxStore.boxFor(Level::class.java)
     fun getUserBox(): Box<User> = boxStore.boxFor(User::class.java)
@@ -33,7 +33,6 @@ object ObjectBox {
             Log.i("ObjectBrowser", "Started: $started")
         }
     }
-
 
 
 }
