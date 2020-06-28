@@ -5,6 +5,7 @@ import com.bkjcb.rqapplication.datebase.ObjectBox.getUnitBox
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.annotation.Transient
+import io.objectbox.kotlin.equal
 
 @Entity
 class User : ContactBaseModel() {
@@ -46,34 +47,27 @@ class User : ContactBaseModel() {
     @Transient
     var level: Level? = null
 
-    fun getUnit(): Unit? {
+    fun initUnit(): Unit {
         if (unit == null) {
             unit = getUnitBox().query().equal(Unit_.uid, unitid.toLong()).build().findFirst()
         }
-        return unit
+        return unit!!
     }
 
-    fun setUnit(unit: Unit?): kotlin.Unit {
-        this.unit = unit
-    }
-
-    fun getLevel(): Level {
+    fun initLevel(): Level {
         if (level == null) {
-            level = getLevelBox().query().equal(Level_.uid, getUnit()!!.levelid).build().findFirst()
+            level = getLevelBox().query().equal(Level_.uid, initUnit().levelid).build().findFirst()
         }
         return level!!
     }
 
-    fun setLevel(level: Level?): kotlin.Unit {
-        this.level = level
-    }
 
     fun init(): kotlin.Unit {
         if (unit == null) {
             unit = getUnitBox().query().equal(Unit_.uid, unitid.toLong()).build().findFirst()
         }
         if (level == null && unit != null) {
-            level = getLevelBox().query().equal(Level_.uid, getUnit()!!.levelid).build().findFirst()
+            level = getLevelBox().query().equal(Level_.uid, initUnit().levelid).build().findFirst()
         }
     }
 }
