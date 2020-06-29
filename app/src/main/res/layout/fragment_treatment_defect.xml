@@ -52,7 +52,7 @@
                     android:padding="8dp"
                     android:text="不合格"
                     android:textColor="@color/colorSecondDrayText"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -78,7 +78,7 @@
                     android:padding="8dp"
                     android:text="不合格"
                     android:textColor="@color/colorSecondDrayText"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -104,7 +104,7 @@
                     android:padding="8dp"
                     android:text="不合格"
                     android:textColor="@color/colorSecondDrayText"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                     android:padding="8dp"
                     android:text="XXXX储配站"
                     android:textColor="@color/colorSecondDrayText"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -157,7 +157,7 @@
                     android:padding="8dp"
                     android:text="2019-10-12"
                     android:textColor="@color/colorSecondDrayText"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -193,11 +193,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:paddingEnd="16dp"
+                    android:paddingEnd="14dp"
                     android:text="2020-10-01"
                     android:drawableEnd="@drawable/vector_drawable_date"
                     android:textColor="@color/colorSecondDrayText"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
             </LinearLayout>
 
@@ -231,7 +231,7 @@
                         android:padding="8dp"
                         android:text="无异常"
                         android:textColor="@color/colorSecondDrayText"
-                        android:textSize="@dimen/sp_16" />
+                        android:textSize="@dimen/sp_14" />
 
                     <RadioButton
                         android:id="@+id/check_result_radio_failure"
@@ -240,7 +240,7 @@
                         android:padding="8dp"
                         android:text="有异常"
                         android:textColor="@color/colorSecondDrayText"
-                        android:textSize="@dimen/sp_16" />
+                        android:textSize="@dimen/sp_14" />
                 </RadioGroup>
 
             </LinearLayout>
@@ -295,6 +295,7 @@
                     android:background="@color/colorGray"
                     android:gravity="start"
                     android:hint="@string/record_type2"
+                    android:textSize="@dimen/sp_14"
                     android:padding="4dp"
                     android:textColor="@color/colorSecondDrayText" />
             </LinearLayout>

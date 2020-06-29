@@ -11,6 +11,7 @@ import com.bkjcb.rqapplication.model.UserResult;
 import com.bkjcb.rqapplication.util.Utils;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
@@ -34,7 +35,7 @@ public class SettingActivity extends SimpleBaseActivity {
     @BindView(R.id.checkUpload)
     SuperTextView mCheckUpload;
     @BindView(R.id.logout)
-    TextView mLogout;
+    QMUIRoundButton mLogout;
     @BindView(R.id.appbar)
     QMUITopBarLayout mAppbar;
     @BindView(R.id.setting_hide_btn)

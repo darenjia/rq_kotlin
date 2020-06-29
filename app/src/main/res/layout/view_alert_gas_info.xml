@@ -5,17 +5,6 @@
     android:background="@color/colorGray"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:background="@color/colorText"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="详细信息"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:id="@+id/layout_type1"
         android:layout_width="match_parent"
@@ -43,7 +32,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -68,7 +57,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -93,7 +82,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -117,7 +106,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
     </LinearLayout>
@@ -149,7 +138,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -174,7 +163,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -199,7 +188,7 @@
                 android:padding="8dp"
                 android:text=""
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -207,11 +196,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorText"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/ChooseFragmentInfoTextStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="安检备注" />
 
@@ -223,7 +212,7 @@
                 android:text=""
                 android:hint="无备注信息"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
     </LinearLayout>

@@ -47,7 +47,7 @@
                 android:padding="8dp"
                 android:text="不合格"
                 android:textColor="@color/colorSecondDrayText"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -99,7 +99,7 @@
                 android:padding="8dp"
                 android:text="不合格"
                 android:textColor="@color/colorSecondDrayText"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -126,7 +126,7 @@
                 android:padding="8dp"
                 android:text="XXXX储配站"
                 android:textColor="@color/colorSecondDrayText"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -152,7 +152,7 @@
                 android:padding="8dp"
                 android:text="2019-10-12"
                 android:textColor="@color/colorSecondDrayText"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -180,6 +180,7 @@
                 android:layout_margin="4dp"
                 android:background="@color/colorGray"
                 android:gravity="start"
+                android:textSize="@dimen/sp_14"
                 android:hint="请填写退单理由"
                 android:padding="4dp"
                 android:textColor="@color/colorSecondDrayText" />

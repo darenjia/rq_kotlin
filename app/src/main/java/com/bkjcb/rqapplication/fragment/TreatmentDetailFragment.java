@@ -179,14 +179,14 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
         if (type == 0) {
             if (configBean1 == null) {
                 MyDialogViewHolder holder1 = new MyDialogViewHolder(context, 0);
-                configBean1 = StyledDialog.buildCustomInIos(holder1, null).setBtnText("确定");
+                configBean1 = StyledDialog.buildCustomInIos(holder1, null).setBtnText("确定").setTitle("配送信息");
             }
             ((MyDialogViewHolder) configBean1.customContentHolder).assingDatasAndEvents(context, check);
             configBean1.show();
         } else {
             if (configBean2 == null) {
                 MyDialogViewHolder holder2 = new MyDialogViewHolder(context, 1);
-                configBean2 = StyledDialog.buildCustomInIos(holder2, null).setBtnText("确定");
+                configBean2 = StyledDialog.buildCustomInIos(holder2, null).setBtnText("确定").setTitle("安检信息");
             }
             ((MyDialogViewHolder) configBean2.customContentHolder).assingDatasAndEvents(context, check);
             configBean2.show();
