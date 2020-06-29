@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.contact.fragment.ContactChildFragment
+import com.bkjcb.rqapplication.contact.model.User
 import com.hss01248.dialog.StyledDialog
 import kotlinx.android.synthetic.main.with_bg_top_bar.*
 
@@ -16,7 +17,14 @@ class ContactDetailActivity : ContactActivity() {
     override fun initView() {
         StyledDialog.init(this)
         initTopBar("应急通讯录", appbar)
-        val mainFragment = ContactChildFragment.newInstance(type) { user -> alertUserInfo(user) }
+        val mainFragment = ContactChildFragment.newInstance(type, object : ContactChildFragment.OnClickListener {
+            override fun onClick(user: User?) {
+                if (user != null) {
+                    alertUserInfo(user)
+                }
+            }
+
+        })
         supportFragmentManager
                 .beginTransaction()
                 .add(R.id.contact_content, mainFragment)

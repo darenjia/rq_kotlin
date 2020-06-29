@@ -26,8 +26,8 @@ import kotlinx.android.synthetic.main.fragment_map_location.*
  * Description :
  */
 class MapLocationFragment : BaseSimpleFragment(), AMapGestureListener {
-     private val STROKE_COLOR = Color.argb(0, 3, 145, 255)
-     private val FILL_COLOR = Color.argb(0, 0, 0, 180)
+    private val STROKE_COLOR = Color.argb(0, 3, 145, 255)
+    private val FILL_COLOR = Color.argb(0, 0, 0, 180)
     private lateinit var aMap: AMap
     private var latLng: LatLng? = null
     private var geocodeSearch: GeocodeSearch? = null

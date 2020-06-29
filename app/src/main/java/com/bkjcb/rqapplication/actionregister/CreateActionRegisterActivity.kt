@@ -41,7 +41,7 @@ import java.util.*
  * Created by DengShuai on 2020/3/9.
  * Description :
  */
-class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDateSetListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
+class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDateSetListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, View.OnClickListener {
 
     private var pickerDialog: DatePickerDialog? = null
     private var calendar: Calendar? = null
@@ -59,6 +59,10 @@ class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDa
 
     override fun initView() {
         initTopBar("新建立案", View.OnClickListener { onExit() }, appbar)
+        //@OnClick(R.id.base_info_time, R.id.undertaker_info_time, R.id.submit)
+        base_info_time.setOnClickListener(this)
+        undertaker_info_time.setOnClickListener(this)
+        submit.setOnClickListener(this)
     }
 
     private fun initFileView() {
@@ -304,8 +308,7 @@ class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDa
         view!!.text = text
     }
 
-    @OnClick(R.id.base_info_time, R.id.undertaker_info_time, R.id.submit)
-    fun onClick(v: View) {
+    override fun onClick(v: View) {
         when (v.id) {
             R.id.base_info_time -> {
                 currentView = base_info_time

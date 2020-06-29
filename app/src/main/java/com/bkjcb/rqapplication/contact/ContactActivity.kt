@@ -46,7 +46,7 @@ open class ContactActivity : BaseSimpleActivity() {
                 alertUserInfo(user);
             }
         });*/appbar.addRightImageButton(R.drawable.vector_drawable_search, R.id.top_right_button)
-                .setOnClickListener { ContactSearchActivity.ToActivity(this@ContactActivity) }
+                .setOnClickListener { ContactSearchActivity.toActivity(this@ContactActivity) }
     }
 
     override fun initData() {
@@ -59,7 +59,14 @@ open class ContactActivity : BaseSimpleActivity() {
                     if (bool) {
                         supportFragmentManager
                                 .beginTransaction()
-                                .add(R.id.contact_content, ContactFirstFragment.newInstance { tel -> actionCall(tel) })
+                                .add(R.id.contact_content, ContactFirstFragment.newInstance(object : ContactFirstFragment.OnClickListener {
+                                    override fun onClick(tel: String?) {
+                                        if (tel != null) {
+                                            actionCall(tel)
+                                        }
+                                    }
+
+                                }))
                                 .commit()
                     }
                 }
