@@ -50,11 +50,6 @@ open class GasUserSearchFragment : BaseSimpleFragment() {
         this.listener = listener
     }
 
-    @OnClick(R.id.btn_add)
-    fun onClick(v: View?) {
-        listener!!.onNext(null)
-    }
-
     override fun initView() {
         address_list.layoutManager = LinearLayoutManager(context)
         adapter = AddressItemAdapter(R.layout.item_address_view)
@@ -65,6 +60,9 @@ open class GasUserSearchFragment : BaseSimpleFragment() {
         adapter.setOnItemClickListener { adapter, view, position -> listener?.onClick(adapter.getItem(position) as UserInfo) }
         if (isHideAdd) {
             btn_add.visibility = View.GONE
+        }
+        btn_add.setOnClickListener {
+            listener?.onNext(null)
         }
     }
 
@@ -203,7 +201,6 @@ open class GasUserSearchFragment : BaseSimpleFragment() {
             return fragment
         }
 
-        @JvmStatic
         fun newInstance(listener: OnPageButtonClickListener<UserInfo>?, isHideAdd: Boolean): GasUserSearchFragment {
             val fragment = GasUserSearchFragment()
             fragment.setListener(listener)

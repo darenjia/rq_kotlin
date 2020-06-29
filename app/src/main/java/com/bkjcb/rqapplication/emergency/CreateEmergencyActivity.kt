@@ -51,7 +51,7 @@ import java.util.*
  * Created by DengShuai on 2020/3/9.
  * Description :
  */
-class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener, View.OnClickListener {
 
     private lateinit var item: EmergencyItem
     private var currentView: TextView? = null
@@ -68,6 +68,10 @@ class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemCli
     override fun initView() {
         super.initView()
         initTopBar("新建事故现场", View.OnClickListener { onExit() }, appbar)
+        //@OnClick(R.id.base_info_time, R.id.reporter_info_time, R.id.submit)
+        base_info_time.setOnClickListener(this)
+        reporter_info_time.setOnClickListener(this)
+        submit.setOnClickListener(this)
     }
 
     private fun initFileView() {
@@ -365,8 +369,8 @@ class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemCli
         view?.text = text
     }
 
-    @OnClick(R.id.base_info_time, R.id.reporter_info_time, R.id.submit)
-    fun onClick(v: View) {
+
+    override fun onClick(v: View) {
         when (v.id) {
             R.id.reporter_info_time -> {
                 currentView = reporter_info_time

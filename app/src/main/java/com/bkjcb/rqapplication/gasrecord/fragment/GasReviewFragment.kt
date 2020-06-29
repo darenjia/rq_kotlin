@@ -34,7 +34,7 @@ import java.util.*
  * Created by DengShuai on 2020/4/29.
  * Description :
  */
-class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListener, RadioGroup.OnCheckedChangeListener {
+class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListener, RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
 
     private var pickerDialog: DatePickerDialog? = null
@@ -72,6 +72,13 @@ class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListen
                 setViewVisibility(check_rj_layout, isChecked)
                 record!!.ranju_zhenggai = if (isChecked) "是" else "否"
             }
+            //@OnClick(R.id.info_station, R.id.check_yhq_time, R.id.check_tyq_time, R.id.check_ljg_time, R.id.check_rj_time, R.id.record_submit)
+            info_station.setOnClickListener(this)
+            check_yhq_time.setOnClickListener(this)
+            check_tyq_time.setOnClickListener(this)
+            check_ljg_time.setOnClickListener(this)
+            check_rj_time.setOnClickListener(this)
+            record_submit.setOnClickListener(this)
         } else {
             setText(info_unit, record!!.jianchadanwei)
             setText(info_station, record!!.jianchariqi)
@@ -104,8 +111,8 @@ class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListen
         initFileView()
     }
 
-    @OnClick(R.id.info_station, R.id.check_yhq_time, R.id.check_tyq_time, R.id.check_ljg_time, R.id.check_rj_time, R.id.record_submit)
-    fun onClick(v: View) {
+
+  override  fun onClick(v: View) {
         if (v.id != R.id.record_submit) {
             when (v.id) {
                 R.id.info_station -> currentTextView = info_station

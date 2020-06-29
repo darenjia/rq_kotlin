@@ -34,7 +34,7 @@ class ContactSearchActivity : ContactActivity() {
     }
 
     companion object {
-        fun tActivity(context: Context) {
+        fun toActivity(context: Context) {
             val intent = Intent(context, ContactSearchActivity::class.java)
             context.startActivity(intent)
         }

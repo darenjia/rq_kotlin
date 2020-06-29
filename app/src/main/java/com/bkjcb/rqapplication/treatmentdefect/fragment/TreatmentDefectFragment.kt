@@ -53,6 +53,9 @@ class TreatmentDefectFragment : TreatmentBackFragment(), DatePickerDialog.OnDate
     private fun initDateView() {
         if (result == null) {
             record_time.text = Utils.getCurrentTime()
+            record_time.setOnClickListener{
+                createDatePicker()
+            }
         } else {
             record_time.text = Utils.dateFormat(result!!.disposalTime)
             record_time.isEnabled = false
@@ -171,13 +174,6 @@ class TreatmentDefectFragment : TreatmentBackFragment(), DatePickerDialog.OnDate
                 .minimumCompressSize(300)
                 .imageFormat(PictureMimeType.PNG) //.selectionMedia(selectList)
                 .forResult(PictureConfig.CHOOSE_REQUEST)
-    }
-
-    @OnClick(R.id.record_time)
-    fun onClick(v: View) {
-        if (v.id == R.id.record_time) {
-            createDatePicker()
-        }
     }
 
     private fun createDatePicker() {

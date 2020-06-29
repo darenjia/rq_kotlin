@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit
  * Created by DengShuai on 2020/4/29.
  * Description :
  */
-class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListener, CompoundButton.OnCheckedChangeListener {
+class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
 
     private val type1List = listOf("有", "无")
@@ -156,6 +156,8 @@ class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSet
             setText(record_remark, recordModel!!.beizhu)
         }
         addMapView()
+
+
     }
 
     private fun initSpinnerView() {
@@ -263,6 +265,14 @@ class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSet
                         }
                     }
         }
+        //@OnClick(R.id.record_signed_time, R.id.record_last_check_time, R.id.unlink, R.id.record_link_btn, R.id.record_link_info, R.id.record_save)
+        record_signed_time.setOnClickListener(this)
+        record_last_check_time.setOnClickListener(this)
+        unlink.setOnClickListener(this)
+        record_link_btn.setOnClickListener(this)
+        record_link_info.setOnClickListener(this)
+        record_save.setOnClickListener(this)
+
     }
 
     private fun setCompanyListener(flag: Boolean) {
@@ -282,8 +292,8 @@ class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSet
     }
 
     //R.id.record_submit添加防抖操作
-    @OnClick(R.id.record_signed_time, R.id.record_last_check_time, R.id.unlink, R.id.record_link_btn, R.id.record_link_info, R.id.record_save)
-    fun onClick(v: View) {
+
+   override fun onClick(v: View) {
         if (recordModel!!.getType() == 0) {
             return
         }

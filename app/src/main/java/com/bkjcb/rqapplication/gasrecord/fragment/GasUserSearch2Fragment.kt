@@ -105,7 +105,6 @@ class GasUserSearch2Fragment : GasUserSearchFragment() {
     }
 
     companion object {
-        @JvmStatic
         fun newInstance(listener: OnPageButtonClickListener<GasUserRecord>?): GasUserSearch2Fragment {
             val fragment = GasUserSearch2Fragment()
             fragment.clickListener = listener
