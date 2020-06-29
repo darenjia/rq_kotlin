@@ -35,18 +35,14 @@
             android:name="com.amap.api.v2.apikey"
             android:value="abb50c814ad49ac4904f015edb859db9" />
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".base.MainActivity"></activity>
+        <activity android:name=".base.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanActivity" />
-        <activity android:name=".UserDetailActivity" />
-        <activity android:name=".AddUserActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".GasMainActivity" />
+        <activity android:name=".base.SettingActivity" />
         <activity
             android:name=".check.CheckMainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -128,7 +124,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".MediaPlayActivity"
+            android:name=".base.MediaPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />

@@ -8,17 +8,18 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import butterknife.OnClick
 import com.bkjcb.rqapplication.*
-import com.bkjcb.rqapplication.datebase.DataUtil.getActionRegisterBox
+import com.bkjcb.rqapplication.base.datebase.DataUtil.getActionRegisterBox
 import com.bkjcb.rqapplication.actionregister.model.ActionRegisterItem
 import com.bkjcb.rqapplication.actionregister.retrofit.ActionRegisterService
-import com.bkjcb.rqapplication.adapter.FileListAdapter
-import com.bkjcb.rqapplication.ftp.UploadTask
-import com.bkjcb.rqapplication.model.MediaFile
-import com.bkjcb.rqapplication.retrofit.NetworkApi
-import com.bkjcb.rqapplication.util.FileUtil
-import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.base.adapter.FileListAdapter
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.MediaPlayActivity
+import com.bkjcb.rqapplication.base.ftp.UploadTask
+import com.bkjcb.rqapplication.base.model.MediaFile
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.util.FileUtil
+import com.bkjcb.rqapplication.base.util.Utils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.interfaces.MyDialogListener
@@ -427,6 +428,6 @@ class CreateActionRegisterActivity : BaseSimpleActivity(), DatePickerDialog.OnDa
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        MediaPlayActivity.ToActivity(this@CreateActionRegisterActivity, (adapter?.getItem(position) as MediaFile?)?.path)
+        MediaPlayActivity.toActivity(this@CreateActionRegisterActivity, (adapter?.getItem(position) as MediaFile?)?.path)
     }
 }

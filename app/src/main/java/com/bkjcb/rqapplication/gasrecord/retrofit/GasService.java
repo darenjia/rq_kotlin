@@ -3,7 +3,7 @@ package com.bkjcb.rqapplication.gasrecord.retrofit;
 import com.bkjcb.rqapplication.gasrecord.model.GasCompanyResult;
 import com.bkjcb.rqapplication.gasrecord.model.GasUserDetailResult;
 import com.bkjcb.rqapplication.gasrecord.model.GasUserRecordResult;
-import com.bkjcb.rqapplication.model.HttpResult;
+import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.gasrecord.model.ReviewRecordResult;
 import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult;
 

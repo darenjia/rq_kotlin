@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.emergency.model
 
-import com.bkjcb.rqapplication.datebase.ObjectBox
+import com.bkjcb.rqapplication.base.datebase.ObjectBox
 import io.objectbox.Box
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

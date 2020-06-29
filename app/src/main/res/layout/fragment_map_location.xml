@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bkjcb.rqapplication.view.MapViewCompat
+    <com.bkjcb.rqapplication.base.view.MapViewCompat
         android:id="@+id/map_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,5 +31,5 @@
             android:gravity="center"
             android:text="使用当前地址"
             android:textColor="@color/colorText" />
-    </com.bkjcb.rqapplication.view.MapViewCompat>
+    </com.bkjcb.rqapplication.base.view.MapViewCompat>
 </FrameLayout>

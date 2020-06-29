@@ -1,32 +1,23 @@
 package com.bkjcb.rqapplication.treatmentdefect.fragment
 
 import android.app.Activity
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
 import com.bkjcb.rqapplication.MyApplication
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
-import com.bkjcb.rqapplication.interfaces.OnTextChangeListener
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.interfaces.OnTextChangeListener
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import com.bkjcb.rqapplication.treatmentdefect.TreatmentDetailActivity
 import com.bkjcb.rqapplication.treatmentdefect.adapter.DefectTreatmentItemAdapter
 import com.bkjcb.rqapplication.treatmentdefect.model.DefectTreatmentModel
-import com.bkjcb.rqapplication.treatmentdefect.model.TreatmentResult
 import com.bkjcb.rqapplication.treatmentdefect.retrofit.TreatmentService
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.orhanobut.logger.Logger
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_defect_treatment.*
 import kotlinx.android.synthetic.main.search_layout_with_btn_view.*
@@ -119,7 +110,7 @@ class DefectTreatmentFragment : BaseSimpleFragment(), BaseQuickAdapter.OnItemCli
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        TreatmentDetailActivity.toActivity(activity, adapter.getItem(position) as DefectTreatmentModel?)
+        TreatmentDetailActivity.toActivity(activity!!, adapter.getItem(position) as DefectTreatmentModel?)
     }
 
     private fun hideSoftInput() {

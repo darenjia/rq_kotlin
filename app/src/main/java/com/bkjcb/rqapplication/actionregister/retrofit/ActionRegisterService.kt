@@ -1,7 +1,7 @@
 package com.bkjcb.rqapplication.actionregister.retrofit
 
 import com.bkjcb.rqapplication.actionregister.model.ActionRegisterItem
-import com.bkjcb.rqapplication.model.HttpResult
+import com.bkjcb.rqapplication.base.model.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.POST

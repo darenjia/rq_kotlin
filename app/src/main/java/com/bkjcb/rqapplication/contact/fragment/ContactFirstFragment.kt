@@ -1,17 +1,13 @@
 package com.bkjcb.rqapplication.contact.fragment
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.OnClick
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.contact.ContactDetailActivity
-import com.bkjcb.rqapplication.datebase.ContactDataUtil
+import com.bkjcb.rqapplication.base.datebase.ContactDataUtil
 import com.bkjcb.rqapplication.emergency.adapter.EmergencyAdapter
 import com.bkjcb.rqapplication.emergency.model.Emergency
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.interfaces.MyDialogListener

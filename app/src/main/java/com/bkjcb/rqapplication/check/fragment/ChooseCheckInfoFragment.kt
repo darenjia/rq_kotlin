@@ -2,17 +2,12 @@ package com.bkjcb.rqapplication.check.fragment
 
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import butterknife.BindView
 import butterknife.OnClick
 import com.bkjcb.rqapplication.MyApplication
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.check.model.CheckItem
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
-import com.bkjcb.rqapplication.util.Utils.dateFormat
-import com.jaredrummler.materialspinner.MaterialSpinner
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.util.Utils.dateFormat
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.fragment_check_info_view.*
@@ -24,7 +19,7 @@ import java.util.*
  * Created by DengShuai on 2019/12/30.
  * Description :
  */
-open class ChooseCheckInfoFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListener {
+open class ChooseCheckInfoFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListener, View.OnClickListener {
 
 
     var checkItem: CheckItem? = null
@@ -32,8 +27,7 @@ open class ChooseCheckInfoFragment : BaseSimpleFragment(), DatePickerDialog.OnDa
     private lateinit var calendar: Calendar
     private lateinit var strings: ArrayList<String>
 
-    @OnClick(R.id.info_date, R.id.info_confirm, R.id.info_back)
-    fun onClick(v: View) {
+    override fun onClick(v: View) {
         when (v.id) {
             R.id.info_date -> createDatePicker()
             R.id.info_confirm -> {
@@ -101,6 +95,10 @@ open class ChooseCheckInfoFragment : BaseSimpleFragment(), DatePickerDialog.OnDa
                 info_year.selectedIndex = positon
             }
         }
+        //@OnClick(R.id.info_date, R.id.info_confirm, R.id.info_back)
+        info_date.setOnClickListener(this)
+        info_confirm.setOnClickListener(this)
+        info_back.setOnClickListener(this)
     }
 
     override fun initData() {}

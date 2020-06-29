@@ -4,7 +4,7 @@ import android.util.Log
 import com.bkjcb.rqapplication.MyApplication
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.actionregister.model.ActionRegisterItem
-import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.base.util.Utils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import java.text.SimpleDateFormat

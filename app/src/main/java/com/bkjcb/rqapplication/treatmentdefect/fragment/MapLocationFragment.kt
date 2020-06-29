@@ -16,9 +16,8 @@ import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener
 import com.amap.api.services.geocoder.RegeocodeQuery
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
-import com.bkjcb.rqapplication.fragment.MapFragment
-import com.bkjcb.rqapplication.util.LocationUtil
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.util.LocationUtil
 import kotlinx.android.synthetic.main.fragment_map_location.*
 
 /**

@@ -11,8 +11,8 @@ import com.bkjcb.rqapplication.gasrecord.adapter.GasUserAdapter
 import com.bkjcb.rqapplication.gasrecord.model.GasUserRecordResult
 import com.bkjcb.rqapplication.gasrecord.model.GasUserRecordResult.GasUserRecord
 import com.bkjcb.rqapplication.gasrecord.retrofit.GasService
-import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.interfaces.OnPageButtonClickListener
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function

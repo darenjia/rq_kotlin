@@ -1,7 +1,7 @@
 package com.bkjcb.rqapplication.contact.model
 
-import com.bkjcb.rqapplication.datebase.ObjectBox.getLevelBox
-import com.bkjcb.rqapplication.datebase.ObjectBox.getUnitBox
+import com.bkjcb.rqapplication.base.datebase.ObjectBox.getLevelBox
+import com.bkjcb.rqapplication.base.datebase.ObjectBox.getUnitBox
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.annotation.Transient

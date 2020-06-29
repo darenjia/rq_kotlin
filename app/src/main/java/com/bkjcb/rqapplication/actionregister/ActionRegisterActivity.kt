@@ -5,10 +5,10 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.actionregister.adapter.ActionRegisterItemAdapter
-import com.bkjcb.rqapplication.datebase.DataUtil.getActionRegisterBox
+import com.bkjcb.rqapplication.base.datebase.DataUtil.getActionRegisterBox
 import com.bkjcb.rqapplication.actionregister.model.ActionRegisterItem
 import com.bkjcb.rqapplication.actionregister.model.ActionRegisterItem_
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -58,7 +58,7 @@ open class ActionRegisterActivity : BaseSimpleActivity(), BaseQuickAdapter.OnIte
     }
 
     fun getHideSetting() {
-        isShowAll = getSharedPreferences()!!.getBoolean("hide_finished", true)
+        isShowAll = getSharedPreferences().getBoolean("hide_finished", true)
     }
 
     open fun createAdapter() {

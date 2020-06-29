@@ -14,12 +14,12 @@ import android.widget.TextView
 import cn.carbs.android.avatarimageview.library.AvatarImageView
 import com.allen.library.SuperTextView
 import com.allen.library.SuperTextView.OnRightImageViewClickListener
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.contact.fragment.ContactFirstFragment
 import com.bkjcb.rqapplication.contact.model.User
-import com.bkjcb.rqapplication.datebase.ContactDataUtil
-import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.base.datebase.ContactDataUtil
+import com.bkjcb.rqapplication.base.util.Utils
 import com.hss01248.dialog.StyledDialog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -7,7 +7,7 @@ import com.bkjcb.rqapplication.check.fragment.AlarmCheckItemDetailFragment
 import com.bkjcb.rqapplication.check.model.ApplianceCheckContentItem
 import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.check.retrofit.ApplianceCheckService
-import com.bkjcb.rqapplication.retrofit.NetworkApi.Companion.getService
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi.Companion.getService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

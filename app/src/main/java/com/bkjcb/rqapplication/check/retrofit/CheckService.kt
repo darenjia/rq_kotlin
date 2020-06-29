@@ -2,8 +2,8 @@ package com.bkjcb.rqapplication.check.retrofit
 
 import com.bkjcb.rqapplication.check.model.CheckContentItemResult
 import com.bkjcb.rqapplication.check.model.CheckStationResult
-import com.bkjcb.rqapplication.model.ExportFilePathResult
-import com.bkjcb.rqapplication.model.HttpResult
+import com.bkjcb.rqapplication.base.model.ExportFilePathResult
+import com.bkjcb.rqapplication.base.model.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.*
 

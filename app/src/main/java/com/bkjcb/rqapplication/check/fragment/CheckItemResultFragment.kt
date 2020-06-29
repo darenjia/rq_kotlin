@@ -10,7 +10,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.check.model.CheckItem
-import com.bkjcb.rqapplication.fragment.BaseLazyFragment
+import com.bkjcb.rqapplication.base.fragment.BaseLazyFragment
 import kotlinx.android.synthetic.main.fragment_check_item_result.*
 
 /**

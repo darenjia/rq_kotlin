@@ -8,12 +8,12 @@ import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.gasrecord.fragment.GasRecordDetailFragment
 import com.bkjcb.rqapplication.gasrecord.model.GasRecordModel
 import com.bkjcb.rqapplication.gasrecord.retrofit.GasService
-import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener
-import com.bkjcb.rqapplication.model.HttpResult
-import com.bkjcb.rqapplication.model.MediaFile
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.interfaces.OnPageButtonClickListener
+import com.bkjcb.rqapplication.base.model.HttpResult
+import com.bkjcb.rqapplication.base.model.MediaFile
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult.UserInfo
-import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.base.util.Utils
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.with_bg_top_bar.*
 

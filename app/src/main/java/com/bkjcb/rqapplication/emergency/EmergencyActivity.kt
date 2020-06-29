@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.actionregister.ActionRegisterActivity
 import com.bkjcb.rqapplication.actionregister.adapter.ActionRegisterItemAdapter
-import com.bkjcb.rqapplication.datebase.DataUtil
+import com.bkjcb.rqapplication.base.datebase.DataUtil
 import com.bkjcb.rqapplication.emergency.adapter.EmergencyItemAdapter
 import com.bkjcb.rqapplication.emergency.model.EmergencyItem
 import com.bkjcb.rqapplication.emergency.model.EmergencyItem_

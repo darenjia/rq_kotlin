@@ -9,7 +9,7 @@ import butterknife.BindView
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.contact.adapter.ContactItemAdapter
 import com.bkjcb.rqapplication.contact.model.User
-import com.bkjcb.rqapplication.datebase.ContactDataUtil.queryUserByDepartment
+import com.bkjcb.rqapplication.base.datebase.ContactDataUtil.queryUserByDepartment
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import kotlinx.android.synthetic.main.activity_contact_department.*

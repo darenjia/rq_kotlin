@@ -3,11 +3,11 @@ package com.bkjcb.rqapplication.gasrecord
 import android.app.Activity
 import android.content.Intent
 import android.support.v4.app.Fragment
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.gasrecord.fragment.GasUserSearchFragment
-import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener
-import com.bkjcb.rqapplication.model.MediaFile
+import com.bkjcb.rqapplication.base.interfaces.OnPageButtonClickListener
+import com.bkjcb.rqapplication.base.model.MediaFile
 import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult.UserInfo
 import kotlinx.android.synthetic.main.with_bg_top_bar.*
 

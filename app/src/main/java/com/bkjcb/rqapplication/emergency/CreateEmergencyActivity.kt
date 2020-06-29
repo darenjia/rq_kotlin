@@ -4,34 +4,31 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import butterknife.BindView
-import butterknife.OnClick
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.TimePickerView
 import com.bkjcb.rqapplication.*
-import com.bkjcb.rqapplication.adapter.FileListAdapter
+import com.bkjcb.rqapplication.base.adapter.FileListAdapter
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.MediaPlayActivity
 import com.bkjcb.rqapplication.check.model.CheckStation
 import com.bkjcb.rqapplication.check.retrofit.CheckService
-import com.bkjcb.rqapplication.datebase.DataUtil
-import com.bkjcb.rqapplication.emergency.CreateEmergencyActivity
+import com.bkjcb.rqapplication.base.datebase.DataUtil
 import com.bkjcb.rqapplication.emergency.model.EmergencyItem
 import com.bkjcb.rqapplication.emergency.retrofit.EmergencyService
-import com.bkjcb.rqapplication.ftp.UploadTask
-import com.bkjcb.rqapplication.model.MediaFile
-import com.bkjcb.rqapplication.retrofit.NetworkApi
-import com.bkjcb.rqapplication.util.FileUtil
-import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.base.ftp.UploadTask
+import com.bkjcb.rqapplication.base.model.MediaFile
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.util.FileUtil
+import com.bkjcb.rqapplication.base.util.Utils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.interfaces.MyDialogListener
-import com.jaredrummler.materialspinner.MaterialSpinner
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter
 import com.leon.lfilepickerlibrary.LFilePicker
 import com.leon.lfilepickerlibrary.utils.Constant
@@ -491,7 +488,7 @@ class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemCli
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        MediaPlayActivity.ToActivity(this@CreateEmergencyActivity, (adapter?.getItem(position) as MediaFile?)?.path)
+        MediaPlayActivity.toActivity(this@CreateEmergencyActivity, (adapter?.getItem(position) as MediaFile?)?.path)
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {

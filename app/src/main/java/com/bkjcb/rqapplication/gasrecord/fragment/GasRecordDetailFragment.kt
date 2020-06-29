@@ -3,33 +3,29 @@ package com.bkjcb.rqapplication.gasrecord.fragment
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import butterknife.BindView
-import butterknife.OnClick
 import com.amap.api.maps.model.LatLng
 import com.bkjcb.rqapplication.Constants
-import com.bkjcb.rqapplication.MediaPlayActivity
+import com.bkjcb.rqapplication.base.MediaPlayActivity
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.adapter.FileListAdapter
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.adapter.FileListAdapter
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
 import com.bkjcb.rqapplication.gasrecord.SearchGasUserActivity
 import com.bkjcb.rqapplication.gasrecord.adapter.GasCompanyAdapter
 import com.bkjcb.rqapplication.gasrecord.model.GasCompanyResult.GasCompany
 import com.bkjcb.rqapplication.gasrecord.model.GasRecordModel
 import com.bkjcb.rqapplication.gasrecord.retrofit.GasService
-import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener
-import com.bkjcb.rqapplication.model.MediaFile
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.interfaces.OnPageButtonClickListener
+import com.bkjcb.rqapplication.base.model.MediaFile
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import com.bkjcb.rqapplication.treatmentdefect.fragment.MapLocationFragment
 import com.bkjcb.rqapplication.treatmentdefect.fragment.MapLocationFragment.AddressQueryListener
 import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult.UserInfo
-import com.bkjcb.rqapplication.util.FileUtil
-import com.bkjcb.rqapplication.util.Utils
-import com.bkjcb.rqapplication.view.FooterView
+import com.bkjcb.rqapplication.base.util.FileUtil
+import com.bkjcb.rqapplication.base.util.Utils
+import com.bkjcb.rqapplication.base.view.FooterView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.interfaces.MyDialogListener
@@ -560,7 +556,7 @@ class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSet
         if (isCanChange) {
             imageAdapter.setFooterView(createFooterView(), 0, LinearLayout.HORIZONTAL)
         }
-        imageAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position -> MediaPlayActivity.ToActivity(context, (adapter.getItem(position) as MediaFile?)!!.path) }
+        imageAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position -> MediaPlayActivity.toActivity(context!!, (adapter.getItem(position) as MediaFile?)!!.path) }
         imageAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
             if (view.id == R.id.item_grid_bt) {
                 imageAdapter.remove(position)

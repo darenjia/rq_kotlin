@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.check.model.ApplianceCheckContentItem
 import com.bkjcb.rqapplication.check.model.ApplianceCheckResultItem
 import com.bkjcb.rqapplication.check.model.ApplianceCheckResultItem_
-import com.bkjcb.rqapplication.datebase.DataUtil
-import com.bkjcb.rqapplication.fragment.BaseLazyFragment
+import com.bkjcb.rqapplication.base.datebase.DataUtil
+import com.bkjcb.rqapplication.base.fragment.BaseLazyFragment
 import kotlinx.android.synthetic.main.fragment_check_item_detail.*
 
 /**

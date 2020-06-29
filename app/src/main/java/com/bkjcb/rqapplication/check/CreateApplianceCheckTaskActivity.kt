@@ -3,15 +3,12 @@ package com.bkjcb.rqapplication.check
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.check.ApplianceCheckResultDetailActivity
 import com.bkjcb.rqapplication.check.fragment.*
-import com.bkjcb.rqapplication.check.fragment.ChooseCheckStationFragment.Companion.newInstance
-import com.bkjcb.rqapplication.check.fragment.ChooseCheckTypeFragment.Companion.newInstance
 import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.check.model.CheckStation
-import com.bkjcb.rqapplication.datebase.DataUtil
+import com.bkjcb.rqapplication.base.datebase.DataUtil
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import kotlinx.android.synthetic.main.with_bg_top_bar.*
 

@@ -2,14 +2,10 @@ package com.bkjcb.rqapplication.gasrecord
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.gasrecord.TempRecordActivity
 import com.bkjcb.rqapplication.gasrecord.adapter.GasTempRecordAdapter
 import com.bkjcb.rqapplication.gasrecord.model.GasRecordModel
 import com.hss01248.dialog.StyledDialog

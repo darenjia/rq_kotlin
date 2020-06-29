@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.gasrecord.model;
 
-import com.bkjcb.rqapplication.datebase.ObjectBox;
+import com.bkjcb.rqapplication.base.datebase.ObjectBox;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

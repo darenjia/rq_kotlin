@@ -1,7 +1,7 @@
 package com.bkjcb.rqapplication.treatmentdefect.model;
 
 import com.amap.api.maps.model.LatLng;
-import com.bkjcb.rqapplication.model.HttpResult;
+import com.bkjcb.rqapplication.base.model.HttpResult;
 
 import java.io.Serializable;
 import java.util.List;

@@ -7,7 +7,7 @@ import com.bkjcb.rqapplication.check.model.ApplianceCheckContentItem
 import com.bkjcb.rqapplication.check.model.ApplianceCheckResult
 import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.check.retrofit.ApplianceCheckService
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers

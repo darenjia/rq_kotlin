@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.emergency.retrofit
 
-import com.bkjcb.rqapplication.model.HttpResult
+import com.bkjcb.rqapplication.base.model.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

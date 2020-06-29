@@ -4,18 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.MyApplication
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.SimpleBaseActivity
-import com.bkjcb.rqapplication.gasrecord.ReviewRecordActivity
 import com.bkjcb.rqapplication.gasrecord.adapter.TimeLineAdapter
 import com.bkjcb.rqapplication.gasrecord.model.ReviewRecord
 import com.bkjcb.rqapplication.gasrecord.retrofit.GasService
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import com.chad.library.adapter.base.BaseQuickAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -51,7 +47,7 @@ class ReviewRecordActivity : BaseSimpleActivity() {
             showRefreshLayout(true)
             queryRemoteData()
         })
-        adapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position -> GasReviewActivity.ToActivity(this@ReviewRecordActivity, adapter.getItem(position) as ReviewRecord?) }
+        adapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position -> GasReviewActivity.toActivity(this@ReviewRecordActivity, adapter.getItem(position) as ReviewRecord?) }
     }
 
     override fun initData() {
@@ -103,7 +99,7 @@ class ReviewRecordActivity : BaseSimpleActivity() {
     }
 
     protected fun createClickListener(): View.OnClickListener {
-        return View.OnClickListener { GasReviewActivity.ToActivity(this@ReviewRecordActivity, id, 1, name) }
+        return View.OnClickListener { GasReviewActivity.toActivity(this@ReviewRecordActivity, id, 1, name) }
     }
 
     companion object {

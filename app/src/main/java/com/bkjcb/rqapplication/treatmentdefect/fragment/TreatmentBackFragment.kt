@@ -2,13 +2,11 @@ package com.bkjcb.rqapplication.treatmentdefect.fragment
 
 import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
 import com.bkjcb.rqapplication.MyApplication
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
 import com.bkjcb.rqapplication.treatmentdefect.model.DefectDetail
 import com.bkjcb.rqapplication.treatmentdefect.model.DefectTreatmentModel
 import kotlinx.android.synthetic.main.fragment_treatment_back.*

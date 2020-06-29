@@ -69,9 +69,9 @@ dependencies {
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
 
-    //butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    kapt  'com.jakewharton:butterknife-compiler:8.8.1'
+    //butterknife kotlin-stdlib  替换
+    //    implementation 'com.jakewharton:butterknife:8.8.1'
+    //    kapt  'com.jakewharton:butterknife-compiler:8.8.1'
 
     //qmui UI库
     implementation 'com.qmuiteam:qmui:1.1.11'

@@ -7,11 +7,11 @@ import com.bkjcb.rqapplication.check.model.ApplianceCheckResultItem
 import com.bkjcb.rqapplication.check.model.ApplianceCheckResultItem_
 import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.check.retrofit.ApplianceCheckService
-import com.bkjcb.rqapplication.datebase.DataUtil
-import com.bkjcb.rqapplication.ftp.FtpUtils.UploadProgressListener
-import com.bkjcb.rqapplication.ftp.UploadTask.createUploadTask
-import com.bkjcb.rqapplication.retrofit.NetworkApi.Companion.getService
-import com.bkjcb.rqapplication.util.Utils.getFTPPath
+import com.bkjcb.rqapplication.base.datebase.DataUtil
+import com.bkjcb.rqapplication.base.ftp.FtpUtils.UploadProgressListener
+import com.bkjcb.rqapplication.base.ftp.UploadTask.createUploadTask
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi.Companion.getService
+import com.bkjcb.rqapplication.base.util.Utils.getFTPPath
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

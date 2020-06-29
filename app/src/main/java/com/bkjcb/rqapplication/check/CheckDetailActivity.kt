@@ -6,19 +6,14 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import butterknife.BindView
-import butterknife.OnClick
-import com.bkjcb.rqapplication.BaseSimpleActivity
-import com.bkjcb.rqapplication.MediaPlayActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.MediaPlayActivity
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.adapter.ImageListAdapter
-import com.bkjcb.rqapplication.adapter.ViewPagerAdapter
-import com.bkjcb.rqapplication.check.CheckDetailActivity
+import com.bkjcb.rqapplication.base.adapter.ImageListAdapter
+import com.bkjcb.rqapplication.base.adapter.ViewPagerAdapter
 import com.bkjcb.rqapplication.check.fragment.CheckItemDetailFragment
 import com.bkjcb.rqapplication.check.fragment.CheckItemResultFragment
 import com.bkjcb.rqapplication.check.model.CheckContentItem
@@ -26,22 +21,17 @@ import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.check.model.CheckResultItem
 import com.bkjcb.rqapplication.check.model.CheckResultItem_
 import com.bkjcb.rqapplication.check.retrofit.CheckService
-import com.bkjcb.rqapplication.datebase.DataUtil
-import com.bkjcb.rqapplication.retrofit.NetworkApi.Companion.getService
-import com.bkjcb.rqapplication.util.FileUtil
-import com.bkjcb.rqapplication.util.PictureSelectorUtil
-import com.bkjcb.rqapplication.util.Utils
-import com.bkjcb.rqapplication.view.FooterView
+import com.bkjcb.rqapplication.base.datebase.DataUtil
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi.Companion.getService
+import com.bkjcb.rqapplication.base.util.PictureSelectorUtil
+import com.bkjcb.rqapplication.base.view.FooterView
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.interfaces.MyDialogListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
-import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.tools.DateUtils
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.popup.QMUIListPopup
 import com.qmuiteam.qmui.widget.popup.QMUIPopup
-import io.objectbox.Box
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail_check.*
@@ -210,7 +200,7 @@ open class CheckDetailActivity : BaseSimpleActivity(), ViewPager.OnPageChangeLis
         }
         updateCountSize()
         imageAdapter.setNewData(mediaList)
-        imageAdapter.setOnItemClickListener { adapter, view, position -> MediaPlayActivity.ToActivity(this@CheckDetailActivity, adapter.getItem(position) as String?) }
+        imageAdapter.setOnItemClickListener { adapter, view, position -> MediaPlayActivity.toActivity(this@CheckDetailActivity, adapter.getItem(position) as String?) }
         imageAdapter.setOnItemChildClickListener { adapter, view, position ->
             if (view.id == R.id.item_grid_bt) {
                 mediaList.removeAt(position)

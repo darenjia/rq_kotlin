@@ -1,20 +1,17 @@
 package com.bkjcb.rqapplication.treatmentdefect.fragment
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
-import butterknife.BindView
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
-import com.bkjcb.rqapplication.retrofit.DataService
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.retrofit.DataService
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import com.bkjcb.rqapplication.treatmentdefect.TreatmentDefectActivity
 import com.bkjcb.rqapplication.treatmentdefect.adapter.OrderListAdapter
 import com.bkjcb.rqapplication.treatmentdefect.adapter.SecurityCheckListAdapter
 import com.bkjcb.rqapplication.treatmentdefect.model.BottleSaleCheck
 import com.bkjcb.rqapplication.treatmentdefect.model.DefectTreatmentModel
-import com.bkjcb.rqapplication.view.MyDialogViewHolder
+import com.bkjcb.rqapplication.base.view.MyDialogViewHolder
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.config.ConfigBean
@@ -110,7 +107,7 @@ class TreatmentDetailFragment : BaseSimpleFragment() {
 
     private fun showFinishBtn() {
         defect_detail.visibility = View.VISIBLE
-        defect_detail.setOnClickListener { TreatmentDefectActivity.toActivity(activity, model) }
+        defect_detail.setOnClickListener { TreatmentDefectActivity.toActivity(activity!!, model) }
     }
 
     private fun showDetail(check: BottleSaleCheck?, type: Int) {

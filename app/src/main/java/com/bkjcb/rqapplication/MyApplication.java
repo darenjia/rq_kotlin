@@ -3,8 +3,8 @@ package com.bkjcb.rqapplication;
 import android.app.Application;
 import android.content.Context;
 
-import com.bkjcb.rqapplication.datebase.ObjectBox;
-import com.bkjcb.rqapplication.model.UserResult;
+import com.bkjcb.rqapplication.base.datebase.ObjectBox;
+import com.bkjcb.rqapplication.base.model.UserResult;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;

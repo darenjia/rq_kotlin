@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.check.model
 
-import com.bkjcb.rqapplication.model.BaseHttpResult
+import com.bkjcb.rqapplication.base.model.BaseHttpResult
 import java.util.*
 
 /**

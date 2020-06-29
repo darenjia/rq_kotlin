@@ -2,34 +2,22 @@ package com.bkjcb.rqapplication.gasrecord
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import butterknife.BindView
-import butterknife.OnClick
-import com.bkjcb.rqapplication.BaseSimpleActivity
+import com.bkjcb.rqapplication.base.BaseSimpleActivity
 import com.bkjcb.rqapplication.MyApplication
 import com.bkjcb.rqapplication.R
-import com.bkjcb.rqapplication.SimpleBaseActivity
-import com.bkjcb.rqapplication.gasrecord.AddNewGasUserActivity
-import com.bkjcb.rqapplication.gasrecord.GasUserRecordActivity
 import com.bkjcb.rqapplication.gasrecord.adapter.GasWorkRecordAdapter
 import com.bkjcb.rqapplication.gasrecord.model.GasUserRecordResult
 import com.bkjcb.rqapplication.gasrecord.model.GasUserRecordResult.GasUserRecord
 import com.bkjcb.rqapplication.gasrecord.retrofit.GasService
-import com.bkjcb.rqapplication.retrofit.NetworkApi
-import com.bkjcb.rqapplication.view.CustomLoadMoreView
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.view.CustomLoadMoreView
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_gas_check.*
 import kotlinx.android.synthetic.main.search_layout_with_btn_view.*
@@ -60,7 +48,7 @@ class GasUserRecordActivity : BaseSimpleActivity() {
             appbar.addRightImageButton(R.drawable.vector_drawable_create, R.id.top_right_button)
                     .setOnClickListener { AddNewGasUserActivity.toActivity(this@GasUserRecordActivity) }
             appbar.addRightImageButton(R.drawable.vector_drawable_temp_list, R.id.top_right_button2)
-                    .setOnClickListener { TempRecordActivity.ToActivity(this@GasUserRecordActivity) }
+                    .setOnClickListener { TempRecordActivity.toActivity(this@GasUserRecordActivity) }
             /*  mAppbar.addRightImageButton(R.drawable.vector_drawable_setting, R.id.top_right_button1)
                     .setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -78,14 +66,14 @@ class GasUserRecordActivity : BaseSimpleActivity() {
         adapter.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as GasUserRecord?
             if (street == "") {
-                GasUserRecordDetailActivity.ToActivity(this@GasUserRecordActivity, item!!.yihuyidangid)
+                GasUserRecordDetailActivity.toActivity(this@GasUserRecordActivity, item!!.yihuyidangid)
             } else {
-                GasReviewActivity.ToActivity(this@GasUserRecordActivity, item!!.yihuyidangid, 1, item.yonghuming)
+                GasReviewActivity.toActivity(this@GasUserRecordActivity, item!!.yihuyidangid, 1, item.yonghuming)
             }
         }
         adapter.setOnItemChildClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as GasUserRecord?
-            GasUserRecordDetailActivity.ToActivity(this@GasUserRecordActivity, item!!.yihuyidangid)
+            GasUserRecordDetailActivity.toActivity(this@GasUserRecordActivity, item!!.yihuyidangid)
         }
     }
 

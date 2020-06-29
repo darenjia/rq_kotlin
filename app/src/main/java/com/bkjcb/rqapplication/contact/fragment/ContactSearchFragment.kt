@@ -12,10 +12,10 @@ import com.bkjcb.rqapplication.contact.adapter.ContactSearchResultAdapter
 import com.bkjcb.rqapplication.contact.model.ContactBaseModel
 import com.bkjcb.rqapplication.contact.model.Level
 import com.bkjcb.rqapplication.contact.model.User
-import com.bkjcb.rqapplication.datebase.ContactDataUtil.queryLevel
-import com.bkjcb.rqapplication.datebase.ContactDataUtil.queryUser
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
-import com.bkjcb.rqapplication.model.SearchKeyWord
+import com.bkjcb.rqapplication.base.datebase.ContactDataUtil.queryLevel
+import com.bkjcb.rqapplication.base.datebase.ContactDataUtil.queryUser
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.model.SearchKeyWord
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter
 import io.reactivex.Observable

@@ -6,7 +6,7 @@ import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.contact.model.ContactBaseModel
 import com.bkjcb.rqapplication.contact.model.Level
 import com.bkjcb.rqapplication.contact.model.User
-import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.base.util.Utils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 

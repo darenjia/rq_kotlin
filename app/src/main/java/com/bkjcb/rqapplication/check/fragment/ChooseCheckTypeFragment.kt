@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.check.model.CheckItem
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
 import kotlinx.android.synthetic.main.fragment_check_type_view.*
 
 /**

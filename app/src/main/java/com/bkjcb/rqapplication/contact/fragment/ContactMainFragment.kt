@@ -1,19 +1,13 @@
 package com.bkjcb.rqapplication.contact.fragment
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import butterknife.BindView
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.contact.adapter.ContactItemAdapter
 import com.bkjcb.rqapplication.contact.model.User
-import com.bkjcb.rqapplication.datebase.ContactDataUtil
-import com.bkjcb.rqapplication.datebase.ContactDataUtil.init
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
+import com.bkjcb.rqapplication.base.datebase.ContactDataUtil
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.qmuiteam.qmui.widget.QMUIEmptyView
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers

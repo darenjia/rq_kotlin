@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.treatmentdefect.model;
 
-import com.bkjcb.rqapplication.model.HttpResult;
+import com.bkjcb.rqapplication.base.model.HttpResult;
 
 /**
  * Created by DengShuai on 2020/6/22.

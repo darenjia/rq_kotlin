@@ -10,7 +10,7 @@ import com.bkjcb.rqapplication.gasrecord.GasUserRecordDetailActivity
 import com.bkjcb.rqapplication.gasrecord.fragment.GasRecordDetailFragment
 import com.bkjcb.rqapplication.gasrecord.model.GasRecordModel
 import com.bkjcb.rqapplication.gasrecord.retrofit.GasService
-import com.bkjcb.rqapplication.retrofit.NetworkApi
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi
 import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult.UserInfo
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,7 +30,7 @@ class GasUserRecordDetailActivity : AddNewGasUserActivity() {
         val isCanChange = MyApplication.getUser().userleixing == "街镇用户"
         initTopBar("一户一档详情", appbar)
         appbar.addRightTextButton("复查记录", R.id.top_right_button1)
-                .setOnClickListener { ReviewRecordActivity.ToActivity(this@GasUserRecordDetailActivity, id, name) }
+                .setOnClickListener { ReviewRecordActivity.toActivity(this@GasUserRecordDetailActivity, id, name) }
         if (isCanChange) {
             appbar.addRightTextButton("修改", R.id.top_right_button)
                     .setOnClickListener { GasUserRecordChangeActivity.toActivity(this@GasUserRecordDetailActivity, recordModel) }
