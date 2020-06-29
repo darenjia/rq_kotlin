@@ -27,10 +27,12 @@ class PictureFragment : BaseSimpleFragment() {
     }
 
     override fun initView() {
-        if (!TextUtils.isEmpty(path) && path!!.contains("http")) {
-            big_image_view.showImage(Uri.parse(path))
-        } else {
-            big_image_view.showImage(Utils.getImageContentUri(context, path))
+        if (path != null) {
+            if (!TextUtils.isEmpty(path) && path!!.contains("http")) {
+                big_image_view.showImage(Uri.parse(path))
+            } else {
+                big_image_view.showImage(Utils.getImageContentUri(context!!, path!!))
+            }
         }
     }
 

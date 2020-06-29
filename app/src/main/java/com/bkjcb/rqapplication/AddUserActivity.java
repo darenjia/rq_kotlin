@@ -84,10 +84,10 @@ public class AddUserActivity extends SimpleBaseActivity {
                 .subscribe(new Consumer<HttpResult>() {
                     @Override
                     public void accept(HttpResult httpResult) throws Exception {
-                        if (httpResult.pushState == 200) {
+                        if (httpResult.getPushState() == 200) {
                             showSnackbar(mUsername, "提交成功");
                         } else {
-                            showSnackbar(mUsername, httpResult.pushMsg);
+                            showSnackbar(mUsername, httpResult.getPushMsg());
                         }
                         tipDialog.dismiss();
                         finish();

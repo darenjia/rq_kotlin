@@ -127,14 +127,14 @@ public class GasMainActivity extends SimpleBaseActivity {
     }
 
     private void getData() {
-        disposable = NetworkApi.getService(DataService.class)
+        disposable = NetworkApi.Companion.getService(DataService.class)
                 .getUserInfos(MyApplication.getUser().getAreacode().getArea_code())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserInfoResult>() {
                     @Override
                     public void accept(UserInfoResult result) throws Exception {
-                        if (result.pushState == 200) {
+                        if (result.getPushState() == 200) {
                             userInfoList = result.getDatas();
                             adapter.setNewData(userInfoList);
                             transformCoordinate(userInfoList);

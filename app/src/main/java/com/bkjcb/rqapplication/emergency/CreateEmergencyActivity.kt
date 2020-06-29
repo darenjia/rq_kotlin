@@ -113,7 +113,7 @@ class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemCli
             item = EmergencyItem()
             item.status = 0
             item.systime = System.currentTimeMillis()
-            item.uuid = Utils.uUID
+            item.uuid = Utils.buildUUID()
             item.userId = MyApplication.getUser().userId
             item.phoneftp = getFtpRemotePath(item.uuid)
         } else {
@@ -164,7 +164,9 @@ class CreateEmergencyActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemCli
         if (list != null && list.isNotEmpty()) {
             val strings: MutableList<String> = ArrayList(list.size)
             for (station in list) {
-                strings.add(station.qiyemingcheng)
+                if (station.qiyemingcheng != null) {
+                    strings.add(station.qiyemingcheng!!)
+                }
             }
             return strings
         }

@@ -82,9 +82,9 @@ class ApplianceCheckResultDetailActivity : CheckResultDetailActivity() {
 
     override fun toCheckContentActivity() {
         when (checkItem.zhandianleixing) {
-            "维修检查企业" -> ApplianceCheckDetailActivity.ToActivity(this, checkItem.id)
-            "报警器企业" -> AlarmCheckDetailActivity.ToActivity(this, checkItem.id)
-            "销售企业" -> SellCheckDetailActivity.ToActivity(this, checkItem.id)
+            "维修检查企业" -> ApplianceCheckDetailActivity.toActivity(this, checkItem.id)
+            "报警器企业" -> AlarmCheckDetailActivity.toActivity(this, checkItem.id)
+            "销售企业" -> SellCheckDetailActivity.toActivity(this, checkItem.id)
         }
     }
 

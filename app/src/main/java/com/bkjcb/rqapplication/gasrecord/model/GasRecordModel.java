@@ -74,7 +74,7 @@ public class GasRecordModel implements Serializable {
     }
 
     public static Box<GasRecordModel> getBox() {
-        return ObjectBox.get().boxFor(GasRecordModel.class);
+        return ObjectBox.INSTANCE.getBoxStore().boxFor(GasRecordModel.class);
     }
 
     public static long save(GasRecordModel model) {

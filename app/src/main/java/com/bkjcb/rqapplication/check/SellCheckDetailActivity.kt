@@ -34,7 +34,7 @@ class SellCheckDetailActivity : ApplianceCheckDetailActivity() {
                     }, { throwable -> getDateFail(throwable.message) })
         }
 
-    override fun createFragment(item: ApplianceCheckContentItem?, id: String?): Fragment? {
+    override fun createFragment(item: ApplianceCheckContentItem, id: String?): Fragment? {
         return super.createFragment(item, id)
     }
 

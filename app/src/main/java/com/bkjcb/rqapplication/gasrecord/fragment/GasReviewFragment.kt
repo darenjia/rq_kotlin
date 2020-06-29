@@ -19,7 +19,9 @@ import com.bkjcb.rqapplication.fragment.BaseSimpleFragment
 import com.bkjcb.rqapplication.gasrecord.model.ReviewRecord
 import com.bkjcb.rqapplication.interfaces.OnPageButtonClickListener
 import com.bkjcb.rqapplication.model.MediaFile
+import com.bkjcb.rqapplication.util.PictureSelectorUtil
 import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.view.FooterView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.luck.picture.lib.PictureSelector
@@ -138,7 +140,7 @@ class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListen
 
     private fun createDatePicker() {
         if (pickerDialog == null) {
-            val calendar = Utils.getCalendar()
+            val calendar = Utils.obtainCalendar()
             pickerDialog = DatePickerDialog.newInstance(
                     this,
                     calendar[Calendar.YEAR],  // Initial year selection
@@ -261,14 +263,9 @@ class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListen
     }
 
     private fun createFooterView(): View {
-        val width = Utils.dip2px(context, 120f)
-        val view = ImageView(context)
-        view.layoutParams = ViewGroup.LayoutParams(width, width)
-        val padding = Utils.dip2px(context, 5f)
-        view.setPadding(padding, padding, padding, padding)
-        view.setImageResource(R.drawable.icon_add_pic)
-        view.setOnClickListener { showPickImg() }
-        return view
+        return FooterView.createFooter(View.OnClickListener {
+            showPickImg()
+        })
     }
 
     private fun initFileView() {
@@ -320,14 +317,7 @@ class GasReviewFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSetListen
     }
 
     fun showPickImg() {
-        PictureSelector.create(this)
-                .openGallery(PictureConfig.TYPE_IMAGE)
-                .setOutputCameraPath("/RQApp/GasImage/")
-                .compress(true) /*      .compressSavePath(Environment.getExternalStorageDirectory()
-                        + "/RQApp/GasImage/compress")*/
-                .minimumCompressSize(300)
-                .imageFormat(PictureMimeType.PNG) //.selectionMedia(selectList)
-                .forResult(PictureConfig.CHOOSE_REQUEST)
+       PictureSelectorUtil.selectPicture(this,"GasImage",true)
     }
 
     override fun initResID(): Int {

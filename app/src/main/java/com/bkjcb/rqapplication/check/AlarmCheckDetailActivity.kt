@@ -31,7 +31,7 @@ class AlarmCheckDetailActivity : ApplianceCheckDetailActivity() {
                 }) { throwable -> getDateFail(throwable.message) }
     }
 
-    override fun createFragment(item: ApplianceCheckContentItem?, id: String?): Fragment? {
+    override fun createFragment(item: ApplianceCheckContentItem, id: String?): Fragment? {
         return AlarmCheckItemDetailFragment.newInstances(item, id, checkItem!!.status == 3)
     }
 

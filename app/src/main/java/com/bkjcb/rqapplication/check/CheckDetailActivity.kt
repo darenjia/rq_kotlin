@@ -189,7 +189,7 @@ open class CheckDetailActivity : BaseSimpleActivity(), ViewPager.OnPageChangeLis
         updateCurrentPageNumber()
     }
 
-    protected fun createFragment(item: CheckContentItem?, id: String?): Fragment {
+    protected fun createFragment(item: CheckContentItem, id: String?): Fragment {
         return CheckItemDetailFragment.newInstances(item, id, if (checkItem!!.status == 3) 1 else 0)
     }
 

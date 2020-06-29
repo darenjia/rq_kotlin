@@ -40,9 +40,9 @@ class CheckMainActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemClickList
         appbar.addRightImageButton(R.drawable.vector_drawable_create, R.id.top_right_button)
                 .setOnClickListener {
                     if (type == 0) {
-                        CreateCheckTaskActivity.ToActivity(this@CheckMainActivity)
+                        CreateCheckTaskActivity.toActivity(this@CheckMainActivity)
                     } else {
-                        CreateApplianceCheckTaskActivity.ToActivity(this@CheckMainActivity)
+                        CreateApplianceCheckTaskActivity.toActivity(this@CheckMainActivity)
                     }
                 }
         appbar.addRightImageButton(R.drawable.vector_drawable_all, R.id.top_right_button1)
@@ -100,17 +100,17 @@ class CheckMainActivity : BaseSimpleActivity(), BaseQuickAdapter.OnItemClickList
 
     protected fun createClickListener(): View.OnClickListener {
         return if (type == 0) {
-            View.OnClickListener { CreateCheckTaskActivity.ToActivity(this@CheckMainActivity) }
+            View.OnClickListener { CreateCheckTaskActivity.toActivity(this@CheckMainActivity) }
         } else {
-            View.OnClickListener { CreateApplianceCheckTaskActivity.ToActivity(this@CheckMainActivity) }
+            View.OnClickListener { CreateApplianceCheckTaskActivity.toActivity(this@CheckMainActivity) }
         }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         if (type == 0) {
-            CheckResultDetailActivity.ToActivity(this, adapter.getItem(position) as CheckItem?)
+            CheckResultDetailActivity.toActivity(this, adapter.getItem(position) as CheckItem?)
         } else {
-            ApplianceCheckResultDetailActivity.ToActivity(this, adapter.getItem(position) as CheckItem?)
+            ApplianceCheckResultDetailActivity.toActivity(this, adapter.getItem(position) as CheckItem?)
         }
     }
 

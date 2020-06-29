@@ -105,7 +105,7 @@ open class ApplianceCheckDetailActivity : CheckDetailActivity() {
         updateCurrentPageNumber()
     }
 
-    protected open fun createFragment(item: ApplianceCheckContentItem?, id: String?): Fragment? {
+    protected open fun createFragment(item: ApplianceCheckContentItem, id: String?): Fragment? {
         return ApplianceCheckItemDetailFragment.newInstances(item, id, checkItem!!.status == 3)
     }
 

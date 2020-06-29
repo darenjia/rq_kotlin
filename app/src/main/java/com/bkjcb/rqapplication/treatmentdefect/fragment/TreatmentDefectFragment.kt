@@ -17,7 +17,9 @@ import com.bkjcb.rqapplication.adapter.FileListAdapter
 import com.bkjcb.rqapplication.model.MediaFile
 import com.bkjcb.rqapplication.treatmentdefect.model.DefectDetail
 import com.bkjcb.rqapplication.treatmentdefect.model.DefectTreatmentModel
+import com.bkjcb.rqapplication.util.PictureSelectorUtil
 import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.view.FooterView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaredrummler.materialspinner.MaterialSpinner
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter
@@ -52,8 +54,8 @@ class TreatmentDefectFragment : TreatmentBackFragment(), DatePickerDialog.OnDate
 
     private fun initDateView() {
         if (result == null) {
-            record_time.text = Utils.getCurrentTime()
-            record_time.setOnClickListener{
+            record_time.text = Utils.obtainCurrentTime()
+            record_time.setOnClickListener {
                 createDatePicker()
             }
         } else {
@@ -88,7 +90,7 @@ class TreatmentDefectFragment : TreatmentBackFragment(), DatePickerDialog.OnDate
 
     override fun initData() {
         super.initData()
-        remotePath = "yinhuanchuzhi/" + Utils.getUUID()
+        remotePath = "yinhuanchuzhi/" + Utils.buildUUID()
     }
 
     private fun initCheckBox() {
@@ -105,14 +107,7 @@ class TreatmentDefectFragment : TreatmentBackFragment(), DatePickerDialog.OnDate
     }
 
     private fun createFooterView(): View {
-        val width = Utils.dip2px(context, 120f)
-        val view = ImageView(context)
-        view.layoutParams = ViewGroup.LayoutParams(width, width)
-        val padding = Utils.dip2px(context, 5f)
-        view.setPadding(padding, padding, padding, padding)
-        view.setImageResource(R.drawable.icon_add_pic)
-        view.setOnClickListener { showPickImg() }
-        return view
+        return FooterView.createFooter(View.OnClickListener { showPickImg() })
     }
 
     private fun initFileView() {
@@ -166,19 +161,12 @@ class TreatmentDefectFragment : TreatmentBackFragment(), DatePickerDialog.OnDate
     }
 
     private fun showPickImg() {
-        PictureSelector.create(this)
-                .openGallery(PictureConfig.TYPE_IMAGE)
-                .setOutputCameraPath("/RQApp/GasImage/")
-                .compress(true) /*      .compressSavePath(Environment.getExternalStorageDirectory()
-                              + "/RQApp/GasImage/compress")*/
-                .minimumCompressSize(300)
-                .imageFormat(PictureMimeType.PNG) //.selectionMedia(selectList)
-                .forResult(PictureConfig.CHOOSE_REQUEST)
+        PictureSelectorUtil.selectPicture(this, "GasImage", true)
     }
 
     private fun createDatePicker() {
         if (pickerDialog == null) {
-            val calendar = Utils.getCalendar()
+            val calendar = Utils.obtainCalendar()
             pickerDialog = DatePickerDialog.newInstance(
                     this,
                     calendar[Calendar.YEAR],  // Initial year selection

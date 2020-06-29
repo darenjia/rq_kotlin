@@ -3,8 +3,6 @@ package com.bkjcb.rqapplication.check.fragment
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.OnClick
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.fragment.BaseSimpleFragment

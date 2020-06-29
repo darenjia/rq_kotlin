@@ -78,7 +78,7 @@ open class GasUserSearchFragment : BaseSimpleFragment() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    if (result.getPushState() == 200) {
+                    if (result.pushState == 200) {
                         showResultList(result.datas)
                     } else {
                         showErrorView()
@@ -174,7 +174,7 @@ open class GasUserSearchFragment : BaseSimpleFragment() {
                     }
 
                     override fun onNext(result: UserInfoResult) {
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             showResultList(result.datas)
                         } else {
                             showErrorView()

@@ -42,12 +42,12 @@ public class GasReviewActivity extends AddNewGasUserActivity {
     protected String remoteAddress = "yihuyidang/fucha/" + Utils.getUUID() + "/";
 
     @Override
-    protected void initView() {
+    public void initView() {
         initEmptyView();
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         id = getIntent().getStringExtra("ID");
         int type = getIntent().getIntExtra("Type", 0);
         String name = getIntent().getStringExtra("Name");

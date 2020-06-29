@@ -28,14 +28,16 @@ class CreateCheckTaskActivity : BaseSimpleActivity() {
     override fun initView() {
         initTopBar("新建检查任务", appbar)
         updateTitle()
-        checkTypeFragment = ChooseCheckTypeFragment.newInstance({ type ->
-            checkItem.zhandianleixing = type
-            changeView(1)
+        checkTypeFragment = ChooseCheckTypeFragment.newInstance(object :ChooseCheckTypeFragment.OnChooseListener{
+            override fun choose(type: String?) {
+                checkItem.zhandianleixing = type
+                changeView(1)
+            }
         }, arrayOf("气化站", "储配站", "供应站", "加气站"))
         stationFragment = ChooseCheckStationFragment.newInstance(object : ChooseCheckStationFragment.OnChooseListener {
-            override fun choose(type: CheckStation) {
-                checkItem.beijiandanweiid = type.guid
-                checkItem.beijiandanwei = type.gas_station
+            override fun choose(type: CheckStation?) {
+                checkItem.beijiandanweiid = type?.guid
+                checkItem.beijiandanwei = type?.gas_station
                 changeView(2)
             }
 
@@ -59,7 +61,7 @@ class CreateCheckTaskActivity : BaseSimpleActivity() {
         val item: CheckItem? = intent.getSerializableExtra("Data") as CheckItem
         checkItem = item ?: CheckItem()
         checkTypeFragment.checkItem = checkItem
-        stationFragment.setCheckItem(checkItem)
+        stationFragment.checkItem=checkItem
         infoFragment.checkItem = checkItem
     }
 

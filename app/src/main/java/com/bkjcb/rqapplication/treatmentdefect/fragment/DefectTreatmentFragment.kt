@@ -108,7 +108,7 @@ class DefectTreatmentFragment : BaseSimpleFragment(), BaseQuickAdapter.OnItemCli
                         }
                         showResultList(treatmentResult.datas)
                     } else {
-                        Toast.makeText(context, "获取数据失败：" + treatmentResult.getPushMsg(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "获取数据失败：" + treatmentResult.pushMsg, Toast.LENGTH_SHORT).show()
                         showErrorView()
                     }
                 }, { throwable ->

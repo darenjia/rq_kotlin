@@ -29,6 +29,7 @@ import com.bkjcb.rqapplication.treatmentdefect.fragment.MapLocationFragment.Addr
 import com.bkjcb.rqapplication.treatmentdefect.model.UserInfoResult.UserInfo
 import com.bkjcb.rqapplication.util.FileUtil
 import com.bkjcb.rqapplication.util.Utils
+import com.bkjcb.rqapplication.view.FooterView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hss01248.dialog.StyledDialog
 import com.hss01248.dialog.interfaces.MyDialogListener
@@ -334,7 +335,7 @@ class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSet
 
     private fun createDatePicker() {
         if (pickerDialog == null) {
-            val calendar = Utils.getCalendar()
+            val calendar = Utils.obtainCalendar()
             pickerDialog = DatePickerDialog.newInstance(
                     this,
                     calendar[Calendar.YEAR],  // Initial year selection
@@ -547,14 +548,9 @@ class GasRecordDetailFragment : BaseSimpleFragment(), DatePickerDialog.OnDateSet
     }
 
     private fun createFooterView(): View {
-        val width = Utils.dip2px(context, 120f)
-        val view = ImageView(context)
-        view.layoutParams = ViewGroup.LayoutParams(width, width)
-        val padding = Utils.dip2px(context, 5f)
-        view.setPadding(padding, padding, padding, padding)
-        view.setImageResource(R.drawable.icon_add_pic)
-        view.setOnClickListener { showPickImg() }
-        return view
+        return FooterView.createFooter(View.OnClickListener {
+            showPickImg()
+        })
     }
 
     private fun initFileView() {

@@ -47,7 +47,7 @@ class GasUserSearch2Fragment : GasUserSearchFragment() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ result ->
-                        if (result.getPushState() == 200) {
+                        if (result.pushState == 200) {
                             showResult(result.datas)
                             setFilter()
                         } else {
@@ -85,7 +85,7 @@ class GasUserSearch2Fragment : GasUserSearchFragment() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    if (result.getPushState() == 200) {
+                    if (result.pushState == 200) {
                         showResult(result.datas)
                     }
                 }) { setEmptyList() }

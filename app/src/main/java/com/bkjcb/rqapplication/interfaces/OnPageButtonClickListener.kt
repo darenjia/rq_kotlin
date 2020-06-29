@@ -8,5 +8,5 @@ import com.bkjcb.rqapplication.model.MediaFile
  */
 interface OnPageButtonClickListener<T> {
     fun onClick(userInfo: T)
-    fun onNext(list: List<MediaFile?>?)
+    fun onNext(list: List<MediaFile>?)
 }

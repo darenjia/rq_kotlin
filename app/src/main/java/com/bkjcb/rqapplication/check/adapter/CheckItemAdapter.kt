@@ -30,7 +30,7 @@ class CheckItemAdapter(layoutResId: Int) : BaseQuickAdapter<CheckItem, BaseViewH
                 .setText(R.id.check_name, item.beijiandanwei)
                 .setText(R.id.check_type, "#" + item.zhandianleixing)
                 .setTextColor(R.id.check_status, getColors(item.status))
-                .setBackgroundColor(R.id.check_divider, getColor(item.zhandianleixing))
+                .setBackgroundColor(R.id.check_divider, getColor(item.zhandianleixing!!))
     }
 
     private fun getTime(time: Long): String {

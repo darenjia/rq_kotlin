@@ -5,10 +5,12 @@ package com.bkjcb.rqapplication.check.fragment
  * Description :
  */
 class ChooseApplianceCheckTypeFragment : ChooseCheckTypeFragment() {
-    fun newInstance(listener: OnChooseListener?, type: Array<String>): ChooseApplianceCheckTypeFragment {
-        val fragment = ChooseApplianceCheckTypeFragment()
-        fragment.setListener(listener)
-        fragment.typeString = type
-        return fragment
-    }
+   companion object{
+       fun newInstance(listener: OnChooseListener?, type: Array<String>): ChooseApplianceCheckTypeFragment {
+           val fragment = ChooseApplianceCheckTypeFragment()
+           fragment.setListener(listener)
+           fragment.typeString = type
+           return fragment
+       }
+   }
 }

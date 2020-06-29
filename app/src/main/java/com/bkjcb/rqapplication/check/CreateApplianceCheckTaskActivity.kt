@@ -6,10 +6,9 @@ import android.support.v4.app.Fragment
 import com.bkjcb.rqapplication.BaseSimpleActivity
 import com.bkjcb.rqapplication.R
 import com.bkjcb.rqapplication.check.ApplianceCheckResultDetailActivity
-import com.bkjcb.rqapplication.check.fragment.ChooseApplianceCheckInfoFragment
-import com.bkjcb.rqapplication.check.fragment.ChooseApplianceCheckTypeFragment
-import com.bkjcb.rqapplication.check.fragment.ChooseCheckInfoFragment
-import com.bkjcb.rqapplication.check.fragment.ChooseCheckStationFragment
+import com.bkjcb.rqapplication.check.fragment.*
+import com.bkjcb.rqapplication.check.fragment.ChooseCheckStationFragment.Companion.newInstance
+import com.bkjcb.rqapplication.check.fragment.ChooseCheckTypeFragment.Companion.newInstance
 import com.bkjcb.rqapplication.check.model.CheckItem
 import com.bkjcb.rqapplication.check.model.CheckStation
 import com.bkjcb.rqapplication.datebase.DataUtil
@@ -30,14 +29,16 @@ class CreateApplianceCheckTaskActivity : BaseSimpleActivity() {
     override fun initView() {
         initTopBar("新建器具检查任务", appbar)
         updateTitle()
-        checkTypeFragment = ChooseApplianceCheckTypeFragment.newInstance({ type ->
-            checkItem.zhandianleixing = type
-            changeView(1)
+        checkTypeFragment = ChooseApplianceCheckTypeFragment.newInstance(object : ChooseCheckTypeFragment.OnChooseListener {
+            override fun choose(type: String?) {
+                checkItem.zhandianleixing = type
+                changeView(1)
+            }
         }, arrayOf("维修检查企业", "报警器企业", "销售企业", ""))
         stationFragment = ChooseCheckStationFragment.newInstance(object : ChooseCheckStationFragment.OnChooseListener {
-            override fun choose(type: CheckStation) {
-                checkItem.beijiandanweiid = type.guid
-                checkItem.beijiandanwei = type.qiyemingcheng
+            override fun choose(type: CheckStation?) {
+                checkItem.beijiandanweiid = type?.guid
+                checkItem.beijiandanwei = type?.qiyemingcheng
                 changeView(2)
             }
 
@@ -60,7 +61,7 @@ class CreateApplianceCheckTaskActivity : BaseSimpleActivity() {
         replaceView(checkTypeFragment)
         checkItem = CheckItem(1)
         checkTypeFragment.checkItem = checkItem
-        stationFragment.setCheckItem(checkItem)
+        stationFragment.checkItem = checkItem
         infoFragment.checkItem = checkItem
     }
 

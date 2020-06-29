@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit
 class ChooseCheckStationFragment : BaseSimpleFragment(), BaseQuickAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var adapter: StationAdapter
-    protected var checkItem: CheckItem? = null
+    var checkItem: CheckItem? = null
     private var stationType: String? = ""
     private lateinit var checkStationList: List<CheckStation>
     private var editDisposbale: Disposable? = null
@@ -48,17 +48,6 @@ class ChooseCheckStationFragment : BaseSimpleFragment(), BaseQuickAdapter.OnItem
         this.checkType = checkType
     }
 
-    @OnClick(R.id.station_search, R.id.station_search_close, R.id.station_back)
-    fun onClick(v: View) {
-        when (v.id) {
-            R.id.station_search -> {
-            }
-            R.id.station_search_close -> station_name.setText("")
-            R.id.station_back -> listener?.back()
-            else -> {
-            }
-        }
-    }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         listener?.choose(adapter.data[position] as CheckStation)
@@ -92,6 +81,10 @@ class ChooseCheckStationFragment : BaseSimpleFragment(), BaseQuickAdapter.OnItem
         adapter.bindToRecyclerView(station_list)
         refresh_layout.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         refresh_layout.setOnRefreshListener(this)
+        //@OnClick(R.id.station_search, R.id.station_search_close, R.id.station_back)
+        station_back.setOnClickListener(View.OnClickListener {
+            listener?.back()
+        })
     }
 
     override fun initData() {
@@ -162,6 +155,10 @@ class ChooseCheckStationFragment : BaseSimpleFragment(), BaseQuickAdapter.OnItem
                 override fun afterTextChanged(s: Editable) {
                     emitter.onNext(s.toString())
                 }
+            })
+            station_search_close.setOnClickListener(View.OnClickListener {
+                station_name.setText("")
+                emitter.onNext("")
             })
         }.debounce(200, TimeUnit.MILLISECONDS) /* .filter(new Predicate<String>() {
                     @Override
