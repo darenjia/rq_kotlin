@@ -151,7 +151,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                                 adapter.setEnableLoadMore(true);
                             } else {
                                 adapter.setEnableLoadMore(false);
-                                adapter.setOnLoadMoreListener(null);
+                                //adapter.setOnLoadMoreListener(null);
                             }
                             showResultList(treatmentResult.getDatas());
                         } else {

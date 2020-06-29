@@ -230,7 +230,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                         if (result.pushState == 200) {
                             if (result.getTotalCount() <= 20) {
                                 adapter.setEnableLoadMore(false);
-                                adapter.setOnLoadMoreListener(null);
+                                //adapter.setOnLoadMoreListener(null);
                             } else {
                                 adapter.setEnableLoadMore(true);
                             }
