@@ -13,13 +13,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.Constants;
-import com.bkjcb.rqapplication.MediaPlayActivity;
+import com.bkjcb.rqapplication.base.MediaPlayActivity;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.adapter.FileListAdapter;
+import com.bkjcb.rqapplication.base.adapter.FileListAdapter;
 import com.bkjcb.rqapplication.treatment.model.DefectDetail;
 import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
-import com.bkjcb.rqapplication.model.MediaFile;
-import com.bkjcb.rqapplication.util.Utils;
+import com.bkjcb.rqapplication.base.model.MediaFile;
+import com.bkjcb.rqapplication.base.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;

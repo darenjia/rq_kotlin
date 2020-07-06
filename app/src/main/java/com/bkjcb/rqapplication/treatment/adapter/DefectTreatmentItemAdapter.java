@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
-import com.bkjcb.rqapplication.view.CustomLoadMoreView;
+import com.bkjcb.rqapplication.base.view.CustomLoadMoreView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

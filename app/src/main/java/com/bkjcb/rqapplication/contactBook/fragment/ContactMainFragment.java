@@ -10,7 +10,7 @@ import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.contactBook.adapter.ContactItemAdapter;
 import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
 import com.bkjcb.rqapplication.contactBook.model.User;
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.widget.QMUIEmptyView;
 

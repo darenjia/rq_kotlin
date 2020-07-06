@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.SimpleBaseActivity;
-import com.bkjcb.rqapplication.adapter.ViewPagerAdapter;
-import com.bkjcb.rqapplication.treatment.fragment.DefectTreatmentFragment;
+import com.bkjcb.rqapplication.base.SimpleBaseActivity;
+import com.bkjcb.rqapplication.base.adapter.ViewPagerAdapter;
+import com.bkjcb.rqapplication.userRecord.fragment.DefectTreatmentFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 

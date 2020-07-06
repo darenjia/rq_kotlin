@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.contactBook.model;
 
-import com.bkjcb.rqapplication.model.Emergency;
+import com.bkjcb.rqapplication.emergency.model.Emergency;
 
 import java.util.List;
 

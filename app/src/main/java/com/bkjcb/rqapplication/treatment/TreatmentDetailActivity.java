@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.SimpleBaseActivity;
+import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.treatment.fragment.TreatmentDetailFragment;
 import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;

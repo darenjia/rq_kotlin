@@ -76,7 +76,7 @@
                             android:layout_marginEnd="10dp"
                             android:background="@color/colorGray" />
 
-                        <com.bkjcb.rqapplication.view.MyGridView
+                        <com.bkjcb.rqapplication.base.view.MyGridView
                             android:id="@+id/main_menu_grid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

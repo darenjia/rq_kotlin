@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorText">
 
-            <com.bkjcb.rqapplication.view.ArcView
+            <com.bkjcb.rqapplication.base.view.ArcView
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 app:arcHeight="40dp"

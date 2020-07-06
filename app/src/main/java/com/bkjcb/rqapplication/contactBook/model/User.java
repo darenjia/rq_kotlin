@@ -1,7 +1,7 @@
 package com.bkjcb.rqapplication.contactBook.model;
 
-import com.bkjcb.rqapplication.datebase.ObjectBox;
-import com.bkjcb.rqapplication.model.ContactBaseModel;
+import com.bkjcb.rqapplication.base.datebase.ObjectBox;
+import com.bkjcb.rqapplication.stationCheck.model.ContactBaseModel;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;

@@ -3,7 +3,7 @@ package com.bkjcb.rqapplication.treatment.adapter;
 import android.support.annotation.Nullable;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.BottleSaleCheck;
+import com.bkjcb.rqapplication.base.model.BottleSaleCheck;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

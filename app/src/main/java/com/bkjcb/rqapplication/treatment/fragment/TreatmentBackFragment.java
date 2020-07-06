@@ -6,9 +6,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bkjcb.rqapplication.MyApplication;
+import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment;
 import com.bkjcb.rqapplication.treatment.model.DefectDetail;
 import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 

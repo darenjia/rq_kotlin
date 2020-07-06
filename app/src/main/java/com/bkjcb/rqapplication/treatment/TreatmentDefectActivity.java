@@ -9,13 +9,13 @@ import android.widget.Toast;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.treatment.fragment.TreatmentBackFragment;
 import com.bkjcb.rqapplication.treatment.fragment.TreatmentDefectFragment;
-import com.bkjcb.rqapplication.ftp.UploadTask;
+import com.bkjcb.rqapplication.base.ftp.UploadTask;
 import com.bkjcb.rqapplication.treatment.model.DefectDetail;
 import com.bkjcb.rqapplication.treatment.model.DefectDetailResult;
 import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
-import com.bkjcb.rqapplication.model.HttpResult;
-import com.bkjcb.rqapplication.retrofit.NetworkApi;
-import com.bkjcb.rqapplication.retrofit.TreatmentService;
+import com.bkjcb.rqapplication.base.model.HttpResult;
+import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.treatment.retrofit.TreatmentService;
 import com.qmuiteam.qmui.widget.QMUIEmptyView;
 
 import butterknife.BindView;

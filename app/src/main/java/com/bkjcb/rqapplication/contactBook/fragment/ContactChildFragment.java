@@ -14,7 +14,7 @@ import com.bkjcb.rqapplication.contactBook.adapter.UnitAdapter;
 import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
 import com.bkjcb.rqapplication.contactBook.model.Level;
 import com.bkjcb.rqapplication.contactBook.model.User;
-import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
+import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;

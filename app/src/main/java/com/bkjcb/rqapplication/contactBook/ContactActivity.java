@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.SimpleBaseActivity;
+import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
 import com.bkjcb.rqapplication.contactBook.fragment.ContactFirstFragment;
 import com.bkjcb.rqapplication.contactBook.model.User;
-import com.bkjcb.rqapplication.util.Utils;
+import com.bkjcb.rqapplication.base.util.Utils;
 import com.hss01248.dialog.StyledDialog;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 

@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
@@ -35,35 +35,35 @@
             android:name="com.amap.api.v2.apikey"
             android:value="abb50c814ad49ac4904f015edb859db9" />
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".base.MainActivity"></activity>
+        <activity android:name=".base.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanActivity" />
-        <activity android:name=".UserDetailActivity" />
-        <activity android:name=".AddUserActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".GasMainActivity" />
+        <activity android:name=".base.ScanActivity" />
+        <activity android:name=".base.UserDetailActivity" />
+        <activity android:name=".base.AddUserActivity" />
+        <activity android:name=".base.SettingActivity" />
+        <activity android:name=".base.GasMainActivity" />
         <activity
-            android:name=".CheckMainActivity"
+            android:name=".stationCheck.CheckMainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".CreateCheckTaskActivity"
+            android:name=".stationCheck.CreateCheckTaskActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".CheckDetailActivity"
+            android:name=".stationCheck.CheckDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".CheckResultDetailActivity"
+            android:name=".stationCheck.CheckResultDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -73,27 +73,27 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".CreateApplianceCheckTaskActivity"
+            android:name=".stationCheck.CreateApplianceCheckTaskActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ApplianceCheckResultDetailActivity"
+            android:name=".stationCheck.ApplianceCheckResultDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ApplianceCheckDetailActivity"
+            android:name=".stationCheck.ApplianceCheckDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".AlarmCheckDetailActivity"
+            android:name=".stationCheck.AlarmCheckDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".SellCheckDetailActivity"
+            android:name=".stationCheck.SellCheckDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -103,12 +103,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ActionRegisterActivity"
+            android:name=".actionRegister.ActionRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".CreateActionRegisterActivity"
+            android:name=".actionRegister.CreateActionRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -119,16 +119,16 @@
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".CreateEmergencyActivity"
+            android:name=".emergency.CreateEmergencyActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".EmergencyActivity"
+            android:name=".emergency.EmergencyActivity"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".MediaPlayActivity"
+            android:name=".base.MediaPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -138,43 +138,43 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".GasUserRecordActivity"
+            android:name=".userRecord.GasUserRecordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
-            android:name=".AddNewGasUserActivity"
+            android:name=".userRecord.AddNewGasUserActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".GasReviewActivity"
+            android:name=".userRecord.GasReviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".GasUserRecordDetailActivity"
+            android:name=".userRecord.GasUserRecordDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ReviewRecordActivity"
+            android:name=".userRecord.ReviewRecordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".SearchGasUserActivity"
+            android:name=".userRecord.SearchGasUserActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".GasUserRecordChangeActivity"
+            android:name=".userRecord.GasUserRecordChangeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".TempRecordActivity"
+            android:name=".userRecord.TempRecordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -193,7 +193,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
-        <activity android:name=".GasUserStatisticActivity" />
+        <activity android:name=".userRecord.GasUserStatisticActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
