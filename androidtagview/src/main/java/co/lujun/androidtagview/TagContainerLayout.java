@@ -833,8 +833,6 @@ public class TagContainerLayout extends ViewGroup {
 
     /**
      * Remove TagView in multiple consecutive positions.
-     *
-     *
      */
     public void removeConsecutiveTags(List<Integer> positions) {
         onRemoveConsecutiveTags(positions);
@@ -866,9 +864,9 @@ public class TagContainerLayout extends ViewGroup {
      * @param position
      */
     public void toggleSelectTagView(int position) {
-        if (isTagViewSelectable){
-            TagView tagView = ((TagView)mChildViews.get(position));
-            if (tagView.getIsViewSelected()){
+        if (isTagViewSelectable) {
+            TagView tagView = ((TagView) mChildViews.get(position));
+            if (tagView.getIsViewSelected()) {
                 tagView.deselectView();
             } else {
                 tagView.selectView();
@@ -883,7 +881,7 @@ public class TagContainerLayout extends ViewGroup {
      */
     public void selectTagView(int position) {
         if (isTagViewSelectable)
-            ((TagView)mChildViews.get(position)).selectView();
+            ((TagView) mChildViews.get(position)).selectView();
     }
 
     /**
@@ -893,7 +891,7 @@ public class TagContainerLayout extends ViewGroup {
      */
     public void deselectTagView(int position) {
         if (isTagViewSelectable)
-            ((TagView)mChildViews.get(position)).deselectView();
+            ((TagView) mChildViews.get(position)).deselectView();
     }
 
     /**
@@ -903,8 +901,8 @@ public class TagContainerLayout extends ViewGroup {
      */
     public List<Integer> getSelectedTagViewPositions() {
         List<Integer> selectedPositions = new ArrayList<>();
-        for (int i = 0; i < mChildViews.size(); i++){
-            if (((TagView)mChildViews.get(i)).getIsViewSelected()){
+        for (int i = 0; i < mChildViews.size(); i++) {
+            if (((TagView) mChildViews.get(i)).getIsViewSelected()) {
                 selectedPositions.add(i);
             }
         }
@@ -918,9 +916,9 @@ public class TagContainerLayout extends ViewGroup {
      */
     public List<String> getSelectedTagViewText() {
         List<String> selectedTagText = new ArrayList<>();
-        for (int i = 0; i < mChildViews.size(); i++){
-            TagView tagView = (TagView)mChildViews.get(i);
-            if ((tagView.getIsViewSelected())){
+        for (int i = 0; i < mChildViews.size(); i++) {
+            TagView tagView = (TagView) mChildViews.get(i);
+            if ((tagView.getIsViewSelected())) {
                 selectedTagText.add(tagView.getText());
             }
         }
@@ -1231,7 +1229,7 @@ public class TagContainerLayout extends ViewGroup {
      * @param selectable
      */
     public void setIsTagViewSelectable(boolean selectable) {
-        this.isTagViewSelectable= selectable;
+        this.isTagViewSelectable = selectable;
     }
 
     /**
@@ -1360,6 +1358,10 @@ public class TagContainerLayout extends ViewGroup {
      */
     public void setTagBackgroundColor(int color) {
         this.mTagBackgroundColor = color;
+    }
+
+    public void setSelectedTagBackgroundColor(int color) {
+        this.mSelectedTagBackgroundColor = color;
     }
 
     /**
@@ -1585,7 +1587,7 @@ public class TagContainerLayout extends ViewGroup {
      * @param position the position of the TagView
      * @return
      */
-    public TagView getTagView(int position){
+    public TagView getTagView(int position) {
         if (position < 0 || position >= mChildViews.size()) {
             throw new RuntimeException("Illegal position!");
         }
@@ -1594,6 +1596,7 @@ public class TagContainerLayout extends ViewGroup {
 
     /**
      * Get TagView background resource
+     *
      * @return
      */
     public int getTagBackgroundResource() {
@@ -1602,6 +1605,7 @@ public class TagContainerLayout extends ViewGroup {
 
     /**
      * Set TagView background resource
+     *
      * @param tagBackgroundResource
      */
     public void setTagBackgroundResource(@DrawableRes int tagBackgroundResource) {

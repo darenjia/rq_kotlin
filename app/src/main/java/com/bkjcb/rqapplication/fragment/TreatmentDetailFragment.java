@@ -170,7 +170,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
         mDefectDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TreatmentDefectActivity.toActivity(getActivity(), model);
+                TreatmentDefectActivity.toActivity(getActivity(), model, model.getProcessState() == 5);
             }
         });
     }

@@ -54,6 +54,13 @@ public class TreatmentBackFragment extends BaseSimpleFragment {
         return fragment;
     }
 
+    public static TreatmentBackFragment newInstance(DefectTreatmentModel model, DefectDetail result) {
+        TreatmentBackFragment fragment = new TreatmentBackFragment();
+        fragment.setModel(model);
+        fragment.setResult(result);
+        return fragment;
+    }
+
     @Override
     public void setResId() {
         resId = R.layout.fragment_treatment_back;
@@ -76,6 +83,9 @@ public class TreatmentBackFragment extends BaseSimpleFragment {
             result = new DefectDetail();
             result.setUserId(MyApplication.getUser().getUserId());
             result.setMtfId(model.getMtfId());
+        } else {
+            isCanChange = false;
+            setText(mRecordRemark,result.getFeedbackRemark());
         }
     }
 

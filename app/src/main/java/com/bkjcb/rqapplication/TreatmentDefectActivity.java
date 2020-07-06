@@ -151,7 +151,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
                     public void accept(DefectDetailResult result) throws Exception {
                         if (result.isPushSuccess()) {
                             emptyView.hide();
-                            fragment = TreatmentDefectFragment.newInstance(model, result.getDatas());
+                            fragment = type ? TreatmentDefectFragment.newInstance(model, result.getDatas()):TreatmentBackFragment.newInstance(model, result.getDatas());
                             loadView();
                         } else {
                             showErrorView(result.pushMsg);

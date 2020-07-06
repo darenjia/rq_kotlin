@@ -10,20 +10,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bkjcb.rqapplication.adapter.GasWorkRecordAdapter;
+import com.bkjcb.rqapplication.interfaces.OnTextChangeListener;
+import com.bkjcb.rqapplication.model.GasStatisticData;
 import com.bkjcb.rqapplication.model.GasUserRecordResult;
+import com.bkjcb.rqapplication.model.SimpleHttpResult;
 import com.bkjcb.rqapplication.retrofit.GasService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.util.DataUtil;
+import com.bkjcb.rqapplication.util.RxJavaUtil;
 import com.bkjcb.rqapplication.view.CustomLoadMoreView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.zagum.expandicon.ExpandIconView;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import co.lujun.androidtagview.TagContainerLayout;
+import co.lujun.androidtagview.TagView;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -51,12 +61,54 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
     Button mClearBtn;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.tag_layout1)
+    TagContainerLayout mTagLayout1;
+    @BindView(R.id.tag_layout2)
+    TagContainerLayout mTagLayout2;
+    @BindView(R.id.tag_layout3)
+    TagContainerLayout mTagLayout3;
+    @BindView(R.id.tag_layout4)
+    TagContainerLayout mTagLayout4;
+    @BindView(R.id.tag_layout5)
+    TagContainerLayout mTagLayout5;
+    @BindView(R.id.filter_district)
+    View mFilterDistrict;
+    @BindView(R.id.filter_street)
+    View mFilterStreet;
+    @BindView(R.id.filter_more)
+    View mFilterMore;
+    @BindView(R.id.expand_icon1)
+    ExpandIconView mExpandIcon1;
+    @BindView(R.id.expand_icon2)
+    ExpandIconView mExpandIcon2;
+    @BindView(R.id.expand_icon3)
+    ExpandIconView mExpandIcon3;
+    @BindView(R.id.street_name)
+    TextView mStreetName;
+    @BindView(R.id.district_name)
+    TextView mDistrictName;
+    @BindView(R.id.search_layout)
+    View mSearchLayout;
+    @BindView(R.id.filter_more_layout)
+    View mMoreLayout;
     private GasWorkRecordAdapter adapter;
     private int page = 0;
     private boolean isLoadMore = false;
     private String key = "";
-    private String district;
-    private String street = "";
+    private int selectedID = 0;
+    private int streetSelectedID = 0;
+    private int selectedTyfId = 0;
+    private int selectedXhId = 0;
+    private int selectedLjgId = 0;
+    private Disposable disposable1;
+    private List<GasStatisticData> gasStatisticData;
+    private OnTextChangeListener textChangeListener;
+    private String districtName = "";
+    private String streetName = "";
+    private String tyfName = "";
+    private String xhName = "";
+    private int currentRole = 0;//0 市 1区 2街镇
+    private String ljgName = "";
 
     @Override
     protected int setLayoutID() {
@@ -66,9 +118,8 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
     @Override
     protected void initView() {
         QMUITopBarLayout mAppbar = initTopbar("一户一档");
-        district = MyApplication.getUser().getUserleixing().equals("街镇用户") || MyApplication.getUser().getUserleixing().equals("区用户") ? MyApplication.getUser().getArea().getArea_name() : "";
-        street = MyApplication.getUser().getUserleixing().equals("街镇用户") ? MyApplication.getUser().getAreacode().getStreet_jc() : "";
-        if (!street.equals("")) {
+        initUserRole();
+        if (currentRole == 2) {
             mAppbar.addRightImageButton(R.drawable.vector_drawable_create, R.id.top_right_button)
                     .setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -101,7 +152,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 GasUserRecordResult.GasUserRecord item = (GasUserRecordResult.GasUserRecord) adapter.getItem(position);
-                if (street.equals("")) {
+                if (currentRole != 2) {
                     GasUserRecordDetailActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid());
                 } else {
                     GasReviewActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid(), 1, item.getYonghuming());
@@ -116,44 +167,223 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                 GasUserRecordDetailActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid());
             }
         });
+        initTagView();
+        initFilterMore();
+    }
+
+    private void initUserRole() {
+        String type = MyApplication.getUser().getUserleixing();
+        if (type.equals("区用户")) {
+            currentRole = 1;
+            districtName = MyApplication.getUser().getArea().getArea_name();
+            mDistrictName.setText(districtName);
+            mFilterDistrict.setClickable(false);
+        } else if (type.equals("街镇用户")) {
+            currentRole = 2;
+            districtName = MyApplication.getUser().getArea().getArea_name();
+            streetName = MyApplication.getUser().getAreacode().getStreet_jc();
+            mDistrictName.setText(districtName);
+            mFilterDistrict.setEnabled(false);
+            mStreetName.setText(streetName);
+            mFilterStreet.setClickable(false);
+        } else {
+            currentRole = 0;
+            mFilterStreet.setClickable(false);
+        }
+
+    }
+
+    private void initFilterMore() {
+        mTagLayout3.setTags("全部", "可调节", "不可调节");
+        mTagLayout3.selectTagView(0);
+        mTagLayout4.setTags("全部", "是", "否");
+        mTagLayout4.selectTagView(0);
+        mTagLayout5.setTags("全部", "硬管连接", "橡胶管", "其他管");
+        mTagLayout5.selectTagView(0);
+        mTagLayout3.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                if (position != selectedTyfId) {
+                    mTagLayout3.selectTagView(position);
+                    if (position > 0) {
+                        tyfName = text;
+                    } else {
+                        tyfName = "";
+                    }
+                    if (position >= 0) {
+                        mTagLayout3.deselectTagView(selectedTyfId);
+                    }
+                    selectedTyfId = position;
+                    textChangeListener.textChange("");
+                }
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+
+            }
+
+            @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+
+            }
+        });
+        mTagLayout4.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                if (position != selectedXhId) {
+                    mTagLayout4.selectTagView(position);
+                    if (position > 0) {
+                        xhName = text;
+                    } else {
+                        xhName = "";
+                    }
+                    if (position >= 0) {
+                        mTagLayout4.deselectTagView(selectedXhId);
+                    }
+                    selectedXhId = position;
+                    textChangeListener.textChange("");
+                }
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+
+            }
+
+            @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+
+            }
+        });
+        mTagLayout5.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                if (position != selectedLjgId) {
+                    mTagLayout5.selectTagView(position);
+                    if (position > 0) {
+                        ljgName = text;
+                    } else {
+                        ljgName = "";
+                    }
+                    if (position >= 0) {
+                        mTagLayout5.deselectTagView(selectedLjgId);
+                    }
+                    selectedLjgId = position;
+                    textChangeListener.textChange("");
+                }
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+
+            }
+
+            @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+
+            }
+        });
     }
 
     @Override
     protected void initData() {
         super.initData();
         queryRemoteData();
+        if (currentRole != 2) {
+            getListData();
+        }
     }
 
-    @OnClick({R.id.station_search})
+    @OnClick({R.id.station_search, R.id.filter_street, R.id.filter_district, R.id.filter_more})
     public void onClick(View v) {
-      /*  QMUIPopup popup = new QMUIPopup(this,QMUIPopup.DIRECTION_BOTTOM);
-        popup.setContentView(R.layout.gas_record_filter_view);
-        popup.show(mSearchImage);*/
+        if (v.getId() == R.id.filter_street) {
+            if (currentRole != 2) {
+                if (mTagLayout2.getVisibility() == View.VISIBLE) {
+                    hideView(mTagLayout2);
+                    mExpandIcon2.setState(ExpandIconView.MORE, true);
+                } else {
+                    showView(mTagLayout2);
+                    mExpandIcon2.setState(ExpandIconView.LESS, true);
+                }
+                if (mTagLayout1.getVisibility() == View.VISIBLE) {
+                    hideView(mTagLayout1);
+                    mExpandIcon1.setState(ExpandIconView.MORE, true);
+                }
+                if (mMoreLayout.getVisibility() == View.VISIBLE) {
+                    hideView(mMoreLayout);
+                    mExpandIcon3.setState(ExpandIconView.MORE, true);
+                }
+            }
+        } else if (v.getId() == R.id.filter_district) {
+            if (currentRole == 0) {
+                if (mTagLayout1.getVisibility() == View.VISIBLE) {
+                    hideView(mTagLayout1);
+                    mExpandIcon1.setState(ExpandIconView.MORE, true);
+                } else {
+                    showView(mTagLayout1);
+                    mExpandIcon1.setState(ExpandIconView.LESS, true);
+                }
+                if (mTagLayout2.getVisibility() == View.VISIBLE) {
+                    hideView(mTagLayout2);
+                    mExpandIcon2.setState(ExpandIconView.MORE, true);
+                }
+                if (mMoreLayout.getVisibility() == View.VISIBLE) {
+                    hideView(mMoreLayout);
+                    mExpandIcon3.setState(ExpandIconView.MORE, true);
+                }
+            }
+        } else if (v.getId() == R.id.filter_more) {
+            if (mMoreLayout.getVisibility() == View.VISIBLE) {
+                hideView(mMoreLayout);
+                mExpandIcon3.setState(ExpandIconView.MORE, true);
+            } else {
+                showView(mMoreLayout);
+                mExpandIcon3.setState(ExpandIconView.LESS, true);
+            }
+            if (mTagLayout1.getVisibility() == View.VISIBLE) {
+                hideView(mTagLayout1);
+                mExpandIcon1.setState(ExpandIconView.MORE, true);
+            }
+            if (mTagLayout2.getVisibility() == View.VISIBLE) {
+                hideView(mTagLayout2);
+                mExpandIcon2.setState(ExpandIconView.MORE, true);
+            }
+        } else {
+            toggleVisibility(mSearchLayout);
+        }
     }
 
-   /* protected void queryRemoteData() {
-        adapter.setEnableLoadMore(false);
-        disposable = NetworkApi.getService(GasService.class)
-                .getWorkRecords(page, 20, district, street, key)
-                .compose(RxJavaUtil.getObservableTransformer())
-                .subscribe(new Consumer<GasUserRecordResult>() {
-                    @Override
-                    public void accept(GasUserRecordResult gasUserRecordResult) throws Exception {
-                        showRefreshLayout(false);
-                        if (gasUserRecordResult.pushState == 200) {
-                            showCheckList(gasUserRecordResult.getDatas());
-                            adapter.setEnableLoadMore(true);
-                        } else {
-                            showErrorView();
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        showErrorView();
-                    }
-                });
-    }*/
+    private void toggleVisibility(View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            hideView(view);
+        } else {
+            showView(view);
+        }
+    }
+
+    private void showView(View view) {
+        view.setVisibility(View.VISIBLE);
+    }
+
+    private void hideView(View view) {
+        view.setVisibility(View.GONE);
+    }
 
     private void queryRemoteData() {
         Observable.merge(Observable.create(new ObservableOnSubscribe<String>() {
@@ -191,6 +421,13 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                     isLoadMore = false;
                     emitter.onNext(mSearchView.getText().toString());
                 });
+                textChangeListener = new OnTextChangeListener() {
+                    @Override
+                    public void textChange(String value) {
+                        isLoadMore = false;
+                        emitter.onNext(mSearchView.getText().toString());
+                    }
+                };
             }
         }), Observable.just(""))
                 .debounce(200, TimeUnit.MILLISECONDS)
@@ -212,7 +449,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                     @Override
                     public ObservableSource<GasUserRecordResult> apply(String s) throws Exception {
                         return NetworkApi.getService(GasService.class)
-                                .getWorkRecords(page, 20, district, street, s);
+                                .getWorkRecords(page, 20, districtName, streetName, s, tyfName, xhName, ljgName);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -281,7 +518,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
 
     protected View createEmptyView(View.OnClickListener listener) {
         View view = getLayoutInflater().inflate(R.layout.empty_textview_with_button, null);
-        if (!street.equals("")) {
+        if (currentRole == 2) {
             view.findViewById(R.id.empty_button).setOnClickListener(listener);
         } else {
             view.findViewById(R.id.empty_button).setVisibility(View.GONE);
@@ -320,4 +557,148 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
         }
     }
 
+    private void initTagView() {
+        int selectedColor = getResources().getColor(R.color.colorAccent);
+        mTagLayout1.setSelectedTagBackgroundColor(selectedColor);
+        mTagLayout2.setSelectedTagBackgroundColor(selectedColor);
+        mTagLayout3.setSelectedTagBackgroundColor(selectedColor);
+        mTagLayout4.setSelectedTagBackgroundColor(selectedColor);
+        mTagLayout5.setSelectedTagBackgroundColor(selectedColor);
+        mTagLayout1.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                if (position != selectedID) {
+                    mTagLayout1.selectTagView(position);
+                    if (position > 0) {
+                        districtName = text;
+                        mFilterStreet.setClickable(true);
+                    } else {
+                        districtName = "";
+                        mFilterStreet.setClickable(false);
+                    }
+                    mDistrictName.setText(text);
+                    if (selectedID >= 0) {
+                        mTagLayout1.deselectTagView(selectedID);
+                    }
+                    selectedID = position;
+                    initTagData(position - 1);
+                    textChangeListener.textChange("");
+                }
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+
+            }
+
+            @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+
+            }
+        });
+        mTagLayout2.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                if (position != streetSelectedID) {
+                    mTagLayout2.selectTagView(position);
+                    if (position > 0) {
+                        streetName = mTagLayout2.getTagText(position);
+                    } else {
+                        streetName = "";
+                    }
+                    mStreetName.setText(mTagLayout2.getTagText(position));
+                    if (streetSelectedID >= 0) {
+                        mTagLayout2.deselectTagView(streetSelectedID);
+                    }
+                    streetSelectedID = position;
+                    textChangeListener.textChange("");
+                }
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+
+            }
+
+            @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+
+            }
+        });
+    }
+
+    private void getListData() {
+        if (DataUtil.getInstance().getList() != null) {
+            initTagData();
+            return;
+        }
+        disposable1 = NetworkApi.getService(GasService.class)
+                .getStatisticData(districtName)
+                .compose(RxJavaUtil.getObservableTransformer())
+                .subscribe(new Consumer<SimpleHttpResult<List<GasStatisticData>>>() {
+                    @Override
+                    public void accept(SimpleHttpResult<List<GasStatisticData>> result) throws Exception {
+                        if (result.pushState == 200) {
+                            DataUtil.getInstance().setList(result.getDatas());
+                            initTagData();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                    }
+                });
+    }
+
+    private void initTagData() {
+        List<GasStatisticData> data = DataUtil.getInstance().getList();
+        if (data != null) {
+            gasStatisticData = data;
+            if (data.size() > 1) {
+                List<String> districts = new ArrayList<>();
+                districts.add("全部");
+                if (data.size() > 0) {
+                    for (int i = 0; i < data.size(); i++) {
+                        districts.add(data.get(i).getName());
+                    }
+                }
+                mTagLayout1.setTags(districts);
+                mTagLayout1.selectTagView(0);
+            } else {
+                initTagData(0);
+            }
+        }
+    }
+
+    private void initTagData(int position) {
+        List<String> districts = new ArrayList<>();
+        districts.add("全部");
+        if (position >= 0 && gasStatisticData.get(position).getChildrens() != null) {
+            for (int i = 0; i < gasStatisticData.get(position).getChildrens().size(); i++) {
+                districts.add(gasStatisticData.get(position).getChildrens().get(i).getName());
+            }
+        }
+        mTagLayout2.setTags(districts);
+        mTagLayout2.selectTagView(0);
+        mStreetName.setText("街镇");
+        streetName = "";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable1 != null && !disposable1.isDisposed()) {
+            disposable1.dispose();
+        }
+    }
 }

@@ -26,7 +26,7 @@ public class MyStyleTopBar extends QMUITopBarLayout {
 
     @Override
     public void setBackgroundDividerEnabled(boolean enabled) {
-        super.setBackgroundDividerEnabled(enabled);
-        QMUIViewHelper.setBackground(this, getResources().getDrawable(R.drawable.main_background));
+        //super.setBackgroundDividerEnabled(enabled);
+        QMUIViewHelper.setBackgroundKeepingPadding(this, getResources().getDrawable(R.drawable.main_background));
     }
 }

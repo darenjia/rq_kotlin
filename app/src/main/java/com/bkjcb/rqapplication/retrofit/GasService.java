@@ -1,13 +1,16 @@
 package com.bkjcb.rqapplication.retrofit;
 
 import com.bkjcb.rqapplication.model.GasCompanyResult;
+import com.bkjcb.rqapplication.model.GasStatisticData;
 import com.bkjcb.rqapplication.model.GasUserDetailResult;
 import com.bkjcb.rqapplication.model.GasUserRecordResult;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.ReviewRecordResult;
+import com.bkjcb.rqapplication.model.SimpleHttpResult;
 import com.bkjcb.rqapplication.model.UserInfoResult;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -68,7 +71,9 @@ public interface GasService {
 
     @POST("rq/push/getYihuyidangGongzuoList")
     @FormUrlEncoded
-    Observable<GasUserRecordResult> getWorkRecords(@Field("start") int start, @Field("limit") int limit, @Field("suoshuqu") String qu, @Field("jiedao") String jd, @Field("name") String key);
+    Observable<GasUserRecordResult> getWorkRecords(@Field("start") int start, @Field("limit") int limit, @Field("suoshuqu") String qu,
+                                                   @Field("jiedao") String jd, @Field("name") String key, @Field("tiaoyafa") String filter1,
+                                                   @Field("xihuobaohu") String filter2, @Field("lianjieguan") String filter3);
 
     @POST("rq/push/getRqUserInfos")
     @FormUrlEncoded
@@ -85,4 +90,11 @@ public interface GasService {
     @POST("rq/push/getYihuyidangFuchaList")
     @FormUrlEncoded
     Observable<ReviewRecordResult> getRecordList(@Field("yihuyidangid") String id, @Field("yihuyidangfuchaid") String rId);
+
+    @GET("rq/push/getYihuyidangTongjifengmianList")
+    Observable<SimpleHttpResult<List<GasStatisticData>>> getStatisticData(@Query("suoshuqu") String district);
+
+    @GET("rq/push/getYihuyidangTongjifengmian")
+    Observable<SimpleHttpResult<GasStatisticData>> getStatisticDataSimple(@Query("suoshuqu") String district,@Query("jiandangriqi") String date, @Query("jiedao") String street);
+
 }

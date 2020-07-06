@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -19,6 +20,279 @@
 
             <include layout="@layout/search_layout_with_btn_view" />
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="6dp"
+                android:visibility="gone"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/colorText">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/filter_district"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/district_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:paddingEnd="0dp"
+                                android:text="区属"
+                                app:layout_constraintHorizontal_chainStyle="packed"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/expand_icon1" />
+
+                            <com.github.zagum.expandicon.ExpandIconView
+                                android:id="@+id/expand_icon1"
+                                android:layout_width="32dp"
+                                android:layout_height="match_parent"
+                                app:eiv_animationDuration="300"
+                                app:eiv_color="@color/colorDivider"
+                                app:eiv_padding="8dp"
+                                app:eiv_roundedCorners="true"
+                                app:eiv_switchColor="false"
+                                app:layout_constraintLeft_toRightOf="@id/district_name"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/colorSecondDrayText" />
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/filter_street"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/street_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:paddingEnd="0dp"
+                                android:text="街镇"
+                                app:layout_constraintHorizontal_chainStyle="packed"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/expand_icon2" />
+
+                            <com.github.zagum.expandicon.ExpandIconView
+                                android:id="@+id/expand_icon2"
+                                android:layout_width="32dp"
+                                android:layout_height="match_parent"
+                                app:eiv_animationDuration="300"
+                                app:eiv_color="@color/colorDivider"
+                                app:eiv_padding="8dp"
+                                app:eiv_roundedCorners="true"
+                                app:eiv_switchColor="false"
+                                app:layout_constraintLeft_toRightOf="@id/street_name"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/colorSecondDrayText" />
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/filter_more"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+
+                            <TextView
+                                android:id="@+id/filter_more_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:paddingEnd="0dp"
+                                android:text="隐患"
+                                app:layout_constraintHorizontal_chainStyle="packed"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toLeftOf="@id/expand_icon3" />
+
+
+                            <com.github.zagum.expandicon.ExpandIconView
+                                android:id="@+id/expand_icon3"
+                                android:layout_width="32dp"
+                                android:layout_height="match_parent"
+                                app:eiv_animationDuration="300"
+                                app:eiv_color="@color/colorDivider"
+                                app:eiv_padding="8dp"
+                                app:eiv_roundedCorners="true"
+                                app:eiv_switchColor="false"
+                                app:layout_constraintLeft_toRightOf="@id/filter_more_title"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </android.support.constraint.ConstraintLayout>
+                    </LinearLayout>
+
+                    <co.lujun.androidtagview.TagContainerLayout
+                        android:id="@+id/tag_layout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="3dp"
+                        android:padding="4dp"
+                        android:visibility="gone"
+                        app:container_background_color="@color/colorText"
+                        app:container_border_radius="0dp"
+                        app:container_border_width="0dp"
+                        app:container_enable_drag="false"
+                        app:horizontal_interval="4dp"
+                        app:tag_background_color="@color/colorText"
+                        app:tag_border_color="@color/colorText"
+                        app:tag_border_width="0dp"
+                        app:tag_clickable="true"
+                        app:tag_corner_radius="6dp"
+                        app:tag_horizontal_padding="10dp"
+                        app:tag_selectable="true"
+                        app:tag_theme="none"
+                        app:vertical_interval="4dp" />
+
+                    <co.lujun.androidtagview.TagContainerLayout
+                        android:id="@+id/tag_layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="3dp"
+                        android:padding="4dp"
+                        android:visibility="gone"
+                        app:container_background_color="@color/colorText"
+                        app:container_border_radius="0dp"
+                        app:container_border_width="0dp"
+                        app:container_enable_drag="false"
+                        app:horizontal_interval="4dp"
+                        app:tag_background_color="@color/colorText"
+                        app:tag_border_color="@color/colorText"
+                        app:tag_border_width="0dp"
+                        app:tag_clickable="true"
+                        app:tag_corner_radius="6dp"
+                        app:tag_selectable="true"
+                        app:tag_theme="none"
+                        app:vertical_interval="4dp" />
+
+                    <LinearLayout
+                        android:id="@+id/filter_more_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorGray"
+                            android:padding="6dp"
+                            android:text="调压阀"
+                            android:textColor="@color/colorSecondDrayText" />
+
+                        <co.lujun.androidtagview.TagContainerLayout
+                            android:id="@+id/tag_layout3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:padding="4dp"
+                            app:container_background_color="@color/colorText"
+                            app:container_border_radius="0dp"
+                            app:container_border_width="0dp"
+                            app:container_enable_drag="false"
+                            app:horizontal_interval="4dp"
+                            app:tag_background_color="@color/colorText"
+                            app:tag_border_color="@color/colorText"
+                            app:tag_border_width="0dp"
+                            app:tag_clickable="true"
+                            app:tag_corner_radius="6dp"
+                            app:tag_selectable="true"
+                            app:tag_theme="none"
+                            app:vertical_interval="4dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorGray"
+                            android:padding="6dp"
+                            android:text="是否有熄火保护装置"
+                            android:textColor="@color/colorSecondDrayText" />
+
+                        <co.lujun.androidtagview.TagContainerLayout
+                            android:id="@+id/tag_layout4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:padding="4dp"
+                            app:container_background_color="@color/colorText"
+                            app:container_border_radius="0dp"
+                            app:container_border_width="0dp"
+                            app:container_enable_drag="false"
+                            app:horizontal_interval="4dp"
+                            app:tag_background_color="@color/colorText"
+                            app:tag_border_color="@color/colorText"
+                            app:tag_border_width="0dp"
+                            app:tag_clickable="true"
+                            app:tag_corner_radius="6dp"
+                            app:tag_selectable="true"
+                            app:tag_theme="none"
+                            app:vertical_interval="4dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorGray"
+                            android:padding="6dp"
+                            android:text="连接管类型"
+                            android:textColor="@color/colorSecondDrayText" />
+
+                        <co.lujun.androidtagview.TagContainerLayout
+                            android:id="@+id/tag_layout5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:padding="4dp"
+                            app:container_background_color="@color/colorText"
+                            app:container_border_radius="0dp"
+                            app:container_border_width="0dp"
+                            app:container_enable_drag="false"
+                            app:horizontal_interval="4dp"
+                            app:tag_background_color="@color/colorText"
+                            app:tag_border_color="@color/colorText"
+                            app:tag_border_width="0dp"
+                            app:tag_clickable="true"
+                            app:tag_corner_radius="6dp"
+                            app:tag_selectable="true"
+                            app:tag_theme="none"
+                            app:vertical_interval="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
@@ -29,6 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </android.support.v4.widget.SwipeRefreshLayout>
+
         </LinearLayout>
     </FrameLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class MediaPlayActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_media);
         initView();
     }
@@ -39,7 +41,7 @@ public class MediaPlayActivity extends AppCompatActivity {
         path = getIntent().getStringExtra("Path");
         if (TextUtils.isEmpty(path)) {
             Toast.makeText(this, "文件路径出错！", Toast.LENGTH_SHORT).show();
-           return;
+            return;
         }
         if (path.toLowerCase().endsWith(".png") || path.toLowerCase().endsWith(".jpg")) {
             fragment = PictureFragment.newInstance(path);

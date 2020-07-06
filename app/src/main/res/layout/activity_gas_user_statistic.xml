@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/with_bg_top_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="6dp"
+            app:cardUseCompatPadding="true">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp">
+
+                        <com.allen.library.SuperTextView
+                            android:id="@+id/statistic_all"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:sCenterBottomTextColor="@color/colorSecondDrayText"
+                            app:sCenterBottomTextSize="12sp"
+                            app:sCenterBottomTextString="总户数"
+                            app:sCenterTextColor="@color/color_type_0"
+                            app:sCenterTextGravity="center"
+                            app:sCenterTextSize="24sp"
+                            app:sCenterTextString="10000"
+                            app:sCenterTopTextColor="@color/color_type_0"
+                            app:sCenterTopTextSize="14sp"
+                            app:sCenterTopTextString="全市"
+                            app:sDividerLineType="none" />
+
+                        <com.allen.library.SuperTextView
+                            android:id="@+id/statistic_increase"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:sCenterBottomTextColor="@color/colorSecondDrayText"
+                            app:sCenterBottomTextSize="12sp"
+                            app:sCenterBottomTextString="新增户数"
+                            app:sCenterTextColor="@color/color_type_1"
+                            app:sCenterTextGravity="center"
+                            app:sCenterTextSize="24sp"
+                            app:sCenterTextString="10"
+                            app:sCenterTopTextColor="@color/color_type_1"
+                            app:sCenterTopTextSize="14sp"
+                            app:sCenterTopTextString="本日"
+                            app:sDividerLineType="none" />
+
+                        <com.allen.library.SuperTextView
+                            android:id="@+id/statistic_type1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:sCenterBottomTextColor="@color/colorSecondDrayText"
+                            app:sCenterBottomTextSize="12sp"
+                            app:sCenterBottomTextString="可调节户数"
+                            app:sCenterTextColor="@color/color_type_2"
+                            app:sCenterTextGravity="center"
+                            app:sCenterTextSize="24sp"
+                            app:sCenterTextString="780"
+                            app:sCenterTopTextColor="@color/color_type_2"
+                            app:sCenterTopTextSize="14sp"
+                            app:sCenterTopTextString="调压阀"
+                            app:sDividerLineType="none" />
+
+                        <com.allen.library.SuperTextView
+                            android:id="@+id/statistic_type2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:sCenterBottomTextColor="@color/colorSecondDrayText"
+                            app:sCenterBottomTextSize="12sp"
+                            app:sCenterBottomTextString="无装置户数"
+                            app:sCenterTextColor="@color/color_type_3"
+                            app:sCenterTextGravity="center"
+                            app:sCenterTextSize="24sp"
+                            app:sCenterTextString="10"
+                            app:sCenterTopTextColor="@color/color_type_3"
+                            app:sCenterTopTextSize="14sp"
+                            app:sCenterTopTextString="熄火保护"
+                            app:sDividerLineType="none" />
+                    </LinearLayout>
+
+                    <com.allen.library.SuperTextView
+                        android:id="@+id/statistic_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        app:sCenterTextColor="@color/color_type_1"
+                        app:sCenterTextSize="14sp"
+                        app:sCenterTextString="查看详情" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="数据统计"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.allen.library.SuperTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:sCenterTextColor="@color/colorSecondDrayText"
+                            app:sCenterTextString="区属/街镇" />
+
+                        <com.allen.library.SuperTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:sCenterTextColor="@color/colorSecondDrayText"
+                            app:sCenterTextString="总户数" />
+
+                        <com.allen.library.SuperTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:sCenterBottomTextColor="@color/colorSecondDrayText"
+                            app:sCenterBottomTextString="可调节户数"
+                            app:sCenterTextColor="@color/colorSecondDrayText"
+                            app:sCenterTextString="调压阀" />
+
+                        <com.allen.library.SuperTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:sCenterBottomTextColor="@color/colorSecondDrayText"
+                            app:sCenterBottomTextString="保护装置"
+                            app:sCenterTextColor="@color/colorSecondDrayText"
+                            app:sCenterTextString="无熄火" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/gas_statistic_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </ScrollView>
+
+            <include
+                layout="@layout/empty_view"
+                android:visibility="gone" />
+        </android.support.v7.widget.CardView>
+
+    </FrameLayout>
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
