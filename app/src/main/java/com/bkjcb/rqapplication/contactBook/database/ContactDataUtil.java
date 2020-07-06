@@ -1,13 +1,14 @@
-package com.bkjcb.rqapplication.datebase;
+package com.bkjcb.rqapplication.contactBook.database;
 
 import android.content.Context;
 
-import com.bkjcb.rqapplication.model.ContactModel;
+import com.bkjcb.rqapplication.contactBook.model.ContactModel;
+import com.bkjcb.rqapplication.datebase.ObjectBox;
 import com.bkjcb.rqapplication.model.Emergency;
-import com.bkjcb.rqapplication.model.Level;
+import com.bkjcb.rqapplication.contactBook.model.Level;
 import com.bkjcb.rqapplication.model.Level_;
 import com.bkjcb.rqapplication.model.Unit_;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.contactBook.model.User;
 import com.bkjcb.rqapplication.model.User_;
 import com.google.gson.Gson;
 

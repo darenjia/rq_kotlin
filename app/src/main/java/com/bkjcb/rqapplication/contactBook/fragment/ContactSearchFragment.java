@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.fragment;
+package com.bkjcb.rqapplication.contactBook.fragment;
 
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +12,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bkjcb.rqapplication.ContactDepartmentActivity;
+import com.bkjcb.rqapplication.contactBook.ContactDepartmentActivity;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.adapter.ContactSearchResultAdapter;
-import com.bkjcb.rqapplication.datebase.ContactDataUtil;
+import com.bkjcb.rqapplication.contactBook.adapter.ContactSearchResultAdapter;
+import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
+import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
 import com.bkjcb.rqapplication.model.ContactBaseModel;
-import com.bkjcb.rqapplication.model.Level;
+import com.bkjcb.rqapplication.contactBook.model.Level;
 import com.bkjcb.rqapplication.model.SearchKeyWord;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.contactBook.model.User;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;

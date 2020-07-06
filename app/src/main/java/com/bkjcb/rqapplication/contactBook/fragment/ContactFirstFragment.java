@@ -1,14 +1,15 @@
-package com.bkjcb.rqapplication.fragment;
+package com.bkjcb.rqapplication.contactBook.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bkjcb.rqapplication.ContactDetailActivity;
+import com.bkjcb.rqapplication.contactBook.ContactDetailActivity;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.adapter.EmergencyAdapter;
-import com.bkjcb.rqapplication.datebase.ContactDataUtil;
+import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
+import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
 import com.bkjcb.rqapplication.model.Emergency;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;

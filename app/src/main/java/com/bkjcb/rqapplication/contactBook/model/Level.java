@@ -1,10 +1,12 @@
-package com.bkjcb.rqapplication.model;
+package com.bkjcb.rqapplication.contactBook.model;
+
+import com.bkjcb.rqapplication.model.ContactBaseModel;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class Level extends ContactBaseModel{
+public class Level extends ContactBaseModel {
     @Id(assignable = true)
     long id;
 

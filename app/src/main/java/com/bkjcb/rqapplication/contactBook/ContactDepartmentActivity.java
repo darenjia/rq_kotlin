@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication;
+package com.bkjcb.rqapplication.contactBook;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,9 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.bkjcb.rqapplication.adapter.ContactItemAdapter;
-import com.bkjcb.rqapplication.datebase.ContactDataUtil;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.contactBook.adapter.ContactItemAdapter;
+import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
+import com.bkjcb.rqapplication.contactBook.model.User;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 

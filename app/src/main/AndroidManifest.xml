@@ -68,7 +68,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ContactActivity"
+            android:name=".contactBook.ContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -98,7 +98,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ContactDetailActivity"
+            android:name=".contactBook.ContactDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
@@ -113,7 +113,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ContactSearchActivity"
+            android:name=".contactBook.ContactSearchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified"
@@ -133,7 +133,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".ContactDepartmentActivity"
+            android:name=".contactBook.ContactDepartmentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />

@@ -1,9 +1,9 @@
-package com.bkjcb.rqapplication.adapter;
+package com.bkjcb.rqapplication.contactBook.adapter;
 
 import android.support.annotation.Nullable;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.contactBook.model.User;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

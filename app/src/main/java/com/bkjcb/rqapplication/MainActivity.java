@@ -16,6 +16,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bkjcb.rqapplication.adapter.LocalImageHolderView;
 import com.bkjcb.rqapplication.adapter.MenuGridAdapter;
+import com.bkjcb.rqapplication.contactBook.ContactActivity;
 import com.bkjcb.rqapplication.model.GasStatisticData;
 import com.bkjcb.rqapplication.model.MenuItem;
 import com.bkjcb.rqapplication.model.SimpleHttpResult;

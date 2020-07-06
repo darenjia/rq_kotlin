@@ -5,10 +5,10 @@ import android.util.Log;
 
 import com.bkjcb.rqapplication.BuildConfig;
 import com.bkjcb.rqapplication.model.Emergency;
-import com.bkjcb.rqapplication.model.Level;
+import com.bkjcb.rqapplication.contactBook.model.Level;
 import com.bkjcb.rqapplication.model.MyObjectBox;
-import com.bkjcb.rqapplication.model.Unit;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.contactBook.model.Unit;
+import com.bkjcb.rqapplication.contactBook.model.User;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;

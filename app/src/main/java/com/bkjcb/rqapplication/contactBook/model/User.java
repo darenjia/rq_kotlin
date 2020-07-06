@@ -1,13 +1,14 @@
-package com.bkjcb.rqapplication.model;
+package com.bkjcb.rqapplication.contactBook.model;
 
 import com.bkjcb.rqapplication.datebase.ObjectBox;
+import com.bkjcb.rqapplication.model.ContactBaseModel;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Transient;
 
 @Entity
-public class User extends ContactBaseModel{
+public class User extends ContactBaseModel {
     @Id(assignable = true)
     long id;
 

@@ -1,9 +1,9 @@
-package com.bkjcb.rqapplication.adapter;
+package com.bkjcb.rqapplication.contactBook.adapter;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.model.ContactBaseModel;
-import com.bkjcb.rqapplication.model.Level;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.contactBook.model.Level;
+import com.bkjcb.rqapplication.contactBook.model.User;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

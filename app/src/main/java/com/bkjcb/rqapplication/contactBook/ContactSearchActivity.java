@@ -1,10 +1,11 @@
-package com.bkjcb.rqapplication;
+package com.bkjcb.rqapplication.contactBook;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.bkjcb.rqapplication.fragment.ContactSearchFragment;
-import com.bkjcb.rqapplication.model.User;
+import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.contactBook.fragment.ContactSearchFragment;
+import com.bkjcb.rqapplication.contactBook.model.User;
 import com.hss01248.dialog.StyledDialog;
 
 /**
