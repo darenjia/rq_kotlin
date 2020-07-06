@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.fragment;
+package com.bkjcb.rqapplication.treatment.fragment;
 
 import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,10 +12,11 @@ import android.widget.Toast;
 
 import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.TreatmentDetailActivity;
-import com.bkjcb.rqapplication.adapter.DefectTreatmentItemAdapter;
+import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
+import com.bkjcb.rqapplication.treatment.TreatmentDetailActivity;
+import com.bkjcb.rqapplication.treatment.adapter.DefectTreatmentItemAdapter;
 import com.bkjcb.rqapplication.interfaces.OnTextChangeListener;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.TreatmentResult;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.retrofit.TreatmentService;

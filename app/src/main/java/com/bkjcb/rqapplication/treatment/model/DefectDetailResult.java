@@ -1,10 +1,12 @@
-package com.bkjcb.rqapplication.model;
+package com.bkjcb.rqapplication.treatment.model;
+
+import com.bkjcb.rqapplication.model.HttpResult;
 
 /**
  * Created by DengShuai on 2020/6/22.
  * Description :
  */
-public class DefectDetailResult extends HttpResult{
+public class DefectDetailResult extends HttpResult {
     private DefectDetail datas;
     private boolean pushSuccess;
 

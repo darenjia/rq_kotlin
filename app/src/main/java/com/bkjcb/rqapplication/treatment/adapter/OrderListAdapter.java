@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.adapter;
+package com.bkjcb.rqapplication.treatment.adapter;
 
 import android.support.annotation.Nullable;
 

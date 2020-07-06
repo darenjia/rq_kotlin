@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.fragment;
+package com.bkjcb.rqapplication.treatment.fragment;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -8,8 +8,9 @@ import android.widget.Toast;
 
 import com.bkjcb.rqapplication.MyApplication;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.DefectDetail;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
+import com.bkjcb.rqapplication.treatment.model.DefectDetail;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 
 import butterknife.BindView;
 

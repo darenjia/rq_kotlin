@@ -21,6 +21,7 @@ import com.bkjcb.rqapplication.model.MenuItem;
 import com.bkjcb.rqapplication.model.SimpleHttpResult;
 import com.bkjcb.rqapplication.retrofit.GasService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.treatment.DefectTreatmentMainActivity;
 import com.bkjcb.rqapplication.util.DataUtil;
 import com.bkjcb.rqapplication.util.MyBarChartLegendFormatter;
 import com.bkjcb.rqapplication.util.RxJavaUtil;

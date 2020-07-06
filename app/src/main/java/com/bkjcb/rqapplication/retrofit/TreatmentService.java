@@ -1,8 +1,8 @@
 package com.bkjcb.rqapplication.retrofit;
 
-import com.bkjcb.rqapplication.model.DefectDetail;
-import com.bkjcb.rqapplication.model.DefectDetailResult;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.treatment.model.DefectDetail;
+import com.bkjcb.rqapplication.treatment.model.DefectDetailResult;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.model.TreatmentResult;
 

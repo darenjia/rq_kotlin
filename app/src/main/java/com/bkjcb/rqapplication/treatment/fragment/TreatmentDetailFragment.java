@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.fragment;
+package com.bkjcb.rqapplication.treatment.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.TreatmentDefectActivity;
-import com.bkjcb.rqapplication.adapter.OrderListAdapter;
-import com.bkjcb.rqapplication.adapter.SecurityCheckListAdapter;
+import com.bkjcb.rqapplication.fragment.BaseSimpleFragment;
+import com.bkjcb.rqapplication.treatment.TreatmentDefectActivity;
+import com.bkjcb.rqapplication.treatment.adapter.OrderListAdapter;
+import com.bkjcb.rqapplication.treatment.adapter.SecurityCheckListAdapter;
 import com.bkjcb.rqapplication.model.BottleResult;
 import com.bkjcb.rqapplication.model.BottleSaleCheck;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.retrofit.DataService;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.view.MyDialogViewHolder;

@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication;
+package com.bkjcb.rqapplication.treatment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,12 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bkjcb.rqapplication.fragment.TreatmentBackFragment;
-import com.bkjcb.rqapplication.fragment.TreatmentDefectFragment;
+import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.treatment.fragment.TreatmentBackFragment;
+import com.bkjcb.rqapplication.treatment.fragment.TreatmentDefectFragment;
 import com.bkjcb.rqapplication.ftp.UploadTask;
-import com.bkjcb.rqapplication.model.DefectDetail;
-import com.bkjcb.rqapplication.model.DefectDetailResult;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.treatment.model.DefectDetail;
+import com.bkjcb.rqapplication.treatment.model.DefectDetailResult;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.HttpResult;
 import com.bkjcb.rqapplication.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.retrofit.TreatmentService;

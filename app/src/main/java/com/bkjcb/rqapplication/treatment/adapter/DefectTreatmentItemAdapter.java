@@ -1,10 +1,10 @@
-package com.bkjcb.rqapplication.adapter;
+package com.bkjcb.rqapplication.treatment.adapter;
 
 import android.content.Context;
 import android.view.View;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.view.CustomLoadMoreView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

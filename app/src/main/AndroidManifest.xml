@@ -179,17 +179,17 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".DefectTreatmentMainActivity"
+            android:name=".treatment.DefectTreatmentMainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".TreatmentDetailActivity"
+            android:name=".treatment.TreatmentDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity
-            android:name=".TreatmentDefectActivity"
+            android:name=".treatment.TreatmentDefectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />

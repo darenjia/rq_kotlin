@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.adapter.OrderListAdapter;
+import com.bkjcb.rqapplication.treatment.adapter.OrderListAdapter;
 import com.bkjcb.rqapplication.model.BottleSaleCheck;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication;
+package com.bkjcb.rqapplication.treatment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.SimpleBaseActivity;
 import com.bkjcb.rqapplication.adapter.ViewPagerAdapter;
-import com.bkjcb.rqapplication.fragment.DefectTreatmentFragment;
+import com.bkjcb.rqapplication.treatment.fragment.DefectTreatmentFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 

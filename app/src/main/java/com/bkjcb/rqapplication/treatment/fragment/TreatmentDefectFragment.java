@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.fragment;
+package com.bkjcb.rqapplication.treatment.fragment;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +16,8 @@ import com.bkjcb.rqapplication.Constants;
 import com.bkjcb.rqapplication.MediaPlayActivity;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.adapter.FileListAdapter;
-import com.bkjcb.rqapplication.model.DefectDetail;
-import com.bkjcb.rqapplication.model.DefectTreatmentModel;
+import com.bkjcb.rqapplication.treatment.model.DefectDetail;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.model.MediaFile;
 import com.bkjcb.rqapplication.util.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;

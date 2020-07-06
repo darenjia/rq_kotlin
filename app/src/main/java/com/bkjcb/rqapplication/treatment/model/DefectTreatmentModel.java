@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.model;
+package com.bkjcb.rqapplication.treatment.model;
 
 import java.io.Serializable;
 
