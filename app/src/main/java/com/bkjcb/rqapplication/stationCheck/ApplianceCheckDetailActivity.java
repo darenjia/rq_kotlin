@@ -127,7 +127,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     }
 
     protected Fragment createFragment(ApplianceCheckContentItem item, String id) {
-        return ApplianceCheckItemDetailFragment.newInstances(item, id, checkItem.status == 3);
+        return ApplianceCheckItemDetailFragment.newInstance(item, id, checkItem.status == 3);
     }
 
     protected void saveResultItem(String cid, String uid) {

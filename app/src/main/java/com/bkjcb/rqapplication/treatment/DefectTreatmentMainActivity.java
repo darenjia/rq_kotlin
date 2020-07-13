@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.base.adapter.ViewPagerAdapter;
-import com.bkjcb.rqapplication.userRecord.fragment.DefectTreatmentFragment;
+import com.bkjcb.rqapplication.treatment.fragment.DefectTreatmentFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
@@ -27,7 +27,7 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
     QMUITabSegment mTabSegment;
     @BindView(R.id.content_pager)
     ViewPager mContentPager;
-    private List<Fragment> fragments;
+    public List<Fragment> fragments;
 
     @Override
     protected int setLayoutID() {
@@ -42,13 +42,21 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         initTab();
-        addTab("待处置");
-        addTab("已处置");
+        initTabString();
         fragments = new ArrayList<>();
-        fragments.add(DefectTreatmentFragment.newInstance(1));
-        fragments.add(DefectTreatmentFragment.newInstance(2));
+        addFragment();
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
         mContentPager.setAdapter(adapter);
+    }
+
+    public void initTabString() {
+        addTab("待处置");
+        addTab("已处置");
+    }
+
+    public void addFragment() {
+        fragments.add(DefectTreatmentFragment.newInstance(1));
+        fragments.add(DefectTreatmentFragment.newInstance(2));
     }
 
     private void initTab() {
@@ -62,7 +70,7 @@ public class DefectTreatmentMainActivity extends SimpleBaseActivity {
         mTabSegment.setDefaultNormalColor(getResources().getColor(R.color.colorSecondDrayText));
     }
 
-    private void addTab(String title) {
+    public void addTab(String title) {
         QMUITabSegment.Tab tab = new QMUITabSegment.Tab(title);
         //tab.setTextColor(getResources().getColor(R.color.colorText), getResources().getColor(R.color.colorYellowWhite));
         mTabSegment.addTab(tab);

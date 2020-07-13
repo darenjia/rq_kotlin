@@ -40,14 +40,14 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
         this.uid = uid;
     }
 
-    public static CheckItemDetailFragment newInstances(CheckContentItem contentItem, String id) {
+    public static CheckItemDetailFragment newInstance(CheckContentItem contentItem, String id) {
         CheckItemDetailFragment fragment = new CheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);
         return fragment;
     }
 
-    public static CheckItemDetailFragment newInstances(CheckContentItem contentItem, String id, int type) {
+    public static CheckItemDetailFragment newInstance(CheckContentItem contentItem, String id, int type) {
         CheckItemDetailFragment fragment = new CheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);

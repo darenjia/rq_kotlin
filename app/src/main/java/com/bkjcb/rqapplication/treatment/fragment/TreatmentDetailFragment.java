@@ -161,7 +161,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
         }
     }
 
-    private void showError() {
+    public void showError() {
         checkAdapter.showError();
         orderAdapter.showError();
     }

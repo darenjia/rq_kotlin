@@ -7,6 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.base.loadsir.LoadsirInter;
+import com.bkjcb.rqapplication.base.loadsir.LoadsirUtil;
+import com.bkjcb.rqapplication.base.loadsir.callback.EmptyCallback;
+import com.bkjcb.rqapplication.base.loadsir.callback.ErrorCallback;
+import com.bkjcb.rqapplication.base.loadsir.callback.LoadingCallback;
+import com.bkjcb.rqapplication.base.model.SimpleHttpResult;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
 import com.qmuiteam.qmui.widget.QMUIEmptyView;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -20,10 +28,11 @@ import io.reactivex.disposables.Disposable;
  * Created by DengShuai on 2019/10/14.
  * Description :
  */
-public class SimpleBaseActivity extends BaseActivity {
+public class SimpleBaseActivity extends BaseActivity implements LoadsirInter {
 
     protected QMUIEmptyView emptyView;
     protected Disposable disposable;
+    protected LoadService loadService;
 
     private static final int PERMISSIONS_REQUEST = 0;
     private boolean useEventBus = false;
@@ -126,6 +135,50 @@ public class SimpleBaseActivity extends BaseActivity {
     protected void hideEmptyView() {
         if (emptyView != null) {
             emptyView.hide();
+        }
+    }
+
+    public void initLoadsir(int type, Object view, Callback.OnReloadListener listener) {
+        if (type == 0) {
+            loadService = LoadsirUtil.register(view, listener);
+        } else {
+            loadService = LoadsirUtil.registerNormal(view, listener);
+        }
+    }
+
+    public void showLoading() {
+        if (loadService != null) {
+            loadService.showCallback(LoadingCallback.class);
+        }
+    }
+
+    public void showError() {
+        if (loadService != null) {
+            loadService.showCallback(ErrorCallback.class);
+        }
+    }
+
+    public void showEmpty() {
+        if (loadService != null) {
+            loadService.showCallback(EmptyCallback.class);
+        }
+    }
+
+    public void showResult(SimpleHttpResult<?> result) {
+        if (loadService != null) {
+            loadService.showWithConvertor(result);
+        }
+    }
+
+    public void showResult(boolean result) {
+        if (loadService != null) {
+            loadService.showWithConvertor(result);
+        }
+    }
+
+    public void showContent() {
+        if (loadService != null) {
+            loadService.showSuccess();
         }
     }
 

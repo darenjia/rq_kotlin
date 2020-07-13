@@ -57,6 +57,21 @@ public class Utils {
         return new SimpleDateFormat(format, Locale.CHINESE).format(date);
     }
 
+    public static String dateFormat(long time) {
+        if (time == 0) {
+            return "";
+        }
+        Date date = null;
+        try {
+            date = new Date(time);
+        } catch (NumberFormatException e) {
+            //e.printStackTrace();
+            return "";
+        }
+        String format = "yyyy-MM-dd";
+        return new SimpleDateFormat(format, Locale.CHINESE).format(date);
+    }
+
     public static int getColor(Context context, int position) {
         int[] colors = {R.color.color_type_0, R.color.color_type_1, R.color.color_type_2, R.color.color_type_3};
         return context.getResources().getColor(colors[position % 4]);
@@ -226,5 +241,26 @@ public class Utils {
             e.printStackTrace();
         }
         return "未知";
+    }
+
+    public static int getFileType(String path) {
+        String suffix = getFileSuffix(path);
+        int type = 0;
+        switch (suffix.toLowerCase()) {
+            case "png":
+            case "jpg":
+            case "jpeg":
+                type = 1;
+                break;
+            case "mp4":
+                type = 2;
+                break;
+            case "mp3":
+                type = 3;
+                break;
+            default:
+                type = 4;
+        }
+        return type;
     }
 }

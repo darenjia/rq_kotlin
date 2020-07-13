@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.bkjcb.rqapplication.contactBook.ContactDetailActivity;
 import com.bkjcb.rqapplication.R;
-import com.bkjcb.rqapplication.emergency.adapter.EmergencyAdapter;
+import com.bkjcb.rqapplication.contactBook.adapter.EmergencyAdapter;
 import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
 import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment;
-import com.bkjcb.rqapplication.emergency.model.Emergency;
+import com.bkjcb.rqapplication.contactBook.model.Emergency;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;

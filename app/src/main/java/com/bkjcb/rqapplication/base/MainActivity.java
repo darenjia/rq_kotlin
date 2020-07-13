@@ -26,7 +26,7 @@ import com.bkjcb.rqapplication.base.util.MyBarChartLegendFormatter;
 import com.bkjcb.rqapplication.base.util.RxJavaUtil;
 import com.bkjcb.rqapplication.base.view.MyGridView;
 import com.bkjcb.rqapplication.contactBook.ContactActivity;
-import com.bkjcb.rqapplication.emergency.EmergencyActivity;
+import com.bkjcb.rqapplication.emergency.EmergencyMainActivity;
 import com.bkjcb.rqapplication.stationCheck.CheckMainActivity;
 import com.bkjcb.rqapplication.treatment.DefectTreatmentMainActivity;
 import com.bkjcb.rqapplication.userRecord.GasUserRecordActivity;
@@ -137,7 +137,8 @@ public class MainActivity extends SimpleBaseActivity {
                             ActionRegisterActivity.ToActivity(MainActivity.this);
                             break;
                         case 6:
-                            EmergencyActivity.ToActivity(MainActivity.this);
+                            //EmergencyActivity.ToActivity(MainActivity.this);
+                            EmergencyMainActivity.ToActivity(MainActivity.this);
                             break;
                         case 7:
                             DefectTreatmentMainActivity.ToActivity(MainActivity.this);

@@ -9,7 +9,7 @@ import com.bkjcb.rqapplication.contactBook.model.Level_;
 import com.bkjcb.rqapplication.contactBook.model.Unit_;
 import com.bkjcb.rqapplication.contactBook.model.User;
 import com.bkjcb.rqapplication.contactBook.model.User_;
-import com.bkjcb.rqapplication.emergency.model.Emergency;
+import com.bkjcb.rqapplication.contactBook.model.Emergency;
 import com.google.gson.Gson;
 
 import java.io.IOException;

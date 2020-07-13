@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorGray"
+        android:layout_marginBottom="48dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -75,7 +76,7 @@
                 android:id="@+id/info_name_title"
                 style="@style/ChooseFragmentInfoTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="站点名称" />
 
@@ -145,11 +146,11 @@
                 app:ms_padding_right="8dp"
                 app:ms_padding_top="8dp"
                 app:ms_popup_padding_bottom="8dp"
-                app:ms_text_gravity="start"
                 app:ms_popup_padding_left="8dp"
                 app:ms_popup_padding_right="8dp"
                 app:ms_popup_padding_top="8dp"
-                app:ms_text_color="@color/colorSecondDrayText" />
+                app:ms_text_color="@color/colorSecondDrayText"
+                app:ms_text_gravity="start" />
 
         </LinearLayout>
 
@@ -179,6 +180,11 @@
                 android:textSize="@dimen/sp_16" />
 
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/firm_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <Button

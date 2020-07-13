@@ -17,31 +17,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
-import com.bigkoo.pickerview.view.TimePickerView;
+import com.bkjcb.rqapplication.Constants;
+import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.MediaPlayActivity;
 import com.bkjcb.rqapplication.base.MyApplication;
-import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.base.adapter.FileListAdapter;
 import com.bkjcb.rqapplication.base.ftp.FtpUtils;
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
-import com.bkjcb.rqapplication.stationCheck.model.CheckStation;
-import com.bkjcb.rqapplication.stationCheck.model.CheckStationResult;
-import com.bkjcb.rqapplication.emergency.model.EmergencyItem;
 import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.base.model.MediaFile;
-import com.bkjcb.rqapplication.stationCheck.retrofit.CheckService;
-import com.bkjcb.rqapplication.emergency.retrofit.EmergencyService;
+import com.bkjcb.rqapplication.base.model.SimpleHttpResult;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.base.util.FileUtil;
+import com.bkjcb.rqapplication.base.util.RxJavaUtil;
 import com.bkjcb.rqapplication.base.util.Utils;
+import com.bkjcb.rqapplication.emergency.model.EmergencyItem;
+import com.bkjcb.rqapplication.emergency.model.EmergencyItem_;
+import com.bkjcb.rqapplication.emergency.model.EmergencyModel;
+import com.bkjcb.rqapplication.emergency.retrofit.EmergencyService;
+import com.bkjcb.rqapplication.stationCheck.model.CheckStation;
+import com.bkjcb.rqapplication.stationCheck.model.CheckStationResult;
+import com.bkjcb.rqapplication.stationCheck.retrofit.CheckService;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
+import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
 import com.leon.lfilepickerlibrary.LFilePicker;
 import com.leon.lfilepickerlibrary.utils.Constant;
 import com.luck.picture.lib.PictureSelector;
@@ -67,7 +70,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by DengShuai on 2020/3/9.
  * Description :
  */
-public class CreateEmergencyActivity extends SimpleBaseActivity {
+public class CreateEmergencyActivity extends SimpleBaseActivity implements SwitchDateTimeDialogFragment.OnButtonClickListener {
 
     @BindView(R.id.file_info)
     RecyclerView mFileInfo;
@@ -95,6 +98,8 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     EditText mBaseInfoPeople;
     @BindView(R.id.base_info_remark)
     EditText mBaseInfoRemark;
+    @BindView(R.id.layout_content)
+    View contentView;
     private EmergencyItem item;
     private TextView currentView;
     private boolean isCanEditable = true;
@@ -102,7 +107,10 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     private List<MediaFile> fileList;
     private int request_code_file = 1000;
     private QMUIBottomSheet bottomSheet;
-    private TimePickerView pickerDialog;
+    private SwitchDateTimeDialogFragment pickerDialog;
+    private EmergencyModel emergencyModel;
+    private String pre_path;
+    private View.OnClickListener clickListener;
 
     @Override
     protected int setLayoutID() {
@@ -112,20 +120,21 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        initTopbar("新建事故现场", new View.OnClickListener() {
+        initTopbar("事故详情", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onExit();
             }
         });
+        initEmptyView();
     }
 
     private void initFileView() {
         mFileInfo.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        imageAdapter = new FileListAdapter(R.layout.item_image, item.getStatus() != 2);
+        imageAdapter = new FileListAdapter(R.layout.item_image, isCanEditable);
         mFileInfo.setAdapter(imageAdapter);
-        if (item.getStatus() != 2) {
-            imageAdapter.setFooterView(createFooterView(),0, LinearLayout.HORIZONTAL);
+        if (isCanEditable) {
+            imageAdapter.setFooterView(createFooterView(), 0, LinearLayout.HORIZONTAL);
         }
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -136,13 +145,17 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.iv_delete) {
-                    MediaFile.getBox().remove(fileList.get(position));
-                    refreshFileData();
+                if (view.getId() == R.id.item_grid_bt) {
+                    MediaFile file = fileList.get(position);
+                    fileList.remove(position);
+                    adapter.notifyDataSetChanged();
+                    if (file.id > 0) {
+                        MediaFile.getBox().remove(file.id);
+                    }
                 }
             }
         });
-        refreshFileData();
+        initFileData();
     }
 
     private View createFooterView() {
@@ -174,23 +187,18 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     protected void initData() {
         StyledDialog.init(this);
         //calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
-        item = (EmergencyItem) getIntent().getSerializableExtra("data");
-        if (item == null) {
-            item = new EmergencyItem();
-            item.setStatus(0);
-            item.setSystime(System.currentTimeMillis());
-            item.setUuid(Utils.getUUID());
-            item.setUserId(MyApplication.getUser().getUserId());
-            item.setPhoneftp(getFtpRemotePath(item.getUuid()));
+        emergencyModel = (EmergencyModel) getIntent().getSerializableExtra("data");
+        if (emergencyModel == null) {
+            showErrorView(null);
         } else {
-            isCanEditable = item.getStatus() != 2;
-            if (!isCanEditable){
+            if (emergencyModel.getState().equals("已销根")) {
+                isCanEditable = false;
                 mSubmit.setVisibility(View.GONE);
+                handleItemResult();
+            } else {
+                getDetailInfo();
             }
-            loadData();
         }
-        getDistrictName();
-        initFileView();
     }
 
     private void getDistrictName() {
@@ -219,7 +227,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                                 }
                             }
                         }
-                        if (!isCanEditable){
+                        if (!isCanEditable) {
                             mReporterInfoLocation.setEnabled(false);
                         }
                     } else {
@@ -229,6 +237,57 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                 }, throwable -> {
                     Toast.makeText(this, "获取列表失败！" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void handleItemResult() {
+        if (item == null) {
+            item = EmergencyItem.getBox().query().equal(EmergencyItem_.uuid, emergencyModel.getAccidentid()).build().findFirst();
+            if (item == null) {
+                item = new EmergencyItem();
+                item.setStatus(0);
+                item.setSystime(System.currentTimeMillis());
+                item.setUuid(emergencyModel.getAccidentid());
+                item.setUserId(MyApplication.getUser().getUserId());
+                pre_path = getFtpRemotePath(item.getUuid());
+                item.setAccidentAddress(emergencyModel.getCompleteaddress());
+                item.setAccidentDate(emergencyModel.getReceivedate());
+                item.setMainDescription(emergencyModel.getMemo());
+                item.setReportingUnit(emergencyModel.getReport_party());
+                item.setDisposalPerson(emergencyModel.getDisposal_people());
+            }
+        } else {
+            isCanEditable = false;
+            mSubmit.setVisibility(View.GONE);
+        }
+        loadData();
+        getDistrictName();
+        initFileView();
+    }
+
+    private void getDetailInfo() {
+        //showLoadingView();
+        showLoading();
+        disposable = NetworkApi.getService(EmergencyService.class)
+                .getAccidentDetail(emergencyModel.getAccidentid())
+                .compose(RxJavaUtil.getObservableTransformer())
+                .subscribe(new Consumer<SimpleHttpResult<EmergencyItem>>() {
+                    @Override
+                    public void accept(SimpleHttpResult<EmergencyItem> result) throws Exception {
+                        if (result.pushState == 200) {
+                            item = result.getDatas();
+                            handleItemResult();
+                            hideEmptyView();
+                        } else {
+                            showErrorView(createListener());
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showErrorView(createListener());
+                    }
+                });
+
     }
 
     private List<String> getLocationList(List<CheckStation> list) {
@@ -244,7 +303,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     }
 
     private void onExit() {
-        if (item.getStatus() != 2) {
+        if (item != null && isCanEditable) {
             showTipDialog();
         } else {
             finish();
@@ -269,18 +328,50 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
             item.setQushu(mReporterInfoLocation.getText().toString());
             item.setReportingDate(getText(mReporterInfoTime));
             item.setContactPhone(getText(mReporterInfoTel));
-            item.setStatus(1);
-            long id = EmergencyItem.getBox().put(item);
-            if (item.id == 0) {
-                item.id = id;
-            }
+            item.setPhoneftp(getFilePath());
         }
+    }
+
+    private View.OnClickListener createListener() {
+        if (clickListener == null) {
+            clickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getDetailInfo();
+                }
+            };
+        }
+        return clickListener;
+    }
+
+    private String getFilePath() {
+        StringBuilder builder;
+        if (fileList.size() > 0) {
+            builder = new StringBuilder();
+            for (MediaFile mediaFile : fileList) {
+                builder.append(mediaFile.getPath()).append(",");
+            }
+            return builder.substring(0, builder.length() - 1);
+        }
+        return "";
+    }
+
+    private void saveDataToDatabase() {
+        item.setStatus(1);
+        EmergencyItem.getBox().put(item);
+    }
+
+    private void deleteData() {
+        if (item.id > 0) {
+            EmergencyItem.getBox().remove(item.id);
+        }
+        MediaFile.getBox().remove(fileList);
     }
 
     private List<String> getFilePath(List<MediaFile> files) {
         List<String> strings = new ArrayList<>();
         for (MediaFile file : files) {
-            strings.add(file.getPath());
+            strings.add(pre_path + file.getFileName());
         }
         return strings;
     }
@@ -301,6 +392,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
                         return aBoolean ? NetworkApi.getService(EmergencyService.class)
                                 .submit(item.getUserId(),
+                                        item.getUuid(),
                                         item.getReportingUnit(),
                                         item.getQushu(),
                                         item.getRemark(),
@@ -322,7 +414,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                         if (httpResult.pushState == 200) {
                             showLoading(false);
                             Toast.makeText(CreateEmergencyActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
-                            updateStatus();
+                            deleteData();
                             finish();
                         } else {
                             Toast.makeText(CreateEmergencyActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
@@ -337,12 +429,13 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                 });
     }
 
-    private void hideSoftInput(){
-        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager.isActive()){
+    private void hideSoftInput() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()) {
             inputMethodManager.hideSoftInputFromWindow(mBaseInfoRemark.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     private String getFtpRemotePath(String uuid) {
         return "shiguxianchang/" + uuid;
     }
@@ -409,7 +502,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
                 List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
                 handleMedia(list);
             }
-            refreshFileData();
+            imageAdapter.notifyDataSetChanged();
         }
     }
 
@@ -420,8 +513,9 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
             mediaFile.setItemId(item.getUuid());
             mediaFile.setType(media.getMimeType());
             mediaFile.setPath(media.getPath());
-            mediaFile.setFileName(mediaFile.getFileName());
+            mediaFile.setFileName(Utils.getFileName(media.getPath()));
             MediaFile.save(mediaFile);
+            fileList.add(mediaFile);
         }
     }
 
@@ -434,16 +528,29 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
             mediaFile.setPath(path);
             mediaFile.setFileName(Utils.getFileName(path));
             MediaFile.save(mediaFile);
+            fileList.add(mediaFile);
         }
 
     }
 
-    public void refreshFileData() {
-        fileList = MediaFile.getAll(item.getUuid());
+    public void initFileData() {
+        fileList = new ArrayList<>();
+        if (item.getStatus() == 0 && !TextUtils.isEmpty(item.getPhoneftp())) {
+            String[] strings = item.getPhoneftp().split(",");
+            for (String path : strings) {
+                MediaFile mediaFile = new MediaFile();
+                mediaFile.setLocal(false);
+                mediaFile.setType(Utils.getFileType(path));
+                mediaFile.setPath(Constants.IMAGE_URL + path);
+                fileList.add(mediaFile);
+            }
+        } else {
+            fileList = MediaFile.getAll(item.getUuid());
+        }
         imageAdapter.setNewData(fileList);
     }
 
-    public static void ToActivity(Context context, EmergencyItem item) {
+    public static void ToActivity(Context context, EmergencyModel item) {
         Intent intent = new Intent(context, CreateEmergencyActivity.class);
         if (item != null) {
             intent.putExtra("data", item);
@@ -496,40 +603,15 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
     }
 
     private void createDatePicker() {
-
         if (pickerDialog == null) {
-            pickerDialog = new TimePickerBuilder(this, new OnTimeSelectListener() {
-                @Override
-                public void onTimeSelect(Date date, View v) {//选中事件回调
-                    if (currentView.getId() == R.id.base_info_time) {
-                        currentView.setText(Utils.dateFormat("yyyy-MM-dd hh:mm:ss", date));
-                    } else {
-                        currentView.setText(Utils.dateFormat("yyyy-MM-dd hh:mm", date));
-                    }
-
-                }
-            })
-                    .setType(new boolean[]{true, true, true, true, true, true})// 默认全部显示
-                    .setCancelText("取消")//取消按钮文字
-                    .setSubmitText("确定")//确认按钮文字
-                    .setContentTextSize(16)//滚轮文字大小
-                    .setTitleSize(20)//标题文字大小
-                    .setTitleText("选择时间")//标题文字
-                    .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
-                    .isCyclic(true)//是否循环滚动
-                    .setTitleColor(getColorResource(R.color.colorText))//标题文字颜色
-                    .setSubmitColor(getColorResource(R.color.color_type_0))//确定按钮文字颜色
-                    .setCancelColor(getColorResource(R.color.colorText))//取消按钮文字颜色
-                    .setTitleBgColor(getColorResource(R.color.colorAccent))//标题背景颜色 Night mode
-                    .setBgColor(getColorResource(R.color.colorText))//滚轮背景颜色 Night mode
-                    .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
-                    .isCenterLabel(true) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                    .isDialog(false)//是否显示为对话框样式
-                    .build();
+            pickerDialog = SwitchDateTimeDialogFragment.newInstance("选择时间", "确定", "取消");
+            pickerDialog.set24HoursMode(false);
+            pickerDialog.setOnButtonClickListener(this);
+            pickerDialog.setDefaultDateTime(new Date());
         }
-        if (!pickerDialog.isShowing()) {
+        if (!pickerDialog.isVisible()) {
             hideSoftInput();
-            pickerDialog.show();
+            pickerDialog.show(getSupportFragmentManager(), "TIME_PICKER");
         }
     }
 
@@ -538,6 +620,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
             @Override
             public void onFirst() {
                 saveData();
+                saveDataToDatabase();
                 finish();
             }
 
@@ -590,10 +673,21 @@ public class CreateEmergencyActivity extends SimpleBaseActivity {
 
             @Override
             public void onSecond() {
+                saveDataToDatabase();
                 finish();
             }
         }).setBtnText("提交记录", "仅保存")
                 .show();
+
+    }
+
+    @Override
+    public void onPositiveButtonClick(Date date) {
+        currentView.setText(Utils.dateFormat("yyyy-MM-dd hh:mm", date));
+    }
+
+    @Override
+    public void onNegativeButtonClick(Date date) {
 
     }
 }

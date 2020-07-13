@@ -26,8 +26,6 @@ import butterknife.BindView;
  * Description :
  */
 public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAdapter.OnItemClickListener {
-    @BindView(R.id.appbar)
-    QMUITopBarLayout mAppbar;
     @BindView(R.id.check_list)
     RecyclerView mCheckList;
     @BindView(R.id.refresh_layout)
@@ -43,7 +41,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
 
     @Override
     protected void initView() {
-        mAppbar.setTitle("检查列表");
+        QMUITopBarLayout mAppbar = initTopbar("检查列表");
         mAppbar.addRightImageButton(R.drawable.vector_drawable_create, R.id.top_right_button)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override

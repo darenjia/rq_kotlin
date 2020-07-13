@@ -3,14 +3,13 @@ package com.bkjcb.rqapplication.base;
 import android.app.Application;
 import android.content.Context;
 
-import com.bkjcb.rqapplication.BuildConfig;
 import com.bkjcb.rqapplication.base.datebase.ObjectBox;
+import com.bkjcb.rqapplication.base.loadsir.LoadsirUtil;
 import com.bkjcb.rqapplication.base.model.UserResult;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.tencent.bugly.Bugly;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,7 +32,7 @@ public class MyApplication extends Application {
         context = this.getApplicationContext();
         initObjectBox();
         initLogger();
-        Bugly.init(getApplicationContext(), "b89a5bbe17", BuildConfig.DEBUG);
+        //Bugly.init(getApplicationContext(), "b89a5bbe17", BuildConfig.DEBUG);
         try {
             RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
                 @Override
@@ -48,6 +47,11 @@ public class MyApplication extends Application {
         }catch (Exception e){
             Logger.e(e.getMessage());
         }
+        initLoadsir();
+    }
+
+    private void initLoadsir() {
+        LoadsirUtil.initLoadsir();
     }
 
     private void initObjectBox() {

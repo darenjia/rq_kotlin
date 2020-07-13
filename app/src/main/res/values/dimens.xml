@@ -10,4 +10,5 @@
     <dimen name="large_padding">8dp</dimen>
     <dimen name="equipment_margin">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_radius">6dp</dimen>
 </resources>

@@ -219,7 +219,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
             saveResultItem(checkItem.c_id, item.getId());
             contents.add(item.getXuhao() + "." + item.getJianchaneirong());
         }
-        fragmentList.add(CheckItemResultFragment.newInstances(checkItem));
+        fragmentList.add(CheckItemResultFragment.newInstance(checkItem));
         contents.add("检查结果");
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setOffscreenPageLimit(3);
@@ -229,7 +229,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     protected Fragment createFragment(CheckContentItem item, String id) {
-        return CheckItemDetailFragment.newInstances(item, id, checkItem.status == 3 ? 1 : 0);
+        return CheckItemDetailFragment.newInstance(item, id, checkItem.status == 3 ? 1 : 0);
     }
 
     protected void saveResultItem(String cid, String uid) {

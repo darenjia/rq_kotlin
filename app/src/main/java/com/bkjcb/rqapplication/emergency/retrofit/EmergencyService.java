@@ -1,6 +1,11 @@
 package com.bkjcb.rqapplication.emergency.retrofit;
 
 import com.bkjcb.rqapplication.base.model.HttpResult;
+import com.bkjcb.rqapplication.base.model.SimpleHttpResult;
+import com.bkjcb.rqapplication.emergency.model.EmergencyItem;
+import com.bkjcb.rqapplication.emergency.model.EmergencyModel;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -16,6 +21,7 @@ public interface EmergencyService {
     @FormUrlEncoded
     Observable<HttpResult> submit(
             @Field("userId") String userId,
+            @Field("shiguid") String uuid,
             @Field("reportingUnit") String reportingUnit,
             @Field("qushu") String qushu,
             @Field("remark") String remark,
@@ -29,4 +35,12 @@ public interface EmergencyService {
             @Field("mainDescription") String mainDescription,
             @Field("phoneftp") String phoneftp
     );
+
+    @POST("rq/push/getDnGasEvents")
+    @FormUrlEncoded
+    Observable<SimpleHttpResult<List<EmergencyModel>>> getGasAccident(@Field("state") String state);
+
+    @POST("rq/push/getDangerxian")
+    @FormUrlEncoded
+    Observable<SimpleHttpResult<EmergencyItem>> getAccidentDetail(@Field("shiguid") String state);
 }

@@ -33,6 +33,7 @@
 
     <style name="ChooseFragmentInfoTextStyle" parent="TextView">
         <item name="android:padding">8dp</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/colorSecondDrayText</item>
         <item name="android:textSize">@dimen/sp_14</item>
     </style>

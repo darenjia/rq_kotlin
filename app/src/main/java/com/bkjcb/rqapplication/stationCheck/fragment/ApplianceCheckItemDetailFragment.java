@@ -50,14 +50,14 @@ public class ApplianceCheckItemDetailFragment extends BaseLazyFragment implement
         this.uid = uid;
     }
 
-    public static ApplianceCheckItemDetailFragment newInstances(ApplianceCheckContentItem contentItem, String id) {
+    public static ApplianceCheckItemDetailFragment newInstance(ApplianceCheckContentItem contentItem, String id) {
         ApplianceCheckItemDetailFragment fragment = new ApplianceCheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);
         return fragment;
     }
 
-    public static ApplianceCheckItemDetailFragment newInstances(ApplianceCheckContentItem contentItem, String id, boolean type) {
+    public static ApplianceCheckItemDetailFragment newInstance(ApplianceCheckContentItem contentItem, String id, boolean type) {
         ApplianceCheckItemDetailFragment fragment = new ApplianceCheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);

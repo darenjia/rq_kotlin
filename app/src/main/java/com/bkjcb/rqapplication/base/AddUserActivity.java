@@ -113,7 +113,7 @@ public class AddUserActivity extends SimpleBaseActivity {
         }
     }
 
-    private void showLoading() {
+    public void showLoading() {
         if (tipDialog == null) {
             tipDialog = new QMUITipDialog.Builder(this)
                     .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)

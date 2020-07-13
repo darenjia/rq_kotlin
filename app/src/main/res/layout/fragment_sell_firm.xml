@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardUseCompatPadding="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGray"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorText"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="企业详细信息"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="41dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="许可证号" />
+
+                    <TextView
+                        android:id="@+id/info_id"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="统一社会信用代码" />
+
+                    <TextView
+                        android:id="@+id/info_credit"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="备案企业" />
+
+                    <TextView
+                        android:id="@+id/info_product"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="备案企业地址" />
+
+                    <TextView
+                        android:id="@+id/info_product_address"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="备案企业地址邮编" />
+
+                    <TextView
+                        android:id="@+id/info_code"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="生产企业" />
+
+                    <TextView
+                        android:id="@+id/info_sale"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="生产企业地址" />
+
+                    <TextView
+                        android:id="@+id/info_sale_address"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="联系电话" />
+
+                    <TextView
+                        android:id="@+id/info_tel"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="联系人" />
+
+                    <TextView
+                        android:id="@+id/info_contact"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="初次发证日期" />
+
+                    <TextView
+                        android:id="@+id/info_date_first"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="发证日期" />
+
+                    <TextView
+                        android:id="@+id/info_date"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="起始日期" />
+
+                    <TextView
+                        android:id="@+id/info_date_start"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/colorText">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="截至日期" />
+
+                    <TextView
+                        android:id="@+id/info_date_end"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.qmuiteam.qmui.widget.QMUIEmptyView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:visibility="gone" />
+        </FrameLayout>
+    </ScrollView>
+</android.support.v7.widget.CardView>

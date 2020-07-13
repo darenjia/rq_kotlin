@@ -8,6 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bkjcb.rqapplication.base.loadsir.LoadsirInter;
+import com.bkjcb.rqapplication.base.loadsir.LoadsirUtil;
+import com.bkjcb.rqapplication.base.loadsir.callback.EmptyCallback;
+import com.bkjcb.rqapplication.base.loadsir.callback.ErrorCallback;
+import com.bkjcb.rqapplication.base.loadsir.callback.LoadingCallback;
+import com.bkjcb.rqapplication.base.model.SimpleHttpResult;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -15,11 +24,12 @@ import butterknife.Unbinder;
  * Created by DengShuai on 2019/12/30.
  * Description :
  */
-public abstract class BaseSimpleFragment extends BaseFragment {
+public abstract class BaseSimpleFragment extends BaseFragment implements LoadsirInter {
     protected View view;
     protected Context context;
     protected int resId;
     protected Unbinder unbinder;
+    protected LoadService loadService;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +45,7 @@ public abstract class BaseSimpleFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         initView();
         initData();
-        return view;
+        return loadService==null?view:loadService.getLoadLayout();
     }
 
     public abstract void setResId();
@@ -50,4 +60,46 @@ public abstract class BaseSimpleFragment extends BaseFragment {
 
     protected abstract void initData();
 
+    @Override
+    public void initLoadsir(int type, Object view, Callback.OnReloadListener listener) {
+        if (type == 0) {
+            loadService = LoadsirUtil.register(view, listener);
+        } else {
+            loadService = LoadsirUtil.registerNormal(view, listener);
+        }
+    }
+
+    public void showLoading() {
+        if (loadService != null) {
+            loadService.showCallback(LoadingCallback.class);
+        }
+    }
+    public void showError() {
+        if (loadService != null) {
+            loadService.showCallback(ErrorCallback.class);
+        }
+    }
+    public void showEmpty() {
+        if (loadService != null) {
+            loadService.showCallback(EmptyCallback.class);
+        }
+    }
+
+    public void showResult(SimpleHttpResult<?> result){
+        if (loadService != null) {
+            loadService.showWithConvertor(result);
+        }
+    }
+    public void showResult(boolean result){
+        if (loadService != null) {
+            loadService.showWithConvertor(result);
+        }
+    }
+
+    @Override
+    public void showContent() {
+        if (loadService!=null){
+            loadService.showSuccess();
+        }
+    }
 }

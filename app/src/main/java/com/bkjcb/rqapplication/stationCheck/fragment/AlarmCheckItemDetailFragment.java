@@ -44,14 +44,14 @@ public class AlarmCheckItemDetailFragment extends BaseLazyFragment {
         this.uid = uid;
     }
 
-    public static AlarmCheckItemDetailFragment newInstances(ApplianceCheckContentItem contentItem, String id) {
+    public static AlarmCheckItemDetailFragment newInstance(ApplianceCheckContentItem contentItem, String id) {
         AlarmCheckItemDetailFragment fragment = new AlarmCheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);
         return fragment;
     }
 
-    public static AlarmCheckItemDetailFragment newInstances(ApplianceCheckContentItem contentItem, String id, boolean type) {
+    public static AlarmCheckItemDetailFragment newInstance(ApplianceCheckContentItem contentItem, String id, boolean type) {
         AlarmCheckItemDetailFragment fragment = new AlarmCheckItemDetailFragment();
         fragment.setContentItem(contentItem);
         fragment.setUid(id);

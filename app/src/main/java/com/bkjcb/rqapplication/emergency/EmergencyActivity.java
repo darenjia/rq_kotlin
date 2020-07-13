@@ -63,10 +63,10 @@ public class EmergencyActivity extends ActionRegisterActivity {
 
     @Override
     protected void createNew(int position) {
-        if (position >= 0) {
+       /* if (position >= 0) {
             CreateEmergencyActivity.ToActivity(EmergencyActivity.this, (EmergencyItem) adapter.getItem(position));
         } else {
             CreateEmergencyActivity.ToActivity(EmergencyActivity.this, null);
-        }
+        }*/
     }
 }

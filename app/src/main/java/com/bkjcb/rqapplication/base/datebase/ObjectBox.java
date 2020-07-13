@@ -8,7 +8,7 @@ import com.bkjcb.rqapplication.MyObjectBox;
 import com.bkjcb.rqapplication.contactBook.model.Level;
 import com.bkjcb.rqapplication.contactBook.model.Unit;
 import com.bkjcb.rqapplication.contactBook.model.User;
-import com.bkjcb.rqapplication.emergency.model.Emergency;
+import com.bkjcb.rqapplication.contactBook.model.Emergency;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;

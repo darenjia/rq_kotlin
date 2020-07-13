@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.userRecord.fragment;
+package com.bkjcb.rqapplication.treatment.fragment;
 
 import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -74,6 +74,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
     @Override
     protected void initView() {
         adapter = new DefectTreatmentItemAdapter(R.layout.item_defect_treatment);
+        adapter.initLoadingMoreView();
         adapter.bindToRecyclerView(mContentLayout);
         mContentLayout.setLayoutManager(new LinearLayoutManager(getContext()));
         mContentLayout.setAdapter(adapter);

@@ -31,7 +31,7 @@ public class CheckItemResultFragment extends BaseLazyFragment implements RadioGr
         this.checkItem = checkItem;
     }
 
-    public static CheckItemResultFragment newInstances(CheckItem item) {
+    public static CheckItemResultFragment newInstance(CheckItem item) {
         CheckItemResultFragment fragment = new CheckItemResultFragment();
         fragment.setCheckItem(item);
         return fragment;

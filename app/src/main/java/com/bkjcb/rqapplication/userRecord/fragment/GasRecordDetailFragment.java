@@ -566,15 +566,15 @@ public class GasRecordDetailFragment extends BaseSimpleFragment implements DateP
                 (("已签".equals(recordModel.yongqihetong) &&
                         verify(mRecordSignedTime, recordModel.qiandingriqi, "请选择签订日期")
                 ) || "未签".equals(recordModel.yongqihetong)) &&
-                (mRecord_tyf_2.isChecked() &&
+                ((mRecord_tyf_2.isChecked() &&
                         verify(mRecordTyfNumber, recordModel.tiaoyafa_geshu, "请填写可调节调压阀个数(数量需大于0)", true)
-                ) &&
+                ) || !mRecord_tyf_2.isChecked()) &&
                 verify(mRecordLjg1, recordModel.lianjieguan, "请选择连接管") &&
                 verify(mRecordRj1Number, recordModel.zaojuleixing_dafeng, "请填写大气式燃具个数") &&
                 verify(mRecordRj2Number, recordModel.zaojuleixing_gufeng, "请填写鼓风式燃具个数") &&
-                (mRecordXh_2.isChecked() &&
+                ((mRecordXh_2.isChecked() &&
                         verify(mRecordXhNumber, recordModel.xihuobaohu_geshu, "请填写没有熄火保护装置的个数(数量需大于0))", true)
-                ) &&
+                ) || !mRecordXh_2.isChecked()) &&
                 (("有".equals(recordModel.qiyeanjianjilu) &&
                         verify(mRecordLastCheckTime, recordModel.anjianriqi, "请选择最后安检日期")
                 ) || "无".equals(recordModel.qiyeanjianjilu)) && verify(mFileInfo, "请添加3到5张照片");

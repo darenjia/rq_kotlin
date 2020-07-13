@@ -172,7 +172,7 @@ public class GasUserSearch2Fragment extends GasUserSearchFragment {
         }
     }
 
-    private void showLoading() {
+    public void showLoading() {
         adapter.setNewData(null);
         adapter.setEmptyView(R.layout.loading_view, (ViewGroup) mAddressList.getParent());
     }

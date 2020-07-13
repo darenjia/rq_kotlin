@@ -1,4 +1,4 @@
-package com.bkjcb.rqapplication.emergency.model;
+package com.bkjcb.rqapplication.contactBook.model;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;

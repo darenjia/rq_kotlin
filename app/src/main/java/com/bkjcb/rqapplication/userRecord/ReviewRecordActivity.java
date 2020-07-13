@@ -119,7 +119,7 @@ public class ReviewRecordActivity extends SimpleBaseActivity {
         return view;
     }
 
-    private void showError() {
+    public void showError() {
         adapter.setNewData(null);
         adapter.setEmptyView(R.layout.error_view);
     }
