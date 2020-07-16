@@ -274,10 +274,12 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
                     @Override
                     public void accept(SimpleHttpResult<EmergencyItem> result) throws Exception {
                         if (result.pushState == 200) {
+                            contentView.setVisibility(View.VISIBLE);
                             item = result.getDatas();
                             handleItemResult();
                             hideEmptyView();
                         } else {
+                            contentView.setVisibility(View.GONE);
                             showErrorView(createListener());
                         }
                     }
@@ -285,6 +287,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         showErrorView(createListener());
+                        contentView.setVisibility(View.GONE);
                     }
                 });
 

@@ -40,6 +40,9 @@ public class GasUserRecordChangeActivity extends AddNewGasUserActivity {
     @Override
     protected void initData() {
         model = (GasRecordModel) getIntent().getSerializableExtra("data");
+        if (model==null){
+            finish();
+        }
         model.setType(2);
         //model.phoneftp = "";
         model.jiandangriqi = Utils.getCurrentTime();
