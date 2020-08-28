@@ -23,7 +23,6 @@ import com.bkjcb.rqapplication.base.MediaPlayActivity;
 import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.base.adapter.FileListAdapter;
-import com.bkjcb.rqapplication.base.ftp.FtpUtils;
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
 import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.base.model.MediaFile;
@@ -53,7 +52,6 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -374,9 +372,20 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
     private List<String> getFilePath(List<MediaFile> files) {
         List<String> strings = new ArrayList<>();
         for (MediaFile file : files) {
-            strings.add(pre_path + file.getFileName());
+            strings.add(file.getPath());
         }
         return strings;
+    }
+
+    private String getRemoteFilePath() {
+        if (fileList != null && fileList.size() > 0) {
+            StringBuilder builder = new StringBuilder();
+            for (MediaFile mediaFile : fileList) {
+                builder.append(pre_path).append("/").append(mediaFile.getFileName()).append(",");
+            }
+            return builder.substring(0, builder.length() - 1);
+        }
+        return "";
     }
 
     private void submitData() {
@@ -384,12 +393,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
             return;
         }
         showLoading(true);
-        disposable = UploadTask.createUploadTask(getFilePath(fileList), item.getPhoneftp(), new FtpUtils.UploadProgressListener() {
-            @Override
-            public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
-
-            }
-        }).subscribeOn(Schedulers.io())
+        disposable = UploadTask.createUploadTask(getFilePath(fileList), pre_path).subscribeOn(Schedulers.io())
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
@@ -407,7 +411,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
                                         item.getReportingStaff(),
                                         item.getContactPhone(),
                                         item.getMainDescription(),
-                                        item.getPhoneftp()) : null;
+                                        getRemoteFilePath()) : null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -542,12 +546,11 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
             String[] strings = item.getPhoneftp().split(",");
             for (String path : strings) {
                 MediaFile mediaFile = new MediaFile();
-                mediaFile.setLocal(false);
                 mediaFile.setType(Utils.getFileType(path));
                 mediaFile.setPath(Constants.IMAGE_URL + path);
                 fileList.add(mediaFile);
             }
-        } else {
+        } else if (!TextUtils.isEmpty(item.getUuid())){
             fileList = MediaFile.getAll(item.getUuid());
         }
         imageAdapter.setNewData(fileList);

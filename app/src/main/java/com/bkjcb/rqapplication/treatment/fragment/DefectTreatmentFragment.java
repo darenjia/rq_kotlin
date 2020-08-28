@@ -76,6 +76,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
         adapter = new DefectTreatmentItemAdapter(R.layout.item_defect_treatment);
         adapter.initLoadingMoreView();
         adapter.bindToRecyclerView(mContentLayout);
+        adapter.setNewData(null);
         mContentLayout.setLayoutManager(new LinearLayoutManager(getContext()));
         mContentLayout.setAdapter(adapter);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
@@ -149,12 +150,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                     public void accept(TreatmentResult<DefectTreatmentModel> treatmentResult) throws Exception {
                         refreshLayout.setRefreshing(false);
                         if (treatmentResult.isPushSuccess()) {
-                            if (20 <= treatmentResult.getTotalCount()) {
-                                adapter.setEnableLoadMore(true);
-                            } else {
-                                adapter.setEnableLoadMore(false);
-                                //adapter.setOnLoadMoreListener(null);
-                            }
+                            adapter.setEnableLoadMore(treatmentResult.getTotalCount() > adapter.getData().size() + 20);
                             showResultList(treatmentResult.getDatas());
                         } else {
                             Toast.makeText(context, "获取数据失败：" + treatmentResult.getPushMsg(), Toast.LENGTH_SHORT).show();
@@ -189,7 +185,7 @@ public class DefectTreatmentFragment extends BaseSimpleFragment implements BaseQ
                 adapter.addData(list);
                 adapter.loadMoreComplete();
             } else {
-                adapter.setNewData(list);
+                adapter.replaceData(list);
                 //adapter.loadMoreEnd();
             }
         } else {

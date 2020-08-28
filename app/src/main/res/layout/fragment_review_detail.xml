@@ -17,6 +17,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/sp_16"
         android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
             android:gravity="start" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -194,31 +196,64 @@
                 android:id="@+id/check_yhq_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorText"
-                android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    style="@style/ChooseFragmentInfoTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="退户日期" />
-
-                <include layout="@layout/vertical_divider" />
-
-                <TextView
-                    android:id="@+id/check_yhq_time"
-                    style="@style/RecordFragmentInfoEditTextStyle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:gravity="start"
-                    android:hint="@string/record_tip1" />
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
 
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="退户日期" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <TextView
+                        android:id="@+id/check_yhq_time"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:gravity="start"
+                        android:hint="@string/record_tip1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorText"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        style="@style/ChooseFragmentInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="退户说明" />
+
+                    <include layout="@layout/vertical_divider" />
+
+                    <EditText
+                        android:id="@+id/check_yhq_remark"
+                        style="@style/RecordFragmentInfoEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start" />
+
+                </LinearLayout>
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/content_layout"
@@ -261,8 +296,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:hint="@string/record_type2"
-                        android:maxLength="5"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="5" />
 
                 </LinearLayout>
 
@@ -350,8 +385,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:hint="@string/record_type2"
-                        android:maxLength="5"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="5" />
 
                 </LinearLayout>
 
@@ -439,8 +474,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:hint="@string/record_type2"
-                        android:maxLength="5"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="5" />
 
                 </LinearLayout>
 
@@ -492,6 +527,7 @@
                         android:hint="@string/record_tip1" />
                 </LinearLayout>
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

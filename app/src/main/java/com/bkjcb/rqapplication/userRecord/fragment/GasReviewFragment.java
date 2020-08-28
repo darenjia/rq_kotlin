@@ -99,6 +99,8 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
     TextView mFileCount;
     @BindView(R.id.info_username)
     TextView mUserName;
+    @BindView(R.id.check_yhq_remark)
+    EditText mCheckYhqRemark;
     private DatePickerDialog pickerDialog;
     private TextView currentTextView;
     private ReviewRecord record;
@@ -172,6 +174,7 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
             mCheckResultRadioOk.setEnabled(false);
             mCheckResultRadioFailure.setEnabled(false);
             setChecked(mCheckYhq, "是".equals(record.yehuaqi_shiyong), mCheckYhqLayout, mCheckYhqTime, record.tuihuriqi);
+            setText(mCheckYhqRemark,record.beizhu);
             if ("是".equals(record.yehuaqi_shiyong)) {
                 setViewVisibility(mContentLayout, false);
             }
@@ -314,7 +317,7 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
                 verify(mFileInfo, "请添加三到五张照片") &&
                 (("是".equals(record.yehuaqi_shiyong) &&
                         verify(mCheckYhqTime, record.tuihuriqi, "请选择退户日期")
-                ) || ("否".equals(record.yehuaqi_shiyong) &&
+                )|| ("否".equals(record.yehuaqi_shiyong) &&
                         verify(mCheckTyqCount, record.tiaoyaqi_geshu, "请填写已置换调压器个数")
                         &&
                         (("是".equals(record.tiaoyaqi_zhenggai) &&
@@ -363,6 +366,7 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
         record.ranju_geshu = getText(mCheckRjCount);
         record.ranju_zhenggairiqi = getText(mCheckRjTime);
         record.tuihuriqi = getText(mCheckYhqTime);
+        record.beizhu = getText(mCheckYhqRemark);
     }
 
     private View createFooterView() {

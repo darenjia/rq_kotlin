@@ -16,6 +16,8 @@ import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.model.UserResult;
 import com.bkjcb.rqapplication.base.retrofit.DataService;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.base.service.MessageService;
+import com.bkjcb.rqapplication.base.service.ServiceUtil;
 import com.bkjcb.rqapplication.base.util.ActivityManagerTool;
 import com.bkjcb.rqapplication.base.util.MD5Util;
 import com.bkjcb.rqapplication.base.util.Utils;
@@ -204,6 +206,7 @@ public class LoginActivity extends SimpleBaseActivity {
                     .putString("level", MyApplication.getUser().getUserleixing())
                     .apply();
         }
+        ServiceUtil.startService(1, MessageService.class,this);
         try {
             ObjectOutputStream os = new ObjectOutputStream(openFileOutput("CacheUser", MODE_PRIVATE));
             os.writeObject(MyApplication.getUser());

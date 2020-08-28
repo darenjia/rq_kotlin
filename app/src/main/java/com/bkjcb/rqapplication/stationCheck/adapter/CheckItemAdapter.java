@@ -1,9 +1,7 @@
 package com.bkjcb.rqapplication.stationCheck.adapter;
 
-import android.util.Log;
-
-import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.stationCheck.model.CheckItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -41,15 +39,14 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
                 .setText(R.id.check_status, getStatus(item.status))
                 .setText(R.id.check_name, item.beijiandanwei)
                 .setText(R.id.check_type, "#" + item.zhandianleixing)
-                .setTextColor(R.id.check_status,getColors(item.status))
-                .setBackgroundColor(R.id.check_divider,getColor(item.zhandianleixing) );
+                .setTextColor(R.id.check_status, getColors(item.status))
+                .setBackgroundColor(R.id.check_divider, getColor(item.zhandianleixing));
     }
 
     private String getTime(long time) {
-        Log.w("time", time + ":::" + currentTime);
-        if (time - currentTime > 0) {
+        if (time - currentTime >=0) {
             return "今天";
-        } else if (currentTime - time < 24 * 3600) {
+        } else if (currentTime - time < 24 * 3600 * 1000) {
             return "昨天";
         } else {
             return new SimpleDateFormat("MM-dd", Locale.CHINESE).format(new Date(time));
@@ -113,7 +110,8 @@ public class CheckItemAdapter extends BaseQuickAdapter<CheckItem, BaseViewHolder
 
     private long getCurrentTime() {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
         return calendar.getTimeInMillis();
     }
 }

@@ -321,7 +321,7 @@
     },
     {
       "id": "11:3975667084317246927",
-      "lastPropertyId": "24:2106698598417412334",
+      "lastPropertyId": "25:2282428726980519936",
       "name": "ActionRegisterItem",
       "properties": [
         {
@@ -419,6 +419,10 @@
         {
           "id": "24:2106698598417412334",
           "name": "phoneftp"
+        },
+        {
+          "id": "25:2282428726980519936",
+          "name": "sys_time"
         }
       ],
       "relations": []

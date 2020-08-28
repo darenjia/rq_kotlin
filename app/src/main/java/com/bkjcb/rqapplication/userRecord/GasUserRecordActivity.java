@@ -170,6 +170,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                 GasUserRecordDetailActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid());
             }
         });
+        adapter.setNewData(null);
         initTagView();
         initFilterMore();
     }
@@ -468,17 +469,8 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                             mRefreshLayout.setRefreshing(false);
                         }
                         if (result.pushState == 200) {
-                            if (result.getTotalCount() <= 20) {
-                                adapter.setEnableLoadMore(false);
-                                //adapter.setOnLoadMoreListener(null);
-                            } else {
-                                adapter.setEnableLoadMore(true);
-                            }
+                            adapter.setEnableLoadMore(result.getTotalCount() > adapter.getData().size() + 20);
                             showCheckList(result.getDatas());
-
-                            if (adapter.getData().size() >= result.getTotalCount()) {
-                                adapter.loadMoreEnd();
-                            }
                         } else {
                             showErrorView();
                         }
@@ -506,7 +498,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
                 adapter.addData(list);
                 adapter.loadMoreComplete();
             } else {
-                adapter.setNewData(list);
+                adapter.replaceData(list);
                 //adapter.loadMoreEnd();
             }
         } else {

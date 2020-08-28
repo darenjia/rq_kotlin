@@ -1,6 +1,6 @@
 package com.bkjcb.rqapplication.actionRegister;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,17 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bkjcb.rqapplication.Constants;
+import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.actionRegister.model.ActionRegisterItem;
+import com.bkjcb.rqapplication.actionRegister.retrofit.ActionRegisterService;
 import com.bkjcb.rqapplication.base.MediaPlayActivity;
 import com.bkjcb.rqapplication.base.MyApplication;
-import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.base.adapter.FileListAdapter;
-import com.bkjcb.rqapplication.base.ftp.FtpUtils;
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
-import com.bkjcb.rqapplication.actionRegister.model.ActionRegisterItem;
 import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.base.model.MediaFile;
-import com.bkjcb.rqapplication.actionRegister.retrofit.ActionRegsiterService;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.base.util.FileUtil;
 import com.bkjcb.rqapplication.base.util.Utils;
@@ -41,7 +41,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -106,6 +105,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
     private List<MediaFile> fileList;
     private int request_code_file = 1000;
     private QMUIBottomSheet bottomSheet;
+    private String prePath;
 
     @Override
     protected int setLayoutID() {
@@ -125,10 +125,10 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
 
     private void initFileView() {
         mFileInfo.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        imageAdapter = new FileListAdapter(R.layout.item_image, item.getStatus() != 2);
+        imageAdapter = new FileListAdapter(R.layout.item_image, isCanEditable);
         mFileInfo.setAdapter(imageAdapter);
-        if (item.getStatus() != 2) {
-            imageAdapter.setFooterView(createFooterView(),0, LinearLayout.HORIZONTAL);
+        if (isCanEditable) {
+            imageAdapter.setFooterView(createFooterView(), 0, LinearLayout.HORIZONTAL);
         }
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -142,6 +142,8 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                 if (view.getId() == R.id.iv_delete) {
                     MediaFile.getBox().remove(fileList.get(position));
                     refreshFileData();
+                    fileList.remove(position);
+                    imageAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -182,22 +184,23 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
             item = new ActionRegisterItem();
             item.setStatus(0);
             item.setSystime(System.currentTimeMillis());
+            item.setSys_time(Utils.getCurrentTime());
             item.setUuid(Utils.getUUID());
             item.setUserId(MyApplication.getUser().getUserId());
             item.setWid("null");
-            item.setPhoneftp(getFtpRemotePath(item.getUuid()));
         } else {
-            isCanEditable = item.getStatus() != 2;
-            if (!isCanEditable){
+            isCanEditable = item.getStatus() >= 1;
+            if (!isCanEditable) {
                 mSubmit.setVisibility(View.GONE);
             }
             loadData();
         }
+        prePath = getFtpRemotePath(item.getUuid());
         initFileView();
     }
 
     private void onExit() {
-        if (item.getStatus() != 2 && !isSave()) {
+        if (isCanEditable && !isSave()) {
             showTipDialog();
         } else {
             finish();
@@ -229,11 +232,23 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
         item.setUndertaker(getText(mUndertakerInfoName));
         item.setUndertaker_time(getText(mUndertakerInfoTime));
         item.setUndertaker_opinion(getText(mUndertakerInfoRemark));
-        item.setStatus(1);
-        long id = ActionRegisterItem.getBox().put(item);
-        if (item.id == 0) {
-            item.id = id;
+        item.setPhoneftp(getRemoteFilePath());
+    }
+
+    private String getRemoteFilePath() {
+        if (fileList.size() > 0) {
+            StringBuilder builder = new StringBuilder();
+            for (MediaFile file : fileList) {
+                builder.append(prePath).append("/").append(file.getFileName()).append(",");
+            }
+            return builder.substring(0, builder.length() - 1);
         }
+        return "";
+    }
+
+    private void saveToDatabase() {
+        item.setStatus(1);
+        ActionRegisterItem.getBox().put(item);
     }
 
     private List<String> getFilePath(List<MediaFile> files) {
@@ -246,16 +261,12 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
 
     private void submitData() {
         showLoading(true);
-        disposable = UploadTask.createUploadTask(getFilePath(fileList), item.getPhoneftp(), new FtpUtils.UploadProgressListener() {
-            @Override
-            public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
-
-            }
-        }).subscribeOn(Schedulers.io())
+        disposable = UploadTask.createUploadTask(getFilePath(fileList), prePath)
+                .subscribeOn(Schedulers.io())
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? NetworkApi.getService(ActionRegsiterService.class)
+                        return aBoolean ? NetworkApi.getService(ActionRegisterService.class)
                                 .submit(item, MyApplication.getUser().getUserId()) : null;
                     }
                 })
@@ -267,6 +278,7 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                         if (httpResult.pushState == 200) {
                             Toast.makeText(CreateActionRegisterActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                             updateStatus();
+                            setResult(100);
                             finish();
                         } else {
                             Toast.makeText(CreateActionRegisterActivity.this, "提交失败！" + httpResult.pushMsg, Toast.LENGTH_SHORT).show();
@@ -286,8 +298,9 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
     }
 
     private void updateStatus() {
-        item.setStatus(2);
-        ActionRegisterItem.getBox().put(item);
+        if (item.id > 0) {
+            ActionRegisterItem.getBox().remove(item);
+        }
     }
 
     private void loadData() {
@@ -356,7 +369,6 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
                 List<LocalMedia> list = PictureSelector.obtainMultipleResult(data);
                 handleMedia(list);
             }
-            refreshFileData();
         }
     }
 
@@ -367,9 +379,11 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
             mediaFile.setItemId(item.getUuid());
             mediaFile.setType(media.getMimeType());
             mediaFile.setPath(media.getPath());
-            mediaFile.setFileName(mediaFile.getFileName());
+            mediaFile.setFileName(Utils.getFileName(media.getPath()));
             MediaFile.save(mediaFile);
+            fileList.add(mediaFile);
         }
+        imageAdapter.notifyDataSetChanged();
     }
 
     private void handleFilePath(List<String> list) {
@@ -381,21 +395,43 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
             mediaFile.setPath(path);
             mediaFile.setFileName(Utils.getFileName(path));
             MediaFile.save(mediaFile);
+            fileList.add(mediaFile);
         }
+        imageAdapter.notifyDataSetChanged();
+    }
 
+    private void handleFilePath(String list) {
+        MediaFile mediaFile;
+        if (!TextUtils.isEmpty(list)) {
+            String[] paths = list.split(",");
+            for (String path : paths) {
+                mediaFile = new MediaFile();
+                //mediaFile.setLocal(false);
+                mediaFile.setType(Utils.getFileType(path));
+                mediaFile.setPath(Constants.IMAGE_URL + path);
+                mediaFile.setFileName(Utils.getFileName(path));
+                fileList.add(mediaFile);
+            }
+        }
+        //imageAdapter.notifyDataSetChanged();
     }
 
     public void refreshFileData() {
-        fileList = MediaFile.getAll(item.getUuid());
+        if (isCanEditable) {
+            fileList = MediaFile.getAll(item.getUuid());
+        } else {
+            fileList = new ArrayList<>();
+            handleFilePath(item.getPhoneftp());
+        }
         imageAdapter.setNewData(fileList);
     }
 
-    public static void ToActivity(Context context, ActionRegisterItem item) {
+    public static void ToActivity(Activity context, ActionRegisterItem item) {
         Intent intent = new Intent(context, CreateActionRegisterActivity.class);
         if (item != null) {
             intent.putExtra("data", item);
         }
-        context.startActivity(intent);
+        context.startActivityForResult(intent,100);
     }
 
     private String getText(EditText view) {
@@ -470,10 +506,12 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
     }
 
     private void showTipDialog() {
-        StyledDialog.buildIosAlert("提示", "当前记录尚未提交，是否退出？", new MyDialogListener() {
+        StyledDialog.buildIosAlert("提示", "当前记录尚未提交，直接退出会丢失已填写的数据，是否退出？", new MyDialogListener() {
             @Override
             public void onFirst() {
                 saveData();
+                saveToDatabase();
+                setResult(100);
                 finish();
             }
 
@@ -533,6 +571,9 @@ public class CreateActionRegisterActivity extends SimpleBaseActivity implements 
 
             @Override
             public void onSecond() {
+                saveData();
+                saveToDatabase();
+                setResult(100);
                 finish();
             }
         }).setBtnText("提交记录", "仅保存")

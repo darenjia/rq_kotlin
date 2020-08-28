@@ -9,15 +9,18 @@
         android:id="@+id/check_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:padding="2dp"
+        android:textSize="14sp"
+        android:textColor="@color/colorSecondDrayText"
         android:text="今天" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorText"
+        app:cardCornerRadius="6dp"
         app:cardUseCompatPadding="true">
 
         <RelativeLayout
@@ -25,16 +28,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp">
 
+            <ImageView
+                android:id="@+id/check_status_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:padding="2dp"
+                android:layout_alignTop="@id/check_status"
+                android:layout_alignBottom="@id/check_status"
+                android:src="@drawable/vector_drawable_status"/>
+
             <TextView
                 android:id="@+id/check_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBittersweet"
                 android:padding="8dp"
-                android:drawableStart="@drawable/vector_drawable_status"
-                android:drawablePadding="4dp"
                 android:text="待检查"
-                android:textSize="@dimen/sp_16" />
+                android:layout_toEndOf="@id/check_status_img"
+                android:textColor="@color/colorBittersweet"
+                android:textSize="@dimen/sp_14" />
+
             <TextView
                 android:id="@+id/check_time"
                 android:layout_width="wrap_content"
@@ -46,7 +59,7 @@
                 android:padding="8dp"
                 android:text="2020-01-25"
                 android:textColor="@color/colorSecondDrayText"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="@dimen/sp_14" />
 
             <View
                 android:layout_width="match_parent"
@@ -64,42 +77,45 @@
                 android:layout_below="@id/check_status"
                 android:layout_marginTop="1dp"
                 android:padding="8dp"
-                android:textColor="@color/colorPrimary"
                 android:text="上海百斯特能源发展有限公司浦东龚路储配站"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/check_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/check_type_bg"
                 android:layout_alignBottom="@id/check_operate"
-                android:paddingStart="10dp"
-                android:gravity="center"
-                android:paddingEnd="10dp"
-                android:paddingTop="4dp"
                 android:layout_marginStart="8dp"
-                android:paddingBottom="4dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/check_type_bg"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="4dp"
                 android:text="#储备站"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/sp_12"
                 app:qmui_backgroundColor="@color/colorPrimary"
-                app:qmui_borderWidth="0dp"
-                android:textColor="@color/colorText"
-                />
+                app:qmui_borderWidth="0dp" />
 
             <TextView
                 android:id="@+id/check_operate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/check_name"
-                android:textColor="@color/colorSecondDrayText"
                 android:layout_alignParentEnd="true"
-                android:padding="8dp"
-                android:text="查看详情"
                 android:drawableEnd="@drawable/vector_drawable_next"
                 android:drawablePadding="4dp"
-                android:textSize="@dimen/sp_16" />
+                android:padding="8dp"
+                android:text="查看详情"
+                android:textColor="@color/colorSecondDrayText"
+                android:textSize="@dimen/sp_14" />
         </RelativeLayout>
 
         <View

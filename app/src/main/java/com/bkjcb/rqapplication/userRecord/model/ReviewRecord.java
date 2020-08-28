@@ -26,6 +26,7 @@ public class ReviewRecord implements Serializable {
    public String jianchajieguo;
    public String phoneftp;
    public String yonghuming;
+   public String beizhu;
 
     public int status;
 

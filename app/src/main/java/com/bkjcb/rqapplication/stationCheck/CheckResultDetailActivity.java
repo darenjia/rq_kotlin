@@ -49,6 +49,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
     Button mInfoExport;
     protected CheckItem checkItem;
     private CheckResultFragment fragment;
+    protected String prePath;
 
     @Override
     protected int setLayoutID() {
@@ -79,6 +80,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
         //initTextValue();
         mInfoExport.setVisibility(checkItem.status == 3 ? View.VISIBLE : View.GONE);
         mInfoOperation.setText(getOperation(checkItem.status));
+        prePath = Utils.getFTPPath(checkItem);
     }
 
     private void showCheckDetail() {
@@ -86,6 +88,18 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                 .beginTransaction()
                 .add(R.id.content, fragment)
                 .commit();
+    }
+
+    protected String getRemoteFilePath(CheckItem checkItem) {
+        if (!TextUtils.isEmpty(checkItem.filePath)) {
+            StringBuilder builder = new StringBuilder();
+            String[] paths = checkItem.filePath.split(",");
+            for (String path : paths) {
+                builder.append(prePath).append("/").append(Utils.getFileName(path)).append(",");
+            }
+            return builder.substring(0, builder.length() - 1);
+        }
+        return "";
     }
 
     @Override
@@ -159,7 +173,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
     protected void submitResult() {
         showLoading(true);
         List<CheckResultItem> list = queryResult();
-        disposable = UploadTask.createUploadTask(getFiles(), Utils.getFTPPath(checkItem), new FtpUtils.UploadProgressListener() {
+        disposable = UploadTask.createUploadTask(getFiles(), prePath, new FtpUtils.UploadProgressListener() {
             @Override
             public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
 
@@ -178,7 +192,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
                                 checkItem.jianchajieguo,
                                 getItemsID(list),
                                 getItemsResult(list),
-                                Utils.getFTPPath(checkItem),
+                                getRemoteFilePath(checkItem),
                                 checkItem.c_id
                         ) : null;
                     }

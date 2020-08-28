@@ -14,7 +14,7 @@ public class EmergencyMainActivity extends DefectTreatmentMainActivity {
 
     @Override
     protected void initView() {
-        initTopbar("事故现场");
+        initTopbar("事件处置");
     }
 
     @Override

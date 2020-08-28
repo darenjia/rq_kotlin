@@ -60,6 +60,7 @@ public class ActionRegisterItem implements Serializable {
     private String undertaker;
     private String undertaker_time;
     private String undertaker_opinion;
+    private String sys_time;
     private long systime;
     private int status;
     private String phoneftp;
@@ -82,6 +83,14 @@ public class ActionRegisterItem implements Serializable {
 
     public long getSystime() {
         return systime;
+    }
+
+    public String getSys_time() {
+        return sys_time;
+    }
+
+    public void setSys_time(String sys_time) {
+        this.sys_time = sys_time;
     }
 
     public void setSystime(long systime) {

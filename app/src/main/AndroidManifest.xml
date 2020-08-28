@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name=".base.MyApplication"
@@ -106,6 +107,7 @@
             android:name=".actionRegister.ActionRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
+            android:parentActivityName=".base.MainActivity"
             android:screenOrientation="unspecified" />
         <activity
             android:name=".actionRegister.CreateActionRegisterActivity"
@@ -215,6 +217,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <service
+            android:name=".base.service.MessageService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 
 </manifest>

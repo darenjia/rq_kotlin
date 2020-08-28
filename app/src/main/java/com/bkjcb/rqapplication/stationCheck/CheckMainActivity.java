@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bkjcb.rqapplication.R;
@@ -20,6 +23,8 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import io.objectbox.query.QueryBuilder;
 
 /**
  * Created by DengShuai on 2019/12/19.
@@ -28,15 +33,17 @@ import butterknife.BindView;
 public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.check_list)
     RecyclerView mCheckList;
-    @BindView(R.id.refresh_layout)
-    SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.station_search_close)
+    Button mSearchButton;
+    @BindView(R.id.station_name)
+    EditText mSearchKey;
     private CheckItemAdapter adapter;
     private boolean isShowAll = false;
     private int type;
 
     @Override
     protected int setLayoutID() {
-        return R.layout.activity_main_check;
+        return R.layout.activity_main_check_with_refresh;
     }
 
     @Override
@@ -53,14 +60,14 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
                         }
                     }
                 });
-        mAppbar.addRightImageButton(R.drawable.vector_drawable_all, R.id.top_right_button1)
+        mAppbar.addRightImageButton(getButtonDrawableResId(), R.id.top_right_button1)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         QMUIAlphaImageButton button = (QMUIAlphaImageButton) v;
-                        button.setImageResource(isShowAll ? R.drawable.vector_drawable_sub : R.drawable.vector_drawable_all);
                         isShowAll = !isShowAll;
-                        Toast.makeText(CheckMainActivity.this, isShowAll ? "显示未完成" : "显示全部", Toast.LENGTH_SHORT).show();
+                        button.setImageResource(getButtonDrawableResId());
+                        Toast.makeText(CheckMainActivity.this, isShowAll ?  "显示全部":"仅显示未完成", Toast.LENGTH_SHORT).show();
                         showCheckList();
                     }
                 });
@@ -68,14 +75,24 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
         adapter = new CheckItemAdapter(R.layout.item_checkadapter_view);
         mCheckList.setLayoutManager(new LinearLayoutManager(this));
         mCheckList.setAdapter(adapter);
-        adapter.bindToRecyclerView(mCheckList);
         initSwipeRefreshLayout(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.setNewData(queryLocalData());
+                adapter.replaceData(queryLocalData());
                 showRefreshLayout(false);
             }
         });
+        adapter.bindToRecyclerView(mCheckList);
+
+    }
+
+    private int getButtonDrawableResId() {
+        return isShowAll ? R.drawable.vector_drawable_all : R.drawable.vector_drawable_sub;
+    }
+
+    @OnClick(R.id.station_search_close)
+    public void onClick(View v) {
+        adapter.replaceData(queryLocalData());
     }
 
     @Override
@@ -87,11 +104,16 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     }
 
     private List<CheckItem> queryLocalData() {
-        if (isShowAll) {
-            return CheckItem.getBox().query().equal(CheckItem_.type, type).build().find();
-        } else {
-            return CheckItem.getBox().query().equal(CheckItem_.type, type).notEqual(CheckItem_.status, 3).build().find();
+        String key = mSearchKey.getText().toString();
+        QueryBuilder<CheckItem> builder = CheckItem.getBox().query();
+        builder.equal(CheckItem_.type, type);
+        if (!TextUtils.isEmpty(key)) {
+            builder.contains(CheckItem_.beijiandanwei, key);
         }
+        if (!isShowAll) {
+            builder.notEqual(CheckItem_.status, 3);
+        }
+        return builder.build().find();
     }
 
     private void queryRemoteDta() {
@@ -99,7 +121,7 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
     }
 
     protected void getHideSetting() {
-        isShowAll = getSharedPreferences().getBoolean("hide_finished", true);
+        isShowAll = !getSharedPreferences().getBoolean("hide_finished", false);
     }
 
     @Override

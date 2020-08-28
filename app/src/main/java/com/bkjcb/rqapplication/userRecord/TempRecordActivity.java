@@ -34,7 +34,7 @@ public class TempRecordActivity extends SimpleBaseActivity {
 
     @Override
     protected int setLayoutID() {
-        return R.layout.activity_main_check;
+        return R.layout.activity_main_check_with_refresh;
     }
 
     @Override

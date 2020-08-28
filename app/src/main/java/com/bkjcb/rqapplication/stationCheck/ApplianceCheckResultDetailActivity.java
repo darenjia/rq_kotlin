@@ -8,7 +8,6 @@ import com.bkjcb.rqapplication.base.ftp.FtpUtils;
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
 import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
-import com.bkjcb.rqapplication.base.util.Utils;
 import com.bkjcb.rqapplication.stationCheck.model.ApplianceCheckResultItem;
 import com.bkjcb.rqapplication.stationCheck.model.ApplianceCheckResultItem_;
 import com.bkjcb.rqapplication.stationCheck.model.CheckItem;
@@ -52,7 +51,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
         if (!TextUtils.isEmpty(checkItem.filePath)) {
             paths.addAll(Arrays.asList(checkItem.filePath.split(",")));
         }
-        disposable = UploadTask.createUploadTask(paths, Utils.getFTPPath(checkItem), new FtpUtils.UploadProgressListener() {
+        disposable = UploadTask.createUploadTask(paths, prePath, new FtpUtils.UploadProgressListener() {
             @Override
             public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
 
@@ -73,7 +72,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                                             checkItem.beizhu,
                                             getItemsID(list),
                                             getItemsResult(list),
-                                            Utils.getFTPPath(checkItem));
+                                            getRemoteFilePath(checkItem));
                                 case "报警器企业":
                                     return service.saveAlarmDailyCheck(
                                             null,
@@ -83,7 +82,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                                             checkItem.beizhu,
                                             getItemsID(list),
                                             getItemsResultRecord(list),
-                                            Utils.getFTPPath(checkItem));
+                                            getRemoteFilePath(checkItem));
                                 case "销售企业":
                                     return service.saveSaleDailyCheck(
                                             null,
@@ -93,7 +92,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                                             checkItem.beizhu,
                                             getItemsID(list),
                                             getItemsResult(list),
-                                            Utils.getFTPPath(checkItem));
+                                            getRemoteFilePath(checkItem));
                                 default:
                                     return null;
                             }

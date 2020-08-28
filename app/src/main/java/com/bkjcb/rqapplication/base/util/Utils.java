@@ -5,14 +5,16 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.stationCheck.model.CheckItem;
 
 import java.io.File;
@@ -131,7 +133,7 @@ public class Utils {
 
     public static String getFileSuffix(String path) {
         if (!TextUtils.isEmpty(path)) {
-            return path.substring(path.lastIndexOf("."));
+            return path.substring(path.lastIndexOf(".") + 1);
         }
         return "";
     }
@@ -241,6 +243,10 @@ public class Utils {
             e.printStackTrace();
         }
         return "未知";
+    }
+
+    public static Bitmap getBitmapByRid(int id) {
+        return BitmapFactory.decodeResource(MyApplication.getContext().getResources(), id);
     }
 
     public static int getFileType(String path) {
