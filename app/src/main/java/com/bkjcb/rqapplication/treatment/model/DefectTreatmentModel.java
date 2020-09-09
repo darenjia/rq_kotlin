@@ -43,6 +43,7 @@ public class DefectTreatmentModel implements Serializable {
     private int UserType;
     private int Flag;
     private int ProcessState;
+    private int paifajiezhenFlag;
 
     public int getProcessState() {
         return ProcessState;
@@ -178,5 +179,13 @@ public class DefectTreatmentModel implements Serializable {
 
     public void setOpinions(String opinions) {
         Opinions = opinions;
+    }
+
+    public int getPaifajiezhenFlag() {
+        return paifajiezhenFlag;
+    }
+
+    public void setPaifajiezhenFlag(int paifajiezhenFlag) {
+        this.paifajiezhenFlag = paifajiezhenFlag;
     }
 }

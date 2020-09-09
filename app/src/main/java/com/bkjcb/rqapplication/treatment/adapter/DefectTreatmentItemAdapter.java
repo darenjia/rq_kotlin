@@ -20,22 +20,25 @@ public class DefectTreatmentItemAdapter extends BaseRecycleViewAdapter<DefectTre
                 .setText(R.id.treatment_name, item.getUserName())
                 .setText(R.id.treatment_address, item.getUserAddress())
                 .setText(R.id.treatment_time, item.getCasesType())
-                .setText(R.id.treatment_opinion, item.getOpinions())
-                .setGone(R.id.treatment_opinion, item.getFlag() == 0);
-        if (item.getFlag() > 0) {
-            helper.setText(R.id.treatment_time, obtainStatus(item.getProcessState()))
+                .setText(R.id.treatment_opinion, item.getOpinions());
+
+        if (item.getFlag() != 1 || item.getProcessState() != 3) {
+            helper.setGone(R.id.treatment_opinion, item.getFlag() == 0);
+            helper.setText(R.id.treatment_time, obtainStatus(item.getProcessState(), item.getFlag()))
                     .setTextColor(R.id.treatment_time, mContext.getResources().getColor(R.color.colorMint));
         }
 
     }
 
-    private String obtainStatus(int status) {
-        if (status > 4) {
+    private String obtainStatus(int status, int flag) {
+        if (status == 3 && flag == 7) {
+            return "退单";
+        } else if (status == 5 && flag == 1) {
             return "处置完成";
-        } else if (status > 2) {
+        } else if (status == 4 && flag == 2) {
             return "已结案";
         } else {
-            return "退单";
+            return "";
         }
     }
 
