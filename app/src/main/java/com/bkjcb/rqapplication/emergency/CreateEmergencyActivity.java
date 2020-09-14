@@ -644,7 +644,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
     private boolean verify() {
         return verify(mBaseInfoAddress)
                 && verify(mBaseInfoTime)
-                && verify(mBaseInfoDes)
+                && verify(mBaseInfoDes,"请填写情况描述！")
                 && verify(mBaseInfoDepartment)
                 && verify(mBaseInfoPeople)
                 //&& verify(mBaseInfoRemark)
@@ -656,7 +656,14 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
                 && verify(mReporterInfoAddress)
                 ;
     }
-
+    private boolean verify(TextView view,String tip) {
+        if (TextUtils.isEmpty(getText(view))) {
+            view.requestFocus();
+            showToast(tip);
+            return false;
+        }
+        return true;
+    }
     private boolean verify(TextView view) {
         if (TextUtils.isEmpty(getText(view))) {
             view.requestFocus();

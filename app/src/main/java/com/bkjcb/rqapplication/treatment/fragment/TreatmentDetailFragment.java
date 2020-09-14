@@ -79,7 +79,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
     protected void initView() {
         StyledDialog.init(context);
         if (model != null) {
-            mInfoResult.setText(model.getProcessTime());
+            mInfoResult.setText(model.getUnitDisposalTime());
             mInfoAccidentType.setText(model.getCasesType());
             mInfoOpinion.setText(model.getOpinions());
             mInfoType.setText(model.getUserCode());
@@ -111,7 +111,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
                     showDetail((BottleSaleCheck) adapter.getItem(position), 0);
                 }
             });
-            if (model.getFlag() > 0) {
+            if (!(model.getFlag() == 1 && model.getProcessState() == 3)) {
                 showFinishBtn();
             }
         }

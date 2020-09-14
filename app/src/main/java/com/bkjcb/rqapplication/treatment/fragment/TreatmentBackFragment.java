@@ -70,7 +70,7 @@ public class TreatmentBackFragment extends BaseSimpleFragment {
     @Override
     protected void initView() {
         if (model != null) {
-            mInfoTime.setText(model.getProcessTime());
+            mInfoTime.setText(model.getUnitDisposalTime());
             mInfoAccidentType.setText(model.getCasesType());
             mInfoOpinion.setText(model.getOpinions());
             mInfoName.setText(model.getUserName());
@@ -86,7 +86,7 @@ public class TreatmentBackFragment extends BaseSimpleFragment {
             result.setMtfId(model.getMtfId());
         } else {
             isCanChange = false;
-            setText(mRecordRemark,result.getFeedbackRemark());
+            setText(mRecordRemark,result.getJzReasons());
         }
     }
 

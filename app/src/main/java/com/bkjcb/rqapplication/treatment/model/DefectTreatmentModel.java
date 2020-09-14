@@ -40,6 +40,7 @@ public class DefectTreatmentModel implements Serializable {
     private String IdCard;
     private String Opinions;
     private String MbuGuid;
+    private String unitDisposalTime;
     private int UserType;
     private int Flag;
     private int ProcessState;
@@ -178,5 +179,13 @@ public class DefectTreatmentModel implements Serializable {
 
     public void setOpinions(String opinions) {
         Opinions = opinions;
+    }
+
+    public String getUnitDisposalTime() {
+        return unitDisposalTime;
+    }
+
+    public void setUnitDisposalTime(String unitDisposalTime) {
+        this.unitDisposalTime = unitDisposalTime;
     }
 }
