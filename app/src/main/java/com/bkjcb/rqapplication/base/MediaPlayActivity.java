@@ -5,70 +5,135 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.base.adapter.ViewPagerAdapter;
 import com.bkjcb.rqapplication.base.fragment.FileFragment;
 import com.bkjcb.rqapplication.base.fragment.PictureFragment;
 import com.bkjcb.rqapplication.base.fragment.VideoFragment;
+import com.bkjcb.rqapplication.base.model.MediaFile;
 import com.bkjcb.rqapplication.base.util.OpenFileUtil;
 
-import static android.view.Window.FEATURE_NO_TITLE;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by DengShuai on 2020/3/18.
  * Description :
  */
-public class MediaPlayActivity extends AppCompatActivity {
+public class MediaPlayActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
+    private String[] pathArray;
     private String path;
+    TextView openBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_media);
         initView();
     }
 
     private void initView() {
+        ViewPager viewPager = findViewById(R.id.frame_layout);
+        List<Fragment> fragments = new ArrayList<>();
+
         Fragment fragment;
-        path = getIntent().getStringExtra("Path");
-        if (TextUtils.isEmpty(path)) {
-            Toast.makeText(this, "文件路径出错！", Toast.LENGTH_SHORT).show();
+        String pathString = getIntent().getStringExtra("Path");
+        if (TextUtils.isEmpty(pathString)) {
             return;
         }
-        if (path.toLowerCase().endsWith(".png") || path.toLowerCase().endsWith(".jpg")) {
-            fragment = PictureFragment.newInstance(path);
-        } else if (path.toLowerCase().endsWith(".mp4")) {
-            fragment = VideoFragment.newInstance(path);
-        } else {
-            fragment = FileFragment.newInstance(path);
+        pathArray = pathString.split(",");
+        int position = getIntent().getIntExtra("position", 0);
+
+        for (String s : pathArray) {
+            if (TextUtils.isEmpty(s)) {
+                Toast.makeText(this, "文件路径出错！", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (s.toLowerCase().endsWith(".png") || s.toLowerCase().endsWith(".jpg")) {
+                fragment = PictureFragment.newInstance(s);
+            } else if (s.toLowerCase().endsWith(".mp4")) {
+                fragment = VideoFragment.newInstance(s);
+            } else {
+                fragment = FileFragment.newInstance(s);
+            }
+            fragments.add(fragment);
         }
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_layout, fragment).commit();
-        TextView view = findViewById(R.id.open_file);
-        if (!path.contains("http")) {
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
+        TextView openBtn = findViewById(R.id.open_file);
+
+        openBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!path.contains("http")) {
                     startActivity(OpenFileUtil.openFile(path));
+                } else {
+                    v.setVisibility(View.GONE);
                 }
-            });
-        } else {
-            view.setVisibility(View.GONE);
-        }
+            }
+        });
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(position, false);
     }
 
     public static void ToActivity(Context context, String path) {
         Intent intent = new Intent(context, MediaPlayActivity.class);
         intent.putExtra("Path", path);
         context.startActivity(intent);
+    }
+
+    public static void ToActivity(Context context, String path, int position) {
+        Intent intent = new Intent(context, MediaPlayActivity.class);
+        intent.putExtra("Path", path);
+        intent.putExtra("position", position);
+        context.startActivity(intent);
+    }
+
+    public static void ToActivity(Context context, List<MediaFile> list, int position) {
+        Intent intent = new Intent(context, MediaPlayActivity.class);
+        intent.putExtra("Path", listToString(list));
+        intent.putExtra("position", position);
+        context.startActivity(intent);
+    }
+
+    private static String listToString(List<MediaFile> list) {
+        if (list != null && list.size() > 0) {
+            StringBuilder builder = new StringBuilder();
+            for (MediaFile file : list) {
+                builder.append(file.getPath()).append(",");
+            }
+            return builder.substring(0, builder.length() - 1);
+        }
+        return "";
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        path = pathArray[i];
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }
 

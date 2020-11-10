@@ -54,6 +54,8 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
     TextView mInfoName;
     @BindView(R.id.defect_detail)
     TextView mDefectDetail;
+    @BindView(R.id.info_phone)
+    TextView mInfoPhoneNumber;
     private DefectTreatmentModel model;
     private SecurityCheckListAdapter checkAdapter;
     private OrderListAdapter orderAdapter;
@@ -87,6 +89,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
             mInfoYear.setText(model.getUserType() == 0 ? "居民" : "非居民");
             mInfoName.setText(model.getQu());
             mInfoDate.setText(model.getUserAddress());
+            mInfoPhoneNumber.setText(model.getContactPhone());
 
             mInfoCheckList.setLayoutManager(new LinearLayoutManager(context));
             checkAdapter = new SecurityCheckListAdapter(R.layout.item_security_check_view);
@@ -171,7 +174,7 @@ public class TreatmentDetailFragment extends BaseSimpleFragment {
         mDefectDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TreatmentDefectActivity.toActivity(getActivity(), model, model.getProcessState() == 5);
+                TreatmentDefectActivity.toActivity(getActivity(), model, model.getProcessState() > 3);
             }
         });
     }

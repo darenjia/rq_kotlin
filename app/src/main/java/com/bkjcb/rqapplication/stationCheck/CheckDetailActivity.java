@@ -252,7 +252,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(CheckDetailActivity.this, (String) adapter.getItem(position));
+                MediaPlayActivity.ToActivity(CheckDetailActivity.this, checkItem.filePath,position);
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

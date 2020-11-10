@@ -19,9 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class **_FragmentFinder { *; }
+#-keep class **_FragmentFinder { *; }
 #-keep class androidx.fragment.app.* { *; } // if use androidx
--keep class android.support.v4.app.* { *; }
+#-keep class android.support.v4.app.* { *; }
 
 #---------------------------------基本指令区----------------------------------
 -optimizationpasses 5

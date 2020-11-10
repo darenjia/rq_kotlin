@@ -137,7 +137,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(CreateEmergencyActivity.this, ((MediaFile) adapter.getItem(position)).getPath());
+                MediaPlayActivity.ToActivity(CreateEmergencyActivity.this, adapter.getData(),position);
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

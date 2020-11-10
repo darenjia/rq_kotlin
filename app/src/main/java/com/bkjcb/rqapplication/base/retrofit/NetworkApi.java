@@ -23,7 +23,11 @@ public class NetworkApi {
         retrofitBuilder.baseUrl(mBaseUrl);
         retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
         retrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-        retrofitBuilder.client(new OkHttpClient.Builder().connectTimeout(20000, TimeUnit.MILLISECONDS).build());
+        retrofitBuilder.client(new OkHttpClient.Builder()
+                .connectTimeout(20000, TimeUnit.MILLISECONDS)
+                .readTimeout(20000, TimeUnit.MILLISECONDS)
+                .callTimeout(20000, TimeUnit.MILLISECONDS)
+                .build());
         Retrofit retrofit = retrofitBuilder.build();
         retrofitHashMap.put(mBaseUrl + service.getName(), retrofit);
         return retrofit;
