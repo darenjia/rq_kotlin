@@ -133,6 +133,7 @@
             android:name=".base.MediaPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
+            android:theme="@style/AppThemeNoHeader"
             android:screenOrientation="unspecified" />
         <activity
             android:name=".contactBook.ContactDepartmentActivity"

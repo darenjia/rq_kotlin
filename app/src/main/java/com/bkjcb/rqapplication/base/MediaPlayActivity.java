@@ -9,8 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +31,10 @@ public class MediaPlayActivity extends AppCompatActivity implements ViewPager.On
 
     private String[] pathArray;
     private String path;
-    TextView openBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_media);
         initView();
     }
@@ -54,8 +49,8 @@ public class MediaPlayActivity extends AppCompatActivity implements ViewPager.On
             return;
         }
         pathArray = pathString.split(",");
+        path = pathArray[0];
         int position = getIntent().getIntExtra("position", 0);
-
         for (String s : pathArray) {
             if (TextUtils.isEmpty(s)) {
                 Toast.makeText(this, "文件路径出错！", Toast.LENGTH_SHORT).show();
@@ -72,15 +67,15 @@ public class MediaPlayActivity extends AppCompatActivity implements ViewPager.On
         }
 
         TextView openBtn = findViewById(R.id.open_file);
-
+        if (path.contains("http")) {
+            openBtn.setVisibility(View.GONE);
+        }
         openBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!path.contains("http")) {
-                    startActivity(OpenFileUtil.openFile(path));
-                } else {
-                    v.setVisibility(View.GONE);
-                }
+
+                startActivity(OpenFileUtil.openFile(path));
+
             }
         });
 

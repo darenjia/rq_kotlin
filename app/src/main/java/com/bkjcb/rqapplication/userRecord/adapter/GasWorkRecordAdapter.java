@@ -20,11 +20,13 @@ public class GasWorkRecordAdapter extends BaseQuickAdapter<GasUserRecordResult.G
 
     @Override
     protected void convert(BaseViewHolder helper, GasUserRecordResult.GasUserRecord item) {
-        helper.setText(R.id.check_time, "建档日期：" + item.getJiandangriqi())
+        helper.setText(R.id.check_time, item.getJiandangriqi())
                 .setText(R.id.check_name, item.getYonghuming())
                 .setText(R.id.check_operate, item.getDizhi())
-                .setBackgroundColor(R.id.check_divider, getColor(item.getRquserid()))
-                .addOnClickListener(R.id.check_type);
+                .setText(R.id.check_type, item.getSuoshuqu() + " - " + item.getJiedao())
+                .setGone(R.id.check_divider, !TextUtils.isEmpty(item.getRquserid()))
+                .addOnClickListener(R.id.check_detail)
+                .addOnClickListener(R.id.check_record);
     }
 
     private String getStatus(String status) {

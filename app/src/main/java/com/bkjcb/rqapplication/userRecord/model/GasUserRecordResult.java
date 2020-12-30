@@ -48,6 +48,8 @@ public class GasUserRecordResult extends HttpResult {
         private String jiandangriqi;
         private String yihuyidangfuchaid;
         private String mbuid;
+        private String suoshuqu;
+        private String jiedao;
 
         public String getMbuid() {
             return mbuid;
@@ -109,6 +111,22 @@ public class GasUserRecordResult extends HttpResult {
 
         public void setYihuyidangfuchaid(String yihuyidangfuchaid) {
             this.yihuyidangfuchaid = yihuyidangfuchaid;
+        }
+
+        public String getSuoshuqu() {
+            return suoshuqu;
+        }
+
+        public void setSuoshuqu(String suoshuqu) {
+            this.suoshuqu = suoshuqu;
+        }
+
+        public String getJiedao() {
+            return jiedao;
+        }
+
+        public void setJiedao(String jiedao) {
+            this.jiedao = jiedao;
         }
 
         public void setJiandangriqi(String jiandangriqi) {

@@ -86,10 +86,13 @@ public class TreatmentBackFragment extends BaseSimpleFragment {
             result.setMtfId(model.getMtfId());
         } else {
             isCanChange = false;
-            setText(mRecordRemark,result.getJzReasons());
+            initRemark();
         }
     }
 
+    protected void initRemark(){
+        setText(mRecordRemark,result.getJzReasons());
+    }
     protected void collectParams() {
         result.setJzReasons(getText(mRecordRemark));
         result.setType("2");

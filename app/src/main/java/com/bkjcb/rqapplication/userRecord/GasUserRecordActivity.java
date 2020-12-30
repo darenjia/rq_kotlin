@@ -167,7 +167,13 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 GasUserRecordResult.GasUserRecord item = (GasUserRecordResult.GasUserRecord) adapter.getItem(position);
-                GasUserRecordDetailActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid());
+                if(view.getId()==R.id.check_detail){
+                    GasUserRecordDetailActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid());
+                }else {
+                    ReviewRecordActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid(), item.getYonghuming());
+                }
+
+
             }
         });
         adapter.setNewData(null);

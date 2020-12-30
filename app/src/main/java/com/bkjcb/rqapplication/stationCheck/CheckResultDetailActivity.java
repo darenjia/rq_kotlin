@@ -11,7 +11,6 @@ import com.bkjcb.rqapplication.Constants;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.MyApplication;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
-import com.bkjcb.rqapplication.base.ftp.FtpUtils;
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
 import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
@@ -24,7 +23,6 @@ import com.bkjcb.rqapplication.stationCheck.model.CheckResultItem_;
 import com.bkjcb.rqapplication.stationCheck.model.ExportFilePathResult;
 import com.bkjcb.rqapplication.stationCheck.retrofit.CheckService;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -173,47 +171,46 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
     protected void submitResult() {
         showLoading(true);
         List<CheckResultItem> list = queryResult();
-        disposable = UploadTask.createUploadTask(getFiles(), prePath, new FtpUtils.UploadProgressListener() {
-            @Override
-            public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
-
-            }
-        }).subscribeOn(Schedulers.io())
+        disposable = UploadTask.createUploadTask(getFiles(), prePath)
+                .subscribeOn(Schedulers.io())
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
-                    @Override
-                    public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
-                        return aBoolean ? NetworkApi.getService(CheckService.class).saveCheckItem(
-                                MyApplication.getUser().getUserId(),
-                                checkItem.year,
-                                checkItem.zhandianleixing,
-                                checkItem.beijiandanweiid,
-                                checkItem.beizhu,
-                                checkItem.jianchariqi,
-                                checkItem.jianchajieguo,
-                                getItemsID(list),
-                                getItemsResult(list),
-                                getRemoteFilePath(checkItem),
-                                checkItem.c_id
-                        ) : null;
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<HttpResult>() {
-                    @Override
-                    public void accept(HttpResult result) throws Exception {
-                        if (result.pushState == 200) {
-                            updateTaskStatus();
-                        }
-                        showTipInfo(result.pushMsg);
-                        showLoading(false);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        showLoading(false);
-                        showTipInfo("上传失败！" + throwable.getMessage());
-                    }
-                });
+                            @Override
+                            public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {
+                                return aBoolean ? NetworkApi.getService(CheckService.class).saveCheckItem(
+                                        MyApplication.getUser().getUserId(),
+                                        checkItem.year,
+                                        checkItem.zhandianleixing,
+                                        checkItem.beijiandanweiid,
+                                        checkItem.beizhu,
+                                        checkItem.jianchariqi,
+                                        checkItem.jianchajieguo,
+                                        getItemsID(list),
+                                        getItemsResult(list),
+                                        getRemoteFilePath(checkItem),
+                                        checkItem.c_id,
+                                        checkItem.tijiaobaogao
+                                ) : null;
+                            }
+                        })
+                .
+                        observeOn(AndroidSchedulers.mainThread())
+                .
+                        subscribe(new Consumer<HttpResult>() {
+                            @Override
+                            public void accept(HttpResult result) throws Exception {
+                                if (result.pushState == 200) {
+                                    updateTaskStatus();
+                                }
+                                showTipInfo(result.pushMsg);
+                                showLoading(false);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                showLoading(false);
+                                showTipInfo("上传失败！" + throwable.getMessage());
+                            }
+                        });
     }
 
     protected void updateTaskStatus() {
