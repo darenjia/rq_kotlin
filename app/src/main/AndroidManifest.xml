@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".base.MyApplication"
@@ -36,7 +36,7 @@
             android:name="com.amap.api.v2.apikey"
             android:value="abb50c814ad49ac4904f015edb859db9" />
 
-        <activity android:name=".base.MainActivity"/>
+        <activity android:name=".base.MainActivity" />
         <activity android:name=".base.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -133,8 +133,8 @@
             android:name=".base.MediaPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
-            android:theme="@style/AppThemeNoHeader"
-            android:screenOrientation="unspecified" />
+            android:screenOrientation="unspecified"
+            android:theme="@style/AppThemeNoHeader" />
         <activity
             android:name=".contactBook.ContactDepartmentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -208,6 +208,17 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
 
+        <activity
+            android:name=".infoQuery.BusinessFirmInfoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity
+            android:name=".infoQuery.BusinessFirmInfoDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity android:name=".stationCheck.ModifyNotificationActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -218,6 +229,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <service
             android:name=".base.service.MessageService"
             android:permission="android.permission.BIND_JOB_SERVICE" />

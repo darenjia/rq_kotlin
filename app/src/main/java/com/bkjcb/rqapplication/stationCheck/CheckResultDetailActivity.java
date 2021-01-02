@@ -45,6 +45,8 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
     Button mInfoOperation;
     @BindView(R.id.info_export)
     Button mInfoExport;
+    @BindView(R.id.info_modify)
+    Button mInfoModify;
     protected CheckItem checkItem;
     private CheckResultFragment fragment;
     protected String prePath;
@@ -77,6 +79,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
         showCheckDetail();
         //initTextValue();
         mInfoExport.setVisibility(checkItem.status == 3 ? View.VISIBLE : View.GONE);
+        mInfoModify.setVisibility(checkItem.status == 3 ? View.VISIBLE : View.GONE);
         mInfoOperation.setText(getOperation(checkItem.status));
         prePath = Utils.getFTPPath(checkItem);
     }
@@ -112,7 +115,7 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
         mInfoOperation.setText(getOperation(checkItem.status));
     }
 
-    @OnClick({R.id.info_operation, R.id.info_export})
+    @OnClick({R.id.info_operation, R.id.info_export,R.id.info_modify})
     public void onClick(View v) {
         if (v.getId() == R.id.info_operation) {
             if (checkItem.status == 2) {
@@ -122,6 +125,8 @@ public class CheckResultDetailActivity extends SimpleBaseActivity {
             }
         } else if (v.getId() == R.id.info_export) {
             getExportFilePath();
+        }else if (v.getId() == R.id.info_modify){
+            ModifyNotificationActivity.ToActivity(this,checkItem);
         }
 
     }

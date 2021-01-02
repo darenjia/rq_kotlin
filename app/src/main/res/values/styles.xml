@@ -62,6 +62,16 @@
         <item name="android:background">@color/colorText</item>
     </style>
 
+    <style name="NotifyFragmentInfoEditTextStyle" parent="EditText">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorSecondDrayText</item>
+    </style>
+
     <style name="RecordFragmentInfoEditTextStyle1" parent="RecordFragmentInfoEditTextStyle">
         <item name="android:paddingEnd">4dp</item>
     </style>

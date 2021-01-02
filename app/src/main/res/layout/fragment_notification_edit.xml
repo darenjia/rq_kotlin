@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="上海市住房和城乡建设管理委员会"
+            android:textSize="@dimen/appbar_font_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="责令整改通知书"
+            android:textSize="@dimen/title_font_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="沪建管责改字【" />
+
+            <EditText
+                android:id="@+id/info_zi"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="xxxxxxxxx" />
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="】号" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorText">
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="被检单位:"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/info_name"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="40dp"
+                android:text="经查，你（单位）于" />
+
+            <EditText
+                android:id="@+id/info_time"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="2021-01-01" />
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="在" />
+
+            <EditText
+                android:id="@+id/info_address"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="xxxxxx" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="从事了" />
+
+            <EditText
+                android:id="@+id/info_des"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="xxxxxx" />
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="的行为，" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="违反了" />
+
+            <EditText
+                android:id="@+id/info_provision"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="xxxxxx" />
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="第" />
+            <EditText
+                android:id="@+id/info_provision_1"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="X" />
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="条第" />
+            <EditText
+                android:id="@+id/info_provision_2"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="X" />
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="款第" />
+            <EditText
+                android:id="@+id/info_provision_3"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="X" />
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="项" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="的规定，依据" />
+
+            <EditText
+                android:id="@+id/info_provision1"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="xxxxxx" />
+
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="第" />
+            <EditText
+                android:id="@+id/info_provision1_1"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="X" />
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="条第" />
+            <EditText
+                android:id="@+id/info_provision1_2"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="X" />
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="款" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText">
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="第" />
+            <EditText
+                android:id="@+id/info_provision1_3"
+                style="@style/NotifyFragmentInfoEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="X" />
+            <TextView
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="项的规定，本机关现责令你（单位）：" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorText"
+            android:paddingStart="40dp"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/info_condition1"
+                style="@style/ChooseFragmentInfoTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="立即改正上述行为。" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/info_condition2"
+                    style="@style/ChooseFragmentInfoTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="于" />
+                <EditText
+                    android:id="@+id/info_condition2_time"
+                    style="@style/NotifyFragmentInfoEditTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="2021-01-01" />
+                <TextView
+                    style="@style/ChooseFragmentInfoTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="前改正上述行为。" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="具体要求如下：" />
+        <EditText
+            android:id="@+id/info_content"
+            style="@style/NotifyFragmentInfoEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:gravity="start"
+            android:hint="请填写修改要求" />
+        <TextView
+            style="@style/ChooseFragmentInfoTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="你（单位）整改完毕后，请及时与本机关联系。" />
+    </LinearLayout>
+</ScrollView>
