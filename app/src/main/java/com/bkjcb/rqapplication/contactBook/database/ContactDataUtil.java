@@ -104,6 +104,9 @@ public class ContactDataUtil {
     public static List<User> queryUser(String key) {
         return ObjectBox.getUserBox().query().contains(User_.username, key).build().find();
     }
+    public static User queryUser(int uid) {
+        return ObjectBox.getUserBox().query().equal(User_.uid, uid).build().findFirst();
+    }
     public static List<User> queryUserByDepartment(String key) {
         int[] levelIds = ObjectBox.getLevelBox().query().equal(Level_.departmentname, key).build().property(Level_.uid).distinct().findInts();
         int[] unitIds = ObjectBox.getUnitBox().query().in(Unit_.levelid, levelIds).build().property(Unit_.uid).distinct().findInts();

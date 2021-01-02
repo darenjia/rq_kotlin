@@ -218,6 +218,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
         <activity android:name=".stationCheck.ModifyNotificationActivity" />
+        <activity android:name=".contactBook.IMActivity" />
+        <activity android:name=".contactBook.ChatActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
