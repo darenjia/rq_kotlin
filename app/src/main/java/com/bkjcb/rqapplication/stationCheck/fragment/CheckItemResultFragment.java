@@ -45,8 +45,11 @@ public class CheckItemResultFragment extends BaseLazyFragment implements RadioGr
             mItemRecord = view.findViewById(R.id.item_record);
             mItemRecord.setText(checkItem.beizhu);
             RadioGroup radioGroup = view.findViewById(R.id.check_result_radioGroup);
+            RadioGroup needRadioGroup = view.findViewById(R.id.check_result_radioGroup_need);
             ok = view.findViewById(R.id.check_result_radio_ok);
             failure = view.findViewById(R.id.check_result_radio_failure);
+           RadioButton need = view.findViewById(R.id.check_result_radio_need);
+            RadioButton notNeed = view.findViewById(R.id.check_result_radio_donotneed);
             if (!TextUtils.isEmpty(checkItem.jianchajieguo)) {
                 if ("合格".equals(checkItem.jianchajieguo)) {
                     radioGroup.check(R.id.check_result_radio_ok);
@@ -56,7 +59,23 @@ public class CheckItemResultFragment extends BaseLazyFragment implements RadioGr
                     changeTextColor(false);
                 }
             }
-            radioGroup.setOnCheckedChangeListener(this);
+            if (!TextUtils.isEmpty(checkItem.tijiaobaogao)) {
+                if ("需要整改报告".equals(checkItem.tijiaobaogao)) {
+                    needRadioGroup.check(R.id.check_result_radio_need);
+                } else {
+                    needRadioGroup.check(R.id.check_result_radio_donotneed);
+                }
+            }
+            if (checkItem.status <3) {
+                radioGroup.setOnCheckedChangeListener(this);
+                needRadioGroup.setOnCheckedChangeListener(this);
+            }else {
+                mItemRecord.setEnabled(false);
+                ok.setEnabled(false);
+                failure.setEnabled(false);
+                need.setEnabled(false);
+                notNeed.setEnabled(false);
+            }
         }
         return view;
     }
@@ -68,12 +87,20 @@ public class CheckItemResultFragment extends BaseLazyFragment implements RadioGr
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (checkedId == R.id.check_result_radio_ok) {
-            checkItem.jianchajieguo = "合格";
-            changeTextColor(true);
+        if (group.getId() == R.id.check_result_radioGroup) {
+            if (checkedId == R.id.check_result_radio_ok) {
+                checkItem.jianchajieguo = "合格";
+                changeTextColor(true);
+            } else {
+                checkItem.jianchajieguo = "不合格";
+                changeTextColor(false);
+            }
         } else {
-            checkItem.jianchajieguo = "不合格";
-            changeTextColor(false);
+            if (checkedId == R.id.check_result_radio_need) {
+                checkItem.tijiaobaogao = "需要整改报告";
+            } else {
+                checkItem.tijiaobaogao = "不需要整改报告";
+            }
         }
     }
 
@@ -87,7 +114,7 @@ public class CheckItemResultFragment extends BaseLazyFragment implements RadioGr
         }
     }
 
-    public String getRemark(){
-       return mItemRecord.getText().toString();
+    public String getRemark() {
+        return mItemRecord.getText().toString();
     }
 }

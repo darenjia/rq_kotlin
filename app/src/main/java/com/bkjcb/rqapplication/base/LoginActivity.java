@@ -16,8 +16,6 @@ import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.model.UserResult;
 import com.bkjcb.rqapplication.base.retrofit.DataService;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
-import com.bkjcb.rqapplication.base.service.MessageService;
-import com.bkjcb.rqapplication.base.service.ServiceUtil;
 import com.bkjcb.rqapplication.base.util.ActivityManagerTool;
 import com.bkjcb.rqapplication.base.util.MD5Util;
 import com.bkjcb.rqapplication.base.util.Utils;
@@ -37,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * Description :
  */
 public class LoginActivity extends SimpleBaseActivity {
-
+    private int errorCount = 0;
 
     @BindView(R.id.password)
     EditText mPassword;
@@ -60,6 +58,8 @@ public class LoginActivity extends SimpleBaseActivity {
     @BindView(R.id.app_version)
     TextView mVersionText;
     QMUITipDialog tipDialog;
+
+    private long errorTime;
 
     @Override
     protected int setLayoutID() {
@@ -139,6 +139,7 @@ public class LoginActivity extends SimpleBaseActivity {
                 }
             }
         }
+        errorTime = getSharedPreferences().getLong("limitTime", 0);
         requestPermission();
         mVersionText.setText(String.format("版本号：V %s", Utils.getCurrentVersion()));
 
@@ -160,6 +161,10 @@ public class LoginActivity extends SimpleBaseActivity {
     }
 
     private void login(String name, String password) {
+        if (errorCount >= 5 || (errorTime > 0 && errorTime + 5 * 60 * 1000 > System.currentTimeMillis())) {
+            Toast.makeText(LoginActivity.this, "多次登录失败！请在五分钟后重试", Toast.LENGTH_SHORT).show();
+            return;
+        }
         showLoading();
         disposable = NetworkApi.getService(DataService.class)
                 .getLoginUser(name, MD5Util.encode(password))
@@ -173,8 +178,14 @@ public class LoginActivity extends SimpleBaseActivity {
                             MyApplication.setUser(result.getDatas());
                             loginSuccess();
                         } else {
+                            errorCount++;
                             tipDialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "用户名或密码错误！", Toast.LENGTH_SHORT).show();
+                            if (errorCount >= 5) {
+                                Toast.makeText(LoginActivity.this, "用户名或密码错误！(请在五分钟后重试)", Toast.LENGTH_SHORT).show();
+                                saveErrorTime(true);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "用户名或密码错误！(剩余" + (5 - errorCount) + "次)", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -203,10 +214,13 @@ public class LoginActivity extends SimpleBaseActivity {
                     .putString("name", mUsername.getText().toString())
                     .putString("password", mPassword.getText().toString())
                     .putBoolean("remember", true)
+                    .putLong("limitTime", 0)
                     .putString("level", MyApplication.getUser().getUserleixing())
                     .apply();
+        } else {
+            saveErrorTime(false);
         }
-        ServiceUtil.startService(1, MessageService.class,this);
+//        ServiceUtil.startService(1, MessageService.class,this);
         try {
             ObjectOutputStream os = new ObjectOutputStream(openFileOutput("CacheUser", MODE_PRIVATE));
             os.writeObject(MyApplication.getUser());
@@ -239,6 +253,11 @@ public class LoginActivity extends SimpleBaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void saveErrorTime(boolean type) {
+        getSharedPreferences().edit().putLong("limitTime", type ? System.currentTimeMillis() : 0)
+                .apply();
     }
 
 }

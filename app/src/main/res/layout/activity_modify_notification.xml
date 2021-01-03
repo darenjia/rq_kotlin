@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/top_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/info_operation"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/colorTextThird"
+                android:text="保存"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/sp_16" />
+
+            <Button
+                android:id="@+id/info_export"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/color_type_1"
+                android:text="导出结果"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

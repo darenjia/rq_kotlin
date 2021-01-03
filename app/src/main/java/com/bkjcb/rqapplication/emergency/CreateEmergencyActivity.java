@@ -137,7 +137,7 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(CreateEmergencyActivity.this, ((MediaFile) adapter.getItem(position)).getPath());
+                MediaPlayActivity.ToActivity(CreateEmergencyActivity.this, adapter.getData(),position);
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -656,7 +656,14 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
                 && verify(mReporterInfoAddress)
                 ;
     }
-
+    private boolean verify(TextView view,String tip) {
+        if (TextUtils.isEmpty(getText(view))) {
+            view.requestFocus();
+            showToast(tip);
+            return false;
+        }
+        return true;
+    }
     private boolean verify(TextView view) {
         if (TextUtils.isEmpty(getText(view))) {
             view.requestFocus();

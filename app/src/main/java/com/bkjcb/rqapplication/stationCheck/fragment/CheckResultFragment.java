@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.fragment.BaseSimpleFragment;
 import com.bkjcb.rqapplication.stationCheck.CreateCheckTaskActivity;
-import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.stationCheck.model.CheckItem;
 
 import butterknife.BindView;
@@ -28,6 +28,8 @@ public class CheckResultFragment extends BaseSimpleFragment {
     TextView mInfoYear;
     @BindView(R.id.info_result)
     TextView mInfoResult;
+    @BindView(R.id.info_result_need_correct)
+    TextView mInfoResultCorrect;
     @BindView(R.id.info_remark)
     TextView mInfoRemark;
     @BindView(R.id.info_name)
@@ -78,6 +80,7 @@ public class CheckResultFragment extends BaseSimpleFragment {
             mInfoRemark.setText(checkItem.beizhu);
             mInfoResult.setText(checkItem.jianchajieguo);
             mInfoName.setText(checkItem.checkMan);
+            mInfoResultCorrect.setText(checkItem.tijiaobaogao);
         }
     }
 }

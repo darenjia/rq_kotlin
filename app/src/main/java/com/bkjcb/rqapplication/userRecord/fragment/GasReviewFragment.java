@@ -396,7 +396,7 @@ public class GasReviewFragment extends BaseSimpleFragment implements DatePickerD
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(getContext(), ((MediaFile) adapter.getItem(position)).getPath());
+                MediaPlayActivity.ToActivity(getContext(), adapter.getData(),position);
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

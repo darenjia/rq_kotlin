@@ -7,7 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="AppThemeNoHeader" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
     <style name="MainCardPagerStyle" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -55,6 +60,16 @@
         <item name="android:gravity">end</item>
         <item name="android:textColor">@color/colorSecondDrayText</item>
         <item name="android:background">@color/colorText</item>
+    </style>
+
+    <style name="NotifyFragmentInfoEditTextStyle" parent="EditText">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorSecondDrayText</item>
     </style>
 
     <style name="RecordFragmentInfoEditTextStyle1" parent="RecordFragmentInfoEditTextStyle">

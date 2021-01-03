@@ -13,16 +13,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.Constants;
-import com.bkjcb.rqapplication.base.MediaPlayActivity;
 import com.bkjcb.rqapplication.R;
+import com.bkjcb.rqapplication.base.MediaPlayActivity;
 import com.bkjcb.rqapplication.base.adapter.FileListAdapter;
-import com.bkjcb.rqapplication.treatment.model.DefectDetail;
-import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.bkjcb.rqapplication.base.model.MediaFile;
 import com.bkjcb.rqapplication.base.util.Utils;
+import com.bkjcb.rqapplication.treatment.model.DefectDetail;
+import com.bkjcb.rqapplication.treatment.model.DefectTreatmentModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -30,7 +28,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -48,8 +45,6 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
 
     @BindView(R.id.record_time)
     TextView mRecordTime;
-    @BindView(R.id.record_des)
-    MaterialSpinner mRecordDes;
     @BindView(R.id.check_result_radio_ok)
     RadioButton mCheckResultRadioOk;
     @BindView(R.id.check_result_radio_failure)
@@ -95,7 +90,6 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
     protected void initView() {
         super.initView();
         initDateView();
-        initSpinner();
         initCheckBox();
         initFileView();
     }
@@ -110,36 +104,15 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
         }
     }
 
-    private void initSpinner() {
-        List<String> list = Arrays.asList("未发现使用液化气", "用户继续使用液化气", "其他");
-        mRecordDes.setAdapter(new MaterialSpinnerAdapter<>(context, list));
-        mRecordDes.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                if (position == 2) {
-                    mDesDetail.setVisibility(View.VISIBLE);
-                } else {
-                    mDesDetail.setVisibility(View.GONE);
-                }
-            }
-        });
-        if (result != null) {
-            int index = 0;
-            if ((index = list.indexOf(result.getFeedbackRemark())) == -1) {
-                index = 2;
-                mDesDetail.setVisibility(View.VISIBLE);
-                mRecordRemark.setText(result.getFeedbackRemark());
-                mRecordRemark.setEnabled(false);
-            }
-            mRecordDes.setSelectedIndex(index);
-            mRecordDes.setEnabled(false);
-        }
-    }
-
     @Override
     protected void initData() {
         super.initData();
         remotePath = "yinhuanchuzhi/" + Utils.getUUID();
+    }
+
+    @Override
+    protected void initRemark() {
+       setText(mRecordRemark,result.getFeedbackRemark());
     }
 
     private void initCheckBox() {
@@ -182,7 +155,7 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(getContext(), ((MediaFile) adapter.getItem(position)).getPath());
+                MediaPlayActivity.ToActivity(getContext(), adapter.getData(), position);
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -276,8 +249,7 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
     protected void collectParams() {
         //super.collectParams();
         result.setDisposalTime(getText(mRecordTime));
-        result.setFeedbackRemark(mRecordDes.getSelected().toString());
-        result.setOther(getText(mRecordRemark));
+        result.setFeedbackRemark(getText(mRecordRemark));
         result.setType("1");
         result.setRemotePath(remotePath);
         if (imageAdapter.getData().size() > 0) {
@@ -296,7 +268,7 @@ public class TreatmentDefectFragment extends TreatmentBackFragment implements Da
     protected boolean verifyData() {
         return verify(null, result.getJzImg(), "请至少添加一张照片!")
                 && verify(mCheckResultRadioGroup, result.getDisposalResult(), "请选择处置结果")
-                && (mRecordDes.getSelectedIndex() != 2 || (mRecordDes.getSelectedIndex() == 2 && verify(mRecordRemark, result.getOther(), "请填写反馈描述！")));
+                &&  verify(mRecordRemark, result.getFeedbackRemark(), "请填写反馈描述！");
     }
 
     @Override

@@ -76,6 +76,7 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
             mItemSection.setText(contentItem.getJianchalanmu().replace("<br/>", "/"));
             if (type == 1) {
                 mItemRecord.setEnabled(false);
+                mItemRecord.setHint("");
             }
         }
         return view;
@@ -105,8 +106,10 @@ public class CheckItemDetailFragment extends BaseLazyFragment {
 
     private void saveData() {
 
-        checkResultItem.jianchajilu = mItemRecord.getText().toString();
-        CheckResultItem.getBox().put(checkResultItem);
+        if (type == 0) {
+            checkResultItem.jianchajilu = mItemRecord.getText().toString();
+            CheckResultItem.getBox().put(checkResultItem);
+        }
 
     }
 }

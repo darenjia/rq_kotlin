@@ -13,17 +13,16 @@ public class DefectTreatmentItemAdapter extends BaseRecycleViewAdapter<DefectTre
     public DefectTreatmentItemAdapter(int layoutResId) {
         super(layoutResId);
     }
-
     @Override
     protected void convert(BaseViewHolder helper, DefectTreatmentModel item) {
-        helper.setText(R.id.treatment_type, item.getProcessTime())
+        helper.setText(R.id.treatment_type, item.getUnitDisposalTime())
                 .setText(R.id.treatment_name, item.getUserName())
                 .setText(R.id.treatment_address, item.getUserAddress())
                 .setText(R.id.treatment_time, item.getCasesType())
                 .setText(R.id.treatment_opinion, item.getOpinions());
 
         if (item.getFlag() != 1 || item.getProcessState() != 3) {
-            helper.setGone(R.id.treatment_opinion, item.getFlag() == 0);
+            helper.setGone(R.id.treatment_opinion, true);
             helper.setText(R.id.treatment_time, obtainStatus(item.getProcessState(), item.getFlag()))
                     .setTextColor(R.id.treatment_time, mContext.getResources().getColor(R.color.colorMint));
         }
@@ -38,7 +37,7 @@ public class DefectTreatmentItemAdapter extends BaseRecycleViewAdapter<DefectTre
         } else if (status == 4 && flag == 2) {
             return "已结案";
         } else {
-            return "";
+            return "待处置";
         }
     }
 

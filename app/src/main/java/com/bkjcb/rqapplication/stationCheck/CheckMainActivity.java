@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
+import com.bkjcb.rqapplication.infoQuery.BusinessFirmInfoActivity;
 import com.bkjcb.rqapplication.stationCheck.adapter.CheckItemAdapter;
 import com.bkjcb.rqapplication.stationCheck.model.CheckItem;
 import com.bkjcb.rqapplication.stationCheck.model.CheckItem_;
@@ -69,6 +70,13 @@ public class CheckMainActivity extends SimpleBaseActivity implements BaseQuickAd
                         button.setImageResource(getButtonDrawableResId());
                         Toast.makeText(CheckMainActivity.this, isShowAll ?  "显示全部":"仅显示未完成", Toast.LENGTH_SHORT).show();
                         showCheckList();
+                    }
+                });
+        mAppbar.addRightImageButton(R.drawable.vector_drawable_icon_person, R.id.top_right_button2)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BusinessFirmInfoActivity.ToActivity(CheckMainActivity.this);
                     }
                 });
         //mAppbar.setBackgroundAlpha(0);

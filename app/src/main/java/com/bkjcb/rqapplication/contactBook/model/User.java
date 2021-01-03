@@ -3,6 +3,8 @@ package com.bkjcb.rqapplication.contactBook.model;
 import com.bkjcb.rqapplication.base.datebase.ObjectBox;
 import com.bkjcb.rqapplication.stationCheck.model.ContactBaseModel;
 
+import java.io.Serializable;
+
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Transient;

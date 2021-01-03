@@ -17,6 +17,7 @@ import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
 import com.bkjcb.rqapplication.contactBook.database.ContactDataUtil;
 import com.bkjcb.rqapplication.contactBook.fragment.ContactFirstFragment;
+import com.bkjcb.rqapplication.contactBook.model.ChatMessage;
 import com.bkjcb.rqapplication.contactBook.model.User;
 import com.bkjcb.rqapplication.base.util.Utils;
 import com.hss01248.dialog.StyledDialog;
@@ -39,6 +40,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ContactActivity extends SimpleBaseActivity {
 
+
+    private ViewHolder viewHolder;
     @Override
     protected int setLayoutID() {
         return R.layout.activity_main_contact;
@@ -62,8 +65,14 @@ public class ContactActivity extends SimpleBaseActivity {
                         ContactSearchActivity.ToActivity(ContactActivity.this);
                     }
                 });
+        barLayout.addRightImageButton(R.drawable.vector_drawable_weixin, R.id.top_right_button1)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(ContactActivity.this,ChatActivity.class));
+                    }
+                });
     }
-
     @Override
     protected void initData() {
         disposable = Observable.create(new ObservableOnSubscribe<Boolean>() {
@@ -105,40 +114,37 @@ public class ContactActivity extends SimpleBaseActivity {
     }
 
     private View initDialogView(final User user) {
-        View view = getLayoutInflater().inflate(R.layout.alert_view, null);
-        TextView name = (TextView) view.findViewById(R.id.name);
-        AvatarImageView imageView = (AvatarImageView) view.findViewById(R.id.item_avatar);
-        imageView.setTextAndColor(user.getUsername().substring(0, 1), Utils.getRandomColor(this));
-        SuperTextView tel1 = (SuperTextView) view.findViewById(R.id.phoneNumber1);
-        SuperTextView tel2 = (SuperTextView) view.findViewById(R.id.phoneNumber2);
-        SuperTextView quxian = (SuperTextView) view.findViewById(R.id.quxian);
-        SuperTextView department = (SuperTextView) view.findViewById(R.id.bumen);
-        SuperTextView zhiwu = (SuperTextView) view.findViewById(R.id.zhiwu);
-        SuperTextView unit_address = (SuperTextView) view.findViewById(R.id.dizhi_danwei);
-        SuperTextView unit_phone = (SuperTextView) view.findViewById(R.id.dianha_danwei);
-        SuperTextView unit_fax = (SuperTextView) view.findViewById(R.id.chuanzhen_danwei);
-        SuperTextView unit_zipcode = (SuperTextView) view.findViewById(R.id.youbian_danwei);
-        name.setText(user.getUsername());
+        if (viewHolder==null){
+            viewHolder=new ViewHolder();
+        }
+        viewHolder.imageView.setTextAndColor(user.getUsername().substring(0, 1), Utils.getRandomColor(this));
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IMActivity.ToActivity(ContactActivity.this,user);
+            }
+        });
+        viewHolder.name.setText(user.getUsername());
         String s1 = user.getTel();
         String s2 = user.getU_tel();
         String s3 = user.getUnit().getTel();
         if (!TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2)) {
-            tel2.setVisibility(View.VISIBLE);
-            tel1.setLeftBottomString(s1);
-            tel2.setLeftBottomString(s2);
+            viewHolder.tel2.setVisibility(View.VISIBLE);
+            viewHolder.tel1.setLeftBottomString(s1);
+            viewHolder.tel2.setLeftBottomString(s2);
         } else {
             if (TextUtils.isEmpty(s1)) {
-                tel1.setLeftBottomString(s2);
+                viewHolder.tel1.setLeftBottomString(s2);
             } else {
-                tel1.setLeftBottomString(s1);
+                viewHolder.tel1.setLeftBottomString(s1);
             }
         }
         final String unitName = user.getLevel().getDepartmentnamea();
         if (unitName.length() > 16) {
-            department.setRightString(unitName.substring(16, unitName.length()));
-            department.setRightTopString(unitName.substring(0, 16));
+            viewHolder.department.setRightString(unitName.substring(16, unitName.length()));
+            viewHolder.department.setRightTopString(unitName.substring(0, 16));
         } else {
-            department.setRightString(unitName);
+            viewHolder.department.setRightString(unitName);
         }
 //        department.setRightBottomString(user.getDepartmentNameA());
         String address = user.getUnit().getAddress();
@@ -148,71 +154,57 @@ public class ContactActivity extends SimpleBaseActivity {
         } else {
             unit_address.setRightString(user.getUnit().getAddress());
         }*/
-        unit_address.setRightString(address);
+        viewHolder.unit_address.setRightString(address);
         if (!TextUtils.isEmpty(user.getDuty())) {
-            zhiwu.setRightBottomString(user.getDuty());
-            zhiwu.setVisibility(View.VISIBLE);
+            viewHolder.zhiwu.setRightBottomString(user.getDuty());
+            viewHolder.zhiwu.setVisibility(View.VISIBLE);
         }
         final String qxName = user.getUnit().getDistrictName();
         if (!TextUtils.isEmpty(qxName)) {
-            quxian.setRightBottomString(qxName);
-            quxian.setVisibility(View.VISIBLE);
+            viewHolder.quxian.setRightBottomString(qxName);
+            viewHolder.quxian.setVisibility(View.VISIBLE);
         }
         if (!TextUtils.isEmpty(s3)) {
             String[] numbers = s3.split("、");
             if (numbers.length > 1) {
-                unit_phone.setCenterBottomString(numbers[1]);
+                viewHolder.unit_phone.setCenterBottomString(numbers[1]);
             }
-            unit_phone.setRightBottomString(numbers[0]);
-            unit_phone.setVisibility(View.VISIBLE);
+            viewHolder.unit_phone.setRightBottomString(numbers[0]);
+            viewHolder.unit_phone.setVisibility(View.VISIBLE);
         }
         if (!TextUtils.isEmpty(user.getUnit().getFax())) {
-            unit_fax.setRightBottomString(user.getUnit().getFax());
-            unit_fax.setVisibility(View.VISIBLE);
+            viewHolder.unit_fax.setRightBottomString(user.getUnit().getFax());
+            viewHolder.unit_fax.setVisibility(View.VISIBLE);
         }
         if (!TextUtils.isEmpty(user.getUnit().getZipcode())) {
-            unit_zipcode.setRightBottomString(user.getUnit().getZipcode());
-            unit_zipcode.setVisibility(View.VISIBLE);
+            viewHolder.unit_zipcode.setRightBottomString(user.getUnit().getZipcode());
+            viewHolder.unit_zipcode.setVisibility(View.VISIBLE);
         }
-        SuperTextView.OnRightImageViewClickListener listener = new SuperTextView.OnRightImageViewClickListener() {
+        viewHolder.tel1.setRightImageViewClickListener(new SuperTextView.OnRightImageViewClickListener() {
             @Override
             public void onClickListener(ImageView imageView) {
-                String number = ((SuperTextView) view).getLeftBottomString();
-                actionCall(number);
-            }
-        };
-        View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                //showPopBottom(v);
-                return true;
-            }
-        };
-        tel1.setRightImageViewClickListener(new SuperTextView.OnRightImageViewClickListener() {
-            @Override
-            public void onClickListener(ImageView imageView) {
-                String number = tel1.getLeftBottomString();
+                String number =viewHolder.tel1.getLeftBottomString();
                 actionCall(number);
             }
         });
         //tel1.setOnClickListener(listener);
-        tel2.setRightImageViewClickListener(new SuperTextView.OnRightImageViewClickListener() {
+        viewHolder.tel2.setRightImageViewClickListener(new SuperTextView.OnRightImageViewClickListener() {
             @Override
             public void onClickListener(ImageView imageView) {
-                String number = tel2.getLeftBottomString();
+                String number = viewHolder.tel2.getLeftBottomString();
                 actionCall(number);
             }
         });
         //tel1.setOnLongClickListener(longClickListener);
         //tel2.setOnLongClickListener(longClickListener);
-        unit_phone.setOnClickListener(new View.OnClickListener() {
+        viewHolder.unit_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String number = ((SuperTextView) v).getRightBottomString();
                 actionCall(number);
             }
         });
-        department.setOnClickListener(new View.OnClickListener() {
+        viewHolder.department.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                /* viewPager.setCurrentItem(0);
@@ -227,7 +219,7 @@ public class ContactActivity extends SimpleBaseActivity {
                 AboutActivity.comeIn(level, MainActivity.this, 0, qxName);*/
             }
         });
-        return view;
+        return viewHolder.view;
     }
 
     public void actionCall(String number) {
@@ -266,5 +258,35 @@ public class ContactActivity extends SimpleBaseActivity {
             }
         }
         return -1;
+    }
+
+    class ViewHolder{
+        TextView name;
+        AvatarImageView imageView;
+        SuperTextView tel1;
+        SuperTextView tel2;
+        SuperTextView quxian;
+        SuperTextView department;
+        SuperTextView zhiwu;
+        SuperTextView unit_address;
+        SuperTextView unit_phone;
+        SuperTextView unit_fax;
+        SuperTextView unit_zipcode;
+        View view;
+
+        ViewHolder(){
+            view = getLayoutInflater().inflate(R.layout.alert_view, null);
+            name = (TextView) view.findViewById(R.id.name);
+            imageView = (AvatarImageView) view.findViewById(R.id.item_avatar);
+            tel1 = (SuperTextView) view.findViewById(R.id.phoneNumber1);
+            tel2 = (SuperTextView) view.findViewById(R.id.phoneNumber2);
+            quxian = (SuperTextView) view.findViewById(R.id.quxian);
+            department = (SuperTextView) view.findViewById(R.id.bumen);
+            zhiwu = (SuperTextView) view.findViewById(R.id.zhiwu);
+            unit_address = (SuperTextView) view.findViewById(R.id.dizhi_danwei);
+            unit_phone = (SuperTextView) view.findViewById(R.id.dianha_danwei);
+            unit_fax = (SuperTextView) view.findViewById(R.id.chuanzhen_danwei);
+            unit_zipcode = (SuperTextView) view.findViewById(R.id.youbian_danwei);
+        }
     }
 }

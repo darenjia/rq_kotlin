@@ -38,6 +38,7 @@ public interface CheckService {
                                          @Field("zdjcxid") String[] zdjcxid,
                                          @Field("jianchajilu") String[] jianchajilu,
                                          @Field("phoneftp") String path,
-                                         @Field("fileid") String fileid
+                                         @Field("fileid") String fileid,
+                                         @Field("tijiaobaogao") String tijiaobaogao
     );
 }

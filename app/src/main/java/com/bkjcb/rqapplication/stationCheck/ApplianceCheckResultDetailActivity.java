@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.bkjcb.rqapplication.base.ftp.FtpUtils;
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
 import com.bkjcb.rqapplication.base.model.HttpResult;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
@@ -14,7 +13,6 @@ import com.bkjcb.rqapplication.stationCheck.model.CheckItem;
 import com.bkjcb.rqapplication.stationCheck.retrofit.ApplianceCheckService;
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,12 +49,7 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
         if (!TextUtils.isEmpty(checkItem.filePath)) {
             paths.addAll(Arrays.asList(checkItem.filePath.split(",")));
         }
-        disposable = UploadTask.createUploadTask(paths, prePath, new FtpUtils.UploadProgressListener() {
-            @Override
-            public void onUploadProgress(String currentStep, long uploadSize, long size, File file) {
-
-            }
-        }).subscribeOn(Schedulers.io())
+        disposable = UploadTask.createUploadTask(paths, prePath).subscribeOn(Schedulers.io())
                 .flatMap(new Function<Boolean, ObservableSource<HttpResult>>() {
                     @Override
                     public ObservableSource<HttpResult> apply(Boolean aBoolean) throws Exception {

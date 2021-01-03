@@ -14,34 +14,57 @@
         android:layout_marginTop="?attr/qmui_topbar_height"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        <FrameLayout
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="56dp"/>
+    <Button
+        android:id="@+id/info_modify"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="4dp"
+        android:visibility="gone"
+        android:background="@color/color_type_2"
+        android:text="责令整改通知书"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/sp_16" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
         <Button
             android:id="@+id/info_operation"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_gravity="bottom"
             android:layout_margin="4dp"
+            android:layout_weight="1"
             android:background="@color/colorSetting"
             android:text="开始检查"
             android:textColor="@color/colorText"
             android:textSize="@dimen/sp_16" />
         <Button
             android:id="@+id/info_export"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="48dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_margin="4dp"
             android:background="@color/color_type_1"
             android:text="导出结果"
             android:visibility="gone"
-            android:layout_marginBottom="56dp"
             android:textColor="@color/colorText"
             android:textSize="@dimen/sp_16" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
     </FrameLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

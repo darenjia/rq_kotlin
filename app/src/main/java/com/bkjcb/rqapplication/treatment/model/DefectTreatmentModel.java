@@ -40,10 +40,10 @@ public class DefectTreatmentModel implements Serializable {
     private String IdCard;
     private String Opinions;
     private String MbuGuid;
+    private String unitDisposalTime;
     private int UserType;
     private int Flag;
     private int ProcessState;
-    private int paifajiezhenFlag;
 
     public int getProcessState() {
         return ProcessState;
@@ -181,11 +181,11 @@ public class DefectTreatmentModel implements Serializable {
         Opinions = opinions;
     }
 
-    public int getPaifajiezhenFlag() {
-        return paifajiezhenFlag;
+    public String getUnitDisposalTime() {
+        return unitDisposalTime;
     }
 
-    public void setPaifajiezhenFlag(int paifajiezhenFlag) {
-        this.paifajiezhenFlag = paifajiezhenFlag;
+    public void setUnitDisposalTime(String unitDisposalTime) {
+        this.unitDisposalTime = unitDisposalTime;
     }
 }

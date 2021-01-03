@@ -188,7 +188,7 @@ public class OpenFileUtil {
             //判断版本是否在7.0以上
             uri =
                     FileProvider.getUriForFile(MyApplication.getContext(),
-                            MyApplication.getContext().getPackageName() + ".fileprovider",
+                            MyApplication.getContext().getPackageName() + ".fileProvider",
                             new File(file));
         } else {
             uri = Uri.parse(file);

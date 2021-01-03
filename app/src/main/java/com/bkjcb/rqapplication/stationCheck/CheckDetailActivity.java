@@ -90,8 +90,6 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     protected void initView() {
         initTopbar("检查详情", 0);
         initEmptyView();
-        showLoadingView();
-
     }
 
     @Override
@@ -152,9 +150,9 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     protected void saveResult() {
-        if (TextUtils.isEmpty(checkItem.jianchajieguo)) {
+        if (TextUtils.isEmpty(checkItem.jianchajieguo) || TextUtils.isEmpty(checkItem.tijiaobaogao)) {
             if (mViewPager.getCurrentItem() == fragmentList.size() - 1) {
-                showSnackbar(mPagerNumber, "请选择检查结果");
+                showSnackbar(mPagerNumber, TextUtils.isEmpty(checkItem.jianchajieguo) ? "请选择检查结果" : "请选择整改要求");
             } else {
                 mViewPager.setCurrentItem(fragmentList.size() - 1, true);
             }
@@ -167,7 +165,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         if (isSubmit) {
             checkItem.status = 2;
         }
-        if (currentPage == fragmentList.size()-1) {
+        if (currentPage == fragmentList.size() - 1) {
             CheckItemResultFragment resultFragment = (CheckItemResultFragment) fragmentList.get(fragmentList.size() - 1);
             checkItem.beizhu = resultFragment.getRemark();
         }
@@ -177,6 +175,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     }
 
     protected void getCheckContent() {
+        showLoadingView();
         disposable = NetworkApi.getService(CheckService.class)
                 .getCheckItem(checkItem.zhandianleixing)
                 .subscribeOn(Schedulers.io())
@@ -252,7 +251,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
         imageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MediaPlayActivity.ToActivity(CheckDetailActivity.this, (String) adapter.getItem(position));
+                MediaPlayActivity.ToActivity(CheckDetailActivity.this, mediaList.get(position));
             }
         });
         imageAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -281,7 +280,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     public void showPickImg() {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
-                .setOutputCameraPath(FileUtil.getFileOutputPath("CheckImage/" + checkItem.c_id ))
+                .setOutputCameraPath(FileUtil.getFileOutputPath("CheckImage/" + checkItem.c_id))
                 .compress(false)
                 .imageFormat(PictureMimeType.PNG)
                 //.selectionMedia(selectList)
@@ -363,7 +362,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
 
     private void showPopList() {
         if (listPopup == null) {
-            ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item, contents);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item, contents);
             AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

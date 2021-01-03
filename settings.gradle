@@ -1,2 +1,3 @@
+include ':chartui'
 include ':app', ':spinner', ':library', ':picture_library', ':ucrop', ':dialog', ':androidtagview'
 rootProject.name='RQApplication'

@@ -46,7 +46,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
     protected void initView() {
         type = getIntent().getBooleanExtra("type", true);
         super.initView();
-        if (model.getFlag() == 0) {
+        if (model.getFlag() == 1 && model.getProcessState() == 3) {
             if (type) {
                 mInfoOperation.setText("提交");
                 mInfoExport.setVisibility(View.GONE);
@@ -61,7 +61,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
 
     @Override
     protected void initData() {
-        if (model.getFlag()>0) {
+        if (model.getFlag() != 1 || model.getProcessState() != 3) {
             getDefectDetail();
         } else {
             fragment = type ? TreatmentDefectFragment.newInstance(model) : TreatmentBackFragment.newInstance(model);
@@ -152,7 +152,7 @@ public class TreatmentDefectActivity extends TreatmentDetailActivity {
                     public void accept(DefectDetailResult result) throws Exception {
                         if (result.isPushSuccess()) {
                             emptyView.hide();
-                            fragment = type ? TreatmentDefectFragment.newInstance(model, result.getDatas()):TreatmentBackFragment.newInstance(model, result.getDatas());
+                            fragment = type ? TreatmentDefectFragment.newInstance(model, result.getDatas()) : TreatmentBackFragment.newInstance(model, result.getDatas());
                             loadView();
                         } else {
                             showErrorView(result.pushMsg);

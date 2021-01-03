@@ -69,7 +69,7 @@
             android:background="@color/white"
             android:visibility="gone"
             app:sBackgroundDrawableRes="@color/white"
-            app:sLeftBottomTextColor="@color/black"
+            app:sLeftBottomTextColor="@color/colorSecondDrayText"
             app:sLeftBottomTextSize="18sp"
             app:sLeftBottomTextString="13924481442"
             app:sLeftIconMarginLeft="20dp"

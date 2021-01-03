@@ -46,7 +46,7 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     @Override
     protected void initData() {
         loadView();
-        if (model.getFlag()>0){
+        if (!(model.getFlag() == 1 && model.getProcessState() == 3)) {
             mOperateLayout.setVisibility(View.GONE);
         }
     }
@@ -78,12 +78,12 @@ public class TreatmentDetailActivity extends SimpleBaseActivity {
     public static void toActivity(Activity context, DefectTreatmentModel model) {
         Intent intent = new Intent(context, TreatmentDetailActivity.class);
         intent.putExtra("data", model);
-        context.startActivityForResult(intent,100);
+        context.startActivityForResult(intent, 100);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == 100) {
             mOperateLayout.setVisibility(View.GONE);
             setResult(100);
