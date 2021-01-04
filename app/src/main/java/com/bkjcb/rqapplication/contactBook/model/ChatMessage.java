@@ -19,6 +19,42 @@ public class ChatMessage {
     private int messageType;
     private String contentType;
     private long timestamp;
+    private String filePath;
+    private String mimeType;
+    private String fileType;
+    private long voiceTime;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public long getVoiceTime() {
+        return voiceTime;
+    }
+
+    public void setVoiceTime(long voiceTime) {
+        this.voiceTime = voiceTime;
+    }
 
     public int getReceiver() {
         return receiver;

@@ -284,6 +284,10 @@ public class IMActivity extends SimpleBaseActivity {
                 messageInfo.setContent(message.getContent());
                 messageInfo.setFileType(message.getContentType());
                 messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
+                messageInfo.setFilepath(message.getFilePath());
+                messageInfo.setFileType(message.getFileType());
+                messageInfo.setMimeType(message.getMimeType());
+                messageInfo.setVoiceTime(message.getVoiceTime());
                 messageInfos.add(messageInfo);
             }
         }
@@ -327,6 +331,10 @@ public class IMActivity extends SimpleBaseActivity {
         chatMessage.setContentType(messageInfo.getFileType());
         chatMessage.setContent(messageInfo.getContent());
         chatMessage.setTimestamp(System.currentTimeMillis());
+        chatMessage.setFilePath(messageInfo.getFilepath());
+        chatMessage.setFileType(messageInfo.getFileType());
+        chatMessage.setMimeType(messageInfo.getMimeType());
+        chatMessage.setVoiceTime(messageInfo.getVoiceTime());
         ChatMessage.insert(chatMessage);
     }
 
