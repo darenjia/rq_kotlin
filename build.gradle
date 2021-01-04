@@ -24,9 +24,10 @@ allprojects {
         maven {
             url  "http://dl.bintray.com/piasy/maven"
         }
-        maven {
-            url 'https://esri.bintray.com/arcgis'
-        }
+//        maven {
+//            url 'https://esri.bintray.com/arcgis'
+//        }
+        mavenLocal()
     }
 }
 

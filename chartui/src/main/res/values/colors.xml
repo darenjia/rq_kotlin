@@ -17,7 +17,7 @@
     <color name="text_hint">#c7c7c7</color>
     <color name="text_black">#404040</color>
 
-    <color name="chat_send_bg">#5AAADD</color>
+    <color name="chat_send_bg">#00baef</color>
     <color name="chat_send_text">#2C2C2C</color>
 
     <color name="chat_accept_bg">#DCF2F6</color>

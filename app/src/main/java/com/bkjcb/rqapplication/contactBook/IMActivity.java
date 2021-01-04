@@ -284,6 +284,10 @@ public class IMActivity extends SimpleBaseActivity {
                 messageInfo.setContent(message.getContent());
                 messageInfo.setFileType(message.getContentType());
                 messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
+                messageInfo.setFilepath(message.getFilePath());
+                messageInfo.setFileType(message.getFileType());
+                messageInfo.setMimeType(message.getMimeType());
+                messageInfo.setVoiceTime(message.getVoiceTime());
                 messageInfos.add(messageInfo);
             }
         }
@@ -306,18 +310,18 @@ public class IMActivity extends SimpleBaseActivity {
                 chatAdapter.notifyDataSetChanged();
             }
         }, 2000);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                MessageInfo message = new MessageInfo();
-                message.setContent("这是模拟消息回复");
-                message.setType(Constants.CHAT_ITEM_TYPE_LEFT);
-                message.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-                message.setHeader("https://img2.woyaogexing.com/2021/01/02/f5e461b2ed1343039e7cc13e11d9c144!400x400.jpeg");
-                messageInfos.add(message);
-                chatAdapter.notifyItemInserted(messageInfos.size() - 1);
-                chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
-            }
-        }, 3000);
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
+//                MessageInfo message = new MessageInfo();
+//                message.setContent("这是模拟消息回复");
+//                message.setType(Constants.CHAT_ITEM_TYPE_LEFT);
+//                message.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
+//                message.setHeader("https://img2.woyaogexing.com/2021/01/02/f5e461b2ed1343039e7cc13e11d9c144!400x400.jpeg");
+//                messageInfos.add(message);
+//                chatAdapter.notifyItemInserted(messageInfos.size() - 1);
+//                chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
+//            }
+//        }, 3000);
     }
 
     private void saveMessage(MessageInfo messageInfo) {
@@ -327,6 +331,10 @@ public class IMActivity extends SimpleBaseActivity {
         chatMessage.setContentType(messageInfo.getFileType());
         chatMessage.setContent(messageInfo.getContent());
         chatMessage.setTimestamp(System.currentTimeMillis());
+        chatMessage.setFilePath(messageInfo.getFilepath());
+        chatMessage.setFileType(messageInfo.getFileType());
+        chatMessage.setMimeType(messageInfo.getMimeType());
+        chatMessage.setVoiceTime(messageInfo.getVoiceTime());
         ChatMessage.insert(chatMessage);
     }
 

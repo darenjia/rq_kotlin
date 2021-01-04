@@ -672,14 +672,6 @@ public class CreateEmergencyActivity extends SimpleBaseActivity implements Switc
         }
         return true;
     }
-    private boolean verify(TextView view,String tip) {
-        if (TextUtils.isEmpty(getText(view))) {
-            view.requestFocus();
-            showToast(tip);
-            return false;
-        }
-        return true;
-    }
     private void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
