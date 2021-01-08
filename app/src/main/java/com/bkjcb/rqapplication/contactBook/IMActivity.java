@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.base.SimpleBaseActivity;
+import com.bkjcb.rqapplication.base.util.Utils;
 import com.bkjcb.rqapplication.contactBook.model.ChatMessage;
 import com.bkjcb.rqapplication.contactBook.model.User;
 import com.rance.chatui.R;
@@ -43,6 +44,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -71,6 +73,8 @@ public class IMActivity extends SimpleBaseActivity {
     AnimationDrawable animationDrawable = null;
     private ImageView animView;
     private User user;
+    private long sendCurrentTime;
+    private List<ChatMessage> messageList;
 
     @Override
     protected int setLayoutID() {
@@ -252,12 +256,17 @@ public class IMActivity extends SimpleBaseActivity {
 
         @Override
         public void onLongClickText(View view, int position) {
-
+            if (position<=messageList.size()){
+                ChatMessage message=  messageList.get(position);
+                message.setReadState(1);
+                ChatMessage.insert(message);
+                messageInfos.get(position).setReadState(1);
+                chatAdapter.notifyItemRangeChanged(position,1);
+            }
         }
 
         @Override
         public void onLongClickItem(View view, int position) {
-
         }
 
         @Override
@@ -277,7 +286,7 @@ public class IMActivity extends SimpleBaseActivity {
     private void LoadData() {
         messageInfos = new ArrayList<>();
         MessageInfo messageInfo;
-        List<ChatMessage> messageList = ChatMessage.queryMessage(user.getUid());
+        messageList = ChatMessage.queryMessage(user.getUid());
         if (messageList.size() > 0) {
             for (ChatMessage message : messageList) {
                 messageInfo = new MessageInfo();
@@ -288,6 +297,9 @@ public class IMActivity extends SimpleBaseActivity {
                 messageInfo.setFileType(message.getFileType());
                 messageInfo.setMimeType(message.getMimeType());
                 messageInfo.setVoiceTime(message.getVoiceTime());
+                messageInfo.setReadState(message.getReadState());
+                messageInfo.setSendState(Constants.CHAT_ITEM_SEND_SUCCESS);
+                messageInfo.setTime(getShowTimeText(message.getTimestamp()));
                 messageInfos.add(messageInfo);
             }
         }
@@ -300,6 +312,10 @@ public class IMActivity extends SimpleBaseActivity {
     public void MessageEventBus(final MessageInfo messageInfo) {
         messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
         messageInfo.setSendState(Constants.CHAT_ITEM_SENDING);
+        if (isSetTime()) {
+            sendCurrentTime = System.currentTimeMillis();
+            messageInfo.setTime(Utils.dateFormat("HH:mm", new Date(sendCurrentTime)));
+        }
         messageInfos.add(messageInfo);
         saveMessage(messageInfo);
         chatAdapter.notifyItemInserted(messageInfos.size() - 1);
@@ -312,16 +328,21 @@ public class IMActivity extends SimpleBaseActivity {
         }, 2000);
 //        new Handler().postDelayed(new Runnable() {
 //            public void run() {
+//                messageInfos.get(messageInfos.size() - 1).setReadState(1);
+//                chatAdapter.notifyItemRangeChanged(messageInfos.size() - 1, 1);
+//            }
+//        }, 3000);
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
 //                MessageInfo message = new MessageInfo();
-//                message.setContent("这是模拟消息回复");
+//                message.setContent("收到");
 //                message.setType(Constants.CHAT_ITEM_TYPE_LEFT);
 //                message.setFileType(Constants.CHAT_FILE_TYPE_TEXT);
-//                message.setHeader("https://img2.woyaogexing.com/2021/01/02/f5e461b2ed1343039e7cc13e11d9c144!400x400.jpeg");
 //                messageInfos.add(message);
 //                chatAdapter.notifyItemInserted(messageInfos.size() - 1);
 //                chatList.scrollToPosition(chatAdapter.getItemCount() - 1);
 //            }
-//        }, 3000);
+//        }, 5000);
     }
 
     private void saveMessage(MessageInfo messageInfo) {
@@ -335,7 +356,8 @@ public class IMActivity extends SimpleBaseActivity {
         chatMessage.setFileType(messageInfo.getFileType());
         chatMessage.setMimeType(messageInfo.getMimeType());
         chatMessage.setVoiceTime(messageInfo.getVoiceTime());
-        ChatMessage.insert(chatMessage);
+        chatMessage.setReadState(messageInfo.getReadState());
+        messageList.add(ChatMessage.insert(chatMessage));
     }
 
     @Override
@@ -350,5 +372,38 @@ public class IMActivity extends SimpleBaseActivity {
         super.onDestroy();
         EventBus.getDefault().removeStickyEvent(this);
         EventBus.getDefault().unregister(this);
+    }
+
+    private boolean isSetTime() {
+        if (sendCurrentTime == 0) {
+            return true;
+        }
+        return System.currentTimeMillis() - sendCurrentTime > 5 * 60 * 60 * 1000;
+    }
+
+    private boolean isSetTime(long time) {
+        if (sendCurrentTime == 0) {
+            return true;
+        }
+        return time - sendCurrentTime> 5 * 60 * 60 * 1000;
+    }
+
+    private String getShowTimeText(long time) {
+        if (time > 0) {
+            if (Utils.isSameDay(time, System.currentTimeMillis())) {
+                if (isSetTime(time)) {
+                    sendCurrentTime = time;
+                    return Utils.dateFormat("HH:mm", new Date(time));
+                }
+                sendCurrentTime = time;
+            } else {
+                if (isSetTime(time)) {
+                    sendCurrentTime = time;
+                    return Utils.dateFormat("MM-dd HH:mm", new Date(time));
+                }
+                sendCurrentTime = time;
+            }
+        }
+        return "";
     }
 }

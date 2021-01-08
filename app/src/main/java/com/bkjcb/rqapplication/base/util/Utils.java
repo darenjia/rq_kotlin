@@ -269,4 +269,21 @@ public class Utils {
         }
         return type;
     }
+
+    public static boolean isSameDay(long date1, long date2) {
+            Calendar cal1 = Calendar.getInstance();
+            cal1.setTimeInMillis(date1);
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTimeInMillis(date2);
+            return isSameDay(cal1, cal2);
+
+    }
+
+    public static boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if(cal1 != null && cal2 != null) {
+            return cal1.get(0) == cal2.get(0) && cal1.get(1) == cal2.get(1) && cal1.get(6) == cal2.get(6);
+        } else {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+    }
 }

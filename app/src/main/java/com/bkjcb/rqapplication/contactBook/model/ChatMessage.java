@@ -23,6 +23,7 @@ public class ChatMessage {
     private String mimeType;
     private String fileType;
     private long voiceTime;
+    private int readState;
 
     public String getFilePath() {
         return filePath;
@@ -76,6 +77,14 @@ public class ChatMessage {
         return messageType;
     }
 
+    public int getReadState() {
+        return readState;
+    }
+
+    public void setReadState(int readState) {
+        this.readState = readState;
+    }
+
     public void setMessageType(int messageType) {
         this.messageType = messageType;
     }
@@ -108,12 +117,18 @@ public class ChatMessage {
         return ObjectBox.get().boxFor(ChatMessage.class);
     }
 
-    public static void insert(ChatMessage message) {
-        getBox().put(message);
+    public static ChatMessage insert(ChatMessage message) {
+        message.id = getBox().put(message);
+        return message;
     }
 
     public static List<ChatMessage> queryMessage(int receiver) {
         return getBox().query().equal(ChatMessage_.receiver, receiver).order(ChatMessage_.timestamp).build().find();
+    }
+
+    public static void remove(int receiver) {
+        List<ChatMessage> list = getBox().query().equal(ChatMessage_.receiver, receiver).build().find();
+        getBox().remove(list);
     }
 
     public static List<ChatMessage> queryMessage() {

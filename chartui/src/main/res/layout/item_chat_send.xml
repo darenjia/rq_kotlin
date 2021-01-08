@@ -10,6 +10,7 @@
         android:id="@+id/chat_item_date"
         style="@style/text_body"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="12dp"
         android:visibility="gone" />
 
     <RelativeLayout
@@ -22,13 +23,15 @@
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/icon_person"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:layout_alignParentEnd="true" />
 
         <RelativeLayout
             android:id="@+id/chat_item_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/chat_item_header">
+            android:layout_toLeftOf="@id/chat_item_header"
+            android:layout_toStartOf="@id/chat_item_header">
 
             <com.rance.chatui.widget.BubbleImageView
                 android:id="@+id/chat_item_content_image"
@@ -270,7 +273,14 @@
             android:layout_marginRight="@dimen/content_vertical_margin"
             android:layout_toLeftOf="@+id/chat_item_layout"
             android:visibility="gone" />
-
+        <TextView
+            android:id="@+id/chat_item_state_text"
+            style="@style/text_body"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/content_vertical_margin"
+            android:layout_toLeftOf="@+id/chat_item_layout"
+            android:visibility="gone"
+            android:text="未读"/>
         <ImageView
             android:id="@+id/chat_item_fail"
             android:layout_width="18dp"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/with_bg_top_bar" />
+
+    <LinearLayout
+        android:id="@+id/create_task_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@color/colorText">
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/station_type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:ms_background_color="@color/colorText"
+                app:ms_padding_bottom="4dp"
+                app:ms_padding_left="8dp"
+                app:ms_padding_right="4dp"
+                app:ms_padding_top="4dp"
+                app:ms_popup_padding_bottom="4dp"
+                app:ms_popup_padding_left="4dp"
+                app:ms_popup_padding_right="4dp"
+                app:ms_popup_padding_top="4dp"
+                app:ms_text_color="@color/colorAccent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorDivider"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:id="@+id/station_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorText"
+                android:hint="企业名称"
+                android:imeOptions="actionDone"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:singleLine="true"
+                android:textColor="@color/colorSecondDrayText" />
+
+            <ImageView
+                android:id="@+id/station_search_close"
+                android:layout_width="42dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorText"
+                android:padding="4dp"
+                android:scaleType="center"
+                android:src="@drawable/vector_drawable_close"
+                android:tint="@color/colorSecondDrayText" />
+        </LinearLayout>
+        <include layout="@layout/horizontal_divider"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/station_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

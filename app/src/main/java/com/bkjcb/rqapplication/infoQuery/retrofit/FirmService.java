@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication.infoQuery.retrofit;
 
 import com.bkjcb.rqapplication.base.model.SimpleHttpResult;
 import com.bkjcb.rqapplication.infoQuery.model.AlarmFirmModel;
+import com.bkjcb.rqapplication.infoQuery.model.BaseFirmModel;
 import com.bkjcb.rqapplication.infoQuery.model.BusinessFirmModel;
 import com.bkjcb.rqapplication.infoQuery.model.InstallationFirmModel;
 import com.bkjcb.rqapplication.infoQuery.model.SellFirmModel;
@@ -32,4 +33,7 @@ public interface FirmService {
 
     @GET("/rq/push/getjingyingList")
     Observable<SimpleHttpResult<List<SimpleBusinessFirmModel>>> getjingyingList(@Query("start") int start, @Query("limit")int limit,@Query("qiyemingcheng")String key);
+
+    @GET("/rq/push/getComboList")
+    Observable<SimpleHttpResult<List<BaseFirmModel>>> getComboList(@Query("type") String start, @Query("name")String key);
 }

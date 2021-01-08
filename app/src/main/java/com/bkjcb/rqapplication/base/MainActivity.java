@@ -28,6 +28,7 @@ import com.bkjcb.rqapplication.base.util.RxJavaUtil;
 import com.bkjcb.rqapplication.base.view.MyGridView;
 import com.bkjcb.rqapplication.contactBook.ContactActivity;
 import com.bkjcb.rqapplication.emergency.EmergencyMainActivity;
+import com.bkjcb.rqapplication.infoQuery.FirmQueryActivity;
 import com.bkjcb.rqapplication.stationCheck.CheckMainActivity;
 import com.bkjcb.rqapplication.treatment.DefectTreatmentMainActivity;
 import com.bkjcb.rqapplication.userRecord.GasUserRecordActivity;
@@ -148,6 +149,12 @@ public class MainActivity extends SimpleBaseActivity {
 //                            SettingActivity.ToActivity(MainActivity.this);
                             MapMainActivity.ToActivity(MainActivity.this);
                             break;
+                        case 9:
+                            FirmQueryActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 10:
+                            SettingActivity.ToActivity(MainActivity.this);
+                            break;
                         default:
                     }
                 } else {
@@ -169,8 +176,8 @@ public class MainActivity extends SimpleBaseActivity {
 
     private void initBanner() {
         List<String> list = new ArrayList<>();
-        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home3.jpg");
-        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home2.jpg");
+//        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home3.jpg");
+//        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home2.jpg");
         list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home9.jpg");
         mConvenientBanner.setPages(new CBViewHolderCreator() {
             @Override
@@ -361,7 +368,7 @@ public class MainActivity extends SimpleBaseActivity {
         data.setValueTextColor(Color.WHITE);
         chart.setData(data);
         chart.setCenterText(generateCenterSpannableText((int) allCount));
-        chart.setCenterTextOffset(0,-20);
+        chart.setCenterTextOffset(0, -20);
 
     }
 
