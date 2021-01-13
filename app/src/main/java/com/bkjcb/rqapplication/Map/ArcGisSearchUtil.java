@@ -55,6 +55,7 @@ public class ArcGisSearchUtil {
 
         ServiceFeatureTable featureTable = new ServiceFeatureTable(PIPELINE_QUERY_URL);
         QueryParameters query = new QueryParameters();
+        query.setWhereClause("TypeName='燃气'");
         int tolerance = 500;
         Envelope envelope = new Envelope(mapPoint, tolerance, tolerance);
         //Polygon polygon = getCircle(mapPoint, mapTolerance);

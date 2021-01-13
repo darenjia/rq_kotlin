@@ -292,7 +292,7 @@ public class IMActivity extends SimpleBaseActivity {
                 messageInfo = new MessageInfo();
                 messageInfo.setContent(message.getContent());
                 messageInfo.setFileType(message.getContentType());
-                messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
+                messageInfo.setType(message.getMessageType());
                 messageInfo.setFilepath(message.getFilePath());
                 messageInfo.setFileType(message.getFileType());
                 messageInfo.setMimeType(message.getMimeType());
@@ -310,7 +310,12 @@ public class IMActivity extends SimpleBaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void MessageEventBus(final MessageInfo messageInfo) {
-        messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
+        if (messageInfo.getContent().startsWith("回复:")) {
+            messageInfo.setType(Constants.CHAT_ITEM_TYPE_LEFT);
+            messageInfo.setContent(messageInfo.getContent().replace("回复:", ""));
+        } else {
+            messageInfo.setType(Constants.CHAT_ITEM_TYPE_RIGHT);
+        }
         messageInfo.setSendState(Constants.CHAT_ITEM_SENDING);
         if (isSetTime()) {
             sendCurrentTime = System.currentTimeMillis();
@@ -357,6 +362,7 @@ public class IMActivity extends SimpleBaseActivity {
         chatMessage.setMimeType(messageInfo.getMimeType());
         chatMessage.setVoiceTime(messageInfo.getVoiceTime());
         chatMessage.setReadState(messageInfo.getReadState());
+        chatMessage.setMessageType(messageInfo.getType());
         messageList.add(ChatMessage.insert(chatMessage));
     }
 
