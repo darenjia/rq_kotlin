@@ -167,8 +167,8 @@ public class MainActivity extends SimpleBaseActivity {
 
     private void initBanner() {
         List<String> list = new ArrayList<>();
-        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home3.jpg");
-        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home2.jpg");
+//        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home3.jpg");
+//        list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home/home2.jpg");
         list.add("https://bucket-shgas.oss-cn-shanghai.aliyuncs.com/portalWebSite/static/home9.jpg");
         mConvenientBanner.setPages(new CBViewHolderCreator() {
             @Override
