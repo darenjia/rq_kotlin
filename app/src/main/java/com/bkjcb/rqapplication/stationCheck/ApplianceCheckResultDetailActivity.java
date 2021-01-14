@@ -3,6 +3,7 @@ package com.bkjcb.rqapplication.stationCheck;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.bkjcb.rqapplication.base.ftp.UploadTask;
 import com.bkjcb.rqapplication.base.model.HttpResult;
@@ -39,6 +40,13 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
         Intent intent = new Intent(context, ApplianceCheckResultDetailActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mInfoExport.setVisibility(View.GONE);
+        mInfoModify.setVisibility(View.GONE);
     }
 
     @Override
