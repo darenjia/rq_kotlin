@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bkjcb.rqapplication.Map.MapMainActivity;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.actionRegister.ActionRegisterActivity;
 import com.bkjcb.rqapplication.base.adapter.LocalImageHolderView;
@@ -27,6 +28,7 @@ import com.bkjcb.rqapplication.base.util.RxJavaUtil;
 import com.bkjcb.rqapplication.base.view.MyGridView;
 import com.bkjcb.rqapplication.contactBook.ContactActivity;
 import com.bkjcb.rqapplication.emergency.EmergencyMainActivity;
+import com.bkjcb.rqapplication.infoQuery.FirmQueryActivity;
 import com.bkjcb.rqapplication.stationCheck.CheckMainActivity;
 import com.bkjcb.rqapplication.treatment.DefectTreatmentMainActivity;
 import com.bkjcb.rqapplication.userRecord.GasUserRecordActivity;
@@ -76,7 +78,7 @@ public class MainActivity extends SimpleBaseActivity {
 
     @Override
     protected int setLayoutID() {
-        return R.layout.activity_mian;
+        return R.layout.activity_main;
     }
 
     @Override
@@ -144,6 +146,13 @@ public class MainActivity extends SimpleBaseActivity {
                             DefectTreatmentMainActivity.ToActivity(MainActivity.this);
                             break;
                         case 8:
+//                            SettingActivity.ToActivity(MainActivity.this);
+                            MapMainActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 9:
+                            FirmQueryActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 10:
                             SettingActivity.ToActivity(MainActivity.this);
                             break;
                         default:
@@ -359,7 +368,7 @@ public class MainActivity extends SimpleBaseActivity {
         data.setValueTextColor(Color.WHITE);
         chart.setData(data);
         chart.setCenterText(generateCenterSpannableText((int) allCount));
-        chart.setCenterTextOffset(0,-20);
+        chart.setCenterTextOffset(0, -20);
 
     }
 

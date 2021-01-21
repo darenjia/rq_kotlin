@@ -16,14 +16,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
+import com.bkjcb.rqapplication.Map.Bean.LocationPosition;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.base.adapter.AddressItemAdapter;
 import com.bkjcb.rqapplication.base.fragment.MapFragment;
 import com.bkjcb.rqapplication.base.model.ConvertResult;
-import com.bkjcb.rqapplication.userRecord.model.UserInfoResult;
 import com.bkjcb.rqapplication.base.retrofit.ConvertService;
 import com.bkjcb.rqapplication.base.retrofit.DataService;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.userRecord.model.UserInfoResult;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -271,9 +272,9 @@ public class GasMainActivity extends SimpleBaseActivity {
                 });
     }
 
-    private void locationToLatlng(List<ConvertResult.LocationPosition> locationPositions) {
+    private void locationToLatlng(List<LocationPosition> locationPositions) {
         for (int i = 0; i < locationPositions.size(); i++) {
-            ConvertResult.LocationPosition position = locationPositions.get(i);
+            LocationPosition position = locationPositions.get(i);
             userInfoList.get(i).setLatLng(new LatLng(position.getLatitude(), position.getLongitude()));
         }
     }

@@ -1,7 +1,6 @@
 package com.bkjcb.rqapplication.infoQuery.fragment;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
@@ -13,7 +12,6 @@ import com.qmuiteam.qmui.widget.QMUIEmptyView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 import io.reactivex.Observable;
 
 /**
@@ -65,8 +63,7 @@ public class BusinessFirmInfoFragment extends FirmInfoFragment<List<BusinessFirm
     TextView mInfoManageDistrict;
     @BindView(R.id.empty_view)
     QMUIEmptyView mEmptyView;
-    private View view;
-    private Unbinder unbinder;
+
 
     public static BusinessFirmInfoFragment newInstance(String code) {
         BusinessFirmInfoFragment fragment = new BusinessFirmInfoFragment();

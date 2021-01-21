@@ -16,6 +16,15 @@ public class MessageInfo {
     private String fileType;
     private Object object;
     private String mimeType;
+    private int readState;
+
+    public int getReadState() {
+        return readState;
+    }
+
+    public void setReadState(int readState) {
+        this.readState = readState;
+    }
 
     public Object getObject() {
         return object;

@@ -1,5 +1,7 @@
 package com.bkjcb.rqapplication.base.model;
 
+import com.bkjcb.rqapplication.Map.Bean.LocationPosition;
+
 import java.util.List;
 
 /**
@@ -36,25 +38,4 @@ public class ConvertResult {
         this.data = data;
     }
 
-    public static class LocationPosition {
-        private double longitude;
-        //纬度
-        private double latitude;
-
-        public double getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(double longitude) {
-            this.longitude = longitude;
-        }
-
-        public double getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(double latitude) {
-            this.latitude = latitude;
-        }
-    }
 }

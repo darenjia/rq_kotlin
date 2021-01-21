@@ -23,6 +23,8 @@ import com.bkjcb.rqapplication.base.interfaces.OnTextChangeListener;
 import com.bkjcb.rqapplication.base.model.SimpleHttpResult;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
 import com.bkjcb.rqapplication.base.view.CustomLoadMoreView;
+import com.bkjcb.rqapplication.infoQuery.BusinessFirmInfoActivity;
+import com.bkjcb.rqapplication.stationCheck.CheckMainActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -85,6 +87,13 @@ public class ActionRegisterActivity extends SimpleBaseActivity implements BaseQu
                             Toast.makeText(ActionRegisterActivity.this, "显示全部", Toast.LENGTH_SHORT).show();
                         }
                         loadData();
+                    }
+                });
+        mAppbar.addRightImageButton(R.drawable.vector_drawable_icon_person, R.id.top_right_button2)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BusinessFirmInfoActivity.ToActivity(ActionRegisterActivity.this);
                     }
                 });
         mRegisterList.setLayoutManager(new LinearLayoutManager(this));

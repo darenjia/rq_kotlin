@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,7 @@ public class ChatSendViewHolder extends BaseViewHolder<MessageInfo> {
     TextView tvContactSurname;
     TextView tvContactName;
     TextView tvContactPhone;
+    TextView chatItemStateText;
 
     BubbleLinearLayout chatItemLayoutLink;
     TextView tvLinkSubject;
@@ -59,6 +62,7 @@ public class ChatSendViewHolder extends BaseViewHolder<MessageInfo> {
     private Handler handler;
     private RelativeLayout.LayoutParams layoutParams;
     private Context mContext;
+    private int screenWidth;
 
     public ChatSendViewHolder(ViewGroup parent, ChatAdapter.onItemClickListener onItemClickListener, Handler handler) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_send, parent, false));
@@ -68,6 +72,8 @@ public class ChatSendViewHolder extends BaseViewHolder<MessageInfo> {
         this.mContext = parent.getContext();
         this.onItemClickListener = onItemClickListener;
         this.handler = handler;
+        DisplayMetrics curMetrics = mContext.getResources().getDisplayMetrics();
+        screenWidth = curMetrics.widthPixels;
         layoutParams = (RelativeLayout.LayoutParams) chatItemLayoutContent.getLayoutParams();
     }
 
@@ -92,11 +98,18 @@ public class ChatSendViewHolder extends BaseViewHolder<MessageInfo> {
         tvLinkSubject = (TextView) itemView.findViewById(R.id.tv_link_subject);
         tvLinkText = (TextView) itemView.findViewById(R.id.tv_link_text);
         ivLinkPicture = (ImageView) itemView.findViewById(R.id.iv_link_picture);
+        chatItemStateText = (TextView) itemView.findViewById(R.id.chat_item_state_text);
     }
 
 
     @Override
     public void setData(MessageInfo data) {
+        if (TextUtils.isEmpty(data.getTime())){
+            chatItemDate.setVisibility(View.GONE);
+        }else {
+            chatItemDate.setVisibility(View.VISIBLE);
+            chatItemDate.setText( data.getTime());
+        }
         chatItemDate.setText(data.getTime() != null ? data.getTime() : "");
 //        Glide.with(mContext).load(data.getHeader()).into(chatItemHeader);
         chatItemHeader.setOnClickListener(new View.OnClickListener() {
@@ -121,11 +134,12 @@ public class ChatSendViewHolder extends BaseViewHolder<MessageInfo> {
                 paint.setColor(ContextCompat.getColor(mContext, R.color.chat_send_text));
                 // 计算textview在屏幕上占多宽
                 int len = (int) paint.measureText(chatItemContentText.getText().toString().trim());
-                if (len < Utils.dp2px(mContext, 200)){
+                if (len < Utils.dp2px(mContext, 200)) {
                     layoutParams.width = len + Utils.dp2px(mContext, 30);
 //                    layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 } else {
-                    layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+//                    layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    layoutParams.width = screenWidth - Utils.dp2px(mContext, 120);
                 }
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 chatItemLayoutContent.setLayoutParams(layoutParams);
@@ -233,16 +247,25 @@ public class ChatSendViewHolder extends BaseViewHolder<MessageInfo> {
             case Constants.CHAT_ITEM_SENDING:
                 chatItemProgress.setVisibility(View.VISIBLE);
                 chatItemFail.setVisibility(View.GONE);
+                chatItemStateText.setVisibility(View.GONE);
                 break;
             case Constants.CHAT_ITEM_SEND_ERROR:
                 chatItemProgress.setVisibility(View.GONE);
                 chatItemFail.setVisibility(View.VISIBLE);
+                chatItemStateText.setVisibility(View.GONE);
                 break;
             case Constants.CHAT_ITEM_SEND_SUCCESS:
                 chatItemProgress.setVisibility(View.GONE);
                 chatItemFail.setVisibility(View.GONE);
+                chatItemStateText.setVisibility(View.VISIBLE);
+                if (data.getReadState() == 0) {
+                    chatItemStateText.setText("未读");
+                } else {
+                    chatItemStateText.setText("已读");
+                }
                 break;
         }
+
     }
 
     public void setItemLongClick() {
