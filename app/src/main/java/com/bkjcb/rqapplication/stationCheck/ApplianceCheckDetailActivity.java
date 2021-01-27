@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.bkjcb.rqapplication.base.adapter.ViewPagerAdapter;
 import com.bkjcb.rqapplication.base.retrofit.NetworkApi;
+import com.bkjcb.rqapplication.stationCheck.fragment.AlarmCheckItemResultFragment;
 import com.bkjcb.rqapplication.stationCheck.fragment.ApplianceCheckItemDetailFragment;
 import com.bkjcb.rqapplication.stationCheck.model.ApplianceCheckContentItem;
 import com.bkjcb.rqapplication.stationCheck.model.ApplianceCheckResult;
@@ -54,7 +55,16 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
         }
         int pager = 0;
         if ((pager = verify()) == -1) {
-            createRemarkDialog();
+            if (TextUtils.isEmpty(checkItem.tijiaobaogao)) {
+                if (mViewPager.getCurrentItem() == fragmentList.size() - 1) {
+                    showSnackbar(mPagerNumber, "请选择整改要求");
+                } else {
+                    mViewPager.setCurrentItem(fragmentList.size() - 1, true);
+                }
+            } else {
+                showFinishTipDialog();
+//                createRemarkDialog();
+            }
         } else {
             mViewPager.setCurrentItem(pager, true);
             fragment = (ApplianceCheckItemDetailFragment) fragmentList.get(pager);
@@ -119,6 +129,8 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
             saveResultItem(checkItem.c_id, item.getGuid());
             contents.add(item.getXuhao() + "." + item.getCheakname());
         }
+        contents.add((datas.size()+1) + ".检查综合意见及整改要求");
+        fragmentList.add(AlarmCheckItemResultFragment.newInstance(checkItem));
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setOffscreenPageLimit(1);
         mViewPager.addOnPageChangeListener(this);
@@ -175,7 +187,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
                 super.onGetInput(input1, input2);
                 saveData(input1.toString());
             }
-        }).setBtnText( "保存并提交","保存")
+        }).setBtnText("保存并提交", "保存")
                 .show();
     }
 
@@ -190,6 +202,10 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
         if (isSubmit) {
             checkItem.status = 2;
         }
+        if (currentPage == fragmentList.size() - 1) {
+            AlarmCheckItemResultFragment resultFragment = (AlarmCheckItemResultFragment) fragmentList.get(fragmentList.size() - 1);
+            checkItem.beizhu = resultFragment.getRemark();
+        }
         saveDate();
         Toast.makeText(this, "检查完成！", Toast.LENGTH_SHORT).show();
         finish();
@@ -198,7 +214,7 @@ public class ApplianceCheckDetailActivity extends CheckDetailActivity {
     private int verify() {
         ApplianceCheckResultItem resultItem;
         List<ApplianceCheckContentItem> contentItems = ApplianceCheckContentItem.getContentItems(checkItem.c_id);
-        for (int i = 0; i < contentItems.size(); i++) {
+        for (int i = 0; i < contentItems.size() - 1; i++) {
             ApplianceCheckContentItem item = contentItems.get(i);
             if ((resultItem = queryResult(item.getGuid())) != null) {
                 if (resultItem.ischeck.equals("0")) {

@@ -73,7 +73,9 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                                             checkItem.beizhu,
                                             getItemsID(list),
                                             getItemsResult(list),
-                                            getRemoteFilePath(checkItem));
+                                            getRemoteFilePath(checkItem),
+                                            checkItem.tijiaobaogao)
+                                            ;
                                 case "报警器企业":
                                     return service.saveAlarmDailyCheck(
                                             null,
@@ -83,7 +85,8 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                                             checkItem.beizhu,
                                             getItemsID(list),
                                             getItemsResultRecord(list),
-                                            getRemoteFilePath(checkItem));
+                                            getRemoteFilePath(checkItem),
+                                            checkItem.tijiaobaogao);
                                 case "销售企业":
                                     return service.saveSaleDailyCheck(
                                             null,
@@ -93,7 +96,8 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
                                             checkItem.beizhu,
                                             getItemsID(list),
                                             getItemsResult(list),
-                                            getRemoteFilePath(checkItem));
+                                            getRemoteFilePath(checkItem),
+                                            checkItem.tijiaobaogao);
                                 default:
                                     return null;
                             }
@@ -150,7 +154,6 @@ public class ApplianceCheckResultDetailActivity extends CheckResultDetailActivit
         Gson gson = new Gson();
         return gson.toJson(list);
     }
-
 
 
     private String getItemsResultRecord(List<ApplianceCheckResultItem> list) {

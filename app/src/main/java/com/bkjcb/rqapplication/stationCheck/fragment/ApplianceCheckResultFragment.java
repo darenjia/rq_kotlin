@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication.stationCheck.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.bkjcb.rqapplication.R;
@@ -52,6 +53,12 @@ public class ApplianceCheckResultFragment extends CheckResultFragment {
             mInfoDate.setText(checkItem.jianchariqi);
             mInfoRemark.setText(checkItem.beizhu);
             mInfoName.setText(checkItem.checkMan);
+            if(!TextUtils.isEmpty(checkItem.tijiaobaogao)){
+                mInfoResultCorrect.setText("1".equals(checkItem.tijiaobaogao)?"需要整改报告":"不需要整改报告");
+            }else {
+                mInfoResultCorrect.setText("");
+            }
+
         }
     }
 }

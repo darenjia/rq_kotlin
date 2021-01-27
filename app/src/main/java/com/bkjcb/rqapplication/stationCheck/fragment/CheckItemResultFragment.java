@@ -48,7 +48,7 @@ public class CheckItemResultFragment extends BaseLazyFragment implements RadioGr
             RadioGroup needRadioGroup = view.findViewById(R.id.check_result_radioGroup_need);
             ok = view.findViewById(R.id.check_result_radio_ok);
             failure = view.findViewById(R.id.check_result_radio_failure);
-           RadioButton need = view.findViewById(R.id.check_result_radio_need);
+            RadioButton need = view.findViewById(R.id.check_result_radio_need);
             RadioButton notNeed = view.findViewById(R.id.check_result_radio_donotneed);
             if (!TextUtils.isEmpty(checkItem.jianchajieguo)) {
                 if ("合格".equals(checkItem.jianchajieguo)) {

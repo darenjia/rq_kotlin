@@ -47,7 +47,6 @@
         <activity android:name=".base.UserDetailActivity" />
         <activity android:name=".base.AddUserActivity" />
         <activity android:name=".base.SettingActivity" />
-        <activity android:name=".base.GasMainActivity" />
         <activity
             android:name=".stationCheck.CheckMainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

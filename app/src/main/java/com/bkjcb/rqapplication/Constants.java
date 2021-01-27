@@ -9,7 +9,6 @@ import com.amap.api.maps.model.LatLng;
 public class Constants {
 
     //    public static String BASE_URL = "http://172.16.4.225";
-//    public static String BASE_URL = "http://192.168.200.67";
 //    public static String BASE_URL = "http://192.168.5.59:8099";
     public static String BASE_URL = "http://192.168.200.67:8080";
     public static final String FTP_HOST_DEFAULT = "192.168.200.18";

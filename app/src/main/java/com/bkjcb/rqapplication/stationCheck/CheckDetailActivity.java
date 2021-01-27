@@ -75,7 +75,7 @@ public class CheckDetailActivity extends SimpleBaseActivity implements ViewPager
     protected CheckItem checkItem;
     private List<String> mediaList;
     private ImageListAdapter imageAdapter;
-    private int currentPage = 0;
+    protected int currentPage = 0;
     protected List<Fragment> fragmentList;
     private Box<CheckResultItem> checkResultItemBox;
     private QMUIListPopup listPopup;

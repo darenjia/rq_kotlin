@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
-import com.bkjcb.rqapplication.Map.MapMainActivity;
 import com.bkjcb.rqapplication.R;
 import com.bkjcb.rqapplication.actionRegister.ActionRegisterActivity;
 import com.bkjcb.rqapplication.base.adapter.LocalImageHolderView;
@@ -146,8 +145,7 @@ public class MainActivity extends SimpleBaseActivity {
                             DefectTreatmentMainActivity.ToActivity(MainActivity.this);
                             break;
                         case 8:
-//                            SettingActivity.ToActivity(MainActivity.this);
-                            MapMainActivity.ToActivity(MainActivity.this);
+                            SettingActivity.ToActivity(MainActivity.this);
                             break;
                         case 9:
                             FirmQueryActivity.ToActivity(MainActivity.this);
