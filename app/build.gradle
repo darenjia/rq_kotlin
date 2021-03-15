@@ -6,8 +6,8 @@ android {
         applicationId "com.bkjcb.rqapplication"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 16
-        versionName "2.4"
+        versionCode 17
+        versionName "2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
@@ -160,5 +160,8 @@ dependencies {
     //mqtt
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
     implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:2.7.0'
 }
 apply plugin: 'io.objectbox'

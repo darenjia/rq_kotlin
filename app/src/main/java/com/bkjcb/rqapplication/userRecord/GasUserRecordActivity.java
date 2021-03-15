@@ -167,9 +167,9 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 GasUserRecordResult.GasUserRecord item = (GasUserRecordResult.GasUserRecord) adapter.getItem(position);
-                if(view.getId()==R.id.check_detail){
+                if (view.getId() == R.id.check_detail) {
                     GasUserRecordDetailActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid());
-                }else {
+                } else {
                     ReviewRecordActivity.ToActivity(GasUserRecordActivity.this, item.getYihuyidangid(), item.getYonghuming());
                 }
 
@@ -183,6 +183,7 @@ public class GasUserRecordActivity extends SimpleBaseActivity {
 
     private void initUserRole() {
         String type = MyApplication.getUser().getUserleixing();
+        List<String> roles = MyApplication.getUser().getRoles();
         if (type.equals("区用户")) {
             currentRole = 1;
             districtName = MyApplication.getUser().getArea().getArea_name();

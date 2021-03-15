@@ -116,12 +116,13 @@ public class NestedScrollLayout extends NestedScrollView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         ViewGroup.LayoutParams lp = contentView.getLayoutParams();
         lp.height = getMeasuredHeight();
+        Log.i("NestedScrollLayout", "contentView:"+lp.height );
         contentView.setLayoutParams(lp);
     }
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        Log.i("NestedScrollLayout", getScrollY()+"::onNestedPreScroll::"+topView.getMeasuredHeight());
+        Log.i("NestedScrollLayout", getScrollY()+"::onNestedPreScroll::"+contentView.getMeasuredHeight());
         // 向上滑动。若当前topview可见，需要将topview滑动至不可见
         boolean hideTop = dy > 0 && getScrollY() < topView.getMeasuredHeight();
         if (hideTop) {

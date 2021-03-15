@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/with_bg_top_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true">
+
+
+        <com.bkjcb.rqapplication.base.view.NestedScrollLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorYellowWhite"
+                        android:gravity="center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="基本信息"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/colorText"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/ChooseFragmentInfoTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="气瓶编号" />
+
+                        <include layout="@layout/vertical_divider" />
+
+                        <TextView
+                            android:id="@+id/info_id"
+                            style="@style/RecordFragmentInfoEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/colorText"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/ChooseFragmentInfoTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="气瓶类型" />
+
+                        <include layout="@layout/vertical_divider" />
+
+                        <TextView
+                            android:id="@+id/info_type"
+                            style="@style/RecordFragmentInfoEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/colorText"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/ChooseFragmentInfoTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="生产企业" />
+
+                        <include layout="@layout/vertical_divider" />
+
+                        <TextView
+                            android:id="@+id/info_company"
+                            style="@style/RecordFragmentInfoEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/colorText"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/ChooseFragmentInfoTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="生产日期" />
+
+                        <include layout="@layout/vertical_divider" />
+
+                        <TextView
+                            android:id="@+id/info_date"
+                            style="@style/RecordFragmentInfoEditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorYellowWhite"
+                        android:gravity="center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="流转信息"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/inf_circulation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorText" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.bkjcb.rqapplication.base.view.NestedScrollLayout>
+
+        <include layout="@layout/empty_view"/>
+    </FrameLayout>
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

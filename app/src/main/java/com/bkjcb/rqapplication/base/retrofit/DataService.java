@@ -22,7 +22,9 @@ public interface DataService {
     Observable<UserInfoResult> getUserInfos(@Query("areaCode")String code);
     @POST("/rq/push/getLoginUser")
     @FormUrlEncoded
-    Observable<UserResult> getLoginUser(@Field("userName") String userName, @Field("password")String password); @POST("/rq/push/getLoginUser")
+    Observable<UserResult> getLoginUser(@Field("userName") String userName, @Field("password")String password);
+
+    @POST("/rq/push/getLoginUser")
     @FormUrlEncoded
     Call<String> getLogin(@Field("userName") String userName, @Field("password")String password);
     @GET("/rq/push/getBottleData")

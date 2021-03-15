@@ -21,6 +21,12 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+    <uses-permission android:name="android.permission.NFC" />
+
+
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
@@ -35,6 +41,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="abb50c814ad49ac4904f015edb859db9" />
+        <meta-data
+            android:name="android.nfc.action.TECH_DISCOVERED"
+            android:resource="@xml/nfc_tech_filter" />
 
         <activity android:name=".base.MainActivity" />
         <activity android:name=".base.LoginActivity">
@@ -206,7 +215,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
-        <activity android:name=".Map.MapMainActivity" />
+        <!--        <activity android:name=".Map.MapMainActivity" />-->
 
         <activity
             android:name=".infoQuery.BusinessFirmInfoActivity"
@@ -236,6 +245,17 @@
             android:screenOrientation="unspecified" />
         <activity
             android:name=".infoQuery.FirmInfoDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified" />
+        <activity android:name=".gascylindermanagement.NFCActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gascylindermanagement.GasCylinderDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" />
 

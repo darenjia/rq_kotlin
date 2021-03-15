@@ -60,7 +60,7 @@ public class MenuGridAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class ViewHolder {
+    static class ViewHolder {
         ImageView imageView;
         TextView textView;
         View view;

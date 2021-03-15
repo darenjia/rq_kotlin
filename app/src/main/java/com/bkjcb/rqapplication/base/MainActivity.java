@@ -27,6 +27,7 @@ import com.bkjcb.rqapplication.base.util.RxJavaUtil;
 import com.bkjcb.rqapplication.base.view.MyGridView;
 import com.bkjcb.rqapplication.contactBook.ContactActivity;
 import com.bkjcb.rqapplication.emergency.EmergencyMainActivity;
+import com.bkjcb.rqapplication.gascylindermanagement.NFCActivity;
 import com.bkjcb.rqapplication.infoQuery.FirmQueryActivity;
 import com.bkjcb.rqapplication.stationCheck.CheckMainActivity;
 import com.bkjcb.rqapplication.treatment.DefectTreatmentMainActivity;
@@ -152,6 +153,9 @@ public class MainActivity extends SimpleBaseActivity {
                             break;
                         case 10:
                             SettingActivity.ToActivity(MainActivity.this);
+                            break;
+                        case 11:
+                            NFCActivity.ToActivity(MainActivity.this);
                             break;
                         default:
                     }

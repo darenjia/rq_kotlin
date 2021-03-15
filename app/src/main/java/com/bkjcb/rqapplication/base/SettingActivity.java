@@ -2,6 +2,7 @@ package com.bkjcb.rqapplication.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.content.Intent.ACTION_VIEW;
 
 /**
  * Created by DengShuai on 2019/11/7.
@@ -75,7 +78,7 @@ public class SettingActivity extends SimpleBaseActivity {
         mCheckUpload.setRightString("v " + Utils.getCurrentVersion());
     }
 
-    @OnClick({R.id.introduction, R.id.clear, R.id.checkUpload, R.id.logout})
+    @OnClick({R.id.introduction, R.id.clear, R.id.checkUpload, R.id.logout,R.id.downUpload})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
@@ -93,6 +96,11 @@ public class SettingActivity extends SimpleBaseActivity {
             case R.id.logout:
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.downUpload:
+                Intent intent2 = new Intent(ACTION_VIEW);
+                intent2.setData(Uri.parse("http://183.194.249.186/statics/gasApp1.1.apk"));
+                startActivity(intent2);
                 break;
         }
     }
